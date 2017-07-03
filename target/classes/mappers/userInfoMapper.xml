@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="userinfo">
+
+	<insert id="insert" parameterType="userinfo">
+		insert into userinfos values(#{id}, #{password}, #{name},#{nickname},#{birth},#{addr},#{tel},#{profile},#{secure},#{secure_ans},sysdate, sysdate, #{email})
+	</insert>
+	
+	<select id="dupCheck" resultType="String">
+		select id from userinfos where id = #{id}
+	</select>
+	
+	<select id="login" resultType="String">
+		select password from userinfos where id = #{id}
+	</select>
+	
+	<select id="readId" resultType="String">
+		select id from userinfos where name=#{name} and birth= #{birth}
+	</select>
+	
+	<select id="passChange" resultType="userinfo">
+		select secure, secure_ans from userinfos where id = #{id} and name = #{name}
+	</select>
+	
+	<update id="updatePassword">
+		update userinfos set password = #{password} where id = #{id}
+	</update>
+	
+	<select id="nickCheck" resultType="string">
+		select nickname from userinfos where nickname = #{nickname}
+	</select>
+	
+</mapper>

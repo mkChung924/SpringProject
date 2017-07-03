@@ -1,0 +1,103 @@
+@CHARSET "UTF-8";
+body{
+	background-color: #F1F3FA;
+}
+/* 로그인 정보 및 마이페이지 표시란 */
+
+.row{
+	margin-top: 20px;
+}
+.header{
+	margin-top: 20px;
+	text-align: right;
+	margin-bottom: 20px;
+}
+
+.footer{
+	display: grid;
+	text-align: center;
+	padding: 25px;
+	padding-left: 100px;
+	padding-right: 100px;
+	background-color: #FFD9EC;
+	border: 3px dashed fuchsia;
+	border-radius: 25px;
+}
+
+
+/* 내 위치 설정란 */
+.myLocation{
+	width: 100%;
+	text-align: center;
+	padding: 15px;
+	padding-left: 100px;
+	padding-right: 100px;
+	border: 3px dashed fuchsia;
+	border-radius: 25px;
+	display: inline-block;
+}
+
+.myLocation .specificLocation{
+	padding: 15px;
+	padding-left: 100px;
+	padding-right: 100px;
+	border: 3px dashed fuchsia;
+	border-radius: 25px;
+	display: inline-block;
+}
+
+.myLocation .form-control{
+	margin-left: 10px;
+	margin-right: 10px;
+	color: #F15F5F;
+	text-align: center;
+	font-size: 18px;
+	width: 100;
+	display: inline;
+}
+
+/* 카테고리 표시란 */
+.col-sm-4 {
+/* 	border: 1px dashed black;
+	border-radius: 50%; */
+	padding-top: 20px;
+	padding-left: 30px;
+	padding-right: 30px;
+	padding-bottom: 20px;
+}
+.col-sm-4 .img-circle{
+	cursor: pointer;
+	opacity: 0.6;
+}
+
+.col-sm-4 .img-circle:hover{
+	opacity: 1;
+	transform:scale(1.2) rotate(15deg);
+	transition:all 1s;
+}
+
+/* 위치설정 버튼 */
+#locationBtn {
+  padding: 5px 15px;
+  font-size: 15px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  background-color: #F29661;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 7px #999;
+}
+
+#locationBtn:hover {background-color: #FFA873}
+
+#locationBtn:active {
+  background-color: #F29661;
+  box-shadow: 0 2px #666;
+  transform: translateY(4px);
+}
+
+#noBtn{
+ 	margin: 10em;
+}

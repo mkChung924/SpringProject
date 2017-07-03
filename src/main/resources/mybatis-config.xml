@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
+<configuration>
+<!-- MyBatis 환경설정 -->
+<!-- TypeAilas 설정 -->
+<typeAliases>
+	<typeAlias type="com.brothersplant.domain.UserInfoVO" alias="userinfo"/>
+	<typeAlias type="com.brothersplant.domain.SecureVO" alias="secure"/>
+	<typeAlias type="com.brothersplant.domain.BoardVO" alias="boardVO"/>
+</typeAliases>
+</configuration>

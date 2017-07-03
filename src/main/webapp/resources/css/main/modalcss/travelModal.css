@@ -1,0 +1,72 @@
+@CHARSET "UTF-8";
+/* The Modal (background) */
+.modal {
+	
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+#travelModal .modal-content {
+	text-align: center;
+	opacity: 0.9;
+	display: grid;
+    position: relative;
+    background-color: ghostwhite;
+    margin: auto;
+    padding-top: 0;
+    border: 3px dashed #FFD9EC;
+    border-radius: 15%;
+    height: 700px;
+    width: 42%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {top:-300px; opacity:0} 
+    to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+    from {top:-300px; opacity:0}
+    to {top:0; opacity:1}
+}
+
+/* The Close Button */
+#travelModal .close-travel {
+	height: 0px;
+    display: block;
+	text-align: right;
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#travelModal .close-travel:hover,
+#travelModal .close-travel:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#subtravel{
+	opacity: 0.5;
+}
+#subtravel:hover{
+	opacity: 1;
+}

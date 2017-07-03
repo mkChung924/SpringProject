@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="board">
+
+	<insert id="insertBoard">
+		<!-- insert into tbl_boards (TBNO,TB_KIND,ID,CNO,CSNO,DO1,SI,CONTENT,LIKES,title,NOTICE,OPENCHAT,TEL,DONG) values 
+		(TBL_BOARDS_SEQ.nextval ,#{tb_kind},#{id},#{cno},#{csno},#{do1},#{si},#{content},#{likes},#{title},#{notice},#{openchat},#{tel},#{dong}) -->
+	
+		<if test="place1 != null">
+			insert into tbl_boards(tbno, tb_kind, id, cno, csno, do1, si, dong, place1, place2, title, notice, openchat, tel, tel_ch, content) 
+			values(tbl_boards_seq.nextval, #{tb_kind}, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{place1}, #{place2}, #{title}, #{notice}, #{openchat}, #{tel}, #{tel_ch}, #{content})
+		</if>
+		<if test="place1 == null">
+			insert into tbl_boards(tbno, tb_kind, id, cno, csno, do1, si, dong, title, notice, openchat, tel, tel_ch, content) 
+			values(tbl_boards_seq.nextval, #{tb_kind}, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{title}, #{notice}, #{openchat}, #{tel}, #{tel_ch}, #{content})
+		</if>
+	</insert>
+	
+	<!-- 도 검색 -->
+	<select id="selectDO" resultType="String">
+		select DISTINCT ds_sido from DS_ZIP
+	</select>
+	
+	<!-- 시 검색 -->
+	<select id="selectSi" resultType="String">
+		select DISTINCT DS_GUGUN from DS_ZIP where ds_sido=#{do1}
+	</select>
+	
+	<!-- 메인 카테고리 검색 -->
+	<select id="selectMainCategory" resultType="String">
+		select cname from TBL_CATEGORY
+	</select>
+	
+	<!-- 서브 카테고리 검색 -->
+	<select id="selectSubCategory" resultType="String">
+		select csname from TBL_SUBCATEGORY where cno=#{cno}
+	</select>
+	
+	<select id="selectCommonRow" resultType="boardVO">
+		select * from TBL_BOARDS where tbno=#{tbno}
+	</select>
+</mapper>
+

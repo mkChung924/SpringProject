@@ -1,0 +1,47 @@
+@CHARSET "UTF-8";
+
+body{
+	background-color: #F1F3FA;
+	height: 1000px
+}
+.row{
+	margin-top: 20px;
+	text-align: center;
+}
+
+.header {
+	margin-right: 0px;
+	margin-top: 20px;
+	text-align: right;
+}
+
+.m, img{
+	border-radius: 5%;
+}
+
+#together, #review, #write{
+	margin-top: 10px;
+}
+
+/*
+#together:hover {
+	background-color: pink;
+}
+
+#together:focus {
+	background-color: pink;
+} */
+
+.t {
+	width: 200;
+	display: inline;
+	padding-top: 5;
+}
+.s {
+	display: inline;
+	width: 85;
+}
+
+.glyphicon {
+	font-size: 20px;
+}

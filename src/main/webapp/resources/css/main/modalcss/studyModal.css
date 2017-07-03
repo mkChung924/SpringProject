@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+
+#studyModal .modal-content {
+	text-align: center;
+	opacity: 0.9;
+	display: grid;
+    position: relative;
+    background-color: ghostwhite;
+    margin: auto;
+    padding-top: 0;
+    border: 3px dashed #888;
+    border-radius: 15%;
+    height: 650px;
+    width: 40%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* The Close Button */
+#studyModal .close-study {
+	height: 0px;
+    display: block;
+	text-align: right;
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+#studyModal .close-study:hover,
+#studyModal .close-study:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#substudy{
+	opacity: 0.5;
+}
+#substudy:hover{
+	opacity: 1;
+}

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
+<!-- MultipartResolver 설정 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+    	<property name="maxUploadSize" value="10000000" />
+    </bean>
+
+<!-- DataSource 등록 -->
+   <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" 
+         id="dataSource">	<!-- 아이디가 없을시 앞글자가 소문자가 되는 것이 자동으로 설정됨 -->
+      <property name="driverClassName">
+         <value>oracle.jdbc.driver.OracleDriver</value>
+      </property>
+      <property name="url" value="jdbc:oracle:thin:@//localhost:1521/orcl"/>
+      <property name="username" value="scott2"/>
+      <property name="password" value="tiger"/>
+   </bean>
+   
+<!-- MyBatis를 DataSource에 연결(마이바티스 환경, sqlMapper등록) -->
+   <bean class="org.mybatis.spring.SqlSessionFactoryBean"
+         id="sqlSessionFactory">
+     <property name="dataSource" ref="dataSource"/>  
+     <property name="configLocation"
+               value="classpath:/mybatis-config.xml"/>  
+     <property name="mapperLocations"
+               value="classpath:mappers/*Mapper.xml"></property> 
+   </bean>
+   
+<!-- SqlSession객체 생성(mapper에 있는 sql문 호출) -->
+   <bean class="org.mybatis.spring.SqlSessionTemplate"
+         id="sqlSession">
+      <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory"/>     
+     
+   </bean>
+   
+<!-- Transaction -->   
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<tx:annotation-driven/>
+   
+   <!-- DAO 객체 등록 -->
+   <context:component-scan base-package="com.brothersplant.persistence"/>
+   <context:component-scan base-package="com.brothersplant.service"/>
+   <context:component-scan base-package="com.brothersplant.aop"/>
+		
+</beans>
