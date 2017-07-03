@@ -16,8 +16,8 @@
 				<input type="hidden" name="dong">
 				<input type="hidden" name="cno">
 				<input type="hidden" name="csno">
-				<input type="text" class="form-control" name="p1" style="width: 110px; display: inline;"> &nbsp;&nbsp;
-				<input type="text" class="form-control" name="p2" style="width: 110px; display: inline;">
+				<input type="text" class="form-control" name="place1" style="width: 110px; display: inline;"> &nbsp;&nbsp;
+				<input type="text" class="form-control" name="place2" style="width: 110px; display: inline;">
 				<br><br>
 				<b><font size="4">2. 여행 유형을 선택하세요!</font></b><br><br>
 				<img id="subtravel" src="/resources/image/category_img/category_travel_1.png" draggable="false"
@@ -72,10 +72,10 @@
 		$('[name=csno]').val(kind2);
 				
 		/* 여행지 선택 유무 확인후 submit */
-		if($('[name=p1]').val() == ""){
+		if($('[name=place1]').val() == ""){
 			alert("여행지를 선택하세요!");
 			
-		} else if($('[name=p2]').val() == ""){
+		} else if($('[name=place2]').val() == ""){
 			alert("여행지를 선택하세요!");
 		} else {
 			
@@ -98,10 +98,10 @@
 		$('[name=csno]').val(kind2);
 				
 		/* 여행지 선택 유무 확인후 submit */
-		if($('[name=p1]').val() == ""){
+		if($('[name=place1]').val() == ""){
 			alert("여행지를 선택하세요!");
 			
-		} else if($('[name=p2]').val() == ""){
+		} else if($('[name=place2]').val() == ""){
 			alert("여행지를 선택하세요!");
 		} else {
 
@@ -124,10 +124,10 @@
 		$('[name=csno]').val(kind2);
 				
 		/* 여행지 선택 유무 확인후 submit */
-		if($('[name=p1]').val() == ""){
+		if($('[name=place1]').val() == ""){
 			alert("여행지를 선택하세요!");
 			
-		} else if($('[name=p2]').val() == ""){
+		} else if($('[name=place2]').val() == ""){
 			alert("여행지를 선택하세요!");
 		} else {
 			

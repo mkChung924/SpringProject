@@ -42,6 +42,7 @@
 			</div>
 		</div>
 		<br>
+		<!-- 관리자 여행 추천 게시글 -->
 		<c:if test="${cno == 1 }">
 		<div class="row">
             <div class="col-md-3">
@@ -83,20 +84,20 @@
 						</div>
 						<div class="col-sm-3" style="text-align: center; padding-top: 5">
 							<button type="button" class="btn btn-info" style="padding: 0px; width: 66px;">카테고리</button>&nbsp;
-							<i><font size=3>여행 - 맛집탐방</font></i>
+							<i><font size=3>${category } - ${subcategory }</font></i>
 							<input type="hidden" name="cno" value="${cno }">
 							<input type="hidden" name="csno" value="${csno }">
 						</div>
 						<c:if test="${cno == 1 }">
 						<div class="col-sm-2" style="text-align: center; padding-top: 5">
 							<button type="button" class="btn btn-success" style="padding: 0px; width: 66px;">여행 장소</button>&nbsp;
-							<i><font size=3><b>${travel.p1 } ${travel.p2 }</b></font></i>
-							<input type="hidden" name="p1" value="${travel.p1 }">
-							<input type="hidden" name="p2" value="${travel.p2 }">
+							<i><font size=3><b>${p1 } ${p2 }</b></font></i>
+							<input type="hidden" name="place1" value="${p1 }">
+							<input type="hidden" name="place2" value="${p2 }">
 						</div>
 						</c:if>
 						<select class="form-control s" id="option">
-							<option value="0">작성자</option>
+							<option value="0">닉네임</option>
 							<option value="1">제목</option>
 						</select>
 						<input type="text" class="form-control t" name="search">
@@ -111,30 +112,54 @@
 				</div>
 			</div>
 			<!-- 게시글 -->
+			<c:forEach items="${list }" var="myList">
         	<div class="col-md-4" style="max-height: 400">
 	        	<div class="thumbnail">
 		        	<div class="caption">
 		        		<div style="text-align: left; padding-top: 0px;">
-		              	 <img src="/resources/image/category_img/noprofile.png" style="border-radius: 50%; width: 10%; margin-top: -15px"> &nbsp;
-		              	 <font size=4><b>홍길동</b></font>
-			              	 <div style="display: inline-block; text-align: right; width: 71%; padding-top: 5px;">
-			              		 2017-06-30 <font color=red>D-10</font><br>${si } ${dong }
-			              	 </div>
+			              	 <div style="display: block; text-align: right; padding-top: 0px;">
+			              		 ${myList.regdate } <font color=red>D-${myList.ddate }</font>
+			              		 <br>${myList.si } ${myList.dong }
+			              		 <br>
+			              		 <c:if test="${myList.place1 != null }">
+			              		 <kbd style="background-color: #4374D9">${myList.place1 }</kbd> 
+			              		 <kbd style="background-color: #6B66FF">${myList.place2 }</kbd>
+			              		 </c:if>
+			              		 <kbd style="background-color: #F15F5F">${myList.csname }</kbd>
+			              	 </div><br>
+			              	 <div style="margin-top: -55px;">
+			              	 <c:if test="${myList.profile == 'default.png' }">
+			              	 <img src="/resources/upload/default.png" style="border-radius: 50%; width: 10%; height: 9%; margin-top: -15px"> &nbsp;
+			              	 </c:if>
+			              	  <c:if test="${myList.profile != 'default.png' }">
+			              	 <img src="/resources/upload/${myList.id }/${myList.profile }" style="border-radius: 50%; width: 10%; height: 9%; margin-top: -15px"> &nbsp;
+		              	 	</c:if>
+		              	 	<font size=4><b>${myList.nickname }</b></font>
+		              	 	</div>
 		                </div>
 		                <hr>
 		                <div style="cursor: pointer;">
-		                	<b><i><font size="4"></font></i></b>
+		                	<b><i><font size="4">" ${myList.title } "</font></i></b>
 		                </div>
 		                <br>
 		                <div class="row" style="padding-left: 20px;">
+		                	<c:if test="${myList.myfavor == 1 }">
+		                	<div class="col-md-6">
+				                <p align="left">
+				                <i class="glyphicon glyphicon-star" style="font-size: 25px; cursor: pointer;"></i>
+				                </p>
+		                	</div>
+		                	</c:if>
+		                	<c:if test="${myList.myfavor == 0 }">
 		                	<div class="col-md-6">
 				                <p align="left">
 				                <i class="glyphicon glyphicon-star-empty" style="font-size: 25px; cursor: pointer;"></i>
 				                </p>
 		                	</div>
+		                	</c:if>
 		                	<div class="col-md-6">
 				                <p align="right">
-		                   		<span class="badge" style="background-color: gray">2</span>
+		                   		<span class="badge" style="background-color: gray">${myList.replies }</span>
 				                <i class="glyphicon glyphicon-comment" data-toggle="comment" data-placement="bottom" title="댓글"></i>&nbsp; &nbsp;&nbsp;&nbsp;
 				                </p>
 		                	</div>
@@ -142,6 +167,7 @@
 		             </div>
 		        </div>
 	        </div>
+	        </c:forEach>
         </div>
     </div>
 </div>

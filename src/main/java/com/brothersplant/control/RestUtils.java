@@ -2,6 +2,7 @@ package com.brothersplant.control;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
@@ -28,10 +29,11 @@ public class RestUtils {
 	private BoardInfoService bservice;
 	
 	@RequestMapping(value = "{data}", method= RequestMethod.POST)
-	public ResponseEntity<List<String>> list(@PathVariable("data") int mainCategory) {
-		ResponseEntity<List<String>> entity = null;
+	public ResponseEntity<List<Map<String,Object>>> list(@PathVariable("data") int mainCategory) {
+		ResponseEntity<List<Map<String,Object>>> entity = null;
 		try {
 			//entity = new ResponseEntity<>(bservice.selectSi(do1), HttpStatus.OK);
+			//System.out.println(bservice.selectSubCategory(mainCategory));
 			entity = new ResponseEntity<>(bservice.selectSubCategory(mainCategory), HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception

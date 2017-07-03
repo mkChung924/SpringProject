@@ -5,15 +5,14 @@ public class CategoryInfoVO {
 	private String do1;
 	private String si;
 	private String dong;
-	private String p1;
-	private String p2;
+	private String place1;
+	private String place2;
 	private String cno;
 	private String csno;
-	
 	@Override
 	public String toString() {
-		return "TravelInfoVO [do1=" + do1 + ", si=" + si + ", dong=" + dong + ", p1=" + p1 + ", p2=" + p2 + ", cno="
-				+ cno + ", csno=" + csno + "]";
+		return "CategoryInfoVO [do1=" + do1 + ", si=" + si + ", dong=" + dong + ", place1=" + place1 + ", place2="
+				+ place2 + ", cno=" + cno + ", csno=" + csno + "]";
 	}
 	public String getDo1() {
 		return do1;
@@ -33,17 +32,17 @@ public class CategoryInfoVO {
 	public void setDong(String dong) {
 		this.dong = dong;
 	}
-	public String getP1() {
-		return p1;
+	public String getPlace1() {
+		return place1;
 	}
-	public void setP1(String p1) {
-		this.p1 = p1;
+	public void setPlace1(String place1) {
+		this.place1 = place1;
 	}
-	public String getP2() {
-		return p2;
+	public String getPlace2() {
+		return place2;
 	}
-	public void setP2(String p2) {
-		this.p2 = p2;
+	public void setPlace2(String place2) {
+		this.place2 = place2;
 	}
 	public String getCno() {
 		return cno;
@@ -57,5 +56,6 @@ public class CategoryInfoVO {
 	public void setCsno(String csno) {
 		this.csno = csno;
 	}
-
+	
+	
 }

@@ -7,5 +7,6 @@
 	<typeAlias type="com.brothersplant.domain.UserInfoVO" alias="userinfo"/>
 	<typeAlias type="com.brothersplant.domain.SecureVO" alias="secure"/>
 	<typeAlias type="com.brothersplant.domain.BoardVO" alias="boardVO"/>
+	<typeAlias type="com.brothersplant.domain.BoardListVO" alias="boardListVO"/>
 </typeAliases>
 </configuration>

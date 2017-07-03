@@ -21,22 +21,28 @@ public class BoardController {
 	private BoardInfoService service;
 	
 	@RequestMapping("/board")
-	public String boardList(HttpSession session, CategoryInfoVO vo, Model model){
-		if(vo.getDo1() == null){
+	public String boardList(HttpSession session, CategoryInfoVO vo, Model model) throws Exception{
+		if(vo.getDo1() == null || session.getAttribute("id") == null || vo.getCno() == null){
 			return "redirect:index";
 		}
 		System.out.println("게시판 입장");
 		System.out.println(vo);
-		model.addAttribute("travel",vo);
+		System.out.println("list size : "+service.selectMyInterestList(vo).size());
+		System.out.println(service.selectMyInterestList(vo));
+		
+		//관심 목록 가져오기
+		model.addAttribute("list", service.selectMyInterestList(vo));
+		//내가 고른 카테고리 이름 가져오기
+		session.setAttribute("category", service.selectCategory(Integer.parseInt(vo.getCsno())).get("CNAME"));
+		session.setAttribute("subcategory", service.selectCategory(Integer.parseInt(vo.getCsno())).get("CSNAME"));
+		
 		session.setAttribute("do1", vo.getDo1());
 		session.setAttribute("si", vo.getSi());
 		session.setAttribute("dong", vo.getDong());
-		session.setAttribute("category", vo.getCno());
-		session.setAttribute("subcategory", vo.getCsno());
 		session.setAttribute("cno", vo.getCno());
 		session.setAttribute("csno", vo.getCsno());
-		session.setAttribute("p1", vo.getP1());
-		session.setAttribute("p2", vo.getP2());
+		session.setAttribute("p1", vo.getPlace1());
+		session.setAttribute("p2", vo.getPlace2());
 		
 		return "board/board";
 		
@@ -57,10 +63,11 @@ public class BoardController {
 		
 	}
 	@RequestMapping(value = "common_regit", method=RequestMethod.POST)
-	public void insertBoard(BoardVO vo, MultipartFile file) throws Exception{
+	public String insertBoard(BoardVO vo, MultipartFile file) throws Exception{
 		System.out.println(vo.toString());
 		service.insertBoard(vo);
 		System.out.println("===등록 완료===");
+		return "selfClose";
 	}
 	
 	@RequestMapping(value = "CommonRead", method=RequestMethod.GET)

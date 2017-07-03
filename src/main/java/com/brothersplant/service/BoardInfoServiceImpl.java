@@ -1,12 +1,15 @@
 package com.brothersplant.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
+import com.brothersplant.domain.CategoryInfoVO;
 import com.brothersplant.persistence.BoardInfoDAO;
 
 @Service
@@ -33,7 +36,7 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	}
 
 	@Override
-	public List<String> selectSubCategory(int cno) throws Exception {
+	public List<Map<String, Object>> selectSubCategory(int cno) throws Exception {
 		
 		return dao.selectSubCategory(cno);
 	}
@@ -49,6 +52,18 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	public BoardVO selectCommonRow(int tbno) throws Exception {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<BoardListVO> selectMyInterestList(CategoryInfoVO vo) throws Exception {
+		
+		return dao.selectBoardList(vo);
+	}
+
+	@Override
+	public Map<String, String> selectCategory(int csno) throws Exception {
+		
+		return dao.selectCategory(csno);
 	}
 
 }

@@ -73,22 +73,51 @@ function uploadFile(inp, editor) {
 </script>
 	
 <script>
-	$(document).on("change", "#mainC", function() {
 
-	var str="";
+	
+	$(function(){
+		
+		$(document).on("change", "#mainC", function() {
+
+			var str="";
+				$.ajax({
+					type : 'post',
+					url : '/rest/'+$(this).find(":selected").val(),
+					dateType : "json",
+					success : function(result) {
+						console.log(result);
+						for(var i=0;  i<result.length;i++){
+							str +="<option>"+result[i]+"</option>";
+						}
+						$("#subC").html(str);
+					}
+				});
+			});
+		
+		var str="";
 		$.ajax({
 			type : 'post',
-			url : '/rest/'+$(this).find(":selected").val(),
+			url : '/rest/'+${cno},
 			dateType : "json",
 			success : function(result) {
-				console.log(result);
+				
+				str +="<option value="+${csno}+">${subcategory}</option>";
 				for(var i=0;  i<result.length;i++){
-					str +="<option>"+result[i]+"</option>";
+					
+					if(result[i]["CSNO"] == ${csno}){
+						continue;
+					}
+					str +="<option value="+result[i]["CSNO"]+">"+result[i]['CSNAME']+"</option>";
 				}
 				$("#subC").html(str);
 			}
 		});
-	});
+		
+		/* 카테고리2 변경시 그 값이 저장됨 */
+		$('#subC').on("change",function(){
+			$('[name=csno]').val($('#subC').val());
+		});
+	})
 
 </script>
 <style>
@@ -131,13 +160,17 @@ function uploadFile(inp, editor) {
 		<label for="name" class="col-sm-2 control-label">카테고리</label>
 		<div class="col-sm-10">
 			<select name="mainC" id="mainC" style="width: 80px;">
-				<option value="${cno }">=${cno }=</option>
-				<c:forEach var="mainc" items="${mainCategory}" varStatus="status">
-					<option value="${status.index}">${mainc}</option>
-				</c:forEach>
+				<option value="${cno }">${category }</option>
+				<c:if test="${cno != 1 }">
+					<c:forEach var="mainc" items="${mainCategory}" varStatus="status">
+						<c:if test="${mainc != category }">				
+							<option value="${status.index}">${mainc}</option>
+						</c:if>
+					</c:forEach>
+				</c:if>
+				
 			</select> 
 			<select name="subC" id="subC" style="width: 80px;">
-				<option value="${csno }">=${csno }=</option>
 			</select>
 			 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
 			<c:if test="${cno == 1}"><!-- 여행일 때만 보여줌 -->

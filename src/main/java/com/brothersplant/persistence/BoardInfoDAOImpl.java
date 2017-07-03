@@ -9,7 +9,9 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
+import com.brothersplant.domain.CategoryInfoVO;
 
 @Repository
 public class BoardInfoDAOImpl implements BoardInfoDAO {
@@ -48,9 +50,24 @@ private static final String namespace = "board";
 	}
 
 	@Override
-	public List<String> selectSubCategory(int cno) throws Exception {
+	public List<Map<String, Object>> selectSubCategory(int cno) throws Exception {
 		System.out.println(cno);
-		return session.selectList(namespace+".selectSubCategory",cno+1);
+		return session.selectList(namespace+".selectSubCategory",cno);
+	}
+
+
+	@Override
+	public List<BoardListVO> selectBoardList(CategoryInfoVO vo) throws Exception {
+		
+		return session.selectList(namespace+".selectBoardList", vo);
+	}
+
+
+	@Override
+	public Map<String, String> selectCategory(int csno) throws Exception {
+		
+		return session.selectOne(namespace+".selectCategory",csno);
+		
 	}
 
 }
