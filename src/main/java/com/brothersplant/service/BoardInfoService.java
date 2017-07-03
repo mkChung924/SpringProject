@@ -14,7 +14,7 @@ public interface BoardInfoService {
 	public List<String> selectDo() throws Exception;
 	public List<String> selectSi(String do1) throws Exception;
 	
-	public List<String> selectMainCategory() throws Exception;
+	public List<Map<String, Object>> selectMainCategory() throws Exception;
 	public List<Map<String, Object>> selectSubCategory(int cno) throws Exception;
 	public Map<String,String> selectCategory(int csno) throws Exception;
 	

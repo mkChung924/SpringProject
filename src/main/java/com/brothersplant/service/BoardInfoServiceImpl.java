@@ -31,7 +31,7 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	}
 
 	@Override
-	public List<String> selectMainCategory() throws Exception {
+	public List<Map<String, Object>> selectMainCategory() throws Exception {
 		return dao.selectMainCategory();
 	}
 

@@ -87,7 +87,11 @@ function uploadFile(inp, editor) {
 					success : function(result) {
 						console.log(result);
 						for(var i=0;  i<result.length;i++){
-							str +="<option>"+result[i]+"</option>";
+							
+							if(result[i]["CSNO"] == ${csno}){
+								continue;
+							}
+							str +="<option value="+result[i]["CSNO"]+">"+result[i]['CSNAME']+"</option>";
 						}
 						$("#subC").html(str);
 					}
@@ -163,8 +167,8 @@ function uploadFile(inp, editor) {
 				<option value="${cno }">${category }</option>
 				<c:if test="${cno != 1 }">
 					<c:forEach var="mainc" items="${mainCategory}" varStatus="status">
-						<c:if test="${mainc != category }">				
-							<option value="${status.index}">${mainc}</option>
+						<c:if test="${mainc.CNO != 1}">				
+							<option value="${mainc.CNO}">${mainc.CNAME}</option>
 						</c:if>
 					</c:forEach>
 				</c:if>

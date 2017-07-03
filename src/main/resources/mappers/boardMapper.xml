@@ -27,8 +27,8 @@
 	</select>
 	
 	<!-- 메인 카테고리 검색 -->
-	<select id="selectMainCategory" resultType="String">
-		select cname from TBL_CATEGORY
+	<select id="selectMainCategory" resultType="java.util.Map">
+		select cno, cname from TBL_CATEGORY
 	</select>
 	
 	<!-- 서브 카테고리 검색 -->

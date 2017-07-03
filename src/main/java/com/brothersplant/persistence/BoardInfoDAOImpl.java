@@ -45,7 +45,7 @@ private static final String namespace = "board";
 	}
 
 	@Override
-	public List<String> selectMainCategory() throws Exception {
+	public List<Map<String, Object>> selectMainCategory() throws Exception {
 		return session.selectList(namespace+".selectMainCategory");
 	}
 

@@ -12,13 +12,16 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/css/board/board.css?ver=1.5">
+<link rel="stylesheet" type="text/css" href="/resources/css/board/board.css?ver=1.7">
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script type="text/javascript" src="/resources/js/daum_api.js"></script>
 <title>게시판</title>
 <script type="text/javascript">
 	$(function(){
 		$('[data-toggle="comment"]').tooltip();
 		$('[data-toggle="like"]').tooltip();   
 		$('[data-toggle="review"]').tooltip();   
+		$('[data-toggle="bookmark"]').tooltip();   
 		
 		//게시글 작성 클릭
 		$('#write').click(function(){
@@ -26,6 +29,25 @@
 			window.open('/regit', '게시글 작성','width=700 height=850 menubar=no status=no scrollbars=yes left=500 top=50 resizable=0');
 			
 		})
+		
+		alert($('[name=do1]').val());
+		alert($('[name=si]').val());
+		alert($('[name=dong]').val());
+		alert($('[name=place1]').val());
+		alert($('[name=place2]').val());
+		alert($('[name=cno]').val());
+		alert($('[name=csno]').val());
+		
+		/* $('#myLocBtn').click(function(){
+			
+			var formObj = $('form[role="form"]');
+			
+			formObj.attr("method", "POST");
+			formObj.attr("action", "/board");
+			formObj.submit();
+			
+		}); */
+		
 		
 	});
 	
@@ -74,13 +96,14 @@
         	<div class="col-md-12">
 				<div class="thumbnail">	
 					<div class="caption" style="text-align: right; padding-top: 15px; padding-bottom: 0px;">
-						<form>
+						<form role="form">
 						<div class="col-sm-3" style="text-align: center; padding-top: 5">
-							<button type="button" class="btn btn-warning" style="padding: 0px; width: 66px;">내 위치</button>&nbsp;
+							<button type="button" class="btn btn-warning" id="myLocBtn" onclick="sample4_execDaumPostcode()" style="padding: 0px; width: 66px;">내 위치</button>&nbsp;
 							<i><font size=3>${do1 } ${si } ${dong }</font></i>
-							<input type="hidden" name="do1" value="${do1 }">
-							<input type="hidden" name="si" value="${si }">
-							<input type="hidden" name="dong" value="${dong }">
+							<span id="guide" style="color:#999"></span>
+							<input type="hidden" name="do1" id="do1" value="${do1 }">
+							<input type="hidden" name="si" id="si" value="${si }">
+							<input type="hidden" name="dong" id="dong" value="${dong }">
 						</div>
 						<div class="col-sm-3" style="text-align: center; padding-top: 5">
 							<button type="button" class="btn btn-info" style="padding: 0px; width: 66px;">카테고리</button>&nbsp;
@@ -105,8 +128,12 @@
 						<c:if test="${cno == 1 }">	
 							<button type="button" class="btn btn-default" id="review" style="background-color: black; color: white">여행 후기 모아보기</button>					
 							<button type="button" class="btn btn-default" id="together" style="background-color: black; color: white">관심글 모아보기</button>
+							<button type="button" class="btn btn-default" id="write">게시글 및 후기 작성</button>	
 						</c:if>		
-							<button type="button" class="btn btn-default" id="write">게시글 작성</button>		
+						<c:if test="${cno != 1 }">	
+							<button type="button" class="btn btn-default" id="write">게시글 작성</button>	
+						
+						</c:if>	
 						</form>		
 					</div>		
 				</div>
@@ -122,10 +149,16 @@
 			              		 <br>${myList.si } ${myList.dong }
 			              		 <br>
 			              		 <c:if test="${myList.place1 != null }">
-			              		 <kbd style="background-color: #4374D9">${myList.place1 }</kbd> 
+			              		 <kbd style="background-color: #47C83E">${myList.place1 }</kbd> 
 			              		 <kbd style="background-color: #6B66FF">${myList.place2 }</kbd>
 			              		 </c:if>
-			              		 <kbd style="background-color: #F15F5F">${myList.csname }</kbd>
+			              		 <c:if test="${myList.csno%2 == 0}">
+			              			 <kbd style="background-color: #F15F5F">${myList.csname }</kbd>
+			              		 </c:if>
+			              		 <c:if test="${myList.csno%2 != 0}">
+			              		 	<kbd style="background-color: #4374D9">${myList.csname }</kbd>
+			              		 </c:if>
+			              		 
 			              	 </div><br>
 			              	 <div style="margin-top: -55px;">
 			              	 <c:if test="${myList.profile == 'default.png' }">
@@ -146,19 +179,21 @@
 		                	<c:if test="${myList.myfavor == 1 }">
 		                	<div class="col-md-6">
 				                <p align="left">
-				                <i class="glyphicon glyphicon-star" style="font-size: 25px; cursor: pointer;"></i>
+				                <i class="glyphicon glyphicon-star" data-toggle="bookmark" data-placement="bottom" title="즐겨찾기 해제" style="font-size: 25px; cursor: pointer;"></i>
 				                </p>
 		                	</div>
 		                	</c:if>
 		                	<c:if test="${myList.myfavor == 0 }">
 		                	<div class="col-md-6">
 				                <p align="left">
-				                <i class="glyphicon glyphicon-star-empty" style="font-size: 25px; cursor: pointer;"></i>
+				                <i class="glyphicon glyphicon-star-empty" data-toggle="bookmark" data-placement="bottom" title="즐겨찾기 추가" style="font-size: 25px; cursor: pointer;"></i>
 				                </p>
 		                	</div>
 		                	</c:if>
 		                	<div class="col-md-6">
 				                <p align="right">
+				                <span class="badge" style="background-color: blue">${myList.likes }</span>
+				                <i class="glyphicon glyphicon-thumbs-up" data-toggle="like" data-placement="top" title="좋아요"></i>&nbsp;
 		                   		<span class="badge" style="background-color: gray">${myList.replies }</span>
 				                <i class="glyphicon glyphicon-comment" data-toggle="comment" data-placement="bottom" title="댓글"></i>&nbsp; &nbsp;&nbsp;&nbsp;
 				                </p>
