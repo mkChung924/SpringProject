@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.brothersplant.domain.MyBookmarkVO;
 import com.brothersplant.domain.SecureVO;
 import com.brothersplant.domain.UserInfoVO;
 
@@ -53,6 +54,12 @@ public class MyPageDAOImpl implements MyPageDAO {
 		System.out.println("doa: " + vo);
 		sql.update("mypage.update",vo);
 		
+	}
+
+	@Override
+	public List<MyBookmarkVO> selectMyBookmark(String id) throws Exception {
+		
+		return sql.selectList("mypage.selectMyBookmark", id);
 	}
 
 }

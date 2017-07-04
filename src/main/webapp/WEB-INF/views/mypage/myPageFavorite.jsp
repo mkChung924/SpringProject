@@ -14,6 +14,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
+<script type="text/javascript">
+	function read(tbno){
+		alert(tbno);
+	}
+</script>
 <title>마이페이지-즐겨찾기</title>
 </head>
 <body>
@@ -90,8 +95,39 @@
 			<div class="col-md-9">
 	            <div class="profile-content">
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
-	            
-					즐겨찾기
+	            <h3><b>즐겨찾기 게시물</b></h3>
+	            <br>
+	            <c:if test="${bookmark.size() < 1 }">
+	            	<div style="text-align: center; margin-top: 12%;">
+	            	<i><h4>즐겨찾기에 추가된 게시글이 없습니다.</h4></i>
+	            	</div>
+	            </c:if>
+	            <c:if test="${bookmark.size() > 0 }">
+	            <div style="text-align: right; padding: 10px; font-size: 18px;">
+	            총 [<b>${bookmark.size() }</b>] 건
+	            </div>
+	            <table class="table">
+					<tr>
+					<th>제목</th>					
+					<th>카테고리</th>
+					<th>닉네임</th>
+					<th>좋아요</th>
+					<th>조회수</th>
+					<th>게시날짜</th>
+					</tr>
+					 <c:forEach items="${bookmark }" var="bookmark">
+					 	<input type="hidden" value=${bookmark.tbno }>
+						<tr>
+						<td><a onclick="read(${bookmark.tbno})" style="cursor: pointer;">${bookmark.title }</a></td>
+						<td>${bookmark.cname }[${bookmark.csname }]</td>
+						<td>${bookmark.nickname }</td>
+						<td>${bookmark.likes }</td>
+						<td>${bookmark.viewcnt }</td>
+						<td>${bookmark.regdate }</td>
+						</tr>
+					</c:forEach>
+				</table>
+	            </c:if>
 	            </div>
 			</div>
 		</div>

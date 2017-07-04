@@ -24,13 +24,13 @@ public class MyPageController {
 		System.out.println("마이페이지-내글보기 입장");
 		String id = (String) session.getAttribute("id");
 		if(id != null){
-		System.out.println("my정보: "+service.myPageInfo(id));
-		System.out.println(service.secureCode());
-		System.out.println(id);
-		
-		model.addAttribute("mypage", service.myPageInfo(id));
-		
-		return "mypage/myInfo";
+			System.out.println("my정보: "+service.myPageInfo(id));
+			System.out.println(service.secureCode());
+			System.out.println(id);
+			
+			model.addAttribute("mypage", service.myPageInfo(id));
+			
+			return "mypage/myInfo";
 		} else {
 			return "redirect:login";
 		}
@@ -118,6 +118,8 @@ public class MyPageController {
 		System.out.println(id);
 		
 		model.addAttribute("mypage", service.myPageInfo(id));
+		System.out.println(service.getMyBookmarks(id));
+		model.addAttribute("bookmark", service.getMyBookmarks(id));
 		
 		return "mypage/myPageFavorite";
 		} else {

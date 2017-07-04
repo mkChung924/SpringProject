@@ -33,7 +33,7 @@ body{
 	}
 </style>
 	<c:if test="${messages.size() == 0 }">
-		<br><br><br><h4>메지시함이 비었습니다</h4>
+		<br><br><br><i><h4>메지시함이 비었습니다</h4></i>
 	</c:if>
 	<c:if test="${messages.size() != 0 }">
 	<table class="table-striped">

@@ -125,11 +125,11 @@
 						<br>
 						<!-- 주소 -->
 						 <label style="width: 100"><b>우편번호<font color=red>*</font></b></label>
-		    			<input type="text" class="form-control" name="postcode"id="postcode" placeholder="우편번호" value="${mypage.addr.split('/')[2] }" required readonly>
+		    			<input type="text" class="form-control" name="postcode"id="postcode" placeholder="우편번호" value="${mypage.addr.split('%')[2] }" required readonly>
            				<input type="button" class="btn btn-warning" onclick="execDaumPostcode()" value="우편번호 찾기"><br><br>
             			<label style="width: 100"><b>주소<font color=red>*</font></b></label>
-            			<input type="text" class="form-control" name="roadAddress" id="address" placeholder="주소" value="${mypage.addr.split('/')[0] }" style="width: 300px;" required readonly>
-            			<input type="text" class="form-control" name="detailAddress" id="detailAddress" placeholder="상세주소" value="${mypage.addr.split('/')[1] }" style="width: 200px;" required readonly>
+            			<input type="text" class="form-control" name="roadAddress" id="address" placeholder="주소" value="${mypage.addr.split('%')[0] }" style="width: 300px;" required readonly>
+            			<input type="text" class="form-control" name="detailAddress" id="detailAddress" placeholder="상세주소" value="${mypage.addr.split('%')[1] }" style="width: 200px;" required readonly>
             			<br><br>
 						<!-- 보안질문 -->
 						<label style="width: 100"><b>보안질문<font color=red>*</font></b></label>

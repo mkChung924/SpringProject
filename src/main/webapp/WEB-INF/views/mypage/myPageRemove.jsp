@@ -128,7 +128,7 @@
            			<li>탈퇴시 회원님의 모든 개인정보는 삭제됩니다.</li>
            			<li>작성하신 여행후기는 탈퇴 이후에도 관리자에 의해 사용될 수 있습니다.</li>
            			</ul>
-           			<br><br><br>
+           			<br><br>
            			<div class="row" style="text-align: center">
 	           			<h4>계정을 삭제하려면 비밀번호를 입력하세요</h4>
 	           			<br>
@@ -136,7 +136,7 @@
 						<input type="password" class="form-control" placeholder="비밀번호 입력" name="password" style="display: inline; width: 200px;">
 						<p class="result"></p>
 						<br>
-						<input class="btn btn-danger" id="delBtn" type="button" value="탈퇴" >	
+						<input class="btn btn-danger" id="delBtn" type="button" value="계정 삭제" >	
            			</div>
 	            			
 	            </div>
