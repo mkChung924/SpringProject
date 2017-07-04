@@ -82,7 +82,7 @@ function uploadFile(inp, editor) {
 			var str="";
 				$.ajax({
 					type : 'post',
-					url : $(this).find(":selected").val(),
+					url : '/rest/'+$(this).find(":selected").val(),
 					dateType : "json",
 					success : function(result) {
 						console.log(result);

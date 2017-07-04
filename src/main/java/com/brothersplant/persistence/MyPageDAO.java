@@ -2,6 +2,7 @@ package com.brothersplant.persistence;
 
 import java.util.List;
 
+import com.brothersplant.domain.MyBookmarkVO;
 import com.brothersplant.domain.SecureVO;
 import com.brothersplant.domain.UserInfoVO;
 
@@ -16,5 +17,7 @@ public interface MyPageDAO {
 	public void deleteUser(String id)throws Exception;
 	
 	public void updateUser(UserInfoVO vo)throws Exception;
+	
+	public List<MyBookmarkVO> selectMyBookmark(String id) throws Exception;
 
 }

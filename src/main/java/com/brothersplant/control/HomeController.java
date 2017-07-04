@@ -95,7 +95,7 @@ public class HomeController {
 		System.out.println("/signUp");
 		
 		String tel = tel1+"-"+tel2+"-"+tel3;
-		String addr = address +"|"+ detailAddress +"|"+postcode;
+		String addr = address +"$"+ detailAddress +"$"+postcode;
 		
 		try {
 			MultipartHttpServletRequest m = (MultipartHttpServletRequest) request;

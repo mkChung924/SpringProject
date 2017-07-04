@@ -15,73 +15,6 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/board/board.css?ver=2.0">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="/resources/js/daum_api2.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
-<script id="template" type="text/x-handlebars-template">
-{{#each .}}
-<div class="col-md-4" style="max-height: 400">
-	        	<div class="thumbnail">
-		        	<div class="caption">
-		        		<div style="text-align: left; padding-top: 0px;">
-			              	 <div style="display: block; text-align: right; padding-top: 0px;">
-			              		 ${myList.regdate } <font color=red>D-${myList.ddate }</font>
-			              		 <br>${myList.si } ${myList.dong }
-			              		 <br>
-			              		 <c:if test="${myList.place1 != null }">
-			              		 <kbd style="background-color: #47C83E">${myList.place1 }</kbd> 
-			              		 <kbd style="background-color: #6B66FF">${myList.place2 }</kbd>
-			              		 </c:if>
-			              		 <c:if test="${myList.csno%2 == 0}">
-			              			 <kbd style="background-color: #F15F5F">${myList.csname }</kbd>
-			              		 </c:if>
-			              		 <c:if test="${myList.csno%2 != 0}">
-			              		 	<kbd style="background-color: #4374D9">${myList.csname }</kbd>
-			              		 </c:if>
-			              		 
-			              	 </div><br>
-			              	 <div style="margin-top: -55px;">
-			              	 <c:if test="${myList.profile == 'default.png' }">
-			              	 <img src="/resources/upload/default.png" draggable="false" style="border-radius: 50%; width: 10%; height: 9%; margin-top: -15px"> &nbsp;
-			              	 </c:if>
-			              	  <c:if test="${myList.profile != 'default.png' }">
-			              	 <img src="/resources/upload/${myList.id }/${myList.profile }" draggable="false" style="border-radius: 50%; width: 10%; height: 9%; margin-top: -15px"> &nbsp;
-		              	 	</c:if>
-		              	 	<font size=4><b>${myList.nickname }</b></font>
-		              	 	</div>
-		                </div>
-		                <hr>
-		                <div style="cursor: pointer;">
-		                	<b><i><font size="4">" ${myList.title } "</font></i></b>
-		                </div>
-		                <br>
-		                <div class="row" style="padding-left: 20px;">
-		                	<c:if test="${myList.myfavor == 1 }">
-		                	<div class="col-md-6">
-				                <p class="p-${myList.tbno }" align="left">
-				                <i class="glyphicon glyphicon-star" id="bk-${myList.tbno }" onclick="favor(${myList.tbno})" data-toggle="bookmark" data-placement="bottom" title="즐겨찾기 해제" style="font-size: 25px; cursor: pointer;"></i>
-				                </p>
-		                	</div>
-		                	</c:if>
-		                	<c:if test="${myList.myfavor == 0 }">
-		                	<div class="col-md-6">
-				                <p align="left">
-				                <i class="glyphicon glyphicon-star-empty" id="bk-${myList.tbno }" onclick="favor(${myList.tbno})"  data-toggle="bookmark" data-placement="bottom" title="즐겨찾기 추가" style="font-size: 25px; cursor: pointer;"></i>
-				                </p>
-		                	</div>
-		                	</c:if>
-		                	<div class="col-md-6">
-				                <p align="right">
-				                <span class="badge" style="background-color: blue">${myList.likes }</span>
-				                <i class="glyphicon glyphicon-thumbs-up" data-toggle="like" data-placement="top" title="좋아요"></i>&nbsp;
-		                   		<span class="badge" style="background-color: gray">${myList.replies }</span>
-				                <i class="glyphicon glyphicon-comment" data-toggle="comment" data-placement="bottom" title="댓글"></i>&nbsp; &nbsp;&nbsp;&nbsp;
-				                </p>
-		                	</div>
-		                </div>
-		             </div>
-		        </div>
-	        </div>
-{{/each}}
-</script>
 <title>게시판</title>
 <script type="text/javascript">
 	$(function(){
@@ -120,7 +53,7 @@
   	function favor(tbno){
 				
 		$.ajax({
-				url:'/bookmark',
+				url:'/rest/bookmark',
 				data:'id='+"${id }"+'&tbno='+tbno,
 				success:function(result){
 					if(result == "OK"){
@@ -195,7 +128,7 @@
 							<input type="hidden" name="dong" id="dong" value="${dong }">
 						</div>
 						<div class="col-sm-3" style="text-align: center; padding-top: 5">
-							<button type="button" class="btn btn-info" style="padding: 0px; width: 66px;">카테고리</button>&nbsp;
+							<button type="button" class="btn btn-info" ${cno == 1 ? 'onclick="alert(1)"': 'onclick="alert(2)"' } style="padding: 0px; width: 66px;">카테고리</button>&nbsp;
 							<i><font size=3>${category } - ${subcategory }</font></i>
 							<input type="hidden" name="cno" value="${cno }">
 							<input type="hidden" name="csno" value="${csno }">

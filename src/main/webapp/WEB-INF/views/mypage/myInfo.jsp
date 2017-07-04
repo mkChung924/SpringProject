@@ -90,8 +90,25 @@
 			<div class="col-md-9">
 	            <div class="profile-content">
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
-	            
-				  나의 정보 표시
+	            <h3><b>내 계정 정보</b></h3><br>
+				<table class="table">
+					<tr>
+					<th>등급</th>
+					<th>아이디</th>
+					<th>가입날짜</th>
+					<th>게시글 수</th>
+					<th>댓글 수</th>
+					</tr>
+					<tr>
+					<td>${mypage.auth == 2 ? '<font color=red>관리자</font>' : '<font color=blue>일반회원</font>' }</td>
+					<td>${mypage.id }</td>
+					<td>${mypage.regdate }</td>
+					<td>${mypage.myBoards }</td>
+					<td>${mypage.replyCount }</td>
+					</tr>
+				</table>
+				<br>
+				<b>계정상태 : </b> <font color=green>양호</font>
 	            </div>
 			</div>
 		</div>
