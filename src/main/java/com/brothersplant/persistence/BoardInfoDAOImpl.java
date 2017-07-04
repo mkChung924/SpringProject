@@ -6,12 +6,14 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.CategoryInfoVO;
+import com.brothersplant.domain.SearchCriteria;
 
 @Repository
 public class BoardInfoDAOImpl implements BoardInfoDAO {
@@ -57,9 +59,10 @@ private static final String namespace = "board";
 
 
 	@Override
-	public List<BoardListVO> selectBoardList(CategoryInfoVO vo) throws Exception {
+	public List<BoardListVO> selectBoardList(CategoryInfoVO vo, SearchCriteria cri) throws Exception {
 		
-		return session.selectList(namespace+".selectBoardList", vo);
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		return session.selectList(namespace+".selectBoardList", vo, bounds);
 	}
 
 
@@ -67,6 +70,35 @@ private static final String namespace = "board";
 	public Map<String, String> selectCategory(int csno) throws Exception {
 		
 		return session.selectOne(namespace+".selectCategory",csno);
+		
+	}
+
+	@Override
+	public void addBookmark(String id, int tbno) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("tbno", tbno);
+		session.insert(namespace+".insertBookmark", map);
+		
+	}
+
+
+	@Override
+	public void removeBookmark(String id, int tbno) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("tbno", tbno);
+		session.delete(namespace+".deleteBookmark", map);
+		
+	}
+
+
+	@Override
+	public int selectBookmark(String id, int tbno) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("tbno", tbno);
+		return session.selectOne(namespace+".selectBookmark", map);
 		
 	}
 

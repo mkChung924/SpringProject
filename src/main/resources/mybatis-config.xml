@@ -8,5 +8,7 @@
 	<typeAlias type="com.brothersplant.domain.SecureVO" alias="secure"/>
 	<typeAlias type="com.brothersplant.domain.BoardVO" alias="boardVO"/>
 	<typeAlias type="com.brothersplant.domain.BoardListVO" alias="boardListVO"/>
+	<typeAlias type="com.brothersplant.domain.SenderMessagesVO" alias="sendMsg"/>
+	<typeAlias type="com.brothersplant.domain.ReceiverMessagesVO" alias="receiveMsg"/>
 </typeAliases>
 </configuration>

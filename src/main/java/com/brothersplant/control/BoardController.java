@@ -1,16 +1,25 @@
 package com.brothersplant.control;
 
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.CategoryInfoVO;
+import com.brothersplant.domain.PageMaker;
+import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.service.BoardInfoService;
 
 
@@ -21,17 +30,32 @@ public class BoardController {
 	private BoardInfoService service;
 	
 	@RequestMapping("/board")
-	public String boardList(HttpSession session, CategoryInfoVO vo, Model model) throws Exception{
+	public String boardList(HttpSession session, CategoryInfoVO vo, Model model, SearchCriteria cri, String perPageNum) throws Exception{
 		if(vo.getDo1() == null || session.getAttribute("id") == null || vo.getCno() == null){
 			return "redirect:index";
 		}
+		if(perPageNum == null){
+			perPageNum = "9";
+		}
+		cri.setPerPageNum(Integer.parseInt(perPageNum));
+		
+		System.out.println("페이지당 개수: " + perPageNum);
 		System.out.println("게시판 입장");
 		System.out.println(vo);
-		System.out.println("list size : "+service.selectMyInterestList(vo).size());
-		System.out.println(service.selectMyInterestList(vo));
+		System.out.println("list size : "+service.selectMyInterestList(vo,cri).size());
+		System.out.println(service.selectMyInterestList(vo,cri));
+		System.out.println(cri);
+		
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(3);
+		
+		model.addAttribute("pageMaker", pageMaker);
+		
+
 		
 		//관심 목록 가져오기
-		model.addAttribute("list", service.selectMyInterestList(vo));
+		model.addAttribute("list", service.selectMyInterestList(vo,cri));
 		//내가 고른 카테고리 이름 가져오기
 		session.setAttribute("category", service.selectCategory(Integer.parseInt(vo.getCsno())).get("CNAME"));
 		session.setAttribute("subcategory", service.selectCategory(Integer.parseInt(vo.getCsno())).get("CSNAME"));
@@ -48,8 +72,25 @@ public class BoardController {
 		
 	}
 	
+//	@RequestMapping("/perPage")
+//	public ResponseEntity<List<BoardListVO>> perPage(@RequestBody CategoryInfoVO vo, SearchCriteria cri){
+//		
+//		ResponseEntity<List<BoardListVO>> entity = null;
+//		System.out.println(vo);
+//		cri.setPerPageNum(vo.getPageNum());
+//		try {
+//	         entity = new ResponseEntity<>(service.selectMyInterestList(vo,cri), HttpStatus.OK);
+//	      } catch (Exception e) {
+//	         // TODO: handle exception
+//	         entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//	      }
+//	      return entity;
+//		
+//	}
+	
 	@RequestMapping(value = "regit", method=RequestMethod.GET)
 	public String insertBoard(HttpSession session, Model model) throws Exception{
+		System.out.println("게시글 작성");
 		String do1 = (String) session.getAttribute("do1");
 		if(do1 == null){
 			

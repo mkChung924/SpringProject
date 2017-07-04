@@ -19,10 +19,6 @@ body{
 	border-radius: 5%;
 }
 
-#together, #review, #write{
-	margin-top: 10px;
-}
-
 /*
 #together:hover {
 	background-color: pink;

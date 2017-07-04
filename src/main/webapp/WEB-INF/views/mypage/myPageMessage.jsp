@@ -14,6 +14,101 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
+<link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/fontello.css?ver=1.1">
+<script type="text/javascript">
+
+     $(function(){//HTML문서가 브라우저 출력되었을때
+
+	form = document.removeCheck;
+    	 if(${msg != "send"}){
+    		 $.ajax({
+     			url:"receiveMailBox",
+     			data: "page="+${page},
+     			success:function(result){
+ 					  $('#div1').html(result);
+ 					   $('#div2').css('display','none')
+ 					  $('#div1').css('display','block')
+ 					  
+ 				  }
+     		 });
+    	 }
+    	 
+    	$('#button1').click(function(){
+    		 $.ajax({
+    			url:"receiveMailBox",
+    			data: "page=1",
+    			success:function(result){
+					 /*  $('#div1').html(result);
+					   $('#div2').css('display','none')
+					  $('#div1').css('display','block') */
+    				location.href="message?page=1";
+				  }
+    		 });
+    	});//click
+    	
+     if(${msg == "send"} ){
+		 $.ajax({
+			url:"sendMailBox",
+			data: "page="+${page},
+			success:function(result){
+				  $('#div2').html(result);
+				   $('#div1').css('display','none')
+				  $('#div2').css('display','block')
+			  }
+		 });
+     }
+    	$('#button2').click(function(){
+    		 $.ajax({
+    			url:"sendMailBox",
+    			data: "page=1",
+    			success:function(result){
+					  /* $('#div2').html(result);
+					   $('#div1').css('display','none');
+					  $('#div2').css('display','block'); */
+					  location.href="message?page=1";
+				  }
+    		 });
+    	});//click
+     });//function
+</script>
+<style type="text/css">
+	body{
+		font-family: "fontello";
+	}
+
+	#button1{
+        color: white;
+        display: inline-block;
+        padding: 5px 10px;
+        text-decoration: none;
+        font-weight: bold;
+        margin: 3px;
+        background: #000099;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        box-shadow: 2px 2px 4px #999999;
+        -moz-box-shadow: 2px 2px 4px #999999;
+        -webkit-box-shadow: 2px 2px 4px #999999;
+        background: linear-gradient(to bottom, #000099, #375094);
+	}
+	#button2{
+        color: white;
+        display: inline-block;
+        padding: 5px 10px;
+        text-decoration: none;
+        font-weight: bold;
+        margin: 3px;
+        background: #000099;
+        border-radius: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        box-shadow: 2px 2px 4px #999999;
+        -moz-box-shadow: 2px 2px 4px #999999;
+        -webkit-box-shadow: 2px 2px 4px #999999;
+        background: linear-gradient(to bottom, #000099, #375094);
+	}
+</style>
 <title>마이페이지-메시지함</title>
 </head>
 <body>
@@ -54,6 +149,11 @@
 						<ul class="nav">
 							<li>
 								<a href="mypage">
+								<i class="glyphicon glyphicon-user"></i>
+								내 정보 </a>
+							</li>
+							<li>
+								<a href="myContents">
 								<i class="glyphicon glyphicon-list"></i>
 								내 글보기 </a>
 							</li>
@@ -85,8 +185,26 @@
 			<div class="col-md-9">
 	            <div class="profile-content">
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
+	            	
+	            	<h3><b>메시지함</b></h3>
+	            	<div style="text-align: right; margin-right: 10px; margin-top: -35px;">
+	            	<font size="4"><a href="/project/msgSend" style="color: black;" id="writer">메시지 작성 &#xe800</a></font>
+	            	</div>
+					<br><br>
+					<div class="row" style="text-align: center;">
+					<form name="removeCheck">
+						<input type="button" id="button1" value="수신 메세지함"> &nbsp; 
+						<input type="button" id="button2" value="발신 메세지함">
+					</form>
+					
+					<div id="div1" style="display: none;"></div>
+					<div id="div2" style="display: none;"></div>
+					<form action="msgSend">
+					</form>
+					
+					</div>
 	            
-				  메시지함
+				 
 	            </div>
 			</div>
 		</div>

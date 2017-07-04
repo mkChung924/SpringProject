@@ -12,7 +12,21 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="/resources/css/main/loginPage.css">
+<style type="text/css">
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
 
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+</style>
 <script type="text/javascript">
 
 
@@ -25,13 +39,19 @@
 			}
 			
 			$('#login').click(function(){
-				
+				popup();
+				setTimeout(login, 2000);
+			});
+			
+			function login(){
 				var id = $('[name=id]').val();
 				var pass = $('[name=pass]').val();
 				
 				if(id.length==0){
+					$('#loadingModal').css('display','none');
 					$("#Fail").html('<br><font color=red>아이디를 입력하세요.</font>');
 				} else if(pass.length == 0){
+					$('#loadingModal').css('display','none');
 					$("#Fail").html('<br><font color=red>비밀번호를 입력하세요.</font>');
 				} else {
 				
@@ -43,10 +63,12 @@
 								if(result == 'SUCCESS'){
 									
 									//alert('success');
+									$('#loadingModal').css('display','none');
 									$("#frm").submit();
 									
 								} else {
 									//alert('fail');
+									$('#loadingModal').css('display','none');
 									$("#Fail").html('<br><font color=red>아이디 또는 비밀번호를 확인하세요.</font>');
 									$("[name=id]").val("");
 									$("[name=pass]").val("");
@@ -56,9 +78,16 @@
 							
 					});//ajax
 				}
-			});
+			}	
+			
+			function popup(){
+				$('#loadingModal').css('display','block');
+			}
+
 			
 		});
+			
+			
 </script>
 <title>Log-In</title>
 </head>
@@ -84,9 +113,14 @@
 	  </div>
 	</form>
 	
-	<script>
-
-	</script>
+<div id="loadingModal" class="modal">
+	<div class="modal-content" style="width: 9%; text-align: center; display: run-in; margin-top: 20%">
+		<div class="modal-body" style="padding: 15px;">
+			<div class="loader"></div><br>
+			<b>로그인 중...</b>
+		</div>
+	</div>
+</div>
 	
 	<%@ include file="join.jsp" %>
 	<%@ include file="idFind.jsp" %>

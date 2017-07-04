@@ -9,10 +9,12 @@ public class CategoryInfoVO {
 	private String place2;
 	private String cno;
 	private String csno;
+	private int pageNum;
+	
 	@Override
 	public String toString() {
 		return "CategoryInfoVO [do1=" + do1 + ", si=" + si + ", dong=" + dong + ", place1=" + place1 + ", place2="
-				+ place2 + ", cno=" + cno + ", csno=" + csno + "]";
+				+ place2 + ", cno=" + cno + ", csno=" + csno + ", pageNum=" + pageNum + "]";
 	}
 	public String getDo1() {
 		return do1;
@@ -56,6 +58,13 @@ public class CategoryInfoVO {
 	public void setCsno(String csno) {
 		this.csno = csno;
 	}
+	public int getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+	
 	
 	
 }

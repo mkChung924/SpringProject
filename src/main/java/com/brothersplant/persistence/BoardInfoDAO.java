@@ -6,6 +6,7 @@ import java.util.Map;
 import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.CategoryInfoVO;
+import com.brothersplant.domain.SearchCriteria;
 
 public interface BoardInfoDAO {
 	public void insertBoard(BoardVO board) throws Exception;
@@ -19,7 +20,11 @@ public interface BoardInfoDAO {
 	
 	public BoardVO selectCommonRow(int tbno) throws Exception;
 	
-	public List<BoardListVO> selectBoardList(CategoryInfoVO vo) throws Exception;
+	public List<BoardListVO> selectBoardList(CategoryInfoVO vo, SearchCriteria cri) throws Exception;
+	
+	public int selectBookmark(String id, int tbno) throws Exception;
+	public void addBookmark(String id, int tbno) throws Exception;
+	public void removeBookmark(String id, int tbno) throws Exception;
 }
 
 

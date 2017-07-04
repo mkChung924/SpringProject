@@ -49,9 +49,9 @@ function uploadFile(inp, editor) {
     var input = inp.get(0);
     var data = new FormData();
     data.append('files', input.files[0]);
-
+	
     $.ajax({
-      url: '/rest/a/images',
+      url: 'b/images',
       type: 'POST',
       data: data,
       enctype: 'multipart/form-data',
@@ -76,13 +76,13 @@ function uploadFile(inp, editor) {
 
 	
 	$(function(){
-		
+				
 		$(document).on("change", "#mainC", function() {
 
 			var str="";
 				$.ajax({
 					type : 'post',
-					url : '/rest/'+$(this).find(":selected").val(),
+					url : $(this).find(":selected").val(),
 					dateType : "json",
 					success : function(result) {
 						console.log(result);
