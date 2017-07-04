@@ -8,9 +8,9 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,12 +28,14 @@ public class RestUtils {
 	@Inject
 	private BoardInfoService bservice;
 	
-	@RequestMapping(value = "{data}", method= RequestMethod.POST)
-	public ResponseEntity<List<Map<String,Object>>> list(@PathVariable("data") int mainCategory) {
-		ResponseEntity<List<Map<String,Object>>> entity = null;
+	@Autowired
+	private ServletContext context;
+
+	@RequestMapping(value = "{data}", method= RequestMethod.POST)//카테고리
+	public ResponseEntity<List<Map<String, Object>>>  list(@PathVariable("data") int mainCategory) {
+		ResponseEntity<List<Map<String, Object>>> entity = null;
 		try {
 			//entity = new ResponseEntity<>(bservice.selectSi(do1), HttpStatus.OK);
-			//System.out.println(bservice.selectSubCategory(mainCategory));
 			entity = new ResponseEntity<>(bservice.selectSubCategory(mainCategory), HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -42,20 +44,21 @@ public class RestUtils {
 		return entity;
 	}
 	//이미지 파일 올리기
-	@RequestMapping(value = "a/images", method = RequestMethod.POST)
-	public @ResponseBody String handleTinyMCEUpload(@RequestParam("files") MultipartFile files[],HttpSession session) {
+	@RequestMapping(value = "/a/images", method = RequestMethod.POST)
+	@ResponseBody
+	public String handleTinyMCEUpload(@RequestParam("files") MultipartFile files[],HttpSession session) {
 	    System.out.println("uploading______________________________________MultipartFile " + files.length);
-	    String filePath = "/resources/uploads/tinyMCE" + files[0].getOriginalFilename();
+	    String filePath = "/resources/upload/"+session.getAttribute("id")+"/tinyMCE/" + files[0].getOriginalFilename();
 	    String result = uploadFilesFromTinyMCE("tinyMCE", files, false,session);
 	    System.out.println(result);
 	    return "{\"location\":\"" + filePath + "\"}";
+
 	}
 
 	private String uploadFilesFromTinyMCE(String prefix, MultipartFile files[], boolean isMain,HttpSession session) {
 	    System.out.println("uploading______________________________________" + prefix);
 	    try {
-	    	
-	        String folder = session.getServletContext().getRealPath("/") + "/resources/uploads/" + prefix;
+	        String folder = context.getRealPath("/") + "/resources/upload/"+session.getAttribute("id")+"/" + prefix+"/";
 	        StringBuffer result = new StringBuffer();
 	        byte[] bytes = null;
 	        result.append("Uploading of File(s) ");
@@ -66,8 +69,10 @@ public class RestUtils {
 	                try {
 	                    boolean created = false;
 
-	                    try {
+	                    try {	                    	
+	                    	File idDir = new File(context.getRealPath("/") + "/resources/upload/"+session.getAttribute("id")+"/");//아이디 폴더 만들고
 	                        File theDir = new File(folder);
+	                        idDir.mkdir();
 	                        theDir.mkdir();
 	                        created = true;
 	                    } catch (SecurityException se) {

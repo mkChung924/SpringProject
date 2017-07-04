@@ -21,13 +21,13 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	@Override
 	public List<String> selectDo() throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.selectDo();
 	}
 
 	@Override
 	public List<String> selectSi(String do1) throws Exception {
 		// TODO Auto-generated method stub
-		return null;
+		return dao.selectSi(do1);
 	}
 
 	@Override
@@ -50,8 +50,8 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 
 	@Override
 	public BoardVO selectCommonRow(int tbno) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println(tbno);
+		return dao.selectCommonRow(tbno);
 	}
 
 	@Override

@@ -41,6 +41,7 @@ private static final String namespace = "board";
 
 	@Override
 	public BoardVO selectCommonRow(int tbno) throws Exception {
+		System.out.println("DAO : "+tbno);
 		return session.selectOne(namespace+".selectCommonRow",tbno);
 	}
 

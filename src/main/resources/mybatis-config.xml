@@ -8,5 +8,6 @@
 	<typeAlias type="com.brothersplant.domain.SecureVO" alias="secure"/>
 	<typeAlias type="com.brothersplant.domain.BoardVO" alias="boardVO"/>
 	<typeAlias type="com.brothersplant.domain.BoardListVO" alias="boardListVO"/>
+	<typeAlias type="com.brothersplant.domain.ReplyVO" alias="replyRow"/>
 </typeAliases>
 </configuration>
