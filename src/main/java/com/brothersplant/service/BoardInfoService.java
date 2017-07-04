@@ -19,7 +19,9 @@ public interface BoardInfoService {
 	public List<Map<String, Object>> selectSubCategory(int cno) throws Exception;
 	public Map<String,String> selectCategory(int csno) throws Exception;
 	
+	//일반 게시물
 	public BoardVO selectCommonRow(int tbno) throws Exception;
+	public int deleteCommonRow(int tbno) throws Exception;
 	
 	// 관심 게시판 검색
 	public List<BoardListVO> selectMyInterestList(CategoryInfoVO vo, SearchCriteria cri) throws Exception;

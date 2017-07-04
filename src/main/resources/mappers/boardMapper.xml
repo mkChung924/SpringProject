@@ -236,6 +236,8 @@
 	</if>
 </sql>
 	
-	
+	<delete id="deleteCommonRow">
+		delete from tbl_boards where tbno=#{tbno}
+	</delete>
 </mapper>
 

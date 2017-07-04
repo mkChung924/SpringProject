@@ -19,6 +19,7 @@ public interface BoardInfoDAO {
 	public Map<String, String> selectCategory(int csno) throws Exception;
 	
 	public BoardVO selectCommonRow(int tbno) throws Exception;
+	public int deleteCommonRow(int tbno) throws Exception;
 	
 	public List<BoardListVO> selectBoardList(CategoryInfoVO vo, SearchCriteria cri) throws Exception;
 	

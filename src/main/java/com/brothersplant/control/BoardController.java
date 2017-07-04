@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -114,7 +115,6 @@ public class BoardController {
 	@RequestMapping(value = "CommonRead", method=RequestMethod.GET)
 	public String CommonRead(int tbno,Model model,HttpSession session) throws Exception{
 		model.addAttribute("commonBoard",service.selectCommonRow(tbno));
-		System.out.println(session.getAttribute("id"));
 		return "board/commonRead";
 	}
 	
@@ -135,6 +135,19 @@ public class BoardController {
 		}else{
 			return "selfClose";
 		}
+	}
+	@RequestMapping(value = "CommonDelete/{data}", method= RequestMethod.DELETE)
+	public ResponseEntity<String> CommonDelete(@PathVariable("data") int tbno) throws Exception{
+		ResponseEntity<String> entity=null;
+		int result = service.deleteCommonRow(tbno);
+		try {
+			if(result>0){
+				entity = new ResponseEntity<>("success", HttpStatus.OK);//해당 게시글 삭제 완료						
+			}
+		} catch (Exception e) {
+			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 	//===========
 	

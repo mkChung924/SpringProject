@@ -90,7 +90,6 @@
 			//printPaging(data.pageMaker, $(".pagination"));
 			}
 		});
-
 	}
 	$(document).on("click", "#replyModify", function() { // add reply
 		var reply = $(this);
@@ -126,6 +125,7 @@
 					//replyPage =1;
 					//getPage("/replies/"+bno+"/"+replyPage); 
 					getPage("/replies/all/" + $("#bno").val());
+					location.reload();
 					replyerObj.val("");
 					replytextObj.val("");
 
@@ -186,6 +186,24 @@
 		}
 	});
 
+	$(document).on("click", "#deleteBoard", function() {//게시글 삭제
+		var tbno = $("#bno").val();
+		alert(tbno+" : "+<%=request.getParameter("tbno")%>);
+		$.ajax({
+			type : 'delete',
+			url : '/CommonDelete/'+tbno,
+			success : function(result) {
+				if(result=='success'){
+					opener.location.reload();
+					self.close();
+				}else{
+					opener.location.reload();
+					self.close();
+				}
+			}
+		});
+	});
+	
 	$(function() {
 		getPage("/replies/all/" + $("#bno").val());
 	});
@@ -194,10 +212,10 @@
 </head>
 <body>
 	<div class="container">
-		<h1>관심 페이지 이미지로~~</h1>
-		<input type="text" id="userid" value="${id }" readonly> <input
-			type="text" id="bno" value="<%=request.getParameter("tbno")%>"
-			readonly>
+		<h1 style="display: inline;">관심 페이지 이미지로~~</h1>
+		<input type="button" class="btn btn-danger" id="deleteBoard" value="게시물 삭제" style="float: right;"/>
+		<input type="text" id="userid" value="${id }" readonly> 
+		<input type="text" id="bno" value="<%=request.getParameter("tbno")%>" readonly>
 		<div class="row">
 			<div class="col-sm-6" style="background-color: yellow;">
 				<!-- 왼쪽 div -->

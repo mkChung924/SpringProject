@@ -85,4 +85,9 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 		return dao.selectBookmark(id, tbno);
 	}
 
+	@Override
+	public int deleteCommonRow(int tbno) throws Exception {
+		return dao.deleteCommonRow(tbno);
+	}
+
 }
