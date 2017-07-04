@@ -120,6 +120,7 @@ public class BoardController {
 	@RequestMapping(value = "CommonRead", method=RequestMethod.GET)
 	public String CommonRead(int tbno,Model model,HttpSession session) throws Exception{
 		model.addAttribute("commonBoard",service.selectCommonRow(tbno));
+		
 		return "board/commonRead";
 	}
 	

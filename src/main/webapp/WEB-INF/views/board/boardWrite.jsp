@@ -51,7 +51,7 @@ function uploadFile(inp, editor) {
     data.append('files', input.files[0]);
 	
     $.ajax({
-      url: 'b/images',
+      url: '/rest2/a/images',
       type: 'POST',
       data: data,
       enctype: 'multipart/form-data',
@@ -101,7 +101,7 @@ function uploadFile(inp, editor) {
 		var str="";
 		$.ajax({
 			type : 'post',
-			url : '/rest/'+${cno},
+			url : '/rest2/'+${cno},
 			dateType : "json",
 			success : function(result) {
 				

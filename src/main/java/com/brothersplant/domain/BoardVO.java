@@ -22,8 +22,10 @@ public class BoardVO {//13
 	
 	private int likes;
 	private int viewcnt;
+	private int myFavor;
 	private Date regdate;
 	private Date updatedate;
+	
 	
 	public int getTel_ch() {
 		return tel_ch;
@@ -148,13 +150,19 @@ public class BoardVO {//13
 		this.tel = tel;
 	}
 	
+	public int getMyFavor() {
+		return myFavor;
+	}
+	public void setMyFavor(int myFavor) {
+		this.myFavor = myFavor;
+	}
 	@Override
 	public String toString() {
-		return "BoardVO [tbno=" + tbno + ", tb_kind=" + tb_kind + ", title=" + title + ", id=" + id + ", cno=" + cno
-				+ ", csno=" + csno + ", do1=" + do1 + ", si=" + si + ", dong=" + dong + ", content=" + content
-				+ ", likes=" + likes + ", viewcnt=" + viewcnt + ", regdate=" + regdate + ", updatedate=" + updatedate
-				+ ", notice=" + notice + ", openchat=" + openchat + ", tel=" + tel + ", tel_ch=" + tel_ch + ", place1="
-				+ place1 + ", place2=" + place2 + "]";
+		return "BoardVO [tbno=" + tbno + ", tb_kind=" + tb_kind + ", id=" + id + ", cno=" + cno + ", csno=" + csno
+				+ ", do1=" + do1 + ", si=" + si + ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2
+				+ ", title=" + title + ", content=" + content + ", notice=" + notice + ", openchat=" + openchat
+				+ ", tel=" + tel + ", tel_ch=" + tel_ch + ", likes=" + likes + ", viewcnt=" + viewcnt + ", myFavor="
+				+ myFavor + ", regdate=" + regdate + ", updatedate=" + updatedate + "]";
 	}
 
 	

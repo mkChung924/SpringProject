@@ -25,6 +25,7 @@ public interface BoardInfoService {
 	
 	// 관심 게시판 검색
 	public List<BoardListVO> selectMyInterestList(SearchCriteria cri) throws Exception;
+	public BoardListVO selectMyInterestRow(SearchCriteria cri) throws Exception;
 	public int countBoardList(SearchCriteria cri) throws Exception;
 	
 	//즐겨찾기 추가

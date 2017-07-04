@@ -22,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.brothersplant.service.BoardInfoService;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/rest2")
 public class RestUtils {
 	
 	@Inject

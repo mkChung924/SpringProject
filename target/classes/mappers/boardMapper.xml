@@ -42,7 +42,11 @@
 	</select>
 	
 	<select id="selectCommonRow" resultType="boardVO">
-		select * from TBL_BOARDS where tbno=#{tbno}
+		select TBNO,TB_KIND,ID,CNO,CSNO,DO1,SI,DONG,PLACE1,PLACE2,TITLE,NOTICE,OPENCHAT,CONTENT,TEL,TEL_CH,IMAGE,VIEWCNT,REGDATE,UPDATEDATE,
+					(select count(*) from tbl_like where tbno =  #{tbno}) likes,
+					(select count(*) from bookmark where tbno = #{tbno}) myFavor  
+		from TBL_BOARDS 
+		where tbno=#{tbno}
 	</select>
 	
 	<select id="selectBoardList" resultType="boardListVO">

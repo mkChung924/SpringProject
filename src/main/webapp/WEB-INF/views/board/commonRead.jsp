@@ -204,6 +204,44 @@
 		});
 	});
 	
+	function favor(tbno) { //즐겨 찾기
+		$.ajax({
+			url : '/rest/bookmark',
+			data : 'id=' + "${id }" + '&tbno=' + tbno,
+			success : function(result) {
+				if (result == "OK") {
+
+					$('#bk-' + tbno).attr("class", "glyphicon glyphicon-star");
+					$('#bk-' + tbno).attr("title", "즐겨찾기 해제");
+					$('#bk-' + tbno).attr("data-original-title", "즐겨찾기 해제");
+					
+					$('#bk-' + tbno,opener.document).attr("class", "glyphicon glyphicon-star");
+					$('#bk-' + tbno,opener.document).attr("title", "즐겨찾기 해제");
+					$('#bk-' + tbno,opener.document).attr("data-original-title", "즐겨찾기 해제");
+				} else {
+
+					$('#bk-' + tbno).attr("class", "glyphicon glyphicon-star-empty");
+					$('#bk-' + tbno).attr("title", "즐겨찾기 추가");
+					$('#bk-' + tbno).attr("data-original-title", "즐겨찾기 추가");
+					
+					$('#bk-' + tbno,opener.document).attr("class", "glyphicon glyphicon-star-empty");
+					$('#bk-' + tbno,opener.document).attr("title", "즐겨찾기 추가");
+					$('#bk-' + tbno,opener.document).attr("data-original-title", "즐겨찾기 추가");
+				}
+			},
+		});
+	}
+	
+	function likes(tbno) { //좋아요
+		 		$.ajax({
+					url : '/like/add',
+					data : 'id=' + "${id }" + '&tbno=' + tbno,
+					success : function(result) {
+							$("#likeCnt").html(result);
+							$("#likeCnt",opener.document).html(result);
+					},
+				}); 
+	}
 	$(function() {
 		getPage("/replies/all/" + $("#bno").val());
 	});
@@ -213,11 +251,14 @@
 <body>
 	<div class="container">
 		<h1 style="display: inline;">관심 페이지 이미지로~~</h1>
-		<input type="button" class="btn btn-danger" id="deleteBoard" value="게시물 삭제" style="float: right;"/>
-		<input type="text" id="userid" value="${id }" readonly> 
-		<input type="text" id="bno" value="<%=request.getParameter("tbno")%>" readonly>
+		<c:if test="${commonBoard.id == id || auth == 2}">
+			<input type="button" class="btn btn-danger" id="deleteBoard" value="게시물 삭제" style="float: right;" />
+		</c:if>
+	 <input type="hidden"
+			id="userid" value="${id }" readonly> <input type="hidden"
+			id="bno" value="${commonBoard.tbno }" readonly>
 		<div class="row">
-			<div class="col-sm-6" style="background-color: yellow;">
+			<div class="col-sm-6">
 				<!-- 왼쪽 div -->
 				<input type="text" class="form-control" id="title"
 					value="${commonBoard.title}" placeholder="제목 입력란" readonly>
@@ -228,11 +269,46 @@
 					style="width: 100%;">${commonBoard.content}</textarea>
 			</div>
 
-			<div class="col-sm-6" style="background-color: pink;">
+			<div class="col-sm-6">
 				<!-- 오른쪽 div -->
 				<label>OpenChat</label> <input type="text" class="form-control"
 					id="title" value="${commonBoard.openchat}" placeholder="작성자"
-					readonly> <br> <label>전화 번호</label>
+					readonly> <br>
+
+				<!-- ================ 즐겨 찾기 표시 -->
+				<c:if test="${commonBoard.myFavor == 1 }">
+					<div class="col-md-6">
+						<p class="p-${commonBoard.tbno }" align="left">
+							<i class="glyphicon glyphicon-star" id="bk-${commonBoard.tbno }"
+								onclick="favor(${commonBoard.tbno})" data-toggle="bookmark"
+								data-placement="bottom" title="즐겨찾기 해제"
+								style="font-size: 25px; cursor: pointer;"></i>
+						</p>
+					</div>
+				</c:if>
+				<c:if test="${commonBoard.myFavor == 0 }">
+					<div class="col-md-6">
+						<p align="left">
+							<i class="glyphicon glyphicon-star-empty"
+								id="bk-${commonBoard.tbno }"
+								onclick="favor(${commonBoard.tbno})" data-toggle="bookmark"
+								data-placement="bottom" title="즐겨찾기 추가"
+								style="font-size: 25px; cursor: pointer;"></i>
+						</p>
+					</div>
+				</c:if>
+				<!-- ================ 즐겨 찾기 표시 끝 -->
+				<!-- ================ 좋아요 표시 끝 -->
+				<p align="right">
+					<span class="badge" style="background-color: blue"
+						onclick="likes(${commonBoard.tbno})" id="likeCnt">${commonBoard.likes }</span>
+					<i class="glyphicon glyphicon-thumbs-up" data-toggle="like" style="size: 50px;"
+						data-placement="top" title="좋아요" onclick="likes(${commonBoard.tbno})"></i>
+				</p>
+				<!-- ================ 좋아요 표시 끝 -->
+
+
+				<label>전화 번호</label>
 				<div>
 					<c:set var="telParts" value="${fn:split(commonBoard.tel, '-')}" />
 					<input class="form-control" id="inputPhone" maxlength="4"
@@ -254,8 +330,8 @@
 				<hr>
 				<!-- 여기 부터 댓글 부분 -->
 
-				<div class="comments-container"
-					style="margin-top: 10px; width: 100%; overflow: scroll; height: 500px">
+				<div class="comments-container scrollbar force-overflow"
+					style="margin-top: 10px; width: 100%; overflow: scroll; height: 500px" id="scrollbar119">
 					<ul id="comments-list" class="comments-list">
 					</ul>
 				</div>

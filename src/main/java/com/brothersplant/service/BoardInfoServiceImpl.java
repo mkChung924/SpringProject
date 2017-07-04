@@ -96,4 +96,9 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 		return dao.deleteCommonRow(tbno);
 	}
 
+	@Override
+	public BoardListVO selectMyInterestRow(SearchCriteria cri) throws Exception {
+		return null;
+	}
+
 }

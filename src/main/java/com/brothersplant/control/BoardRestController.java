@@ -21,6 +21,7 @@ import com.brothersplant.service.BoardInfoService;
 
 
 @RestController
+@RequestMapping("/rest")
 public class BoardRestController {
 	
 	@Inject
