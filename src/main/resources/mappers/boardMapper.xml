@@ -27,8 +27,8 @@
 	</select>
 	
 	<!-- 메인 카테고리 검색 -->
-	<select id="selectMainCategory" resultType="String">
-		select cname from TBL_CATEGORY
+	<select id="selectMainCategory" resultType="java.util.Map">
+		select cno, cname from TBL_CATEGORY
 	</select>
 	
 	<!-- 서브 카테고리 검색 -->
@@ -207,7 +207,34 @@
 		</if>
 	</select>
 	
+	<!-- 즐겨찾기 등록 -->
+	<insert id="insertBookmark">
+		insert into bookmark values(bookmark_seq.nextval, #{id}, #{tbno})
+	</insert>
 	
+	<!-- 즐겨찾기 해제 -->
+	<delete id="deleteBookmark">
+		delete from bookmark where id = #{id} and tbno = #{tbno}
+	</delete>
+	
+	<!-- 즐겨찾기 유무 확인 -->
+	<select id="selectBookmark" resultType="int">
+		select count(*) from bookmark where id = #{id} and tbno = #{tbno}
+	</select>
+	
+	<sql id="search">
+	<if test="searchType != null">
+		<if test="searchType == 'n'.toString()">
+			where nickname like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 't'.toString()">
+			where title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'c'.toString()">
+			where content like '%'||#{keyword}||'%'
+		</if>
+	</if>
+</sql>
 	
 	
 </mapper>

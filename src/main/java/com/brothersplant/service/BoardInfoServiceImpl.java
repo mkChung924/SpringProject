@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.CategoryInfoVO;
+import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.persistence.BoardInfoDAO;
 
 @Service
@@ -31,7 +32,7 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	}
 
 	@Override
-	public List<String> selectMainCategory() throws Exception {
+	public List<Map<String, Object>> selectMainCategory() throws Exception {
 		return dao.selectMainCategory();
 	}
 
@@ -55,15 +56,33 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	}
 
 	@Override
-	public List<BoardListVO> selectMyInterestList(CategoryInfoVO vo) throws Exception {
+	public List<BoardListVO> selectMyInterestList(CategoryInfoVO vo, SearchCriteria cri) throws Exception {
 		
-		return dao.selectBoardList(vo);
+		return dao.selectBoardList(vo,cri);
 	}
 
 	@Override
 	public Map<String, String> selectCategory(int csno) throws Exception {
 		
 		return dao.selectCategory(csno);
+	}
+
+	@Override
+	public void addBookmark(String id, int tbno) throws Exception {
+
+		dao.addBookmark(id, tbno);
+	}
+
+	@Override
+	public void deleteBookmark(String id, int tbno) throws Exception {
+		dao.removeBookmark(id, tbno);
+		
+	}
+
+	@Override
+	public int getBookmark(String id, int tbno) throws Exception {
+
+		return dao.selectBookmark(id, tbno);
 	}
 
 }

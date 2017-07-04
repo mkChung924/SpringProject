@@ -54,6 +54,11 @@
 						<ul class="nav">
 							<li>
 								<a href="mypage">
+								<i class="glyphicon glyphicon-user"></i>
+								내 정보 </a>
+							</li>
+							<li>
+								<a href="myContents">
 								<i class="glyphicon glyphicon-list"></i>
 								내 글보기 </a>
 							</li>

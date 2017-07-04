@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="msg">
+
+<insert id="insertSend">
+		insert into sendermessages (mno,title,content,targetid,sender,senddate) 
+		values (send_messages_seq.nextval,#{title},#{content},#{targetid},#{id},sysdate)
+	</insert>
+	<insert id="insertReceive">
+		insert into receivermessages (mno,title,content,targetid,sender,senddate) 
+		values (receive_messages_seq.nextval,#{title},#{content},#{targetid},#{id},sysdate)
+	</insert>
+	<select id="receiverSelect" resultType="receiveMsg"><!-- 수신 메세지함 -->
+		select mno,title,sender,receivedate from receivermessages where targetid=#{id} order by receivedate desc
+	</select>
+	<select id="senderSelect" resultType="sendMsg"><!-- 발신 메세지함 -->
+		select mno,title,targetid,senddate from sendermessages where sender = #{id} order by senddate desc
+	</select>
+ 	<select id="senderContent" resultType="sendMsg"><!-- 내가쓴내용 -->
+		select mno,targetid,title,content from sendermessages where mno=#{mno}
+	</select> 
+	<select id="receiverContent" resultType="receiveMsg"><!-- 받은내용 -->
+		select mno,sender,title,content from receivermessages where mno=#{mno}
+	</select>
+	<delete id="sendDelete">
+		delete from sendermessages where mno=#{mno}
+	</delete>
+		<delete id="receiveDelete">
+		delete from receivermessages where mno=#{mno}
+	</delete>
+	<select id="senderCountPaging" resultType="int">
+		select count(*) from sendermessages
+	</select>
+	<select id="receiverCountPaging" resultType="int">
+		select count(*) from receivermessages
+	</select>
+
+</mapper>

@@ -18,8 +18,26 @@ public class MyPageController {
 	@Inject
 	private MyPageService service;
 	
+	
 	@RequestMapping("/mypage")
 	public String myPage(HttpSession session, Model model) throws Exception {
+		System.out.println("마이페이지-내글보기 입장");
+		String id = (String) session.getAttribute("id");
+		if(id != null){
+		System.out.println("my정보: "+service.myPageInfo(id));
+		System.out.println(service.secureCode());
+		System.out.println(id);
+		
+		model.addAttribute("mypage", service.myPageInfo(id));
+		
+		return "mypage/myInfo";
+		} else {
+			return "redirect:login";
+		}
+	}
+	
+	@RequestMapping("/myContents")
+	public String myContents(HttpSession session, Model model) throws Exception {
 		System.out.println("마이페이지-내글보기 입장");
 		String id = (String) session.getAttribute("id");
 		if(id != null){
@@ -36,17 +54,23 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/message")
-	public String myPageMessage(HttpSession session, Model model) throws Exception {
+	public String myPageMessage(HttpSession session, Model model, String page) throws Exception {
 		System.out.println("메시지 입장");
 		String id = (String) session.getAttribute("id");
 		if(id != null){
-		System.out.println("my정보: "+service.myPageInfo(id));
-		System.out.println(service.secureCode());
-		System.out.println(id);
-		
-		model.addAttribute("mypage", service.myPageInfo(id));
-		
-		return "mypage/myPageMessage";
+			System.out.println("my정보: "+service.myPageInfo(id));
+			System.out.println(service.secureCode());
+			System.out.println(id);
+			
+			model.addAttribute("mypage", service.myPageInfo(id));
+			
+			if(page == null){
+				System.out.println("null~~");
+				page = "1";
+			}
+			model.addAttribute("page", Integer.parseInt(page));		
+			
+			return "mypage/myPageMessage";
 		} else {
 			return "redirect:login";
 		}

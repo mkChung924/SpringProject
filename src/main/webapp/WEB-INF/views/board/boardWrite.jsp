@@ -49,9 +49,9 @@ function uploadFile(inp, editor) {
     var input = inp.get(0);
     var data = new FormData();
     data.append('files', input.files[0]);
-
+	
     $.ajax({
-      url: '/rest/a/images',
+      url: 'b/images',
       type: 'POST',
       data: data,
       enctype: 'multipart/form-data',
@@ -76,18 +76,22 @@ function uploadFile(inp, editor) {
 
 	
 	$(function(){
-		
+				
 		$(document).on("change", "#mainC", function() {
 
 			var str="";
 				$.ajax({
 					type : 'post',
-					url : '/rest/'+$(this).find(":selected").val(),
+					url : $(this).find(":selected").val(),
 					dateType : "json",
 					success : function(result) {
 						console.log(result);
 						for(var i=0;  i<result.length;i++){
-							str +="<option>"+result[i]+"</option>";
+							
+							if(result[i]["CSNO"] == ${csno}){
+								continue;
+							}
+							str +="<option value="+result[i]["CSNO"]+">"+result[i]['CSNAME']+"</option>";
 						}
 						$("#subC").html(str);
 					}
@@ -163,8 +167,8 @@ function uploadFile(inp, editor) {
 				<option value="${cno }">${category }</option>
 				<c:if test="${cno != 1 }">
 					<c:forEach var="mainc" items="${mainCategory}" varStatus="status">
-						<c:if test="${mainc != category }">				
-							<option value="${status.index}">${mainc}</option>
+						<c:if test="${mainc.CNO != 1}">				
+							<option value="${mainc.CNO}">${mainc.CNAME}</option>
 						</c:if>
 					</c:forEach>
 				</c:if>
