@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,7 @@ public class RestUtils {
 	
 	@Inject
 	private BoardInfoService bservice;
+	
 	
 	@RequestMapping(value = "{data}", method= RequestMethod.POST)
 	public ResponseEntity<List<Map<String,Object>>> list(@PathVariable("data") int mainCategory) {
@@ -54,8 +56,8 @@ public class RestUtils {
 	private String uploadFilesFromTinyMCE(String prefix, MultipartFile files[], boolean isMain,HttpSession session) {
 	    System.out.println("uploading______________________________________" + prefix);
 	    try {
-	    	
-	        String folder = session.getServletContext().getRealPath("/") + "/resources/uploads/" + prefix;
+	    	//session.getServletContext().getRealPath("/")
+	    	String folder = session.getServletContext().getRealPath("/") + "/resources/uploads/" + prefix;
 	        StringBuffer result = new StringBuffer();
 	        byte[] bytes = null;
 	        result.append("Uploading of File(s) ");
@@ -68,8 +70,10 @@ public class RestUtils {
 
 	                    try {
 	                        File theDir = new File(folder);
+	                        if(!theDir.exists()){
 	                        theDir.mkdir();
 	                        created = true;
+	                        }
 	                    } catch (SecurityException se) {
 	                        se.printStackTrace();
 	                    }
@@ -77,12 +81,15 @@ public class RestUtils {
 	                        System.out.println("DIR created");
 	                    }
 	                    String path = "";
-	                    path = folder + files[i].getOriginalFilename();
+	                    System.out.println("folder : "+folder);
+	                    path = folder+ files[i].getOriginalFilename();
+	                    System.out.println("path :"+path);
 	                    File destination = new File(path);
 	                    System.out.println("--> " + destination);
 	                    files[i].transferTo(destination);
 	                    result.append(files[i].getOriginalFilename() + " Succsess. ");
 	                } catch (Exception e) {
+	                	e.printStackTrace();
 	                    throw new RuntimeException("Product Image saving failed", e);
 	                }
 
