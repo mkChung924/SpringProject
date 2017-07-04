@@ -21,7 +21,8 @@ public interface BoardInfoDAO {
 	public BoardVO selectCommonRow(int tbno) throws Exception;
 	public int deleteCommonRow(int tbno) throws Exception;
 	
-	public List<BoardListVO> selectBoardList(CategoryInfoVO vo, SearchCriteria cri) throws Exception;
+	public List<BoardListVO> selectBoardList(SearchCriteria cri) throws Exception;
+	public int selectBoardCount(SearchCriteria cri) throws Exception;
 	
 	public int selectBookmark(String id, int tbno) throws Exception;
 	public void addBookmark(String id, int tbno) throws Exception;
