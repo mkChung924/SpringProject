@@ -22,7 +22,8 @@ public interface BoardInfoService {
 	public BoardVO selectCommonRow(int tbno) throws Exception;
 	
 	// 관심 게시판 검색
-	public List<BoardListVO> selectMyInterestList(CategoryInfoVO vo, SearchCriteria cri) throws Exception;
+	public List<BoardListVO> selectMyInterestList(SearchCriteria cri) throws Exception;
+	public int countBoardList(SearchCriteria cri) throws Exception;
 	
 	//즐겨찾기 추가
 	public int getBookmark(String id, int tbno) throws Exception;

@@ -56,9 +56,15 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	}
 
 	@Override
-	public List<BoardListVO> selectMyInterestList(CategoryInfoVO vo, SearchCriteria cri) throws Exception {
+	public List<BoardListVO> selectMyInterestList(SearchCriteria cri) throws Exception {
 		
-		return dao.selectBoardList(vo,cri);
+		return dao.selectBoardList(cri);
+	}
+	
+	@Override
+	public int countBoardList(SearchCriteria cri) throws Exception {
+		
+		return dao.selectBoardCount(cri);
 	}
 
 	@Override
@@ -84,5 +90,7 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 
 		return dao.selectBookmark(id, tbno);
 	}
+
+
 
 }

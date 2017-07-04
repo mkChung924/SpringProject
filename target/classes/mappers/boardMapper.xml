@@ -48,7 +48,76 @@
 	<select id="selectBoardList" resultType="boardListVO">
 		<if test="place1 != null">
 			select * from (
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+				<include refid="travelBoardCount"/>
+			)
+			<include refid="search"/>
+			order by ordered
+			
+		</if>
+		
+		<if test="place1 == null">
+		
+			select * from (
+					<include refid="count"/>		
+				)
+			<include refid="search"/>
+			order by ordered
+			
+		</if>
+	</select>
+	
+	<select id="countBoardList" resultType="int">
+		<if test="place1 != null">
+			select count(*) from (
+				<include refid="travelBoardCount"/>
+			)
+			<include refid="search"/>
+			
+			
+		</if>
+		
+		<if test="place1 == null">
+		
+			select count(*) from (
+				<include refid="count"/>		
+			)
+			<include refid="search"/>
+			
+			
+		</if>
+	</select>
+	
+	<!-- 즐겨찾기 등록 -->
+	<insert id="insertBookmark">
+		insert into bookmark values(bookmark_seq.nextval, #{id}, #{tbno})
+	</insert>
+	
+	<!-- 즐겨찾기 해제 -->
+	<delete id="deleteBookmark">
+		delete from bookmark where id = #{id} and tbno = #{tbno}
+	</delete>
+	
+	<!-- 즐겨찾기 유무 확인 -->
+	<select id="selectBookmark" resultType="int">
+		select count(*) from bookmark where id = #{id} and tbno = #{tbno}
+	</select>
+	
+	<sql id="search">
+	<if test="searchType != null">
+		<if test="searchType == 'n'.toString()">
+			where nickname like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 't'.toString()">
+			where title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'c'.toString()">
+			where content like '%'||#{keyword}||'%'
+		</if>
+	</if>
+	</sql>
+	
+	<sql id="travelBoardCount">
+		select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
 					(select cname from tbl_category where cno = a.cno) cname,
 					(select csname from tbl_subcategory where csno = a.csno) csname,
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
@@ -159,14 +228,10 @@
 				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
 				a.place2 not like '%'||#{place2}||'%' and a.csno != #{csno} and a.tb_kind != 0 and
 				a.id = userinfos.id
-			)
-			order by ordered
-		</if>
-		
-		<if test="place1 == null">
-		
-			select * from (
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+	</sql>
+	
+	<sql id="count">
+		select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
 					(select cname from tbl_category where cno = a.cno) cname,
 					(select csname from tbl_subcategory where csno = a.csno) csname,
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
@@ -200,42 +265,8 @@
 					 3 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind != 0 and
-				a.id = userinfos.id
-			)
-			order by ordered
-			
-		</if>
-	</select>
-	
-	<!-- 즐겨찾기 등록 -->
-	<insert id="insertBookmark">
-		insert into bookmark values(bookmark_seq.nextval, #{id}, #{tbno})
-	</insert>
-	
-	<!-- 즐겨찾기 해제 -->
-	<delete id="deleteBookmark">
-		delete from bookmark where id = #{id} and tbno = #{tbno}
-	</delete>
-	
-	<!-- 즐겨찾기 유무 확인 -->
-	<select id="selectBookmark" resultType="int">
-		select count(*) from bookmark where id = #{id} and tbno = #{tbno}
-	</select>
-	
-	<sql id="search">
-	<if test="searchType != null">
-		<if test="searchType == 'n'.toString()">
-			where nickname like '%'||#{keyword}||'%'
-		</if>
-		<if test="searchType == 't'.toString()">
-			where title like '%'||#{keyword}||'%'
-		</if>
-		<if test="searchType == 'c'.toString()">
-			where content like '%'||#{keyword}||'%'
-		</if>
-	</if>
-</sql>
-	
+				a.id = userinfos.id	
+	</sql>
 	
 </mapper>
 

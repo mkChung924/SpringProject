@@ -59,12 +59,17 @@ private static final String namespace = "board";
 
 
 	@Override
-	public List<BoardListVO> selectBoardList(CategoryInfoVO vo, SearchCriteria cri) throws Exception {
+	public List<BoardListVO> selectBoardList(SearchCriteria cri) throws Exception {
 		
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
-		return session.selectList(namespace+".selectBoardList", vo, bounds);
+		return session.selectList(namespace+".selectBoardList", cri, bounds);
 	}
 
+	@Override
+	public int selectBoardCount(SearchCriteria cri) throws Exception {
+		
+		return session.selectOne(namespace+".countBoardList", cri);
+	}
 
 	@Override
 	public Map<String, String> selectCategory(int csno) throws Exception {
@@ -101,5 +106,6 @@ private static final String namespace = "board";
 		return session.selectOne(namespace+".selectBookmark", map);
 		
 	}
+
 
 }

@@ -100,44 +100,13 @@
 		})
 		
 		$('#search').click(function(){
-			alert($('[name=searchType]').val());
+			//alert($('[name=searchType]').val());
+			var frm = $('form[role="form"]');
+			frm.attr('method','POST');
+			frm.submit();
 		});
 	
 		$('#perPageNum').change(function(){
-	
-			/* var num = $(this).val();
-			
-			$.ajax({
-				type : 'post',
-		         url : '/perPage',
-		         headers : {
-		            "Content-Type" : "application/json",
-		            "X-HTTP-Method-Override" : "POST"
-		         },
-		         data : JSON.stringify({
-		            do1 : $("[name=do1]").val(),
-		            si : $("[name=si]").val(),
-		            dong : $("[name=dong]").val(),
-		            place1 : $("[name=place1]").val(),
-		            place2 : $("[name=place2]").val(),
-		            cno : $("[name=cno]").val(),
-		            csno : $("[name=csno]").val(),
-		            pageNum : num
-		         }),
-		         success : function(result) {
-		            console.log(result);
-		            if (result == 'SUCCESS') {
-		               alert('등록되었습니다');
-		               //replyPage =1;
-		               //getPage("/replies/"+bno+"/"+replyPage); 
-		               getPage("/replies/all/" + $("#bno").val());
-		               replyerObj.val("");
-		               replytextObj.val("");
-
-		            }
-		         }
-
-			}); */
 			
  			var frm = $('form[role="form"]');
 			frm.attr('method','POST');
@@ -242,17 +211,20 @@
 						<select class="form-control s" id="option" name="searchType">
 							<option value="n">닉네임</option>
 							<option value="t">제목</option>
-							<option value="c">내</option>
+							<!-- <option value="c">내용</option> -->
 						</select>
-						<input type="text" class="form-control t" name="keyword">
+						<input type="text" class="form-control t" id="keywords" name="keyword" autocomplete="off">
 						<button type="button" class="btn btn-default" id="search">검색</button>
 						<div style="text-align: right; margin-top: 10px;">
-						<select class="form-control" id="perPageNum" name="perPageNum" style="display: inline; width: 100px;">
-							<option value=9>9개씩 보기</option>
-							<option value=15>15개씩 보기</option>
-							<option value=30>30개씩 보기</option>
-							<option value=60>60개씩 보기</option>
+						<select class="form-control" id="perPageNum" name="pageNum" style="display: inline; width: 100px;">
+							<c:out value=""></c:out>
+							<option value=9 ${pageNum == 9 ? 'selected': '' }>9개씩 보기</option>
+							<option value=15 ${pageNum == 15 ? 'selected': '' }>15개씩 보기</option>
+							<option value=30 ${pageNum == 30 ? 'selected': '' }>30개씩 보기</option>
+							<option value=60 ${pageNum == 60 ? 'selected': '' }>60개씩 보기</option>
+
 						</select>
+
 						<c:if test="${cno == 1 }">	
 							<button type="button" class="btn btn-default" id="review" style="background-color: black; color: white">여행 후기 모아보기</button>					
 							<button type="button" class="btn btn-default" id="together" style="background-color: black; color: white">관심글 모아보기</button>
