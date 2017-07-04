@@ -58,24 +58,34 @@
 	function favor(tbno) { //즐겨 찾기
 
 		$.ajax({
-				url:'/rest/bookmark',
-				data:'id='+"${id }"+'&tbno='+tbno,
-				success:function(result){
-					if(result == "OK"){
-						
-						$('#bk-'+tbno).attr("class","glyphicon glyphicon-star");
-						$('#bk-'+tbno).attr("title","즐겨찾기 해제");
-						$('#bk-'+tbno).attr("data-original-title","즐겨찾기 해제");
-						
-					} else {
-						
-						$('#bk-'+tbno).attr("class","glyphicon glyphicon-star-empty");
-						$('#bk-'+tbno).attr("title","즐겨찾기 추가");
-						$('#bk-'+tbno).attr("data-original-title","즐겨찾기 추가");
-					}
-				},
-		})
+            url : 'rest/bookmark',
+            data : 'id=' + "${id }" + '&tbno=' + tbno,
+            success : function(result) {
+                if (result == "OK") {
+
+                    $('#bk-' + tbno).attr("class", "glyphicon glyphicon-star");
+                    $('#bk-' + tbno).attr("title", "즐겨찾기 해제");
+                    $('#bk-' + tbno).attr("data-original-title", "즐겨찾기 해제");
+
+                } else {
+
+                    $('#bk-' + tbno).attr("class", "glyphicon glyphicon-star-empty");
+                    $('#bk-' + tbno).attr("title", "즐겨찾기 추가");
+                    $('#bk-' + tbno).attr("data-original-title", "즐겨찾기 추가");
+                }
+            },
+        });
+
 	}
+	
+    function readPage(tbno) {
+        var w = 800;
+        var h = 400;
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
+        window.open("/CommonRead?tbno=" + tbno, tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+    };
+
 </script>
 </head>
 
