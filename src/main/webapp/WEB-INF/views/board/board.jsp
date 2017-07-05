@@ -326,7 +326,7 @@
 			              	 <img src="/resources/upload/default.png" draggable="false" style="border-radius: 50%; width: 10%; height: 9%; margin-top: -15px"> &nbsp;
 			              	 </c:if>
 			              	  <c:if test="${myList.profile != 'default.png' }">
-			              	 <img src="/resources/upload/${myList.id }/${myList.profile }" draggable="false" style="border-radius: 50%; width: 10%; height: 9%; margin-top: -15px"> &nbsp;
+			              	 <img src="${myList.profile }" draggable="false" style="border-radius: 50%; width: 10%; height: 9%; margin-top: -15px"> &nbsp;
 		              	 	</c:if>
 		              	 	<font size=4><b>${myList.nickname }</b></font>
 		              	 	</div>
