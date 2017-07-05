@@ -33,4 +33,13 @@
 	<select id="selectprofile" resultType="String">
 		select profile from userinfos where id=#{id}
 	</select>
+	
+	<select id="selectMyAuth" resultType="int">
+		select auth from userinfos where id = #{id}
+	</select>
+	
+	
+	<update id="updateProfilePicture">
+		update userinfos set profile = #{profile} where id = #{id}
+	</update>
 </mapper>

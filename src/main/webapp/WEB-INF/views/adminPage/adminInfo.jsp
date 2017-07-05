@@ -13,33 +13,8 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
-<link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
-
-<script>
-$(document).on("click","#modifyProfilePicture",function(){
-	var fileName = $("#fileopen").trigger('click',function(){
-	});
-});
-$(document).on("change","#fileopen",function(){
-	
-	var formData = new FormData();
-	 //첫번째 파일태그
-	 formData.append("file",$("#fileopen")[0].files[0]);
-
-	$.ajax({
-		url : '/rest2/profile/image',
-		data : formData,
-		type : "POST",
-		contentType: false,
-		processData: false,
-		success : function(result) {
-			$("#profilePic").attr("src",result);			
-		},
-	});
-});
-</script>
-
-<title>마이페이지-내글보기</title>
+<link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.4">
+<title>관리자페이지</title>
 </head>
 <body>
 	<div class="container">
@@ -55,22 +30,21 @@ $(document).on("change","#fileopen",function(){
 				<div class="profile-sidebar">
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
-						<c:if test="${mypage.profile == 'default.png' }">						
-						<img src="/resources/upload/${mypage.profile }" class="img-responsive" alt="기존사진" id="profilePic"><br>
+						<c:if test="${admin.profile == 'default.png' }">						
+						<img src="/resources/upload/${admin.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
-						<c:if test="${mypage.profile != 'default.png' }">
-						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진" id="profilePic"><br>
+						<c:if test="${admin.profile != 'default.png' }">
+						<img src="/resources/upload/${id }/${admin.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
-						<button type="button" class="btn btn-default" id="modifyProfilePicture">
-  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
+						<button type="button" class="btn btn-default">
+  						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
 						</button>
-							<input type="file" style="display: none;" id="fileopen">																								
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->
 					<div class="profile-usertitle">
-						<div class="profile-usertitle-name">${mypage.name}</div>
-						<div class="profile-usertitle-job">${mypage.nickname}</div>
+						<div class="profile-usertitle-name">${admin.name}</div>
+						<div class="profile-usertitle-job">${admin.nickname}</div>
 					</div>
 					<!-- END SIDEBAR USER TITLE -->
 					<!-- SIDEBAR BUTTONS -->
@@ -80,32 +54,32 @@ $(document).on("change","#fileopen",function(){
 					<div class="profile-usermenu">
 						<ul class="nav">
 							<li class="active">
-								<a href="mypage">
-								<i class="glyphicon glyphicon-user"></i>
+								<a href="admin">
+								<i class="glyphicon glyphicon-exclamation-sign"></i>
 								내 정보 </a>
 							</li>
 							<li>
-								<a href="myContents">
-								<i class="glyphicon glyphicon-list"></i>
-								내 글보기 </a>
+								<a href="#">
+								<i class="glyphicon glyphicon-user"></i>
+								회원 현황 </a>
 							</li>
 							<li>
-								<a href="message">
+								<a href="admessage">
 								<i class="glyphicon glyphicon-envelope"></i>
 								메시지함 </a>
 							</li>
 							<li>
-								<a href="mypageEdit">
+								<a href="#">
 								<i class="glyphicon glyphicon-edit"></i>
 								정보수정 </a>
 							</li>
 							<li>
-								<a href="favorite">
+								<a href="#">
 								<i class="glyphicon glyphicon-heart"></i>
 								즐겨찾기 </a>
 							</li>
 							<li>
-								<a href="del">
+								<a href="#">
 								<i class="glyphicon glyphicon-remove"></i>
 								탈퇴 </a>
 							</li>
@@ -127,11 +101,11 @@ $(document).on("change","#fileopen",function(){
 					<th>댓글 수</th>
 					</tr>
 					<tr>
-					<td>${mypage.auth == 2 ? '<font color=red>관리자</font>' : '<font color=blue>일반회원</font>' }</td>
-					<td>${mypage.id }</td>
-					<td>${mypage.regdate }</td>
-					<td>${mypage.myBoards }</td>
-					<td>${mypage.replyCount }</td>
+					<td>${admin.auth == 2 ? '<font color=red>관리자</font>' : '<font color=blue>일반회원</font>' }</td>
+					<td>${admin.id }</td>
+					<td>${admin.regdate }</td>
+					<td>${admin.myBoards }</td>
+					<td>${admin.replyCount }</td>
 					</tr>
 				</table>
 				<br>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.brothersplant.service.BoardInfoService;
+import com.brothersplant.service.UserInfoService;
 
 @RestController
 @RequestMapping("/rest2")
@@ -27,6 +28,8 @@ public class RestUtils {
 	
 	@Inject
 	private BoardInfoService bservice;
+	
+	@Inject UserInfoService userService;
 	
 	@Autowired
 	private ServletContext context;
@@ -43,7 +46,7 @@ public class RestUtils {
 		}
 		return entity;
 	}
-	//이미지 파일 올리기
+	//게시글 이미지 파일 올리기
 	@RequestMapping(value = "/a/images", method = RequestMethod.POST)
 	@ResponseBody
 	public String handleTinyMCEUpload(@RequestParam("files") MultipartFile files[],HttpSession session) {
@@ -100,5 +103,27 @@ public class RestUtils {
 	    } catch (Exception e) {
 	        return "Error Occured while uploading files." + " => " + e.getMessage();
 	    }
+	}
+	//프로필 이미지 올리기 update용
+	@RequestMapping(value = "/profile/image", method = RequestMethod.POST)
+	public ResponseEntity<String> updateProfilePicture(MultipartFile file,HttpSession session) throws Exception{
+		
+		String folder = context.getRealPath("/") + "/resources/upload/"+session.getAttribute("id")+"/profilePicture/";
+		File theDir = new File(folder);
+		theDir.mkdir();
+		
+		String path = "";
+        path = folder + file.getOriginalFilename();
+        File destination = new File(path);
+        System.out.println("--> " + destination);
+        file.transferTo(destination);
+        
+        String profile = "/resources/upload/"+session.getAttribute("id")+"/profilePicture/"+file.getOriginalFilename();
+        userService.updateProfilePicture(profile,(String)session.getAttribute("id"));
+        
+    	ResponseEntity<String> entity = null;
+    	
+        return entity = new ResponseEntity<>(profile, HttpStatus.OK);
+		
 	}
 }

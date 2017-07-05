@@ -258,7 +258,6 @@
 	$(function() {
 		getPage("/replies/all/" + $("#bno").val());
 	});
-	
 </script>
 <title>Insert title here</title>
 </head>

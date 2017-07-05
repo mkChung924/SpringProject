@@ -42,9 +42,12 @@ private static final String namespace = "board";
 	}
 
 	@Override
-	public BoardVO selectCommonRow(int tbno) throws Exception {
+	public BoardVO selectCommonRow(int tbno,String id) throws Exception {
 		System.out.println("DAO : "+tbno);
-		return session.selectOne(namespace+".selectCommonRow",tbno);
+		Map<String, Object> map = new HashMap<>();
+		map.put("tbno", tbno);
+		map.put("id", id);
+		return session.selectOne(namespace+".selectCommonRow",map);
 	}
 
 	@Override
@@ -71,6 +74,22 @@ private static final String namespace = "board";
 		
 		return session.selectOne(namespace+".countBoardList", cri);
 	}
+	
+
+	@Override
+	public List<BoardListVO> selectTravelReviewList(SearchCriteria cri) throws Exception {
+		
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		return session.selectList(namespace+".selectTravelReview", cri, bounds);
+	}
+
+
+	@Override
+	public int selectTravelCount(SearchCriteria cri) throws Exception {
+		
+		return session.selectOne(namespace+".countTravelReview", cri);
+	}
+
 
 	@Override
 	public Map<String, String> selectCategory(int csno) throws Exception {
@@ -113,9 +132,9 @@ private static final String namespace = "board";
 		return session.delete(namespace+".deleteCommonRow", tbno);
 	}
 
-
 	@Override
 	public int updateCommonRow(BoardVO vo) throws Exception {
 		return session.update(namespace+".updateCommonRow",vo);
 	}
+
 }

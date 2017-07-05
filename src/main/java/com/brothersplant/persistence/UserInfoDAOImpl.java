@@ -110,12 +110,24 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		}
 		
 	}
-
 	@Override
 	public String selectprofile(String id) throws Exception {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id);
 		return sql.selectOne("userinfo.selectprofile",map);
+	}
+	@Override
+	public int selectAuth(String id) throws Exception {
+		return sql.selectOne("userinfo.selectMyAuth",id);
+	}
+
+	@Override
+	public int updateProfilePicture(String profile,String id) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("profile", profile);
+		System.out.println(profile+" : "+id);
+		return sql.update("userinfo.updateProfilePicture", map);
 	}
 
 }

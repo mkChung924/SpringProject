@@ -50,9 +50,9 @@ public class MyPageDAOImpl implements MyPageDAO {
 	}
 
 	@Override
-	public void updateUser(UserInfoVO vo) throws Exception {
+	public int updateUser(UserInfoVO vo) throws Exception {
 		System.out.println("doa: " + vo);
-		sql.update("mypage.update",vo);
+		return sql.update("mypage.update",vo);
 		
 	}
 

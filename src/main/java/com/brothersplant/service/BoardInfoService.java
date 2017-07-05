@@ -20,7 +20,7 @@ public interface BoardInfoService {
 	public Map<String,String> selectCategory(int csno) throws Exception;
 	
 	//일반 게시물
-	public BoardVO selectCommonRow(int tbno) throws Exception;
+	public BoardVO selectCommonRow(int tbno,String id) throws Exception;
 	public int deleteCommonRow(int tbno) throws Exception;
 	public int updateCommonRow(BoardVO vo)throws Exception;
 	
@@ -28,6 +28,9 @@ public interface BoardInfoService {
 	public List<BoardListVO> selectMyInterestList(SearchCriteria cri) throws Exception;
 	public BoardListVO selectMyInterestRow(SearchCriteria cri) throws Exception;
 	public int countBoardList(SearchCriteria cri) throws Exception;
+	
+	public List<BoardListVO> showTravelReviewList(SearchCriteria cri) throws Exception;
+	public int countTravelReviewList(SearchCriteria cri) throws Exception;
 	
 	//즐겨찾기 추가
 	public int getBookmark(String id, int tbno) throws Exception;

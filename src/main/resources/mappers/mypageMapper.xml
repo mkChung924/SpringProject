@@ -16,7 +16,7 @@
 	
 	<update id="update">
 		update userinfos 
-		set pass=#{pass},nickname=#{nickname},email=#{email},secure=#{secure},secure_ans=#{secure_ans}
+		set password=#{password},nickname=#{nickname},email=#{email},tel=#{tel},secure=#{secure},secure_ans=#{secure_ans}
 		where id=#{id}
 	</update>
 	

@@ -50,9 +50,9 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	}
 
 	@Override
-	public BoardVO selectCommonRow(int tbno) throws Exception {
+	public BoardVO selectCommonRow(int tbno,String id) throws Exception {
 		System.out.println(tbno);
-		return dao.selectCommonRow(tbno);
+		return dao.selectCommonRow(tbno,id);
 	}
 
 	@Override
@@ -100,6 +100,18 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	public BoardListVO selectMyInterestRow(SearchCriteria cri) throws Exception {
 		return null;
 	}
+	
+	@Override
+	public List<BoardListVO> showTravelReviewList(SearchCriteria cri) throws Exception {
+		return dao.selectTravelReviewList(cri);
+	}
+
+	@Override
+	public int countTravelReviewList(SearchCriteria cri) throws Exception {
+		
+		return dao.selectTravelCount(cri);
+	}
+
 
 	@Override //게시물 수정(권한 : 관리자 , 글쓴 작성자)
 	public int updateCommonRow(BoardVO vo) throws Exception {

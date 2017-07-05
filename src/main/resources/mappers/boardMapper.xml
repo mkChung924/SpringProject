@@ -44,10 +44,15 @@
 	<select id="selectCommonRow" resultType="boardVO">
 		select TBNO,TB_KIND,ID,CNO,CSNO,DO1,SI,DONG,PLACE1,PLACE2,TITLE,NOTICE,OPENCHAT,CONTENT,TEL,TEL_CH,IMAGE,VIEWCNT,REGDATE,UPDATEDATE,
 					(select count(*) from tbl_like where tbno =  #{tbno}) likes,
-					(select count(*) from bookmark where tbno = #{tbno}) myFavor  
+					(select count(*) from bookmark where tbno = #{tbno} and id=#{id}) myFavor  
 		from TBL_BOARDS 
 		where tbno=#{tbno}
 	</select>
+	
+	
+	<delete id="deleteCommonRow">
+		delete from tbl_boards where tbno=#{tbno}
+	</delete>
 	
 	<select id="selectBoardList" resultType="boardListVO">
 		<if test="place1 != null">
@@ -68,6 +73,20 @@
 			order by ordered
 			
 		</if>
+	</select>
+	
+	<select id="selectTravelReview" resultType="boardListVO">
+		select * from (
+				<include refid="travelReview"/>
+			)
+			<include refid="search"/>
+			order by ordered
+	</select>
+	<select id="countTravelReview" resultType="int">
+		select count(*) from (
+			<include refid="travelReview"/>
+		)
+			<include refid="search"/>
 	</select>
 	
 	<select id="countBoardList" resultType="int">
@@ -132,7 +151,7 @@
 					 1 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind != 0 and
+				a.place2 like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind not in(0,2) and
 				a.id = userinfos.id
 				union
 				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
@@ -146,7 +165,7 @@
 					 2 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind != 0 and
+				a.place2 like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind not in(0,2) and
 				a.id = userinfos.id
 				union
 				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
@@ -160,7 +179,7 @@
 					 3 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and
-				 a.place2 not like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind != 0 and
+				 a.place2 not like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind not in(0,2) and
 				a.id = userinfos.id
 				union
 				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
@@ -174,7 +193,7 @@
 					 4 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 not like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind != 0 and
+				a.place2 not like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind not in(0,2) and
 				a.id = userinfos.id
 				union
 				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
@@ -188,7 +207,7 @@
 					 5 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind != 0 and
+				a.place2 like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind not in(0,2) and
 				a.id = userinfos.id
 				union
 				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
@@ -202,7 +221,7 @@
 					 6 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind != 0 and
+				a.place2 like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind not in(0,2) and
 				a.id = userinfos.id
 				union
 				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
@@ -216,7 +235,7 @@
 					 7 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 not like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind != 0 and
+				a.place2 not like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind not in(0,2) and
 				a.id = userinfos.id
 				union
 				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
@@ -230,7 +249,7 @@
 					 8 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 not like '%'||#{place2}||'%' and a.csno != #{csno} and a.tb_kind != 0 and
+				a.place2 not like '%'||#{place2}||'%' and a.csno != #{csno} and a.tb_kind not in(0,2) and
 				a.id = userinfos.id
 	</sql>
 	
@@ -244,7 +263,7 @@
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 1 as ordered
 				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong = #{dong} and a.csno = #{csno} and a.tb_kind != 0 and
+				where a.si = #{si} and a.dong = #{dong} and a.csno = #{csno} and a.tb_kind not in(0,2) and
 				a.id = userinfos.id
 				union
 				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
@@ -256,7 +275,7 @@
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 2 as ordered
 				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong = #{dong} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind != 0 and
+				where a.si = #{si} and a.dong = #{dong} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind not in(0,2) and
 				a.id = userinfos.id
 				union
 				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
@@ -268,18 +287,63 @@
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 3 as ordered
 				from userinfos, tbl_boards a
-				where a.si = #{si} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind != 0 and
-				a.id = userinfos.id
+				where a.si = #{si} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind not in(0,2) and
+				a.id = userinfos.id	
 			)
 			order by ordered
 			</sql>
-	
-	<delete id="deleteCommonRow">
-		delete from tbl_boards where tbno=#{tbno}
-	</delete>
+
 	
 	<update id="updateCommonRow">
 		update tbl_boards set TITLE=#{title},  NOTICE=#{notice}, OPENCHAT=#{openchat}, CONTENT=#{content}, TEL=#{tel} where tbno=#{tbno}
 	</update>
+	
+	<sql id="travelReview">
+		select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 place1, place2,
+					 1 as ordered
+				from userinfos, tbl_boards a
+				where a.place1 like '%'||#{place1}||'%' and 
+				a.place2 like '%'||#{place2}||'%' and 
+				a.csno = #{csno} and tb_kind = 2 and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 place1, place2,
+					 2 as ordered
+				from userinfos, tbl_boards a
+				where a.place1 like '%'||#{place1}||'%' and 
+				a.place2 like '%'||#{place2}||'%' and 
+				a.csno != #{csno} and tb_kind = 2 and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 place1, place2,
+					 3 as ordered
+				from userinfos, tbl_boards a
+				where a.place1 like '%'||#{place1}||'%' and
+				 a.place2 not like '%'||#{place2}||'%' and 
+				 a.csno = #{csno} and tb_kind = 2 and
+				a.id = userinfos.id
+				
+	</sql>
 </mapper>
 

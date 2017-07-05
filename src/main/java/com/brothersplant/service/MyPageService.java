@@ -16,7 +16,7 @@ public interface MyPageService {
 	
 	public String deleteAll(String id, String pass) throws Exception;
 	
-	public void updateUser(UserInfoVO vo) throws Exception;
+	public int updateUser(UserInfoVO vo) throws Exception;
 	
 	public String updateAll(String id, String pass) throws Exception;
 	

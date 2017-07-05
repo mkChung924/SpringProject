@@ -19,6 +19,4 @@
 	<delete id="removeLike">
 		delete from TBL_LIKE where id = #{id} and tbno = #{tbno}
 	</delete>
-	
-	
 </mapper>

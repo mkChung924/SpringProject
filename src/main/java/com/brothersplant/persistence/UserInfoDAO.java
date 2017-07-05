@@ -19,5 +19,7 @@ public interface UserInfoDAO {
 	public boolean dupCheck(String id)throws Exception;
 	public boolean nickCheck(String nickname) throws Exception;
 	public String selectprofile(String id)throws Exception;
+	public int selectAuth(String id) throws Exception;
+	public int updateProfilePicture(String profile,String id) throws Exception;
 
 }

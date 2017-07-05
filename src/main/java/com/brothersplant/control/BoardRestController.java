@@ -27,8 +27,6 @@ public class BoardRestController {
 	@Inject
 	private BoardInfoService service;
 	
-	
-	
 	@RequestMapping(value = "{data}", method= RequestMethod.POST)
 	public ResponseEntity<List<Map<String,Object>>> list(@PathVariable("data") int mainCategory) {
 		ResponseEntity<List<Map<String,Object>>> entity = null;
@@ -70,11 +68,12 @@ public class BoardRestController {
 	                    boolean created = false;
 
 	                    try {
+	                    	File idDir = new File(session.getServletContext().getRealPath("/" )+ "/resources/upload/"+session.getAttribute("id")+"/");//아이디 폴더 만들고
 	                        File theDir = new File(folder);
-	                        if(!theDir.exists()){
-	                        	theDir.mkdir();
-	                        	created = true;
-	                        }
+	                        idDir.mkdir();
+	                        theDir.mkdir();
+	                        created = true;
+	                        
 	                    } catch (SecurityException se) {
 	                        se.printStackTrace();
 	                    }

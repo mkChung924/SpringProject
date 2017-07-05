@@ -13,7 +13,7 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
-<link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
+<link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.4">
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script type="text/javascript">
 
@@ -125,11 +125,11 @@
 				<div class="profile-sidebar">
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
-						<c:if test="${mypage.profile == 'default.png' }">						
-						<img src="/resources/upload/${mypage.profile }" class="img-responsive" alt="기존사진"><br>
+						<c:if test="${admin.profile == 'default.png' }">						
+						<img src="/resources/upload/${admin.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
-						<c:if test="${mypage.profile != 'default.png' }">
-						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
+						<c:if test="${admin.profile != 'default.png' }">
+						<img src="/resources/upload/${id }/${admin.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
 						<button type="button" class="btn btn-default">
   						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
@@ -138,8 +138,8 @@
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->
 					<div class="profile-usertitle">
-						<div class="profile-usertitle-name">${mypage.name}</div>
-						<div class="profile-usertitle-job">${mypage.nickname}</div>
+						<div class="profile-usertitle-name">${admin.name}</div>
+						<div class="profile-usertitle-job">${admin.nickname}</div>
 					</div>
 					<!-- END SIDEBAR USER TITLE -->
 					<!-- SIDEBAR BUTTONS -->
@@ -149,32 +149,32 @@
 					<div class="profile-usermenu">
 						<ul class="nav">
 							<li>
-								<a href="mypage">
-								<i class="glyphicon glyphicon-user"></i>
+								<a href="admin">
+								<i class="glyphicon glyphicon-exclamation-sign"></i>
 								내 정보 </a>
 							</li>
 							<li>
-								<a href="myContents">
-								<i class="glyphicon glyphicon-list"></i>
-								내 글보기 </a>
+								<a href="#">
+								<i class="glyphicon glyphicon-user"></i>
+								회원 현황 </a>
 							</li>
 							<li class="active">
-								<a href="message">
+								<a href="admessage">
 								<i class="glyphicon glyphicon-envelope"></i>
 								메시지함 </a>
 							</li>
 							<li>
-								<a href="mypageEdit">
+								<a href="#">
 								<i class="glyphicon glyphicon-edit"></i>
 								정보수정 </a>
 							</li>
 							<li>
-								<a href="favorite">
+								<a href="#">
 								<i class="glyphicon glyphicon-heart"></i>
 								즐겨찾기 </a>
 							</li>
 							<li>
-								<a href="del">
+								<a href="#">
 								<i class="glyphicon glyphicon-remove"></i>
 								탈퇴 </a>
 							</li>

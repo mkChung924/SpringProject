@@ -84,9 +84,9 @@ public class MessageController {
 	}	
 	
 	@RequestMapping(value="/msgSend",method=RequestMethod.GET)
-	public void msgSendGet()throws Exception{
+	public String msgSendGet()throws Exception{
 		
-		
+		return "mypage/messages/msgSend";
 	}
 	@RequestMapping(value="/msgSend",method=RequestMethod.POST)
 	public String msgSendPost(Criteria cri,SenderMessagesVO svo,ReceiverMessagesVO rvo)throws Exception{

@@ -10,7 +10,7 @@ import com.brothersplant.domain.SearchCriteria;
 
 public interface BoardInfoDAO {
 	public void insertBoard(BoardVO board) throws Exception;
-	public BoardVO selectCommonRow(int tbno) throws Exception;
+	public BoardVO selectCommonRow(int tbno,String id) throws Exception;
 	public int deleteCommonRow(int tbno) throws Exception;
 	public int updateCommonRow(BoardVO vo) throws Exception;
 	
@@ -23,6 +23,9 @@ public interface BoardInfoDAO {
 	
 	public List<BoardListVO> selectBoardList(SearchCriteria cri) throws Exception;
 	public int selectBoardCount(SearchCriteria cri) throws Exception;
+	
+	public List<BoardListVO> selectTravelReviewList(SearchCriteria cri) throws Exception;
+	public int selectTravelCount(SearchCriteria cri) throws Exception;
 	
 	public int selectBookmark(String id, int tbno) throws Exception;
 	public void addBookmark(String id, int tbno) throws Exception;
