@@ -14,6 +14,7 @@ import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.CategoryInfoVO;
 import com.brothersplant.domain.SearchCriteria;
+import com.brothersplant.domain.SelectRegionVO;
 
 @Repository
 public class BoardInfoDAOImpl implements BoardInfoDAO {
@@ -131,6 +132,17 @@ private static final String namespace = "board";
 	public int deleteCommonRow(int tbno) throws Exception {
 		return session.delete(namespace+".deleteCommonRow", tbno);
 	}
+//위에 똑같은 메소드 있음 나중에 삭제요망
+	@Override
+	public List<SelectRegionVO> selectSido() throws Exception {		
+		return session.selectList(namespace+".selectSido");
+	}
+	@Override
+	public List<SelectRegionVO> selectGugun(String ds_sido) throws Exception {
+		
+		return session.selectList(namespace+".selectGugun", ds_sido);
+	}
+//여기 까지 두개 
 
 	@Override
 	public int updateCommonRow(BoardVO vo) throws Exception {

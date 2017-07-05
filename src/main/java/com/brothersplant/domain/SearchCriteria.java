@@ -13,25 +13,6 @@ public class SearchCriteria extends Criteria{
 	private String cno;
 	private String csno;
 	private int pageNum;
-			
-	@Override
-	public String toString() {
-		return "SearchCriteria [searchType=" + searchType + ", keyword=" + keyword + ", id=" + id + ", do1=" + do1
-				+ ", si=" + si + ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2 + ", cno=" + cno
-				+ ", csno=" + csno + ", pageNum=" + pageNum + "]";
-	}
-	
-	
-	public String getId() {
-		return id;
-	}
-
-
-	public void setId(String id) {
-		this.id = id;
-	}
-
-
 	public String getSearchType() {
 		return searchType;
 	}
@@ -43,6 +24,12 @@ public class SearchCriteria extends Criteria{
 	}
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getDo1() {
 		return do1;
@@ -92,7 +79,13 @@ public class SearchCriteria extends Criteria{
 	public void setPageNum(int pageNum) {
 		this.pageNum = pageNum;
 	}
-	
+	@Override
+	public String toString() {
+		return "SearchCriteria [searchType=" + searchType + ", keyword=" + keyword + ", id=" + id + ", do1=" + do1
+				+ ", si=" + si + ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2 + ", cno=" + cno
+				+ ", csno=" + csno + ", pageNum=" + pageNum + "]";
+	}
+
 	
 
 }

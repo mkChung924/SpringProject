@@ -51,6 +51,7 @@ public class BoardController {
 		}
 		System.out.println("tb_kind : " + tb_kind);
 		PageMaker pageMaker = new PageMaker();
+		cri.setId((String) session.getAttribute("id")); 
 		
 		if(tb_kind.equals("1")){
 			

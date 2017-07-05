@@ -7,6 +7,7 @@ import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.CategoryInfoVO;
 import com.brothersplant.domain.SearchCriteria;
+import com.brothersplant.domain.SelectRegionVO;
 
 public interface BoardInfoService {
 	
@@ -36,5 +37,8 @@ public interface BoardInfoService {
 	public int getBookmark(String id, int tbno) throws Exception;
 	public void addBookmark(String id, int tbno) throws Exception;
 	public void deleteBookmark(String id, int tbno) throws Exception;
+	
+	public List<SelectRegionVO> sido() throws Exception;
+	public List<SelectRegionVO> gugun(String sido) throws Exception;
 
 }

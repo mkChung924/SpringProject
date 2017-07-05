@@ -44,7 +44,7 @@
 	<select id="selectCommonRow" resultType="boardVO">
 		select TBNO,TB_KIND,ID,CNO,CSNO,DO1,SI,DONG,PLACE1,PLACE2,TITLE,NOTICE,OPENCHAT,CONTENT,TEL,TEL_CH,IMAGE,VIEWCNT,REGDATE,UPDATEDATE,
 					(select count(*) from tbl_like where tbno =  #{tbno}) likes,
-					(select count(*) from bookmark where tbno = #{tbno} and id=#{id}) myFavor  
+					(select count(*) from bookmark where tbno = #{tbno} and id = #{id}) myFavor  
 		from TBL_BOARDS 
 		where tbno=#{tbno}
 	</select>
@@ -124,6 +124,18 @@
 	<select id="selectBookmark" resultType="int">
 		select count(*) from bookmark where id = #{id} and tbno = #{tbno}
 	</select>
+	
+	<!-- 시도 불러오기 -->
+  <select id="selectSido" resultType="region">
+ 	 select distinct ds_sido from ds_zip
+  </select>
+  
+    <!-- 군구 불러오기 -->
+  <select id="selectGugun" resultType="region">
+  	select distinct ds_gugun 
+  	from ds_zip
+  	where ds_sido = #{ds_sido}
+  </select>
 	
 	<sql id="search">
 	<if test="searchType != null">
@@ -305,7 +317,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 place1, place2,
 					 1 as ordered
 				from userinfos, tbl_boards a
@@ -320,7 +332,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 place1, place2,
 					 2 as ordered
 				from userinfos, tbl_boards a
@@ -335,7 +347,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 place1, place2,
 					 3 as ordered
 				from userinfos, tbl_boards a
