@@ -4,7 +4,7 @@ public class SearchCriteria extends Criteria{
 	
 	private String searchType;
 	private String keyword;
-	
+	private String id;
 	private String do1;
 	private String si;
 	private String dong;
@@ -16,10 +16,22 @@ public class SearchCriteria extends Criteria{
 			
 	@Override
 	public String toString() {
-		return "SearchCriteria [searchType=" + searchType + ", keyword=" + keyword + ", do1=" + do1 + ", si=" + si
-				+ ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2 + ", cno=" + cno + ", csno=" + csno
-				+ ", pageNum=" + pageNum + "]";
+		return "SearchCriteria [searchType=" + searchType + ", keyword=" + keyword + ", id=" + id + ", do1=" + do1
+				+ ", si=" + si + ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2 + ", cno=" + cno
+				+ ", csno=" + csno + ", pageNum=" + pageNum + "]";
 	}
+	
+	
+	public String getId() {
+		return id;
+	}
+
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+
 	public String getSearchType() {
 		return searchType;
 	}

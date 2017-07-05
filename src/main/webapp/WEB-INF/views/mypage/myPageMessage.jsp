@@ -128,7 +128,7 @@
 						<img src="/resources/upload/${mypage.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${mypage.profile != 'default.png' }">
-						<img src="/resources/upload/${id }/${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
+						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
 						<button type="button" class="btn btn-default">
   						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>

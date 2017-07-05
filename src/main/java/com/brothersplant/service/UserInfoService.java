@@ -18,5 +18,6 @@ public interface UserInfoService {
 	public String checkId(String id, String pass) throws Exception; //정보수정 및 탈퇴시 본인확인을 위한 아이디 검색
 	public boolean dupCheck(String id) throws Exception;
 	public boolean checkNickname(String nickname) throws Exception;
+	public String selectprofile(String id)throws Exception;
 
 }

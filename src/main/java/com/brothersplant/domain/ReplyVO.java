@@ -9,6 +9,9 @@ public class ReplyVO {
 	private String content;
 	private Date regdate;
 	private Date updatedate;
+	private String profile;
+	
+	
 	public int getRno() {
 		return rno;
 	}
@@ -45,10 +48,16 @@ public class ReplyVO {
 	public void setUpdatedate(Date updatedate) {
 		this.updatedate = updatedate;
 	}
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
 	@Override
 	public String toString() {
 		return "ReplyVO [rno=" + rno + ", tbno=" + tbno + ", id=" + id + ", content=" + content + ", regdate=" + regdate
-				+ ", updatedate=" + updatedate + "]";
+				+ ", updatedate=" + updatedate + ", profile=" + profile + "]";
 	}
 	
 	

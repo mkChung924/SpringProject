@@ -77,4 +77,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return dao.nickCheck(nickname);
 	}
 
+	@Override
+	public String selectprofile(String id) throws Exception {
+		return dao.selectprofile(id);
+	}
+
 }

@@ -35,7 +35,7 @@
 {{#each .}}
 <li>
 	<div class="comment-main-level" >
-		<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
+		<div class="comment-avatar"><img src="{{profile}}" alt=""></div>
 		<div class="comment-box" >
 			<div class="comment-head">
 				{{#isAuthor id}}
@@ -103,6 +103,7 @@
 	$(document).on("click", "#addReply", function() { // add reply
 		var replyerObj = $("#userid");
 		var replytextObj = $("#replyContent");
+		var profile = '${profile}';
 
 		var replyer = replyerObj.val();
 		var replytext = replytextObj.val();
@@ -116,7 +117,8 @@
 			data : JSON.stringify({
 				tbno : $("#bno").val(),
 				id : replyer,
-				content : replytext
+				content : replytext,
+				profile : profile
 			}),
 			success : function(result) {
 				console.log(result);
@@ -125,7 +127,8 @@
 					//replyPage =1;
 					//getPage("/replies/"+bno+"/"+replyPage); 
 					getPage("/replies/all/" + $("#bno").val());
-					location.reload();
+					//location.reload();
+					$("#userid").val("${id}");
 					replyerObj.val("");
 					replytextObj.val("");
 
@@ -238,13 +241,24 @@
 					data : 'id=' + "${id }" + '&tbno=' + tbno,
 					success : function(result) {
 							$("#likeCnt").html(result);
-							$("#likeCnt",opener.document).html(result);
+							$("#likeCnt-${commonBoard.tbno}",opener.document).html(result);
 					},
 				}); 
 	}
+	
+	$(document).on("click", "#updateBoard", function() {
+		var w = 800;
+		var h = 400;
+		var left = (screen.width / 2) - (w / 2);
+		var top = (screen.height / 2) - (h / 2);
+		window.open("/CommonUpdate?tbno=" + ${commonBoard.tbno }, ${commonBoard.tbno } + "번 게시글 수정", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+	   	self.close();
+	});
+	
 	$(function() {
 		getPage("/replies/all/" + $("#bno").val());
 	});
+	
 </script>
 <title>Insert title here</title>
 </head>
@@ -252,11 +266,15 @@
 	<div class="container">
 		<h1 style="display: inline;">관심 페이지 이미지로~~</h1>
 		<c:if test="${commonBoard.id == id || auth == 2}">
-			<input type="button" class="btn btn-danger" id="deleteBoard" value="게시물 삭제" style="float: right;" />
+			<input type="button" class="btn btn-danger" id="deleteBoard"
+				value="게시물 삭제" style="float: right;" />
 		</c:if>
-	 <input type="hidden"
-			id="userid" value="${id }" readonly> <input type="hidden"
-			id="bno" value="${commonBoard.tbno }" readonly>
+		<c:if test="${commonBoard.id == id || auth == 2}">
+			<input type="button" class="btn btn-info" id="updateBoard"
+				value="게시물 수정" style="float: right; margin-right: 15px;" />
+		</c:if>
+		<input type="hidden" id="userid" value="${id }" readonly> <input
+			type="hidden" id="bno" value="${commonBoard.tbno }" readonly>
 		<div class="row">
 			<div class="col-sm-6">
 				<!-- 왼쪽 div -->
@@ -302,8 +320,9 @@
 				<p align="right">
 					<span class="badge" style="background-color: blue"
 						onclick="likes(${commonBoard.tbno})" id="likeCnt">${commonBoard.likes }</span>
-					<i class="glyphicon glyphicon-thumbs-up" data-toggle="like" style="size: 50px;"
-						data-placement="top" title="좋아요" onclick="likes(${commonBoard.tbno})"></i>
+					<i class="glyphicon glyphicon-thumbs-up" data-toggle="like"
+						style="size: 50px;" data-placement="top" title="좋아요"
+						onclick="likes(${commonBoard.tbno})"></i>
 				</p>
 				<!-- ================ 좋아요 표시 끝 -->
 
@@ -331,7 +350,8 @@
 				<!-- 여기 부터 댓글 부분 -->
 
 				<div class="comments-container scrollbar force-overflow"
-					style="margin-top: 10px; width: 100%; overflow: scroll; height: 500px" id="scrollbar119">
+					style="margin-top: 10px; width: 100%; overflow: scroll; height: 500px"
+					id="scrollbar119">
 					<ul id="comments-list" class="comments-list">
 					</ul>
 				</div>

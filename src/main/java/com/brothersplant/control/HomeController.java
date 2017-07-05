@@ -7,11 +7,13 @@ import java.util.Iterator;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,9 @@ public class HomeController {
 	
 	@Inject
 	private UserInfoService service;
+	
+	@Autowired
+	private ServletContext context;
 	
 	//카테고리 페이지(index.jsp) : 로그인된 상태가 아니라면 로그인 페이지로 redirect 된다.
 	@RequestMapping("/index")
@@ -88,45 +93,38 @@ public class HomeController {
 	 * 회원가입
 	 */
 	@RequestMapping(value="/signUp", method=RequestMethod.POST)
-	public String signUp(HttpServletRequest request, UserInfoVO vo, 
+	public String signUp(UserInfoVO vo, 
 			String tel1, String tel2, String tel3,
 			String postcode, String address, String detailAddress,
-			RedirectAttributes attr) {
+			RedirectAttributes attr,MultipartFile profilePicture) {
 		System.out.println("/signUp");
 		
 		String tel = tel1+"-"+tel2+"-"+tel3;
 		String addr = address +"$"+ detailAddress +"$"+postcode;
 		
 		try {
-			MultipartHttpServletRequest m = (MultipartHttpServletRequest) request;
-			
-			
-			Iterator<String> iterator = m.getFileNames();
-			System.out.println("getFileNames:::"+ iterator);
-			MultipartFile multipartFile = null;
-			String filePath = "/Users/myungkyuchung/Documents/workspace/SpringProject/src/main/webapp/resources/upload";
-			
-			File file = new File(filePath+"/"+vo.getId());
-			
-			while(iterator.hasNext()){
-				System.out.println("폴더 존재 여부: "+file.exists());
-				if(!file.exists()) file.mkdirs();
-				System.out.println("폴더 존재 여부: "+file.exists());
-			    multipartFile = m.getFile(iterator.next());
-			    if(!multipartFile.isEmpty()){
-			    	File serverFile = new File(filePath + "/" + vo.getId() +"/"+ multipartFile.getOriginalFilename());
-			    	multipartFile.transferTo(serverFile);
-			    	vo.setProfile(multipartFile.getOriginalFilename());
-			    }
+			if(profilePicture == null){
+				vo.setProfile("default.png");
+			}else{
+				String filePath = "/resources/upload/"+vo.getId()+"/profilePicture/";
+				//해당 아이디의 폴더를 만들고
+				File idDir = new File(context.getRealPath("/") + "/resources/upload/"+vo.getId()+"/");//아이디 폴더 만들고
+				idDir.mkdir();
+				//아이디 폴더 안 프로필 폴더 만들고
+				File profileDir = new File(context.getRealPath("/") + "/resources/upload/"+vo.getId()+"/"+"profilePicture/");//아이디 폴더 만들고
+	            profileDir.mkdir();
+	            
+	            String path = "";
+	            path = filePath + profilePicture.getOriginalFilename();
+                File destination = new File(context.getRealPath("/")+path);
+                System.out.println("프로필 사진 경로 : "+destination);
+                profilePicture.transferTo(destination);
+	            
+				vo.setProfile(path);
 			}
 
 			vo.setTel(tel);
 			vo.setAddr(addr);
-
-			
-			if(vo.getProfile() == null){
-				vo.setProfile("default.png");
-			}
 
 			System.out.println("회원정보: " + vo);
 			

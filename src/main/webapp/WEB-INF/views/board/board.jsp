@@ -273,7 +273,7 @@
 									</c:if>
 									<div class="col-md-6">
 										<p align="right">
-											<span class="badge" style="background-color: blue" id="likeCnt"
+											<span class="badge" style="background-color: blue" id="likeCnt-${myList.tbno}"
 												onclick="likes(${myList.tbno})">${myList.likes }</span> <i
 												class="glyphicon glyphicon-thumbs-up" data-toggle="like"
 												data-placement="top" title="좋아요"></i>&nbsp; <span

@@ -3,7 +3,7 @@
 <mapper namespace="com.Team26_5.matchingService.ReplyMapper">
 
 	<insert id="addReply">
-		insert into tbl_replies (RNO,TBNO,ID,CONTENT) values(tbl_reply_seq.nextval,#{tbno},#{id},#{content})
+		insert into tbl_replies (RNO,TBNO,ID,CONTENT,profile) values(tbl_reply_seq.nextval,#{tbno},#{id},#{content},#{profile})
 	</insert>
 	
 	<select id="listReply" resultType="replyRow">

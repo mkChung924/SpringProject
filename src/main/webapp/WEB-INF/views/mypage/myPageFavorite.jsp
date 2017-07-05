@@ -16,7 +16,11 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
 <script type="text/javascript">
 	function read(tbno){
-		alert(tbno);
+	        var w = 800;
+	        var h = 400;
+	        var left = (screen.width / 2) - (w / 2);
+	        var top = (screen.height / 2) - (h / 2);
+	        window.open("/CommonRead?tbno=" + tbno, tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 	}
 </script>
 <title>마이페이지-즐겨찾기</title>
@@ -38,7 +42,7 @@
 						<img src="/resources/upload/${mypage.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${mypage.profile != 'default.png' }">
-						<img src="/resources/upload/${id }/${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
+						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
 						<button type="button" class="btn btn-default">
   						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>

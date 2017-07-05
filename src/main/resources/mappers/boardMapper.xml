@@ -127,7 +127,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id} and id = #{id}) myfavor,
 					 place1, place2,
 					 1 as ordered
 				from userinfos, tbl_boards a
@@ -141,7 +141,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 place1, place2,
 					 2 as ordered
 				from userinfos, tbl_boards a
@@ -155,7 +155,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 place1, place2,
 					 3 as ordered
 				from userinfos, tbl_boards a
@@ -169,7 +169,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 place1, place2,
 					 4 as ordered
 				from userinfos, tbl_boards a
@@ -183,7 +183,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 place1, place2,
 					 5 as ordered
 				from userinfos, tbl_boards a
@@ -197,7 +197,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 place1, place2,
 					 6 as ordered
 				from userinfos, tbl_boards a
@@ -211,7 +211,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 place1, place2,
 					 7 as ordered
 				from userinfos, tbl_boards a
@@ -225,7 +225,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 place1, place2,
 					 8 as ordered
 				from userinfos, tbl_boards a
@@ -241,7 +241,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 1 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.csno = #{csno} and a.tb_kind != 0 and
@@ -253,7 +253,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 2 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind != 0 and
@@ -265,7 +265,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 3 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind != 0 and
@@ -277,5 +277,9 @@
 	<delete id="deleteCommonRow">
 		delete from tbl_boards where tbno=#{tbno}
 	</delete>
+	
+	<update id="updateCommonRow">
+		update tbl_boards set TITLE=#{title},  NOTICE=#{notice}, OPENCHAT=#{openchat}, CONTENT=#{content}, TEL=#{tel} where tbno=#{tbno}
+	</update>
 </mapper>
 

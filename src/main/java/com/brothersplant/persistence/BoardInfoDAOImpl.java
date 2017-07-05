@@ -112,4 +112,10 @@ private static final String namespace = "board";
 	public int deleteCommonRow(int tbno) throws Exception {
 		return session.delete(namespace+".deleteCommonRow", tbno);
 	}
+
+
+	@Override
+	public int updateCommonRow(BoardVO vo) throws Exception {
+		return session.update(namespace+".updateCommonRow",vo);
+	}
 }

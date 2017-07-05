@@ -22,6 +22,7 @@ public interface BoardInfoService {
 	//일반 게시물
 	public BoardVO selectCommonRow(int tbno) throws Exception;
 	public int deleteCommonRow(int tbno) throws Exception;
+	public int updateCommonRow(BoardVO vo)throws Exception;
 	
 	// 관심 게시판 검색
 	public List<BoardListVO> selectMyInterestList(SearchCriteria cri) throws Exception;

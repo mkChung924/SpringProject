@@ -96,9 +96,14 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 		return dao.deleteCommonRow(tbno);
 	}
 
-	@Override
+	@Override//내가 쓴 게시물 조회
 	public BoardListVO selectMyInterestRow(SearchCriteria cri) throws Exception {
 		return null;
+	}
+
+	@Override //게시물 수정(권한 : 관리자 , 글쓴 작성자)
+	public int updateCommonRow(BoardVO vo) throws Exception {
+		return dao.updateCommonRow(vo);
 	}
 
 }

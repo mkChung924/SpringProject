@@ -24,6 +24,7 @@ import com.brothersplant.domain.CategoryInfoVO;
 import com.brothersplant.domain.PageMaker;
 import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.service.BoardInfoService;
+import com.brothersplant.service.UserInfoService;
 
 
 @Controller
@@ -31,6 +32,9 @@ public class BoardController {
 	
 	@Inject
 	private BoardInfoService service;
+	
+	@Inject
+	private UserInfoService userService;
 	
 	@RequestMapping("/board")
 	public String boardList(HttpSession session, Model model, SearchCriteria cri, RedirectAttributes attr) throws Exception{
@@ -41,6 +45,7 @@ public class BoardController {
 			cri.setPageNum(9);
 		}
 		
+		cri.setId((String)session.getAttribute("id")); 
 		System.out.println("게시판 입장");
 		System.out.println("페이지당 개수: " + cri.getPageNum() +"개씩 보기");
 		cri.setPerPageNum(cri.getPageNum());
@@ -120,24 +125,30 @@ public class BoardController {
 	@RequestMapping(value = "CommonRead", method=RequestMethod.GET)
 	public String CommonRead(int tbno,Model model,HttpSession session) throws Exception{
 		model.addAttribute("commonBoard",service.selectCommonRow(tbno));
-		
+		model.addAttribute("profile",userService.selectprofile((String)session.getAttribute("id")));
 		return "board/commonRead";
 	}
 	
-	@RequestMapping(value = "CommonUpdate", method=RequestMethod.GET)
+	@RequestMapping(value = "CommonUpdate", method=RequestMethod.GET)//페이지는 보여주고
 	public String CommonUpdate(int tbno,Model model,HttpSession session) throws Exception{
-		if(session.getAttribute("user") != null){
+		if(session.getAttribute("id") != null){
 			model.addAttribute("commonBoard",service.selectCommonRow(tbno));
 			return "board/boardUpdate";
 		}else{
 			return "selfClose";
 		}
 	}
-	@RequestMapping(value = "CommonUpdate", method=RequestMethod.PUT)
-	public String CommonUpdate2(BoardVO vo,Model model,HttpSession session) throws Exception{
-		if(session.getAttribute("user") != null){
-			model.addAttribute("commonBoard",service.selectCommonRow(vo.getTbno()));
-			return "board/boardUpdate";
+	@RequestMapping(value = "CommonUpdate", method=RequestMethod.POST)
+	public String CommonUpdate(BoardVO vo,Model model,HttpSession session) throws Exception{
+		if(session.getAttribute("id") != null){
+			System.out.println(vo);
+			 if(service.updateCommonRow(vo) >0){
+				 System.out.println("수정 성공");
+				 return "selfClose";				 
+			 }else{
+				 System.out.println("수정 삭제");
+				 return "selfClose";				 				 
+			 }
 		}else{
 			return "selfClose";
 		}

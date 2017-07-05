@@ -21,12 +21,14 @@ public class UserInfoVO {
 	private int myBoards;
 	private int replyCount;
 	
+
+	
 	@Override
 	public String toString() {
 		return "UserInfoVO [id=" + id + ", password=" + password + ", name=" + name + ", nickname=" + nickname
 				+ ", birth=" + birth + ", email=" + email + ", tel=" + tel + ", addr=" + addr + ", profile=" + profile
 				+ ", secure=" + secure + ", secure_ans=" + secure_ans + ", regdate=" + regdate + ", updatedate="
-				+ updatedate + "auth=" + auth +"myBoards="+myBoards+"replyCount="+replyCount+"]";
+				+ updatedate + ", auth=" + auth + ", myBoards=" + myBoards + ", replyCount=" + replyCount + "]";
 	}
 	
 	public String getId() {

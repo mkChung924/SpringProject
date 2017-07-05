@@ -111,4 +111,11 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		
 	}
 
+	@Override
+	public String selectprofile(String id) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		return sql.selectOne("userinfo.selectprofile",map);
+	}
+
 }
