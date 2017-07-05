@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="report">
+	<!-- 실제 댓글 디비 검색 -->
+	<select id="report" resultType="replyreports">
+		select * from tbl_replies
+	</select>
+
+	<!-- 댓글 신고 -->
+	<insert id="insertReply">
+		insert into replyreports
+		(repno,rno,content,offender,reporter,senddate)
+		values
+		(replyreports_seq.nextval,#{rno},(select content from tbl_replies2 where rno=#{rno}),(select id from tbl_replies where rno=#{rno}),#{id},sysdate)
+		
+	</insert>
+	<!-- 댓글 신고 검색 -->
+	<select id="replySelect" resultType="replyreports">
+		select rno,repno,content,offender,reporter, senddate 
+		from replyreports 
+		where reporter=#{id} order by senddate desc
+	</select>
+	
+	<!-- 신고 목록에서 삭제 -->
+	<delete id="reportsDelete">
+		delete from replyreports where repno=#{repno}
+	</delete>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelete">
+		delete from tbl_replies where rno=#{rno}
+	</delete>
+	
+	<!-- 신고당한 댓글 전부 삭제 -->
+	<delete id="responsAllDelete">
+		delete from replyreports where rno=#{rno}
+	</delete>
+	
+	<!-- 페이징 -->
+	<select id="replyCountPaging" resultType="int">
+		select count(*) from
+		replyreports
+	</select>
+	
+	
+	<!-- 게시물 신고 -->
+	<!-- 신고	reply rno,offender,reporter,senddate, tbno,offender,reporter,senddate -->
+	
+	<!-- 게시물 신고 -->
+	<insert id="reportTableInsert">
+		insert into tablereports (tbno,trno,reporter,senddate) 
+		values (#{tbno},tablereports_seq.nextval,#{id},sysdate)
+	</insert>
+	
+	<!-- 신고된 것들 출력 -->
+	<select id="tableRepoertSelect" resultType="tableReport">
+		select tbno,trno,title,id,reporter,senddate from tablereports natural join tbl_boards order by senddate desc
+	</select>
+	
+ 	<select id="tableReportContent" resultType="tableReport">
+		select tbno,id,title,content from tablereports natural join tbl_boards where trno=#{trno}
+	</select> 
+	
+	<!-- 신고와 게시물 삭제 -->
+	<delete id="tablereportDelete">
+		delete from tablereports where trno=#{trno}
+	</delete>
+	
+	<delete id="tableDelete">
+		delete from tbl_boards where tbno=#{tbno}
+	</delete> 
+	
+	<select id="tablereportCountPaging" resultType="int">
+		select count(*) from tablereports
+	</select>
+
+
+	
+</mapper>

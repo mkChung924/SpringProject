@@ -149,8 +149,8 @@
   	
   	function readPage(tbno) {
   		alert(tbno);
-        var w = 800;
-        var h = 400;
+        var w = 1300;
+        var h = 850;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
         window.open("/CommonRead?tbno=" + tbno, tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
@@ -317,7 +317,7 @@
 		                	</c:if>
 		                	<div class="col-md-6">
 				                <p align="right">
-				                <span class="badge" id="likeCnt" style="background-color: blue">${myList.likes }</span>
+				                <span class="badge" id="likeCnt-${myList.tbno }" style="background-color: blue">${myList.likes }</span>
 				                <i class="glyphicon glyphicon-thumbs-up" data-toggle="like" data-placement="top" title="좋아요"></i>&nbsp;
 		                   		<span class="badge" style="background-color: gray">${myList.replies }</span>
 				                <i class="glyphicon glyphicon-comment" data-toggle="comment" data-placement="bottom" title="댓글"></i>&nbsp; &nbsp;&nbsp;&nbsp;

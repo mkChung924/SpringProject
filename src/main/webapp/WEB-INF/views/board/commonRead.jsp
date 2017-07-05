@@ -238,7 +238,7 @@
 					data : 'id=' + "${id }" + '&tbno=' + tbno,
 					success : function(result) {
 							$("#likeCnt").html(result);
-							$("#likeCnt",opener.document).html(result);
+							$("#likeCnt-${commonBoard.tbno}",opener.document).html(result);
 					},
 				}); 
 	}

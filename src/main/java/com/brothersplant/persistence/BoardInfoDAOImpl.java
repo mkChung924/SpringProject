@@ -14,6 +14,7 @@ import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.CategoryInfoVO;
 import com.brothersplant.domain.SearchCriteria;
+import com.brothersplant.domain.SelectRegionVO;
 
 @Repository
 public class BoardInfoDAOImpl implements BoardInfoDAO {
@@ -121,6 +122,18 @@ private static final String namespace = "board";
 		map.put("tbno", tbno);
 		return session.selectOne(namespace+".selectBookmark", map);
 		
+	}
+
+	@Override
+	public List<SelectRegionVO> selectSido() throws Exception {
+		
+		return session.selectList(namespace+".selectSido");
+	}
+
+	@Override
+	public List<SelectRegionVO> selectGugun(String ds_sido) throws Exception {
+		
+		return session.selectList(namespace+".selectGugun", ds_sido);
 	}
 
 

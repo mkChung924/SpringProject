@@ -11,6 +11,7 @@ import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.CategoryInfoVO;
 import com.brothersplant.domain.SearchCriteria;
+import com.brothersplant.domain.SelectRegionVO;
 import com.brothersplant.persistence.BoardInfoDAO;
 
 @Service
@@ -100,6 +101,17 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	public int countTravelReviewList(SearchCriteria cri) throws Exception {
 		
 		return dao.selectTravelCount(cri);
+	}
+
+	@Override
+	public List<SelectRegionVO> sido() throws Exception {
+		
+		return dao.selectSido();
+	}
+
+	@Override
+	public List<SelectRegionVO> gugun(String sido) throws Exception {
+		return dao.selectGugun(sido);
 	}
 
 

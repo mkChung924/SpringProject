@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.brothersplant.domain.SelectRegionVO;
 import com.brothersplant.service.BoardInfoService;
 
 
@@ -117,6 +118,27 @@ public class BoardRestController {
 			
 		}
 		
+		return entity;
+	}
+	
+	@RequestMapping("/selectSido")
+	public ResponseEntity<List<SelectRegionVO>> selectSido() throws Exception{
+		
+		ResponseEntity<List<SelectRegionVO>> entity = null;
+		
+		System.out.println(service.sido());
+		entity = new ResponseEntity<List<SelectRegionVO>>(service.sido(), HttpStatus.OK);
+		return entity;
+	}
+	
+	@RequestMapping("/selectGugun")
+	public ResponseEntity<List<SelectRegionVO>> selectGugun(String ds_sido) throws Exception{
+		
+		System.out.println(ds_sido);
+		ResponseEntity<List<SelectRegionVO>> entity = null;
+		
+		System.out.println(service.gugun(ds_sido));
+		entity = new ResponseEntity<List<SelectRegionVO>>(service.gugun(ds_sido), HttpStatus.OK);
 		return entity;
 	}
 

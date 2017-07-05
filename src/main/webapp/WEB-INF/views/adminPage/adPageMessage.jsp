@@ -165,8 +165,8 @@
 							</li>
 							<li>
 								<a href="#">
-								<i class="glyphicon glyphicon-edit"></i>
-								정보수정 </a>
+								<i class="glyphicon glyphicon-warning-sign"></i>
+								신고접수함 </a>
 							</li>
 							<li>
 								<a href="#">
