@@ -69,7 +69,7 @@
 								메시지함 </a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="reportBox">
 								<i class="glyphicon glyphicon-warning-sign"></i>
 								신고접수함 </a>
 							</li>

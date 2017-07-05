@@ -80,11 +80,13 @@ public class AdminController {
 	////신고함 - 게시글
 	
 	@RequestMapping("/reportBox")
-	public void reportBox(String page, Model model)throws Exception{
+	public String reportBox(String page, Model model)throws Exception{
 		if(page == null){
 			page = "1";
 		}
-		model.addAttribute("page", Integer.parseInt(page));			
+		model.addAttribute("page", Integer.parseInt(page));		
+		
+		return "adminPage/reports/reportBox";
 	}
 	
 	@RequestMapping("/tableReportBox")
@@ -100,21 +102,21 @@ public class AdminController {
 		model.addAttribute("pageMaker",maker);
 		model.addAttribute("page", page);
 		
-		return "project/tableReportBox";
+		return "adminPage/reports/tableReportBox";
 	}
 	
 	@RequestMapping("/tableReportContent")
 	public String tableReportContent(int trno, Model model, int page)throws Exception{
 		model.addAttribute("tablereport",service2.readTableReport(trno));
 		model.addAttribute("page",page);
-		return "project/tableReportContent";
+		return "adminPage/reports/tableReportContent";
 	}
 	
 	@RequestMapping("/tableReportRemove")//receivecontent
 	public String tableReportRemove(Model model,int trno,int page)throws Exception{
 		model.addAttribute("page",page);
 		service2.tableReportRemove(trno);
-		return "redirect:/project/reportBox";
+		return "redirect:reportBox";
 	}
 
 	@RequestMapping(value="/tableReport",method=RequestMethod.POST)
@@ -124,7 +126,7 @@ public class AdminController {
 		
 		service2.tableReport(vo);
 	
-		return "redirect:/project/reportBox";
+		return "redirect:reportBox";
 		
 	}
 
@@ -132,7 +134,7 @@ public class AdminController {
 	public String tableDelete(Model model,int tbno,int page)throws Exception{
 		model.addAttribute("page",page);
 		service2.tableDelete(tbno);
-		return "redirect:/project/reportBox";
+		return "redirect:reportBox";
 	}
 
 	
@@ -149,7 +151,7 @@ public class AdminController {
 		model.addAttribute("pageMaker",maker);
 		model.addAttribute("page", page);
 		
-		return "project/replyReportBox";
+		return "adminPage/reports/replyReportBox";
 	}
 	
 	
@@ -159,14 +161,14 @@ public class AdminController {
 		System.out.println("전달된 페이지: "+page);
 		model.addAttribute("page",page);
 		service2.replyRemove(rno);
-		return "redirect:/project/reportBox";
+		return "redirect:reportBox";
 	}
 	
 	@RequestMapping("/replyContent")
 	public String replyContent(int rno, Model model, int page)throws Exception{
 		model.addAttribute("messages",service2.readReply(rno));
 		model.addAttribute("page",page);
-		return "project/replyContent";
+		return "adminPage/reports/replyContent";
 	}
 
 }
