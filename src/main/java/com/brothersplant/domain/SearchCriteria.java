@@ -13,13 +13,23 @@ public class SearchCriteria extends Criteria{
 	private String cno;
 	private String csno;
 	private int pageNum;
+	private String id;
 			
 	@Override
 	public String toString() {
 		return "SearchCriteria [searchType=" + searchType + ", keyword=" + keyword + ", do1=" + do1 + ", si=" + si
 				+ ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2 + ", cno=" + cno + ", csno=" + csno
-				+ ", pageNum=" + pageNum + "]";
+				+ ", pageNum=" + pageNum + "id="+id+"]";
 	}
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getSearchType() {
 		return searchType;
 	}
