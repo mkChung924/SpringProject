@@ -27,7 +27,8 @@
 	    <div class="header">
 				<b>${id }</b>님 마이페이지 입장<br>
 				<div style="margin-top: 5px;">
-				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
+				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
 				</div>			
 			</div>
 			<div class="col-md-3">

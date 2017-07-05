@@ -5,6 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -33,12 +34,13 @@ public class MyPageRestController {
 		return entity;
 		
 	}
-	@RequestMapping("/alter")
-	public ResponseEntity<String> update(HttpSession session, String pass) throws Exception{
+	@RequestMapping("/alter/{pass}")
+	public ResponseEntity<String> update(HttpSession session, @PathVariable("pass") String pass) throws Exception{
 		
 		ResponseEntity<String> entity = null;
 		String id = (String) session.getAttribute("id");
-		//model.addAttribute("mypage",service.myEditForm(id));
+		System.out.println("회원정보 수정 시도중, id: "+ id +", pass: " + pass);
+		
 		String result = service.updateAll(id, pass);
 		
 		if(result.equals("success")){

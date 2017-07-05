@@ -51,7 +51,7 @@ function uploadFile(inp, editor) {
     data.append('files', input.files[0]);
 	
     $.ajax({
-      url: 'b/images',
+      url: '/rest2/a/images',
       type: 'POST',
       data: data,
       enctype: 'multipart/form-data',
@@ -154,7 +154,7 @@ function uploadFile(inp, editor) {
 	<label for="name" class="col-sm-2 control-label">제목</label>
 	<div class=col-sm-10>
 	<input type="text" class="form-control" id="title" name="title" placeholder="제목을 간략하게 입력해주세요." maxlength="50">
-	<pre style="display: inline; margin-left: 25px;"><label>설정 위치 &nbsp;</label> <i><kbd>${do1 }</kbd> <kbd>${si }</kbd> <kbd>${dong }</kbd></i></pre>
+	<span style="display: inline; margin-left: 25px;"><label>설정 위치 &nbsp;</label> <i><kbd>${do1 }</kbd> <kbd>${si }</kbd> <kbd>${dong }</kbd></i></span>
 	<input type="hidden" name="do1" value="${do1 }">
 	<input type="hidden" name="si" value="${si }">
 	<input type="hidden" name="dong" value="${dong }">
@@ -182,7 +182,7 @@ function uploadFile(inp, editor) {
 				<option value="1">여행 글쓰기</option>
 				<option value="2">여행 후기글</option>
 			</select>
-			<pre style="display: inline; margin-left: 25px;"><label>여행 장소 &nbsp;</label> <i><kbd>${p1 }</kbd> <kbd>${p2 }</kbd></i></pre>
+			<span style="display: inline; margin-left: 25px;"><label>여행 장소 &nbsp;</label> <i><kbd>${p1 }</kbd> <kbd>${p2 }</kbd></i></span>
 			<input type="hidden" name="place1" value="${p1 }">
 			<input type="hidden" name="place2" value="${p2 }">
 			</c:if>

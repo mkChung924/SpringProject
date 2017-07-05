@@ -65,11 +65,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value= "/login", method = RequestMethod.POST)
-	public String tryLogin(HttpSession session, String id, String pass){
+	public String tryLogin(HttpSession session, String id, String pass) throws Exception{
 		
 		System.out.println("login post 들어옴");
 		System.out.println(id + ", " + pass);
+		int auth = service.getMyAuth(id);
 		session.setAttribute("id", id);
+		session.setAttribute("auth", auth);
 	 
 		return "redirect:index";
 	}

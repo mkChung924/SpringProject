@@ -28,26 +28,101 @@
 		//게시글 작성 클릭
 		$('#write').click(function(){
 			
-			window.open('/regit', '게시글 작성','width=700 height=850 menubar=no status=no scrollbars=yes left=500 top=50 resizable=0');
+			window.open('/regit', '게시글 작성','width=750 height=850 menubar=no status=no scrollbars=yes left=500 top=50 resizable=0');
 			
 		})
 		
+		var frm = $('form[role="form"]');
+		
 		$('#search').click(function(){
-			//alert($('[name=searchType]').val());
-			var frm = $('form[role="form"]');
+			
+			var keyword = $('#keywords').val();
+			
+			if(keyword.trim().length == 0){
+				
+				$('#keywords').attr('placeholder','검색어를 입력하세요');
+				
+			} else {
+				
+				$('#page').val(1);
+				frm.attr('method','POST');
+				frm.submit();
+			}
+		});
+		
+		$('#all').click(function(){
+			
+			$('#keywords').val('');
+			$('#page').val(1);
 			frm.attr('method','POST');
 			frm.submit();
-		});
+			
+		})
+		
+		$('#together').click(function(){
+			
+			$('#keywords').val('');
+			$('#page').val(1);
+			$('[name=tb_kind]').val("1");
+			frm.attr('method','POST');
+			frm.submit();
+			
+		})
+		
+		$('#review').click(function(){
+			
+			$('#keywords').val('');
+			$('#page').val(1);
+			$('[name=tb_kind]').val("2");
+			frm.attr('method','POST');
+			frm.submit();
+			
+		})
 	
 		$('#perPageNum').change(function(){
 			
- 			var frm = $('form[role="form"]');
+			$('#keywords').val('${keyword }');
+			$('#page').val(1);
 			frm.attr('method','POST');
 			frm.submit();
-			//alert($('#perPageNum').val())
-		})
+		});
+		
+		$(window).keydown(function(event){
+		    if(event.keyCode == 13) {
+		      event.preventDefault();
+		      return false;
+		    }
+		  });
 		
 	});
+	
+    function nextPage(page){
+    	
+    	//alert(page);
+    	var frm = $('form[role="form"]');
+    	$('#page').val(page);
+		frm.attr('method','POST');
+		frm.submit();
+    	
+    }
+    
+    function prevPage(page){
+    	//alert(page);
+    	var frm = $('form[role="form"]');
+    	$('#page').val(page);
+		frm.attr('method','POST');
+		frm.submit();
+    }
+    
+    
+    function thisPage(page){
+    	$('#page').val(page);
+    	//alert($('#page').val())
+    	//alert("thisPage"+page);
+    	var frm = $('form[role="form"]');
+		frm.attr('method','POST');
+		frm.submit();
+    }
 	
 
   	function favor(tbno){
@@ -71,6 +146,17 @@
 				},
 		})
 	}
+  	
+  	function readPage(tbno) {
+  		alert(tbno);
+        var w = 800;
+        var h = 400;
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2);
+        window.open("/CommonRead?tbno=" + tbno, tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+    };
+    
+
  	
  	
 </script>
@@ -118,7 +204,7 @@
         	<div class="col-md-12">
 				<div class="thumbnail">	
 					<div class="caption" style="text-align: right; padding-top: 15px; padding-bottom: 0px;">
-						<form role="form">
+						<form role="form" method="post">
 						<div class="col-sm-3" style="text-align: center; padding-top: 5">
 							<button type="button" class="btn btn-warning" id="myLocBtn" onclick="sample4_execDaumPostcode()" style="padding: 0px; width: 66px;">내 위치</button>&nbsp;
 							<i><font size=3>${do1 } ${si } ${dong }</font></i>
@@ -126,6 +212,7 @@
 							<input type="hidden" name="do1" id="do1" value="${do1 }">
 							<input type="hidden" name="si" id="si" value="${si }">
 							<input type="hidden" name="dong" id="dong" value="${dong }">
+							<input type="hidden" name="page" id="page" value="${page }">
 						</div>
 						<div class="col-sm-3" style="text-align: center; padding-top: 5">
 							<button type="button" class="btn btn-info" ${cno == 1 ? 'onclick="alert(1)"': 'onclick="alert(2)"' } style="padding: 0px; width: 66px;">카테고리</button>&nbsp;
@@ -142,13 +229,16 @@
 						</div>
 						</c:if>
 						<select class="form-control s" id="option" name="searchType">
-							<option value="n">닉네임</option>
-							<option value="t">제목</option>
+							<option value="n" ${searchType == 'n' ? 'selected' : '' }>닉네임</option>
+							<option value="t" ${searchType == 't' ? 'selected' : '' }>제목</option>
 							<!-- <option value="c">내용</option> -->
 						</select>
-						<input type="text" class="form-control t" id="keywords" name="keyword" autocomplete="off">
+						<input type="text" class="form-control t" id="keywords" name="keyword" autocomplete="off" value="${keyword }">
 						<button type="button" class="btn btn-default" id="search">검색</button>
 						<div style="text-align: right; margin-top: 10px;">
+						<c:if test="${cno != 1 }">
+							<button type="button" class="btn btn-default" id="all">전체 보기</button>
+						</c:if>
 						<select class="form-control" id="perPageNum" name="pageNum" style="display: inline; width: 100px;">
 							<c:out value=""></c:out>
 							<option value=9 ${pageNum == 9 ? 'selected': '' }>9개씩 보기</option>
@@ -159,7 +249,8 @@
 						</select>
 
 						<c:if test="${cno == 1 }">	
-							<button type="button" class="btn btn-default" id="review" style="background-color: black; color: white">여행 후기 모아보기</button>					
+							<button type="button" class="btn btn-default" id="review" style="background-color: black; color: white">여행 후기 모아보기</button>	
+							<input type="hidden" name="tb_kind" value="${tb_kind }">				
 							<button type="button" class="btn btn-default" id="together" style="background-color: black; color: white">관심글 모아보기</button>
 							<button type="button" class="btn btn-default" id="write">게시글 및 후기 작성</button>	
 						</c:if>		
@@ -206,7 +297,7 @@
 		                </div>
 		                <hr>
 		                <div style="cursor: pointer;">
-		                	<b><i><font size="4">" ${myList.title } "</font></i></b>
+		                	<b><i onclick="readPage('${myList.tbno }')"><font size="4">" ${myList.title } "</font></i></b>
 		                </div>
 		                <br>
 		                <div class="row" style="padding-left: 20px;">
@@ -226,7 +317,7 @@
 		                	</c:if>
 		                	<div class="col-md-6">
 				                <p align="right">
-				                <span class="badge" style="background-color: blue">${myList.likes }</span>
+				                <span class="badge" id="likeCnt" style="background-color: blue">${myList.likes }</span>
 				                <i class="glyphicon glyphicon-thumbs-up" data-toggle="like" data-placement="top" title="좋아요"></i>&nbsp;
 		                   		<span class="badge" style="background-color: gray">${myList.replies }</span>
 				                <i class="glyphicon glyphicon-comment" data-toggle="comment" data-placement="bottom" title="댓글"></i>&nbsp; &nbsp;&nbsp;&nbsp;
@@ -243,21 +334,22 @@
 					<ul class="pagination">
 
 						<c:if test="${pageMaker.prev}">
-							<li><a
-								href="list${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li>
+							<%-- <li><a href="list${pageMaker.makeSearch(pageMaker.startPage - 1) }">&laquo;</a></li> --%>
+							<li><a onclick="prevPage(${pageMaker.startPage -1})">&laquo;</a></li>
 						</c:if>
 
 						<c:forEach begin="${pageMaker.startPage }"
 							end="${pageMaker.endPage }" var="idx">
 							<li
 								<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-								<a href="list${pageMaker.makeSearch(idx)}">${idx}</a>
+								<%-- <a href="list${pageMaker.makeSearch(idx)}">${idx}</a> --%>
+								<a onclick="thisPage(${idx})">${idx}</a>
 							</li>
 						</c:forEach>
 
 						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
-							<li><a
-								href="list${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li>
+							<%-- <li><a href="list${pageMaker.makeSearch(pageMaker.endPage +1) }">&raquo;</a></li> --%>
+							<li><a onclick="nextPage(${pageMaker.endPage+1})">&raquo;</a></li>
 						</c:if>
 
 					</ul>

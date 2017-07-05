@@ -15,7 +15,7 @@
     <form id="signUp" action="/signUp" method="post" enctype="multipart/form-data" onsubmit="return check()">
     <div class="modal-body">
    		<p align="left"><b><font size="5">1.이용약관</font></b></p>
-		<textarea rows="4" cols="130" readonly="readonly">개인정보를 수집합니다. 수집된 정보는 탈퇴할 때까지 보관되며 탈퇴시 모두 파기됩니다.</textarea><br>
+		<textarea rows="4" style="min-width: 100%;" readonly="readonly">개인정보를 수집합니다. 수집된 정보는 탈퇴할 때까지 보관되며 탈퇴시 모두 파기됩니다.</textarea><br>
     	<p align="right" style="padding-right: 20px;"><input type="checkbox" name="agree" value="agree" onclick="aaa(this)"> 내용을 읽었으며, 동의함</p><br>
     	<p align="left"><b><font size="5">2.정보입력</font></b></p>
     	<div class="memberinfo">

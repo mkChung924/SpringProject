@@ -117,7 +117,8 @@
 	    <div class="header">
 				<b>${id }</b>님 마이페이지 입장<br>
 				<div style="margin-top: 5px;">
-				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
+				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
 				</div>			
 			</div>
 			<div class="col-md-3">
@@ -188,7 +189,7 @@
 	            	
 	            	<h3><b>메시지함</b></h3>
 	            	<div style="text-align: right; margin-right: 10px; margin-top: -35px;">
-	            	<font size="4"><a href="/project/msgSend" style="color: black;" id="writer">메시지 작성 &#xe800</a></font>
+	            	<font size="4"><a href="/msgSend" style="color: black;" id="writer">메시지 작성 &#xe800</a></font>
 	            	</div>
 					<br><br>
 					<div class="row" style="text-align: center;">

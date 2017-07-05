@@ -111,4 +111,9 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		
 	}
 
+	@Override
+	public int selectAuth(String id) throws Exception {
+		return sql.selectOne("userinfo.selectMyAuth",id);
+	}
+
 }

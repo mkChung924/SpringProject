@@ -23,6 +23,9 @@ public interface BoardInfoDAO {
 	public List<BoardListVO> selectBoardList(SearchCriteria cri) throws Exception;
 	public int selectBoardCount(SearchCriteria cri) throws Exception;
 	
+	public List<BoardListVO> selectTravelReviewList(SearchCriteria cri) throws Exception;
+	public int selectTravelCount(SearchCriteria cri) throws Exception;
+	
 	public int selectBookmark(String id, int tbno) throws Exception;
 	public void addBookmark(String id, int tbno) throws Exception;
 	public void removeBookmark(String id, int tbno) throws Exception;

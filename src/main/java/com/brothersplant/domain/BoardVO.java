@@ -19,12 +19,19 @@ public class BoardVO {//13
 	private String openchat;
 	private String tel;
 	private int tel_ch;
-	
+	private int myFavor;
 	private int likes;
 	private int viewcnt;
 	private Date regdate;
 	private Date updatedate;
 	
+	
+	public int getMyFavor() {
+		return myFavor;
+	}
+	public void setMyFavor(int myFavor) {
+		this.myFavor = myFavor;
+	}
 	public int getTel_ch() {
 		return tel_ch;
 	}
@@ -154,7 +161,7 @@ public class BoardVO {//13
 				+ ", csno=" + csno + ", do1=" + do1 + ", si=" + si + ", dong=" + dong + ", content=" + content
 				+ ", likes=" + likes + ", viewcnt=" + viewcnt + ", regdate=" + regdate + ", updatedate=" + updatedate
 				+ ", notice=" + notice + ", openchat=" + openchat + ", tel=" + tel + ", tel_ch=" + tel_ch + ", place1="
-				+ place1 + ", place2=" + place2 + "]";
+				+ place1 + ", place2=" + place2 + "myFavor="+myFavor+"]";
 	}
 
 	

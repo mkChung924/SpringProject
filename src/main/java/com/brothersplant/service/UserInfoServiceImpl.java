@@ -22,17 +22,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 	}
 
-	@Override
-	public void update(UserInfoVO vo) throws Exception {
-		
-
-	}
-
-	@Override
-	public void delete(String id, String pass) throws Exception {
-		
-
-	}
 
 	@Override
 	public String changePassword(String id, String name, String secure_code, String secure_ans) throws Exception {
@@ -75,6 +64,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 		
 		System.out.println("service: " + nickname);
 		return dao.nickCheck(nickname);
+	}
+
+	@Override
+	public int getMyAuth(String id) throws Exception {
+		return dao.selectAuth(id);
 	}
 
 }

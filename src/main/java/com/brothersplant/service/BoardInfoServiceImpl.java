@@ -51,8 +51,8 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 
 	@Override
 	public BoardVO selectCommonRow(int tbno) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.selectCommonRow(tbno);
 	}
 
 	@Override
@@ -89,6 +89,17 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	public int getBookmark(String id, int tbno) throws Exception {
 
 		return dao.selectBookmark(id, tbno);
+	}
+
+	@Override
+	public List<BoardListVO> showTravelReviewList(SearchCriteria cri) throws Exception {
+		return dao.selectTravelReviewList(cri);
+	}
+
+	@Override
+	public int countTravelReviewList(SearchCriteria cri) throws Exception {
+		
+		return dao.selectTravelCount(cri);
 	}
 
 

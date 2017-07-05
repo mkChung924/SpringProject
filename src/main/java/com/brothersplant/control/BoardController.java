@@ -23,6 +23,7 @@ import com.brothersplant.domain.CategoryInfoVO;
 import com.brothersplant.domain.PageMaker;
 import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.service.BoardInfoService;
+import com.brothersplant.service.LikeGoodService;
 
 
 @Controller
@@ -30,35 +31,73 @@ public class BoardController {
 	
 	@Inject
 	private BoardInfoService service;
+	@Inject
+	private LikeGoodService service2;
 	
 	@RequestMapping("/board")
-	public String boardList(HttpSession session, Model model, SearchCriteria cri, RedirectAttributes attr) throws Exception{
+	public String boardList(HttpSession session, Model model, SearchCriteria cri, String page, String tb_kind) throws Exception{
 		if(cri.getDo1() == null || session.getAttribute("id") == null || cri.getCno() == null){
 			return "redirect:index";
 		}
 		if(cri.getPageNum() == 0){
 			cri.setPageNum(9);
 		}
-		
-		System.out.println("게시판 입장");
-		System.out.println("페이지당 개수: " + cri.getPageNum() +"개씩 보기");
-		cri.setPerPageNum(cri.getPageNum());
-		System.out.println(cri);
-		
-		System.out.println("게시글의 총 갯수 by size(): "+service.selectMyInterestList(cri).size());
-		System.out.println("게시글 내용: " +service.selectMyInterestList(cri));
-		System.out.println("게시글 의 갯추 by sql: " + service.countBoardList(cri));
+		if(page == null){
+			page = "1";
+		}
+		if(tb_kind == null){
+			tb_kind = "1";
+		}
+		System.out.println("tb_kind : " + tb_kind);
 		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(service.countBoardList(cri));
 		
-		session.setAttribute("pageNum", cri.getPageNum());
-		//attr.addAttribute("pageMaker", pageMaker);
-		session.setAttribute("pageMaker", pageMaker);
+		if(tb_kind.equals("1")){
 			
-		//관심 목록 가져오기
-		//attr.addAttribute("list", service.selectMyInterestList(cri));
-		session.setAttribute("list", service.selectMyInterestList(cri));
+			System.out.println("들어온 페이지: " + page);
+			cri.setPage(Integer.parseInt(page));
+			System.out.println("게시판 입장");
+			System.out.println("페이지당 개수: " + cri.getPageNum() +"개씩 보기");
+			cri.setPerPageNum(cri.getPageNum());
+			System.out.println(cri);
+			
+			System.out.println("게시글의 총 갯수 by size(): "+service.selectMyInterestList(cri).size());
+			System.out.println("게시글 내용: " +service.selectMyInterestList(cri));
+			System.out.println("게시글 의 갯수 by sql: " + service.countBoardList(cri));
+			
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(service.countBoardList(cri));
+
+			//관심 목록 가져오기
+			session.setAttribute("list", service.selectMyInterestList(cri));
+
+		} else {
+			
+			System.out.println("들어온 페이지: " + page);
+			cri.setPage(Integer.parseInt(page));
+			System.out.println("게시판 입장");
+			System.out.println("페이지당 개수: " + cri.getPageNum() +"개씩 보기");
+			cri.setPerPageNum(cri.getPageNum());
+			System.out.println(cri);
+			
+			System.out.println("게시글의 총 갯수 by size(): "+service.showTravelReviewList(cri).size());
+			System.out.println("게시글 내용: " +service.showTravelReviewList(cri));
+			System.out.println("게시글 의 갯수 by sql: " + service.countTravelReviewList(cri));
+			
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(service.countTravelReviewList(cri));
+
+			//여행후기 가져오기
+			session.setAttribute("list", service.showTravelReviewList(cri));
+			
+		}
+		
+		session.setAttribute("tb_kind", tb_kind);
+		session.setAttribute("searchType", cri.getSearchType());
+		session.setAttribute("keyword", cri.getKeyword());
+		session.setAttribute("pageNum", cri.getPageNum());
+		session.setAttribute("page", Integer.parseInt(page));
+		session.setAttribute("pageMaker", pageMaker);
+		
 		//내가 고른 카테고리 이름 가져오기
 		session.setAttribute("category", service.selectCategory(Integer.parseInt(cri.getCsno())).get("CNAME"));
 		session.setAttribute("subcategory", service.selectCategory(Integer.parseInt(cri.getCsno())).get("CSNAME"));
@@ -70,6 +109,7 @@ public class BoardController {
 		session.setAttribute("csno", cri.getCsno());
 		session.setAttribute("p1", cri.getPlace1());
 		session.setAttribute("p2", cri.getPlace2());
+		
 		
 		return "board/board";
 		//return "redirect:/boards";
@@ -118,6 +158,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "CommonRead", method=RequestMethod.GET)
 	public String CommonRead(int tbno,Model model) throws Exception{
+		System.out.println("CommonRead 게시글 내용: "+service.selectCommonRow(tbno));
 		model.addAttribute("commonBoard",service.selectCommonRow(tbno));
 		return "board/commonRead";
 	}
@@ -141,6 +182,26 @@ public class BoardController {
 		}
 	}
 	//===========
+	
+
+	
+	@RequestMapping("/like/add")
+	public ResponseEntity<Object> addLike(String id, int tbno) throws Exception{
+		
+		ResponseEntity<Object> entity = null;
+		
+		int count = service2.selectLike(id, tbno);
+		if(count == 0){
+			service2.addLike(id, tbno);
+			entity = new ResponseEntity<Object>(service2.selectTotLike(tbno), HttpStatus.OK);
+		} else {
+			service2.removeLike(id, tbno);
+			entity = new ResponseEntity<Object>(service2.selectTotLike(tbno), HttpStatus.OK);
+			
+		}
+		
+		return entity;
+	}
 	
 
 }

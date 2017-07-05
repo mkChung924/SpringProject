@@ -30,4 +30,8 @@
 		select nickname from userinfos where nickname = #{nickname}
 	</select>
 	
+	<select id="selectMyAuth" resultType="int">
+		select auth from userinfos where id = #{id}
+	</select>
+	
 </mapper>

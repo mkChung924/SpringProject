@@ -121,7 +121,7 @@
 </div>
 <form action="msgSend">
 </form>
-<font size="5"><a href="/project/msgSend" style="color: black" id="writer">메일 쓰기 &#xe800</a></font>
+<font size="5"><a href="/msgSend" style="color: black" id="writer">메일 쓰기 &#xe800</a></font>
 </div>
 </center>
 </body>

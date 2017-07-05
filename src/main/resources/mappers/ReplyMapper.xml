@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.Team26_5.matchingService.ReplyMapper">
+
+	<insert id="addReply">
+		insert into tbl_replies (RNO,TBNO,ID,CONTENT) values(tbl_reply_seq.nextval,#{tbno},#{id},#{content})
+	</insert>
+	
+	<select id="listReply" resultType="replyRow">
+		select * from tbl_replies where tbno=#{tbno} order by REGDATE desc
+	</select>
+	
+	<update id="modifyReply">
+		update tbl_replies set content = #{content}, updatedate = sysdate where rno=#{rno}
+	</update>
+	
+	<delete id="removeReply">
+		delete from tbl_replies where rno= #{rno}
+	</delete>
+</mapper>

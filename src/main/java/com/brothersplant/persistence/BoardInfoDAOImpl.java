@@ -70,6 +70,22 @@ private static final String namespace = "board";
 		
 		return session.selectOne(namespace+".countBoardList", cri);
 	}
+	
+
+	@Override
+	public List<BoardListVO> selectTravelReviewList(SearchCriteria cri) throws Exception {
+		
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		return session.selectList(namespace+".selectTravelReview", cri, bounds);
+	}
+
+
+	@Override
+	public int selectTravelCount(SearchCriteria cri) throws Exception {
+		
+		return session.selectOne(namespace+".countTravelReview", cri);
+	}
+
 
 	@Override
 	public Map<String, String> selectCategory(int csno) throws Exception {
@@ -106,6 +122,7 @@ private static final String namespace = "board";
 		return session.selectOne(namespace+".selectBookmark", map);
 		
 	}
+
 
 
 }

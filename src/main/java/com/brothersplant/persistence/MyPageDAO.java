@@ -16,7 +16,7 @@ public interface MyPageDAO {
 	
 	public void deleteUser(String id)throws Exception;
 	
-	public void updateUser(UserInfoVO vo)throws Exception;
+	public int updateUser(UserInfoVO vo)throws Exception;
 	
 	public List<MyBookmarkVO> selectMyBookmark(String id) throws Exception;
 
