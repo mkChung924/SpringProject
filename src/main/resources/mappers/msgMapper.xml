@@ -3,23 +3,23 @@
 <mapper namespace="msg">
 
 <insert id="insertSend">
-		insert into sendermessages (mno,title,content,targetid,sender,senddate) 
-		values (send_messages_seq.nextval,#{title},#{content},#{targetid},#{id},sysdate)
+		insert into sendermessages (mno,title,content,targetid,sender) 
+		values (send_messages_seq.nextval,#{title},#{content},#{targetid},#{sender})
 	</insert>
 	<insert id="insertReceive">
-		insert into receivermessages (mno,title,content,targetid,sender,senddate) 
-		values (receive_messages_seq.nextval,#{title},#{content},#{targetid},#{id},sysdate)
+		insert into receivermessages (mno,title,content,targetid,sender) 
+		values (receive_messages_seq.nextval,#{title},#{content},#{targetid},#{sender})
 	</insert>
-	<select id="receiverSelect" resultType="receiveMsg"><!-- 수신 메세지함 -->
-		select mno,title,sender,receivedate from receivermessages where targetid=#{id} order by receivedate desc
+	<select id="receiverSelect" resultType="addMsg"><!-- 수신 메세지함 -->
+		select mno,title,sender,to_char(senddate,'yyyy-mm-dd hh24:mi:ss') senddate from receivermessages where targetid=#{id} order by senddate desc
 	</select>
-	<select id="senderSelect" resultType="sendMsg"><!-- 발신 메세지함 -->
-		select mno,title,targetid,senddate from sendermessages where sender = #{id} order by senddate desc
+	<select id="senderSelect" resultType="addMsg"><!-- 발신 메세지함 -->
+		select mno,title,targetid, to_char(senddate,'yyyy-mm-dd hh24:mi:ss') senddate from sendermessages where sender = #{id} order by senddate desc
 	</select>
- 	<select id="senderContent" resultType="sendMsg"><!-- 내가쓴내용 -->
+ 	<select id="senderContent" resultType="addMsg"><!-- 내가쓴내용 -->
 		select mno,targetid,title,content from sendermessages where mno=#{mno}
 	</select> 
-	<select id="receiverContent" resultType="receiveMsg"><!-- 받은내용 -->
+	<select id="receiverContent" resultType="addMsg"><!-- 받은내용 -->
 		select mno,sender,title,content from receivermessages where mno=#{mno}
 	</select>
 	<delete id="sendDelete">

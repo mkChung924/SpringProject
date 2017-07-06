@@ -168,11 +168,9 @@
 	<div class="container" style="margin-bottom: 5px;">
 		<div class="row">
 			<div class="header">
-				<b>${id }</b>님 게시글을 남겨보세요!<br>
+				<b>${nick }</b>님 게시글을 남겨보세요!<br>
 				<div style="margin-top: 5px;">
-					<kbd style="background-color: #EAEAEA">
-						<a href="/logout"><font color="black">로그아웃</font></a>
-					</kbd>
+					<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
 					<kbd>
 						<a href="/mypage"><font color="white">마이페이지</font></a>
@@ -392,7 +390,8 @@
 					</ul>
 				</div>
 			</div>
-		</div></div>
+		</div>
+	</div>
 </body>
 </html>
 

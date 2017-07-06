@@ -1,14 +1,13 @@
 package com.brothersplant.domain;
 
-import java.sql.Date;
 
-public class SenderMessagesVO {
+public class InsertMessageVO {
 	private int mno;
 	private String title;
 	private String content;
 	private String targetid;
 	private String sender;
-	private Date senddate;
+	private String senddate;
 	
 	public int getMno() {
 		return mno;
@@ -40,16 +39,17 @@ public class SenderMessagesVO {
 	public void setSender(String sender) {
 		this.sender = sender;
 	}
-	public Date getSenddate() {
-		return senddate;
-	}
-	public void setSenddate(Date senddate) {
+	public void setSenddate(String senddate){
 		this.senddate = senddate;
+	}
+	
+	public String getSenddate(){
+		return senddate;
 	}
 	
 	@Override
 	public String toString() {
-		return "senderMessageVO [mno=" + mno + ", title=" + title + ", content=" + content + ", targetid=" + targetid
+		return "insertMessageVO [mno=" + mno + ", title=" + title + ", content=" + content + ", targetid=" + targetid
 				+ ", sender=" + sender + ", senddate=" + senddate + "]";
 	}
 	

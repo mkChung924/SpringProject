@@ -9,11 +9,10 @@
 	<typeAlias type="com.brothersplant.domain.BoardVO" alias="boardVO"/>
 	<typeAlias type="com.brothersplant.domain.BoardListVO" alias="boardListVO"/>
 	<typeAlias type="com.brothersplant.domain.ReplyVO" alias="replyRow"/>
-	<typeAlias type="com.brothersplant.domain.SenderMessagesVO" alias="sendMsg"/>
-	<typeAlias type="com.brothersplant.domain.ReceiverMessagesVO" alias="receiveMsg"/>
+	<typeAlias type="com.brothersplant.domain.InsertMessageVO" alias="addMsg"/>
 	<typeAlias type="com.brothersplant.domain.MyBookmarkVO" alias="bookmark"/>
 	<typeAlias type="com.brothersplant.domain.SelectRegionVO" alias="region"/>
-	<typeAlias type="com.brothersplant.domain.TableReportVO" alias="tableReport"/>
-	<typeAlias type="com.brothersplant.domain.ReplyReportsVO" alias="replyreports" />
+	<typeAlias type="com.brothersplant.domain.TableReportVO" alias="boardReports"/>
+	<typeAlias type="com.brothersplant.domain.ReplyReportsVO" alias="replyReports" />
 </typeAliases>
 </configuration>

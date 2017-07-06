@@ -9,8 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.brothersplant.domain.Criteria;
-import com.brothersplant.domain.ReceiverMessagesVO;
-import com.brothersplant.domain.SenderMessagesVO;
+import com.brothersplant.domain.InsertMessageVO;
 
 @Repository
 public class MsgDAOImpl implements MsgDAO {
@@ -19,19 +18,19 @@ public class MsgDAOImpl implements MsgDAO {
 	private SqlSession sql;
 
 	@Override
-	public void senderMessagesCreate(SenderMessagesVO vo) throws Exception {
+	public void senderMessagesCreate(InsertMessageVO vo) throws Exception {
 		sql.insert("msg.insertSend",vo);
 		
 	}
 
 	@Override
-	public void receiverMessagesCreate(ReceiverMessagesVO vo) throws Exception {
+	public void receiverMessagesCreate(InsertMessageVO vo) throws Exception {
 		sql.insert("msg.insertReceive",vo);
 		
 	}
 
 	@Override
-	public List<SenderMessagesVO> listSender(int page) throws Exception {
+	public List<InsertMessageVO> listSender(int page) throws Exception {
 		if(page < 1) page=1;
 		
 		page = (page-1)*10;		
@@ -42,7 +41,7 @@ public class MsgDAOImpl implements MsgDAO {
 	}
 
 	@Override
-	public List<ReceiverMessagesVO> listReceiver(int page) throws Exception {
+	public List<InsertMessageVO> listReceiver(int page) throws Exception {
 		if(page < 1) page=1;
 		
 		page = (page-1)*10;		
@@ -53,13 +52,13 @@ public class MsgDAOImpl implements MsgDAO {
 	}
 
 	@Override
-	public SenderMessagesVO readSender(int mno) throws Exception {
+	public InsertMessageVO readSender(int mno) throws Exception {
 
 		return sql.selectOne("msg.senderContent",mno);
 	}
 
 	@Override
-	public ReceiverMessagesVO readReceiver(int mno) throws Exception {
+	public InsertMessageVO readReceiver(int mno) throws Exception {
 
 		return sql.selectOne("msg.receiverContent",mno);
 	}
@@ -85,7 +84,7 @@ public class MsgDAOImpl implements MsgDAO {
 	}
 
 	@Override
-	public List<SenderMessagesVO> senderListCriteria(Criteria cri, String id) throws Exception {
+	public List<InsertMessageVO> senderListCriteria(Criteria cri, String id) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
 		return sql.selectList("msg.senderSelect",id,bounds);
 	}
@@ -97,8 +96,9 @@ public class MsgDAOImpl implements MsgDAO {
 	}
 
 	@Override
-	public List<ReceiverMessagesVO> receiverListCriteria(Criteria cri, String id) throws Exception {
+	public List<InsertMessageVO> receiverListCriteria(Criteria cri, String id) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		System.out.println("받은 메시지함 id: " + id);
 		return sql.selectList("msg.receiverSelect",id,bounds);
 	}
 

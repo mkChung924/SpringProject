@@ -81,4 +81,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return dao.updateProfilePicture(profile,id);
 	}
 
+
+	@Override
+	public String getMyNick(String id) throws Exception {
+		
+		return dao.selectMyNick(id);
+	}
+
 }

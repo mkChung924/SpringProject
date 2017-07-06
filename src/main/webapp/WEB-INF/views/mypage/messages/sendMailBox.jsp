@@ -24,6 +24,10 @@
 			}
 		});
 	});
+	
+	function readMsg(mno, page){
+		window.open('senderContent?mno='+mno+'&page='+page, '받은 메시지', 'width=600 height=600 menubar=no status=no scrollbars=yes left=500 top=50 resizable=0')
+	}
 
 </script>
 <style type="text/css">
@@ -33,7 +37,7 @@ body {
 
 </style>
 	<c:if test="${messages.size() == 0 }">
-		<br><br><br><i><h4>메지시함이 비었습니다</h4></i>
+		<br><br><br><i><h4>발신 메지시함이 비었습니다</h4></i>
 	</c:if>
 	<c:if test="${messages.size() != 0 }">
 	<table class="table-striped">
@@ -41,7 +45,7 @@ body {
 		<tr style="font-size: 20x;">
 			<th width="100" style="text-align: center;">삭제</th>
 			<th width="200" style="text-align: center;">제목</th>
-			<th width="200" style="text-align: center;">수신자</th>
+			<th width="200" style="text-align: center;">받는사람</th>
 			<th width="100" style="text-align: center;">작성일</th>
 			
 		</tr>
@@ -49,7 +53,7 @@ body {
 		<c:forEach items="${messages }" var="send">
 			<tr  style="text-align: center; font-size: 18px;">
 				<td><input type="checkbox" name="chbox1" value=${send.mno }></td>
-				<td><a href="senderContent?mno=${send.mno }&page=${page}">${send.title}</a></td>
+				<td><a onclick="readMsg(${send.mno }, ${page })" style="cursor: pointer;">${send.title}</a></td>
 				<td><input type="hidden" value="${send.mno }" id="mno1">
 					${send.targetid}</td>
 				<td>${send.senddate}</td>

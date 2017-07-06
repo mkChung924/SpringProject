@@ -61,6 +61,7 @@ public class AdminController {
 				page = "1";
 			}
 			model.addAttribute("page", Integer.parseInt(page));		
+			model.addAttribute("admin", service.myPageInfo(id));
 			
 			return "adminPage/adPageMessage";
 		} else {
@@ -71,17 +72,30 @@ public class AdminController {
 	////신고함 - 게시글
 	
 	@RequestMapping("/reportBox")
-	public String reportBox(String page, Model model)throws Exception{
+	public String reportBox(HttpSession session, String page, Model model)throws Exception{
 		if(page == null){
 			page = "1";
 		}
-		model.addAttribute("page", Integer.parseInt(page));		
+		model.addAttribute("page", Integer.parseInt(page));	
+		System.out.println("관리자페이지-신고함 입장");
 		
-		return "adminPage/reports/reportBox";
+		String id = (String) session.getAttribute("id");
+		int auth = (int) session.getAttribute("auth");
+		
+		if(id != null && auth == 2){
+			System.out.println("아이디: " + id + ", 등급: " + auth);
+			model.addAttribute("admin", service.myPageInfo(id));
+		
+			return "adminPage/adminReport";
+			
+		} else {
+			return "redirect:login";
+		}
 	}
 	
 	@RequestMapping("/tableReportBox")
 	public String tableReportBox(HttpSession session,Criteria cri,Model model, int page)throws Exception{
+		System.out.println("tableReportBox");
 		session.setAttribute("msg", "table");
 		cri.setPage(page);
 		cri.setPerPageNum(20);

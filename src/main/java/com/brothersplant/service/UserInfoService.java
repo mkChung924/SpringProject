@@ -18,5 +18,6 @@ public interface UserInfoService {
 	public boolean checkNickname(String nickname) throws Exception;
 	public String selectprofile(String id)throws Exception;
 	public int getMyAuth(String id) throws Exception;
+	public String getMyNick(String id) throws Exception;
 	public int updateProfilePicture(String profile,String id) throws Exception;
 }

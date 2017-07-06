@@ -75,8 +75,10 @@ public class HomeController {
 		System.out.println("login post 들어옴");
 		System.out.println(id + ", " + pass);
 		int auth = service.getMyAuth(id);
+		String nick = service.getMyNick(id);
 		session.setAttribute("id", id);
 		session.setAttribute("auth", auth);
+		session.setAttribute("nick", nick);
 	 
 		return "redirect:index";
 	}
