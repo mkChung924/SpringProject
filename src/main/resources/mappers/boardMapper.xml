@@ -6,14 +6,19 @@
 		<!-- insert into tbl_boards (TBNO,TB_KIND,ID,CNO,CSNO,DO1,SI,CONTENT,LIKES,title,NOTICE,OPENCHAT,TEL,DONG) values 
 		(TBL_BOARDS_SEQ.nextval ,#{tb_kind},#{id},#{cno},#{csno},#{do1},#{si},#{content},#{likes},#{title},#{notice},#{openchat},#{tel},#{dong}) -->
 	
-		<if test="place1 != null">
+		<if test="(tb_kind == 0 ) and (place1 != null)"><!-- 운영자가 쓸때 -->
+			insert into tbl_boards (tbno,TB_KIND,id,cno,csno,place1,place2,title,content) values (tbl_boards_seq.nextval,#{tb_kind},#{id},#{cno},#{csno},#{place1},#{place2},#{title},#{content})
+		</if>
+		
+		<if test="(tb_kind != 0 ) and (place1 != null)">
 			insert into tbl_boards(tbno, tb_kind, id, cno, csno, do1, si, dong, place1, place2, title, notice, openchat, tel, tel_ch, content) 
 			values(tbl_boards_seq.nextval, #{tb_kind}, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{place1}, #{place2}, #{title}, #{notice}, #{openchat}, #{tel}, #{tel_ch}, #{content})
 		</if>
-		<if test="place1 == null">
+		<if test="(tb_kind != 0 ) and (place1 == null)">
 			insert into tbl_boards(tbno, id, cno, csno, do1, si, dong, title, notice, openchat, tel, tel_ch, content) 
 			values(tbl_boards_seq.nextval, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{title}, #{notice}, #{openchat}, #{tel}, #{tel_ch}, #{content})
 		</if>
+		
 	</insert>
 	
 	<!-- 도 검색 -->

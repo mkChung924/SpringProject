@@ -3,10 +3,14 @@ package com.brothersplant.control;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.InsertMessageVO;
@@ -91,15 +95,12 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value="/msgSend",method=RequestMethod.POST)
-	public String msgSendPost(HttpSession session,Criteria cri, InsertMessageVO vo)throws Exception{
-	
+	public ResponseEntity<String> msgSendPost(HttpSession session,Criteria cri, InsertMessageVO vo)throws Exception{
+		ResponseEntity<String> entity =null;
 		vo.setSender((String) session.getAttribute("id"));
 		System.out.println(vo);
-		
 		service.addMsg(vo);
-		
-		return "redirect:message";
-		
+		return entity = new ResponseEntity<>("success",HttpStatus.OK);
 	}
 	
 	@RequestMapping("/senderContent")

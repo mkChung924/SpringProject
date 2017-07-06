@@ -7,10 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.PageMaker;
 import com.brothersplant.domain.TableReportVO;
+import com.brothersplant.persistence.BoardInfoDAO;
+import com.brothersplant.service.BoardInfoService;
 import com.brothersplant.service.MyPageService;
 import com.brothersplant.service.ReportsService;
 
@@ -21,6 +25,8 @@ public class AdminController {
 	private MyPageService service;
 	@Inject
 	private ReportsService service2;
+	@Inject
+	private BoardInfoService boardService;
 	
 	@RequestMapping("/admin")
 	public String admin(HttpSession session, Model model) throws Exception{
@@ -174,6 +180,21 @@ public class AdminController {
 		model.addAttribute("messages",service2.readReply(rno));
 		model.addAttribute("page",page);
 		return "adminPage/reports/replyContent";
+	}
+
+	@RequestMapping(value="/adminWrite", method=RequestMethod.GET)
+	public String adminWrite(HttpSession session, Model model) throws Exception{
+		String id = (String) session.getAttribute("id");
+		model.addAttribute("admin", service.myPageInfo(id));
+		return "adminPage/adminWrite";
+	};
+	
+	@RequestMapping(value = "admin_regit", method=RequestMethod.POST)
+	public String insertBoard2(BoardVO vo, MultipartFile file) throws Exception{
+		System.out.println(vo.toString());
+		boardService.insertBoard(vo);
+		System.out.println("===등록 완료===");
+		return "redirect:/admin";
 	}
 
 }

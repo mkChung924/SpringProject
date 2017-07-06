@@ -100,8 +100,9 @@
 			url : pageInfo,
 			dataType : 'JSON',
 			success : function(data) {
+				$("#userid").val('${id}');
 				printData(data, $("#comments-list"), $("#template"));
-			//printPaging(data.pageMaker, $(".pagination"));
+				//printPaging(data.pageMaker, $(".pagination"));
 			}
 		});
 	}
@@ -113,7 +114,7 @@
 		$("#modalTitle").html(reply.parent().find("input[name=rno]").attr("id"));
 		$("#modalText").val(reply.parent().parent().find("div[class=comment-content]").html());
 	});
-
+	
 	$(document).on("click", "#addReply", function() { // add reply
 		var replyerObj = $("#userid");
 		var replytextObj = $("#replyContent");
@@ -139,7 +140,7 @@
 				if (result == 'SUCCESS') {
 					alert('등록되었습니다');
 					getPage("/replies/all/" + $("#bno").val());
-					$("#userid").val("${id}");
+					//$("#userid").val(id);
 					replyerObj.val("");
 					replytextObj.val("");
 					$("#modalClose").trigger('click');

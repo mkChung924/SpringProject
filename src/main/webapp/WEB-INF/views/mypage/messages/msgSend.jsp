@@ -23,11 +23,31 @@
 			self.close();
 		});
 
+
 		$('.sendr').click(function() {
+			var targetid = $('[name=targetid]').val();
+			var title = $('[name=title]').val();
+			var content = $('[name=content]').val();
 
-			$('[name=send]').submit();
-		})
+			var form = $('[name=send]')[0]
+			var formData = new FormData(form);
 
+			$.ajax({
+				type : 'post',
+				url : '/msgSend',
+				data : 'targetid=' + targetid + '&title=' + title + '&content=' + content,
+				/* data:formData, */
+				success : function(result) {
+					if (result == 'success') {
+						opener.document.location.reload();
+						self.close();
+					}
+				},
+				error : function() {
+					alert("error");
+				}
+			})
+		});
 	});
 </script>
 <style type="text/css">
@@ -49,15 +69,13 @@ a {
 			<hr>
 			<form method="post" name="send" action="/msgSend">
 				<input type="text" placeholder="수 신 자" name="targetid" width="150"
-					height="50" value='${id}' readonly><br>
+					height="50" value='${id}' readonly id="targetid"><br>
 				<br> <input type="text" placeholder="제 목" name="title"
-					width="300" height="50"><br>
-				<br>
+					width="300" height="50"><br> <br>
 				<textarea placeholder="내 용" rows="15" cols="25" name="content"></textarea>
-				<br>
-				<br> <a href="#" id="gobackto3"><i
-					class="glyphicon glyphicon-arrow-left">돌아가기</i></a> 
-					<a href="#" class="sendr">보내기 &#xe800</a>
+				<br> <br> <a href="#" id="gobackto3"><i
+					class="glyphicon glyphicon-arrow-left">돌아가기</i></a>
+				<button type="button" class="sendr">보내기 &#xe800</button>
 			</form>
 		</div>
 	</div>

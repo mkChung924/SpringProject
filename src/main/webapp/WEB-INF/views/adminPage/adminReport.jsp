@@ -138,7 +138,7 @@
 						<img src="/resources/upload/${admin.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${admin.profile != 'default.png' }">
-						<img src="/resources/upload/${id }/${admin.profile }" class="img-responsive" alt="프로필사진"><br>
+						<img src="${admin.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
 						<button type="button" class="btn btn-default">
   						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
@@ -187,6 +187,7 @@
 								<i class="glyphicon glyphicon-remove"></i>
 								탈퇴 </a>
 							</li>
+							<li><a href="adminWrite"> <i class="glyphicon glyphicon-remove"></i>여행 추천 게시글 쓰기</a></li>
 						</ul>
 					</div>
 					<!-- END MENU -->
