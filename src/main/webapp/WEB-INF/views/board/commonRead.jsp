@@ -46,9 +46,15 @@
 				<span>{{prettifyDate updatedate}}</span>
 				<i class="fa fa-reply"></i>
 				<i class="fa fa-heart"></i>
-				<input type="hidden" name="{{id}}" id="{{id}}">
+				<input type="hidden" name="userid" id="{{id}}" value={{id}}>
 				<input type="hidden" name="rno" id="{{rno}}">
-				<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="float: right;" id="replyModify">Modify</a>
+				<a class="btn btn-info btn-xs" style="float: right; margin-left: 5px;" id="msgSend" onclick="msgSend('{{id}}')">메시지함</a>
+				<a class="btn btn-danger btn-xs" style="float: right; margin-left: 5px;" id="reportSend" >신고</a>
+				{{#viewModifyBtn id}}
+				<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="float: right; margin-left: 5px;" id="replyModify">Modify</a>
+				{{else}}
+				<div></div>
+				{{/viewModifyBtn}}
 			</div>
 			<div class="comment-content">{{content}}
 			</div>
@@ -68,6 +74,14 @@
 
 	Handlebars.registerHelper('isAuthor', function(id, options) {
 		if (id == '${commonBoard.id}') {
+			return options.fn(this);
+		} else {
+			return options.inverse(this);
+		}
+	});
+	
+	Handlebars.registerHelper('viewModifyBtn', function(id, options) {
+		if (id == '${id}') {
 			return options.fn(this);
 		} else {
 			return options.inverse(this);
@@ -124,22 +138,17 @@
 				console.log(result);
 				if (result == 'SUCCESS') {
 					alert('등록되었습니다');
-					//replyPage =1;
-					//getPage("/replies/"+bno+"/"+replyPage); 
 					getPage("/replies/all/" + $("#bno").val());
-					//location.reload();
 					$("#userid").val("${id}");
 					replyerObj.val("");
 					replytextObj.val("");
-
+					$("#modalClose").trigger('click');
 				}
 			}
 		});
 	});
 
 	$(document).on("click", "#replyModBtn", function() {
-		if ("${commonBoard.id}" == '${id}') {
-
 			var rno = $("#modalTitle").html();
 			var replytext = $("#modalText").val();
 
@@ -156,14 +165,11 @@
 				success : function(result) {
 					if (result == 'SUCCESS') {
 						alert('수정되었습니다');
-
 						getPage("/replies/all/" + $("#bno").val());
+						$("#modalClose").trigger('click');
 					}
 				}
 			});
-		} else {
-			alert("당신은 수정할 권한이 없습니다.");
-		}
 	});
 
 	$(document).on("click", "#replyDelBtn", function() {
@@ -181,6 +187,7 @@
 					if (result == 'SUCCESS') {
 						alert("삭제 되었습니다.");
 						getPage("/replies/all/" + $("#bno").val());
+						$("#modalClose").trigger('click');
 					}
 				}
 			});
@@ -255,6 +262,25 @@
 	   	self.close();
 	});
 	
+	
+	function msgSend(id) {//메시지 보내기
+		var w = 300;
+		var h = 500;
+		var left = (screen.width / 2) - (w / 2);
+		var top = (screen.height / 2) - (h / 2);
+		alert(id);
+		var open = window.open("/msgSend?id="+id, "메시지 보내기", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+		open.document.getElementById("targetid").value = id;
+	};
+	
+	$(document).on("click", "#reportSend", function() {//신고 보내기
+		var w = 800;
+		var h = 400;
+		var left = (screen.width / 2) - (w / 2);
+		var top = (screen.height / 2) - (h / 2);
+		window.open("/CommonUpdate?tbno=" + ${commonBoard.tbno }, ${commonBoard.tbno } + "번 게시글 수정", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+	});
+	
 	$(function() {
 		getPage("/replies/all/" + $("#bno").val());
 	});
@@ -315,6 +341,15 @@
 					</div>
 				</c:if>
 				<!-- ================ 즐겨 찾기 표시 끝 -->
+				
+				<!-- ================ 게시글 작성자에게 메시지 보내기 표시 -->
+				<a class="btn btn-info btn-xs" style="float: right; margin-left: 5px;" id="msgSend" onclick="msgSend('${commonBoard.id}')">메시지함</a>
+				<a class="btn btn-danger btn-xs" style="float: right; margin-left: 5px;" id="reportSend">신고</a>
+				<!-- ================ 게시글 작성자에게 메시지 보내기 표시 끝 -->
+				
+				
+				
+				
 				<!-- ================ 좋아요 표시 끝 -->
 				<p align="right">
 					<span class="badge" style="background-color: blue"
@@ -349,7 +384,7 @@
 				<!-- 여기 부터 댓글 부분 -->
 
 				<div class="comments-container scrollbar force-overflow"
-					style="margin-top: 10px; width: 100%; overflow: scroll; height: 500px"
+					style="margin-top: 10px; width: 100%; overflow: scroll overfl; overflow:x:hidden; height: 500px"
 					id="scrollbar119">
 					<ul id="comments-list" class="comments-list">
 					</ul>
@@ -377,10 +412,11 @@
 				<div class="modal-footer">
 					<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
 					<button type="button" class="btn btn-danger" id="replyDelBtn">DELETE</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal" id="modalClose">Close</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	
 </body>
 </html>

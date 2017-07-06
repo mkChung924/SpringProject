@@ -68,15 +68,6 @@ public class AdminController {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	////신고함 - 게시글
 	
 	@RequestMapping("/reportBox")

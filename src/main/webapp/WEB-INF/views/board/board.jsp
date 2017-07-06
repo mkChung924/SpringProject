@@ -154,7 +154,6 @@
 	}
 
   	function readPage(tbno) {
-  		alert(tbno);
         var w = 1300;
         var h = 850;
         var left = (screen.width / 2) - (w / 2);
