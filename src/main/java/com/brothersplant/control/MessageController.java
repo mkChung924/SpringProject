@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.brothersplant.domain.Criteria;
+import com.brothersplant.domain.InsertMessageVO;
 import com.brothersplant.domain.PageMaker;
-import com.brothersplant.domain.ReceiverMessagesVO;
-import com.brothersplant.domain.SenderMessagesVO;
 import com.brothersplant.service.MsgService;
 
 @Controller
@@ -35,7 +34,9 @@ public class MessageController {
 		session.setAttribute("msg", "receive");
 		cri.setPage(page);
 		cri.setPerPageNum(20);
+		System.out.println("받은 메시지 개수: " + service.receiverListCriteria(cri, (String) session.getAttribute("id")).size());
 		model.addAttribute("messages",service.receiverListCriteria(cri, (String) session.getAttribute("id")));
+		System.out.println(service.receiverListCriteria(cri, (String) session.getAttribute("id")));
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
 		maker.setTotalCount(service.receiverCountPaging());
@@ -71,7 +72,7 @@ public class MessageController {
 		System.out.println("전달된 페이지: "+page);
 		model.addAttribute("page",page);
 		service.sendDelete(mno);
-		return "redirect:/project/mailBox";
+		return "redirect:message";
 	}
 	
 	@RequestMapping("/receiveRemove")//receivecontent
@@ -80,7 +81,7 @@ public class MessageController {
 		System.out.println("전달된 페이지: "+page);
 		model.addAttribute("page",page);
 		service.receiveDelete(mno);
-		return "redirect:/project/mailBox";
+		return "redirect:message";
 	}	
 	
 	@RequestMapping(value="/msgSend",method=RequestMethod.GET)
@@ -88,14 +89,16 @@ public class MessageController {
 		
 		return "mypage/messages/msgSend";
 	}
-	@RequestMapping(value="/msgSend",method=RequestMethod.POST)
-	public String msgSendPost(Criteria cri,SenderMessagesVO svo,ReceiverMessagesVO rvo)throws Exception{
 	
-		System.out.println(svo+"+"+rvo);
+	@RequestMapping(value="/msgSend",method=RequestMethod.POST)
+	public String msgSendPost(HttpSession session,Criteria cri, InsertMessageVO vo)throws Exception{
+	
+		vo.setSender((String) session.getAttribute("id"));
+		System.out.println(vo);
 		
-		service.sendMsg(svo);
-		service.receiveMsg(rvo);
-		return "redirect:/project/mailBox";
+		service.addMsg(vo);
+		
+		return "redirect:message";
 		
 	}
 	
@@ -103,7 +106,7 @@ public class MessageController {
 	public String senderContent(int mno, Model model, int page)throws Exception{
 		model.addAttribute("messages",service.readSender(mno));
 		model.addAttribute("page",page);
-		return "project/senderContent";
+		return "mypage/messages/senderContent";
 	}
 	
 	@RequestMapping("/receiverContent")
@@ -111,7 +114,7 @@ public class MessageController {
 		model.addAttribute("messages",service.readReceiver(mno));
 		model.addAttribute("page",page);
 		
-		return "project/receiverContent";
+		return "mypage/messages/receiverContent";
 	}
 
 }

@@ -38,6 +38,9 @@
 		select auth from userinfos where id = #{id}
 	</select>
 	
+	<select id="selectMyNick" resultType="string">
+		select nickname from userinfos where id = #{id}
+	</select>
 	
 	<update id="updateProfilePicture">
 		update userinfos set profile = #{profile} where id = #{id}

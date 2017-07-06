@@ -11,47 +11,55 @@
 
 <script type="text/javascript">
 	
-	$("#replyDelBtn2").click(function() {
-		$('input:checkbox[name="chbox2"]').each(function() {
-			if (this.checked) { //checked 처리된 항목의 값	            
-				$.ajax({
-					url : 'receiveRemove',
-					data : 'mno=' + this.value + '&page='+${page},
-					success : function(result) {
-						location.reload();
-						
-					}
-				});
-			}
+	$(function(){
+		$("#replyDelBtn2").click(function() {
+			$('input:checkbox[name="chbox2"]').each(function() {
+				if (this.checked) { //checked 처리된 항목의 값	            
+					$.ajax({
+						url : 'receiveRemove',
+						data : 'mno=' + this.value + '&page='+${page},
+						success : function(result) {
+							location.reload();
+							
+						}
+					});
+				}
+			});
 		});
 	});
+	
+	function readMsg(mno, page){
+		window.open('/receiverContent?mno='+mno+'&page='+page, '받은 메시지', 'width=600 height=600 menubar=no status=no scrollbars=yes left=500 top=50 resizable=0')
+	}
+	
+
   
 </script>
 <style>
 body{
 		font-family: "fontello";
 	}
-</style>
-	<c:if test="${messages.size() == 0 }">
-		<br><br><br><i><h4>메지시함이 비었습니다</h4></i>
+</style>	
+	<c:if test="${messages.size() < 1 }">
+		<br><br><br><i><h4>수신 메지시함이 비었습니다</h4></i>
 	</c:if>
-	<c:if test="${messages.size() != 0 }">
+	<c:if test="${messages.size() > 0 }">
 	<table class="table-striped">
 		<tr style="font-size: 20x;"> 
 			<th width="100"  style="text-align: center;">삭제</th>
 			<th width="200"  style="text-align: center;">제목</th>
-			<th width="200"  style="text-align: center;">발신자</th>
+			<th width="200"  style="text-align: center;">보낸사람</th>
 			<th width="100"  style="text-align: center;">작성일</th>
 		</tr>
-		<c:forEach items="${messages}" var="send">
+		<c:forEach items="${messages }" var="receive">
 			<tr  style="text-align: center; font-size: 17px;">
 				<td>
 				
-				<input type="checkbox"  id="ex_chk" name="chbox2" value=${send.mno }></td>
-				<td><a href="receiverContent?mno=${send.mno }&page=${page}">${send.title}</a></td>
-				<td><input type="hidden" value="${send.mno }" id="mno2">
-					${send.sender}</td>
-				<td>${send.senddate}</td>
+				<input type="checkbox"  id="ex_chk" name="chbox2" value=${receive.mno }></td>
+				<td><a onclick="readMsg(${receive.mno }, ${page })" style="cursor: pointer;">${receive.title }</a></td>
+				<td><input type="hidden" value=${receive.mno } id="mno">
+					${receive.sender}</td>
+				<td>${receive.senddate}</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -74,7 +82,7 @@ body{
 			<li><a href="${pageMaker.endPage +1}">&raquo;</a></li>
 		</ul>
 	</c:if>
-	<c:if test="${messages.size() != 0 }">
+	<c:if test="${messages.size() > 0 }">
 		<button type="button" class="btn btn-danger" id="replyDelBtn2">삭제 &#xf083</button>
 	</c:if>
 	

@@ -25,10 +25,10 @@
 		<div class="row">
 		<div class="header">
 			<c:if test="${auth == 2 }">			
-			<b>${id }</b> <kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd><br>
+			<b>${nick }</b> <kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd><br>
 			</c:if>
 			<c:if test="${auth != 2 }">			
-			<b>${id }</b>님 메인페이지 입장<br>
+			<b>${nick }</b>님 메인페이지 입장<br>
 			</c:if>			
 			<div style="margin-top: 5px;">
 			<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>

@@ -14,13 +14,37 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.4">
+<script>
+	$(document).on("click","#modifyProfilePicture",function(){
+		var fileName = $("#fileopen").trigger('click',function(){
+		});
+	});
+	
+	$(document).on("change","#fileopen",function(){
+		
+		var formData = new FormData();
+		 //첫번째 파일태그
+		 formData.append("file",$("#fileopen")[0].files[0]);
+	
+		$.ajax({
+			url : '/rest2/profile/image',
+			data : formData,
+			type : "POST",
+			contentType: false,
+			processData: false,
+			success : function(result) {
+				$("#profilePic").attr("src",result);			
+			},
+		});
+	});
+</script>
 <title>관리자페이지</title>
 </head>
 <body>
 	<div class="container">
 	    <div class="row profile">
 	    <div class="header">
-				<b>${id }</b>님 마이페이지 입장<br>
+				<b>${id }</b> <kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd>
 				<div style="margin-top: 5px;">
 				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;
 				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
@@ -36,9 +60,10 @@
 						<c:if test="${admin.profile != 'default.png' }">
 						<img src="/resources/upload/${id }/${admin.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
-						<button type="button" class="btn btn-default">
-  						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
+						<button type="button" class="btn btn-default" id="modifyProfilePicture">
+  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
 						</button>
+							<input type="file" style="display: none;" id="fileopen">	
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->

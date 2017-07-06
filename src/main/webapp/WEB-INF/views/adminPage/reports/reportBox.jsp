@@ -108,19 +108,15 @@
 <center>
 <h1>REPORT </h1>
 <HR>
-<form name="removeCheck">
-<input type="button" id="button1" value="댓글 신고함">
-<input type="button" id="button2" value="게시글 신고함">
-
-</form>
-<div class="container">
-
-<div id="div1" style="display: none;">
-</div>
-<div id="div2" style="display: none;">
-</div>
-
-</div>
+	<form name="removeCheck">
+		<input type="button" id="button1" value="댓글 신고함">
+		<input type="button" id="button2" value="게시글 신고함">
+	</form>
+	
+	<div class="container">
+		<div id="div1" style="display: none;"></div>
+		<div id="div2" style="display: none;"></div>
+	</div>
 </center>
 </body>
 </html>

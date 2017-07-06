@@ -20,6 +20,7 @@ public interface UserInfoDAO {
 	public boolean nickCheck(String nickname) throws Exception;
 	public String selectprofile(String id)throws Exception;
 	public int selectAuth(String id) throws Exception;
+	public String selectMyNick(String id) throws Exception;
 	public int updateProfilePicture(String profile,String id) throws Exception;
 
 }

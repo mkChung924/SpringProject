@@ -130,4 +130,10 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		return sql.update("userinfo.updateProfilePicture", map);
 	}
 
+	@Override
+	public String selectMyNick(String id) throws Exception {
+		
+		return sql.selectOne("userinfo.selectMyNick",id);
+	}
+
 }

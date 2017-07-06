@@ -81,7 +81,7 @@ public class ReportsDAOImpl implements ReportsDAO {
 	
 	@Override
 	public void tableReportcreate(TableReportVO vo) throws Exception {
-		sqlSession.insert("project.reportTableInsert",vo);
+		sqlSession.insert("report.reportTableInsert",vo);
 		
 	}
 	
@@ -93,17 +93,17 @@ public class ReportsDAOImpl implements ReportsDAO {
 		
 		RowBounds bounds = new RowBounds(page, 10);
 		
-		return sqlSession.selectList("project.tableRepoertSelect",null,bounds);
+		return sqlSession.selectList("report.tableRepoertSelect",null,bounds);
 	}
 	
 	@Override
 	public TableReportVO readTableReport(int tbno) throws Exception {
-		return sqlSession.selectOne("project.tableReportContent",tbno);
+		return sqlSession.selectOne("report.tableReportContent",tbno);
 	}
 	
 	@Override
 	public boolean tableReportDelete(int tbno) throws Exception {
-		int t = sqlSession.delete("project.tablereportDelete",tbno);
+		int t = sqlSession.delete("report.tablereportDelete",tbno);
 		if(t==1){
 			return true;
 		}else{			
@@ -115,18 +115,18 @@ public class ReportsDAOImpl implements ReportsDAO {
 	@Override
 	public List<TableReportVO> tableReportListCriteria(Criteria cri) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
-		return sqlSession.selectList("project.tableRepoertSelect",null,bounds);
+		return sqlSession.selectList("report.tableRepoertSelect",null,bounds);
 	}
 
 	@Override
 	public int tableReportCountPaging() throws Exception {
-		return sqlSession.selectOne("project.tablereportCountPaging");
+		return sqlSession.selectOne("report.tablereportCountPaging");
 	}
 
 
 	@Override
 	public boolean tableDelete(int tbno) throws Exception {
-		int t = sqlSession.delete("project.tableDelete",tbno);
+		int t = sqlSession.delete("report.tableDelete",tbno);
 		if(t==1){
 			return true;
 		}else{
