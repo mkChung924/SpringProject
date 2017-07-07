@@ -285,6 +285,15 @@
 	$(function() {
 		getPage("/replies/all/" + $("#bno").val());
 	});
+	
+	function aaa(){
+		$('#dialog').dialog({
+			title: '다이얼로그 제목을 넣자',
+			modal: true,
+			width: '300',
+			height: '300'
+		});
+	}
 </script>
 <title>Insert title here</title>
 </head>
