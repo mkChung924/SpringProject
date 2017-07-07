@@ -14,17 +14,9 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
-<<<<<<< HEAD
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/admin/admin.css?ver=1.4">
-<link rel="stylesheet" type="text/css"
-	href="/resources/bootstrap/css/fontello.css?ver=1.1">
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
-=======
 <link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.6">
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
->>>>>>> Community2
 <title>관리자페이지</title>
 <script type="text/javascript">
 

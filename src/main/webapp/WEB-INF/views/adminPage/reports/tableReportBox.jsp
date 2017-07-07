@@ -73,8 +73,8 @@ body{
 		<c:forEach items="${tablereport }" var="table">
 			<tr  style="text-align: center; font-size: 18px;">
 				<td><input type="checkbox" name="chbox1" value=${table.brno }></td>
-				<td><a href="tableReportContent?trno=${table.trno }&page=${page}">${table.title}</a></td>
-				<td><input type="hidden" value="${table.tbno }" id="mno1">${table.id}</td>
+				<td><a href="tableReportContent?trno=${table.brno }&page=${page}">${table.content}</a></td>
+				<td><input type="hidden" value="${table.brno }" id="mno1">${table.offender}</td>
 				<td>${table.reporter}</td>
 				<td>${table.senddate }</td>
 			</tr>
