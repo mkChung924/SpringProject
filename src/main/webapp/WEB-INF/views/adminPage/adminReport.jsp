@@ -32,6 +32,7 @@
      			type : "POST",
      			data: "page="+${page},
      			success:function(result){
+     					$("button1").trigger("click");
 						$('#div1').html(result);
 						$('#div2').css('display','none')
 						$('#div1').css('display','block')
@@ -61,6 +62,7 @@
 		 $.ajax({
 			url:"tableReportBox",
 			data: "page="+${page},
+			type : "POST",
 			success:function(result){
 				  $('#div2').html(result);
 				   $('#div1').css('display','none')
@@ -76,8 +78,8 @@
     			success:function(result){
 					$('#div2').html(result);
 					$('#div1').css('display','none');
-					$('#div2').css('display','block'); 
-					location.href="reportBox?page=1";
+					$('#div2').css('display','block');  
+					//location.href="reportBox?page=1";
 				  },
 				  error:function(){
 					  alert('error')
