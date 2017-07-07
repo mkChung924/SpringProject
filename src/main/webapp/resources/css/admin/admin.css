@@ -123,3 +123,14 @@ body {
   background: #fff;
   min-height: 460px;
 }
+
+/* 회원현황 검색란 */
+.t {
+	width: 120;
+	display: inline;
+	padding-top: 5;
+}
+.s {
+	display: inline;
+	width: 85;
+}

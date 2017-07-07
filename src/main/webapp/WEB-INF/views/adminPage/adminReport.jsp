@@ -11,7 +11,7 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
-<link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.4">
+<link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.6">
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>관리자페이지</title>
@@ -187,7 +187,7 @@
 								내 정보 </a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="memList">
 								<i class="glyphicon glyphicon-user"></i>
 								회원 현황 </a>
 							</li>
@@ -203,15 +203,14 @@
 							</li>
 							<li>
 								<a href="#">
-								<i class="glyphicon glyphicon-heart"></i>
-								즐겨찾기 </a>
+								<i class="glyphicon glyphicon-th-list"></i>
+								게시판 현황 </a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="adminWrite"> 
 								<i class="glyphicon glyphicon-remove"></i>
-								탈퇴 </a>
+								여행 추천 게시글 쓰기</a>
 							</li>
-							<li><a href="adminWrite"> <i class="glyphicon glyphicon-remove"></i>여행 추천 게시글 쓰기</a></li>
 						</ul>
 					</div>
 					<!-- END MENU -->
@@ -230,10 +229,8 @@
 					</form>
 	            </div>
 	            <br><br>
-	            	<div class="row" style="text-align: center;">
 						<div id="div1" style="display: none;"></div>
 						<div id="div2" style="display: none;"></div>
-					</div>
 	            </div>
 			</div>
 		</div>

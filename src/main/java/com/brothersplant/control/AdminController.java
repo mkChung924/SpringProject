@@ -12,8 +12,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.PageMaker;
+import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.TableReportVO;
 import com.brothersplant.persistence.BoardInfoDAO;
+import com.brothersplant.service.AdminPageService;
 import com.brothersplant.service.BoardInfoService;
 import com.brothersplant.service.MyPageService;
 import com.brothersplant.service.ReportsService;
@@ -27,6 +29,8 @@ public class AdminController {
 	private ReportsService service2;
 	@Inject
 	private BoardInfoService boardService;
+	@Inject
+	private AdminPageService adminService;
 	
 	@RequestMapping("/admin")
 	public String admin(HttpSession session, Model model) throws Exception{
@@ -43,6 +47,45 @@ public class AdminController {
 			model.addAttribute("admin", service.myPageInfo(id));
 			
 			return "adminPage/adminInfo";
+			
+		} else {
+			return "redirect:login";
+		}
+
+	}
+	
+	//회원현황
+	@RequestMapping("/memList")
+	public String memList(HttpSession session, Model model, SearchCriteria cri) throws Exception{
+		
+		System.out.println("관리자페이지-회원현황입장");
+		String id = (String) session.getAttribute("id");
+		int auth = (int) session.getAttribute("auth");
+		System.out.println("아이디: " + id + ", 등급: " + auth);
+		
+		if(id != null && auth == 2){
+
+			System.out.println("페이지:"+ cri.getPage());
+			System.out.println("게시물 수: "+cri.getPerPageNum());
+			System.out.println("bounds 시작지점: "+cri.getPageStart());
+			System.out.println("searchType: " + cri.getSearchType());
+			System.out.println("keyword: " + cri.getKeyword());
+			System.out.println("관리자 정보: "+service.myPageInfo(id));
+			System.out.println("모든 관리자 정보: " + adminService.selectAdminList());
+			System.out.println("모든 회원 정보: " + adminService.selectMemeberList(cri));
+			System.out.println("검색된 회원 수: " + adminService.selectMemeberList(cri).size());
+			//System.out.println(service.secureCode());
+			PageMaker pageMaker = new PageMaker();
+			pageMaker.setCri(cri);
+			pageMaker.setTotalCount(adminService.selectMemberCount(cri));
+			
+			model.addAttribute("admin", service.myPageInfo(id));
+			model.addAttribute("adminlist", adminService.selectAdminList());
+			model.addAttribute("memlist", adminService.selectMemeberList(cri));
+			model.addAttribute("pageMaker", pageMaker);
+			model.addAttribute("cri", cri);
+			
+			return "adminPage/adminMemberList";
 			
 		} else {
 			return "redirect:login";

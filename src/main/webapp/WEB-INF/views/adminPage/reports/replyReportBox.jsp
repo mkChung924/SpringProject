@@ -140,6 +140,7 @@ body{
 		</c:forEach>
 
 	</table>
+	<div class="page" style="text-align: center">
 	<c:if test="${pageMaker.prev}">
 		<ul class="pagination">
 			<li><a href="${pageMaker.startPage - 1}">&laquo;</a></li>
@@ -158,6 +159,7 @@ body{
 			<li><a href="${pageMaker.endPage +1}">&raquo;</a></li>
 		</ul>
 	</c:if>
+	</div>
 	<form id="jobForm">
 		<input type='hidden' name="page" value=${pageMaker.cri.perPageNum }>
 		<input type='hidden' name="perPageNum"
