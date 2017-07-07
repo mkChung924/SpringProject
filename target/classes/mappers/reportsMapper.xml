@@ -35,10 +35,10 @@
 	<select id="selectReportList2" resultType="reportslist">
 		select r.REPNO, r.BRNO,r.CONTENT,r.REPORTER,to_char(r.senddate, 'yyyy-mm-dd hh24:mi:ss') SENDDATE,r.REPORTTYPE
 		from TBL_REPORTSLIST r INNER join 
-		<if test=" 'what'.toString() == 'board' ">
+		<if test='what.equals("board")'>
 			(select tbno as BRNO,id from TBL_BOARDS) b on b.BRNO = r.BRNO where r.REPORTKIND=1
 		</if>
-		<if test=" 'what'.toString() == 'reply'">
+		<if test='what.equals("reply")'>
 			(select rno as BRNO,id from TBL_REPLIES) b on b.BRNO = r.BRNO where r.REPORTKIND=2
 		</if>
 		  order by senddate desc
