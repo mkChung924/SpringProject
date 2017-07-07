@@ -13,8 +13,6 @@ import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.PageMaker;
 import com.brothersplant.domain.SearchCriteria;
-import com.brothersplant.domain.TableReportVO;
-import com.brothersplant.persistence.BoardInfoDAO;
 import com.brothersplant.service.AdminPageService;
 import com.brothersplant.service.BoardInfoService;
 import com.brothersplant.service.MyPageService;
