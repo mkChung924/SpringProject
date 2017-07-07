@@ -52,11 +52,11 @@ body{
 	
 	<c:if test="${tablereport.size() > 0}">
 	<br><br><br>
-	<div class="col-sm-6" style="text-align: left; padding-left: 20px; display: inline">
-	<label><font size=4>댓글 신고</font></label>
+	<div class="col-sm-4" style="text-align: left; padding-left: 20px; display: inline">
+	<label><font size=4>게시글 신고</font></label>
 	</div>
-	<div class="col-sm-6" style="text-align: right; padding-right: 15px; display: inline">
-		<button type="button" class="btn btn-danger" id="boardDelBtn">게시글 삭제 &#xf083</button> &nbsp;
+	<div class="col-sm-8" style="text-align: right; display: inline">
+		<button type="button" class="btn btn-danger" id="boardDelBtn">게시글 삭제 &#xf083</button>&nbsp;
 		<button type="button" class="btn btn-warning" id="reportsDelBtn">신고 삭제 &#xf083</button> &nbsp;
 		<button type="button" class="btn btn-info" id="reportsDelAllBtn">같은 신고 일괄 삭제 &#xf083</button>
 	</div>
@@ -79,8 +79,8 @@ body{
 				<td>${table.senddate }</td>
 			</tr>
 	</c:forEach>
-
 	</table>
+	<div class="div1" style="text-align: center;">
 	<c:if test="${pageMaker.prev}">
 		<ul class="pagination">
 			<li><a href="${pageMaker.startPage - 1}">&laquo;</a></li>
@@ -99,8 +99,10 @@ body{
 			<li><a href="${pageMaker.endPage +1}">&raquo;</a></li>
 		</ul>
 	</c:if>
+	</div>
 	<form id="jobForm">
 	  <input type='hidden' name="page" value=${pageMaker.cri.perPageNum }>
 	  <input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum }>
 	</form>
+	
 	</c:if>

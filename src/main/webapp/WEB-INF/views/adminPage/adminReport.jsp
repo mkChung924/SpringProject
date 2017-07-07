@@ -14,11 +14,17 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
+<<<<<<< HEAD
 <link rel="stylesheet" type="text/css"
 	href="/resources/css/admin/admin.css?ver=1.4">
 <link rel="stylesheet" type="text/css"
 	href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+=======
+<link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.6">
+<link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/fontello.css?ver=1.1">
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+>>>>>>> Community2
 <title>관리자페이지</title>
 <script type="text/javascript">
 
@@ -203,53 +209,57 @@ body {
 					<!-- SIDEBAR MENU -->
 					<div class="profile-usermenu">
 						<ul class="nav">
-							<li><a href="admin"> <i
-									class="glyphicon glyphicon-exclamation-sign"></i> 내 정보
-							</a></li>
-							<li><a href="#"> <i class="glyphicon glyphicon-user"></i>
-									회원 현황
-							</a></li>
-							<li><a href="admessage"> <i
-									class="glyphicon glyphicon-envelope"></i> 메시지함
-							</a></li>
-							<li class="active"><a href="reportBox"> <i
-									class="glyphicon glyphicon-warning-sign"></i> 신고접수함
-							</a></li>
-							<li><a href="#"> <i class="glyphicon glyphicon-heart"></i>
-									즐겨찾기
-							</a></li>
-							<li><a href="#"> <i class="glyphicon glyphicon-remove"></i>
-									탈퇴
-							</a></li>
-							<li><a href="adminWrite"> <i
-									class="glyphicon glyphicon-remove"></i>여행 추천 게시글 쓰기
-							</a></li>
+							<li>
+								<a href="admin">
+								<i class="glyphicon glyphicon-exclamation-sign"></i>
+								내 정보 </a>
+							</li>
+							<li>
+								<a href="memList">
+								<i class="glyphicon glyphicon-user"></i>
+								회원 현황 </a>
+							</li>
+							<li>
+								<a href="admessage">
+								<i class="glyphicon glyphicon-envelope"></i>
+								메시지함 </a>
+							</li>
+							<li class="active">
+								<a href="reportBox">
+								<i class="glyphicon glyphicon-warning-sign"></i>
+								신고접수함 </a>
+							</li>
+							<li>
+								<a href="#">
+								<i class="glyphicon glyphicon-th-list"></i>
+								게시판 현황 </a>
+							</li>
+							<li>
+								<a href="adminWrite"> 
+								<i class="glyphicon glyphicon-remove"></i>
+								여행 추천 게시글 쓰기</a>
+							</li>
 						</ul>
 					</div>
 					<!-- END MENU -->
 				</div>
 			</div>
 			<div class="col-md-9">
-				<div class="profile-content">
-					<!-- 이곳에 html을 작성하면 됩니다! -->
-					<div class="col-sm-6">
-						<h3>
-							<b>신고 접수함</b>
-						</h3>
-					</div>
-					<div class="col-sm-6" style="text-align: right; margin-top: 15px">
-						<form name="removeCheck">
-							<input type="button" id="button1" value="댓글 신고함"> &nbsp;
-							<input type="button" id="button2" value="게시글 신고함">
-						</form>
-					</div>
-					<br>
-					<br>
-					<div class="row" style="text-align: center;">
+	            <div class="profile-content">
+	            <!-- 이곳에 html을 작성하면 됩니다! -->
+	            <div class="col-sm-6">
+	            <h3><b>신고 접수함</b></h3>
+	            </div>
+	            <div class="col-sm-6" style="text-align: right; margin-top: 15px">
+	           		<form name="removeCheck">
+						<input type="button" id="button1" value="댓글 신고함"> &nbsp; 
+						<input type="button" id="button2" value="게시글 신고함">
+					</form>
+	            </div>
+	            <br><br>
 						<div id="div1" style="display: none;"></div>
 						<div id="div2" style="display: none;"></div>
-					</div>
-				</div>
+	            </div>
 			</div>
 		</div>
 	</div>

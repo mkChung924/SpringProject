@@ -81,7 +81,7 @@ body {
 			</tr>
 		</c:forEach>
 	</table>
-	
+	<div class="div1" style="text-align: center">
 	
 	<c:if test="${pageMaker.prev}">
 		<ul class="pagination">
@@ -103,6 +103,7 @@ body {
 			<li><a href="${pageMaker.endPage +1}">&raquo;</a></li>
 		</ul>
 	</c:if>
+	</div>
 	</c:if>
 	
 <form id="jobForm">

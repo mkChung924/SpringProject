@@ -15,7 +15,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css"
-	href="/resources/css/admin/admin.css?ver=1.4">
+	href="/resources/css/admin/admin.css?ver=1.6">
 <link rel="stylesheet" type="text/css"
 	href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
@@ -162,27 +162,7 @@ body {
 	background: linear-gradient(to bottom, #FF0000, #375094);
 }
 </style>
-<style>
-#title {
-	display: inline;
-	width: 350px;
-}
 
-#tel {
-	display: inline;
-	width: 130px;
-}
-
-.form-control {
-	display: inline;
-	width: 500px;
-}
-
-.row {
-	padding-left: 40px;
-	padding-right: 40px;
-}
-</style>
 </head>
 <body>
 	<div class="container">
@@ -234,12 +214,15 @@ body {
 					<div class="profile-usermenu">
 						<ul class="nav">
 							<li><a href="admin"> <i class="glyphicon glyphicon-exclamation-sign"></i> 내 정보</a></li>
-							<li><a href="#"> <i class="glyphicon glyphicon-user"></i>회원 현황</a></li>
+							<li><a href="memList"> <i class="glyphicon glyphicon-user"></i>회원 현황</a></li>
 							<li><a href="admessage"> <i class="glyphicon glyphicon-envelope"></i> 메시지함</a></li>
-							<li class="active"><a href="reportBox"> <i class="glyphicon glyphicon-warning-sign"></i> 신고접수함</a></li>
-							<li><a href="#"> <i class="glyphicon glyphicon-heart"></i>즐겨찾기</a></li>
-							<li><a href="#"> <i class="glyphicon glyphicon-remove"></i>탈퇴</a></li>
-							<li><a href="adminWrite"> <i class="glyphicon glyphicon-remove"></i>여행 추천 게시글 쓰기</a></li>
+							<li><a href="reportBox"> <i class="glyphicon glyphicon-warning-sign"></i> 신고접수함</a></li>
+							<li>
+								<a href="#">
+								<i class="glyphicon glyphicon-th-list"></i>
+								게시판 현황 </a>
+							</li>
+							<li class="active"><a href="adminWrite"> <i class="glyphicon glyphicon-remove"></i>여행 추천 게시글 쓰기</a></li>
 						</ul>
 					</div>
 					<!-- END MENU -->
@@ -248,59 +231,40 @@ body {
 			<div class="col-md-9">
 				<div class="profile-content">
 					<!-- 이곳에 html을 작성하면 됩니다! -->
-					<h3>
-						<b>게시글 작성</b>
-					</h3>
-					<br> <br>
-					<div class="row" style="text-align: center;">
-
-						<div class="row">
-							<form class="form-horizontal" role="form" method="post" action="admin_regit" enctype="multipart/form-data">
-								<input type="hidden" value="${id}" id="id" name="id"> 
-								<hr>
-								<div class="form-group">
-									<label for="name" class="col-sm-2 control-label">제목</label>
-									<div class=col-sm-10>
-										<input type="text" class="form-control" id="title" name="title" placeholder="제목을 간략하게 입력해주세요." maxlength="50" style="float: left;" required>
-									</div>
+					<div class="col-sm-6">
+	           	 	<h3><b>추천 여행정보 작성</b></h3>
+	           	 	</div>
+					<br><br><br><br>
+					<div class="div1">
+						<form class="form-horizontal" role="form" method="post" action="admin_regit" enctype="multipart/form-data">
+							<input type="hidden" value="${id}" id="id" name="id">
+							<input name="tb_kind" value="0" type="hidden">
+							<input type="hidden" value="1" id="cno" name="cno"> 
+							
+							<input type="text" class="form-control" id="title" name="title" placeholder="제목을 간략하게 입력해주세요." maxlength="50";" required>
+							<br>
+							<!-- 여행일 때만 보여줌 -->
+								<select name="csno" required>
+									<option value=1>맛집탐방</option>
+									<option value=2>테마여행</option>
+									<option value=3>자유여행</option>
+								</select>
+								<select id="place1" name="place1" required></select>
+								<select id="place2" name="place2" required></select>
+							<br><br>		
+							<input type="text" class="form-control" id="notice" name="notice" placeholder="공지할 내용이 있다면 입력해주세요!">
+							<br>
+							<div class="form-group">
+								<!-- <label for="name" class="col-sm-2 control-label" required>내용</label> -->
+								<div class="col-sm-12">
+									<textarea id="editor" name="content" rows="20"></textarea>
 								</div>
-								<div class="form-group">
-									<label for="name" class="col-sm-2 control-label">카테고리</label>
-									<div class="col-sm-10">
-											<!-- 여행일 때만 보여줌 -->
-											<input name="tb_kind" value="0" type="hidden">
-											<input type="hidden" value="1" id="cno" name="cno"> 
-											<select name="csno" style="float: left;" required>
-												<option value=1>맛집탐방</option>
-												<option value=2>테마여행</option>
-												<option value=3>자유여행</option>
-											</select>
-											<select id="place1" name="place1" required></select>
-											<select id="place2" name="place2" required></select>
-									</div>
-								</div>
-								
-								<div class="form-group">
-									<label for="name" class="col-sm-2 control-label" required>공지사항</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="notice" name="notice" placeholder="공지할 내용이 있다면 입력해주세요!" style="float: left;">
-									</div>
-								</div>
-								<div class="form-group">
-									<label for="name" class="col-sm-2 control-label" required>내용</label>
-									<div class="col-sm-10">
-										<textarea id="editor" name="content" rows="20"></textarea>
-									</div>
-								</div>
-								<div class="form-group" style="text-align: center">
-									<div class="col-sm-10 col-sm-offset-2">
-										<input id="submit" name="submit" type="submit" value="저장하기"
-											class="btn btn-danger"> <input id="cancel"
-											name="cancel" type="reset" value="취소" class="btn btn-primary">
-									</div>
-								</div>
-							</form>
-						</div>
+							</div>
+							<div class="buttons" style="text-align: center">
+								<input id="submit" name="submit" type="submit" value="저장하기" class="btn btn-danger"> 
+								<input id="cancel" name="cancel" type="reset" value="취소" class="btn btn-primary">
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>

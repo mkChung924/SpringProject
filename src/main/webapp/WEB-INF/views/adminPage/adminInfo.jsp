@@ -13,7 +13,7 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
-<link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.4">
+<link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.6">
 <script>
 	$(document).on("click","#modifyProfilePicture",function(){
 		var fileName = $("#fileopen").trigger('click',function(){
@@ -85,7 +85,7 @@
 								내 정보 </a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="memList">
 								<i class="glyphicon glyphicon-user"></i>
 								회원 현황 </a>
 							</li>
@@ -101,15 +101,14 @@
 							</li>
 							<li>
 								<a href="#">
-								<i class="glyphicon glyphicon-heart"></i>
-								즐겨찾기 </a>
+								<i class="glyphicon glyphicon-th-list"></i>
+								게시판 현황 </a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="adminWrite"> 
 								<i class="glyphicon glyphicon-remove"></i>
-								탈퇴 </a>
+								여행 추천 게시글 쓰기</a>
 							</li>
-							<li><a href="adminWrite"> <i class="glyphicon glyphicon-remove"></i>여행 추천 게시글 쓰기</a></li>
 						</ul>
 					</div>
 					<!-- END MENU -->
@@ -118,25 +117,31 @@
 			<div class="col-md-9">
 	            <div class="profile-content">
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
-	            <h3><b>내 계정 정보</b></h3><br>
-				<table class="table">
-					<tr>
-					<th>등급</th>
-					<th>아이디</th>
-					<th>가입날짜</th>
-					<th>게시글 수</th>
-					<th>댓글 수</th>
-					</tr>
-					<tr>
-					<td>${admin.auth == 2 ? '<font color=red>관리자</font>' : '<font color=blue>일반회원</font>' }</td>
-					<td>${admin.id }</td>
-					<td>${admin.regdate }</td>
-					<td>${admin.myBoards }</td>
-					<td>${admin.replyCount }</td>
-					</tr>
-				</table>
-				<br>
-				<b>계정상태 : </b> <font color=green>양호</font>
+	            <div class="col-sm-6">
+	            <h3><b>내 계정 정보</b></h3>
+	            </div>
+	            <br><br><br><br>
+	            
+					<table class="table">
+						<tr>
+						<th>등급</th>
+						<th>아이디</th>
+						<th>가입날짜</th>
+						<th>게시글 수</th>
+						<th>댓글 수</th>
+						</tr>
+						<tr>
+						<td>${admin.auth == 2 ? '<font color=red>관리자</font>' : '<font color=blue>일반회원</font>' }</td>
+						<td>${admin.id }</td>
+						<td>${admin.regdate }</td>
+						<td>${admin.myBoards }</td>
+						<td>${admin.replyCount }</td>
+						</tr>
+					</table>
+
+					<br>
+					<b>계정상태 : </b> <font color=green>양호</font>
+					
 	            </div>
 			</div>
 		</div>
