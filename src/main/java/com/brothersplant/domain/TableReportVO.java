@@ -9,7 +9,7 @@ public class TableReportVO {
 	private String content;
 	private String offender;
 	private String reporter;
-	private Date senddate;
+	private String senddate;
 	private String id;
 	
 	@Override
@@ -66,11 +66,11 @@ public class TableReportVO {
 		this.reporter = reporter;
 	}
 
-	public Date getSenddate() {
+	public String getSenddate() {
 		return senddate;
 	}
 
-	public void setSenddate(Date senddate) {
+	public void setSenddate(String senddate) {
 		this.senddate = senddate;
 	}
 

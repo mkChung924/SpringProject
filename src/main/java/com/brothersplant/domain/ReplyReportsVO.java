@@ -1,15 +1,14 @@
 package com.brothersplant.domain;
 
-import java.sql.Date;
 
 public class ReplyReportsVO {
-	int repno;
-	int rno;
-	String content;
-	String offender;
-	String reporter;
-	Date senddate;
-	String id;
+	private int repno;
+	private int rno;
+	private String content;
+	private String offender;
+	private String reporter;
+	private String senddate;
+	private String id;
 	@Override
 	public String toString() {
 		return "ReplyReportsVO [repno=" + repno + ", rno=" + rno + ", content=" + content + ", offender=" + offender
@@ -45,10 +44,10 @@ public class ReplyReportsVO {
 	public void setReporter(String reporter) {
 		this.reporter = reporter;
 	}
-	public Date getSenddate() {
+	public String getSenddate() {
 		return senddate;
 	}
-	public void setSenddate(Date senddate) {
+	public void setSenddate(String senddate) {
 		this.senddate = senddate;
 	}
 	public String getId() {

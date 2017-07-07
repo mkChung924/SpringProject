@@ -80,6 +80,29 @@
     		 });
     	});//click
      });//function
+     
+ 	$(document).on("click","#modifyProfilePicture",function(){
+		var fileName = $("#fileopen").trigger('click',function(){
+		});
+	});
+	
+	$(document).on("change","#fileopen",function(){
+		
+		var formData = new FormData();
+		 //첫번째 파일태그
+		 formData.append("file",$("#fileopen")[0].files[0]);
+	
+		$.ajax({
+			url : '/rest2/profile/image',
+			data : formData,
+			type : "POST",
+			contentType: false,
+			processData: false,
+			success : function(result) {
+				$("#profilePic").attr("src",result);			
+			},
+		});
+	});
 </script>
 <style type="text/css">
 	body{
@@ -135,14 +158,15 @@
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${admin.profile == 'default.png' }">						
-						<img src="/resources/upload/${admin.profile }" class="img-responsive" alt="기존사진"><br>
+						<img src="${admin.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${admin.profile != 'default.png' }">
-						<img src="/resources/upload/${id }/${admin.profile }" class="img-responsive" alt="프로필사진"><br>
+						<img src="${admin.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
-						<button type="button" class="btn btn-default">
-  						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
+						<button type="button" class="btn btn-default" id="modifyProfilePicture">
+  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
 						</button>
+						<input type="file" style="display: none;" id="fileopen">
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->
@@ -195,15 +219,17 @@
 			<div class="col-md-9">
 	            <div class="profile-content">
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
+	            <div class="col-sm-6">
 	            <h3><b>신고 접수함</b></h3>
+	            </div>
+	            <div class="col-sm-6" style="text-align: right; margin-top: 15px">
+	           		<form name="removeCheck">
+						<input type="button" id="button1" value="댓글 신고함"> &nbsp; 
+						<input type="button" id="button2" value="게시글 신고함">
+					</form>
+	            </div>
 	            <br><br>
 	            	<div class="row" style="text-align: center;">
-						<form name="removeCheck" style="margin-top: -10px;">
-							<input type="button" id="button1" value="댓글 신고함"> &nbsp; 
-							<input type="button" id="button2" value="게시글 신고함">
-						</form>
-						<br><br>
-					
 						<div id="div1" style="display: none;"></div>
 						<div id="div2" style="display: none;"></div>
 					</div>

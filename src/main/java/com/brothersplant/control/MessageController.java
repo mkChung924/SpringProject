@@ -3,6 +3,8 @@ package com.brothersplant.control;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +35,7 @@ public class MessageController {
 		System.out.println("수신함 검색");
 		session.setAttribute("msg", "receive");
 		cri.setPage(page);
-		cri.setPerPageNum(20);
+		cri.setPerPageNum(10);
 		System.out.println("받은 메시지 개수: " + service.receiverListCriteria(cri, (String) session.getAttribute("id")).size());
 		model.addAttribute("messages",service.receiverListCriteria(cri, (String) session.getAttribute("id")));
 		System.out.println(service.receiverListCriteria(cri, (String) session.getAttribute("id")));
@@ -52,7 +54,7 @@ public class MessageController {
 		System.out.println("발신함 검색");
 		session.setAttribute("msg", "send");
 		cri.setPage(page);
-		cri.setPerPageNum(20);
+		cri.setPerPageNum(10);
 		model.addAttribute("messages",service.senderListCriteria(cri, (String) session.getAttribute("id")));
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
@@ -91,14 +93,19 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value="/msgSend",method=RequestMethod.POST)
-	public String msgSendPost(HttpSession session,Criteria cri, InsertMessageVO vo)throws Exception{
-	
-		vo.setSender((String) session.getAttribute("id"));
-		System.out.println(vo);
+	public ResponseEntity<String> msgSendPost(HttpSession session,Criteria cri, InsertMessageVO vo){
+		System.out.println("메시지 보내는중!!!!");
+		ResponseEntity<String> entity = null;
 		
-		service.addMsg(vo);
-		
-		return "redirect:message";
+		try {
+			vo.setSender((String) session.getAttribute("id"));
+			System.out.println(vo);
+			service.addMsg(vo);
+			entity = new ResponseEntity<>("success",HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<>("bad",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 		
 	}
 	

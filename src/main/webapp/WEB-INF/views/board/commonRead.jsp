@@ -101,6 +101,7 @@
 			dataType : 'JSON',
 			success : function(data) {
 				printData(data, $("#comments-list"), $("#template"));
+				$('#userid').val('${id }');
 			//printPaging(data.pageMaker, $(".pagination"));
 			}
 		});
@@ -139,7 +140,8 @@
 				if (result == 'SUCCESS') {
 					alert('등록되었습니다');
 					getPage("/replies/all/" + $("#bno").val());
-					$("#userid").val("${id}");
+					//location.reload();
+					//$("#userid").val("${id}");
 					replyerObj.val("");
 					replytextObj.val("");
 					$("#modalClose").trigger('click');

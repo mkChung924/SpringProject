@@ -162,6 +162,7 @@ public class BoardController {
 	public String CommonRead(int tbno,Model model,HttpSession session) throws Exception{
 		model.addAttribute("commonBoard",service.selectCommonRow(tbno,(String)session.getAttribute("id")));
 		model.addAttribute("profile",userService.selectprofile((String)session.getAttribute("id")));
+		
 		return "board/commonRead";
 	}
 	

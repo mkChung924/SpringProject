@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 
 <link rel="stylesheet" type="text/css"
@@ -21,7 +20,7 @@
      			success:function(result){
  					  $('#div1').html(result);
  					   $('#div2').css('display','none')
- 					  $('#div1').css('display','block')
+ 					  $('#div1').css('display','inline-block')
  					  
  				  }
      		 });
@@ -47,7 +46,7 @@
 			success:function(result){
 				  $('#div2').html(result);
 				   $('#div1').css('display','none')
-				  $('#div2').css('display','block')
+				  $('#div2').css('display','inline-block')
 			  }
 		 });
      }
@@ -105,24 +104,15 @@
 </style>
 </head>
 <body>
-<center>
-<h1>MESSAGE </h1>
-<HR>
-<form name="removeCheck">
-<input type="button" id="button1" value="수신 메세지함">
-<input type="button" id="button2" value="발신 메세지함">
-
-</form>
-<div class="container">
-
-<div id="div1" style="display: none;">
-</div>
-<div id="div2" style="display: none;">
-</div>
-<form action="msgSend">
-</form>
-<font size="5"><a href="/msgSend" style="color: black" id="writer">메일 쓰기 &#xe800</a></font>
-</div>
-</center>
+	<h1>MESSAGE </h1>
+	<HR>
+	<form name="removeCheck">
+		<input type="button" id="button1" value="수신 메세지함">
+		<input type="button" id="button2" value="발신 메세지함">
+	</form>
+	<div class="container">
+		<div id="div1" style="display: none;"></div>
+		<div id="div2" style="display: none;"></div>
+	</div>
 </body>
 </html>

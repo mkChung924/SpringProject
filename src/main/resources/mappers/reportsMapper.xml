@@ -16,7 +16,7 @@
 	</insert>
 	<!-- 댓글 신고 검색 -->
 	<select id="replySelect" resultType="replyReports">
-		select rno, repno,content,offender,reporter, senddate 
+		select rno, repno,content,offender,reporter, to_char(senddate, 'yyyy-mm-dd hh24:mi:ss') senddate 
 		from tbl_replyreports order by senddate desc
 	</select>
 	
@@ -53,11 +53,13 @@
 	
 	<!-- 신고된 것들 출력 -->
 	<select id="tableRepoertSelect" resultType="boardReports">
-		select tbno,trno,title,id,reporter,senddate from tbl_boardreports natural join tbl_boards order by senddate desc
+		select tbno,trno,title,id,reporter,to_char(senddate, 'yyyy-mm-dd hh24:mi:ss') senddate 
+		from tbl_boardreports natural join tbl_boards order by senddate desc
 	</select>
 	
  	<select id="tableReportContent" resultType="boardReports">
-		select tbno,id,title,content from tbl_boardreports natural join tbl_boards where trno=#{trno}
+		select tbno,id,title,content 
+		from tbl_boardreports natural join tbl_boards where trno=#{trno}
 	</select> 
 	
 	<!-- 신고와 게시물 삭제 -->

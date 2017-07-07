@@ -11,9 +11,13 @@
 
 <script type="text/javascript">
 
+$(function(){
+	
 	$("#replyDelBtn1").click(function() {
+		
 		$('input:checkbox[name="chbox1"]').each(function() {
-			if (this.checked) { //checked 처리된 항목의 값	            
+			if (this.checked) { //checked 처리된 항목의 값	     
+				
 				$.ajax({
 					url : 'sendRemove',
 					data : 'mno=' + this.value+ '&page='+${page},
@@ -25,9 +29,18 @@
 		});
 	});
 	
+})
+
 	function readMsg(mno, page){
 		window.open('senderContent?mno='+mno+'&page='+page, '받은 메시지', 'width=600 height=600 menubar=no status=no scrollbars=yes left=500 top=50 resizable=0')
 	}
+	
+	function reply(sender, page){
+		var a = $('input:checkbox[name="chbox2"]:checked').length;
+		alert(a + ", " + sender + ", " + page);
+
+	}
+
 
 </script>
 <style type="text/css">
@@ -36,17 +49,25 @@ body {
 }
 
 </style>
-	<c:if test="${messages.size() == 0 }">
-		<br><br><br><i><h4>발신 메지시함이 비었습니다</h4></i>
+	<c:if test="${messages.size() < 1 }">
+		<br><br><br><br><br><br><br><br><h4><i>발신 메지시함이 비었습니다</i></h4>
 	</c:if>
-	<c:if test="${messages.size() != 0 }">
-	<table class="table-striped">
+	<c:if test="${messages.size() > 0 }">
+	<br><br><br>
+	<div class="col-sm-6" style="text-align: left; padding-left: 20px; display: inline">
+	<label><font size=4>발신 메시지</font></label>
+	</div>
+	<div class="col-sm-6" style="text-align: right; padding-right: 15px; display: inline">
+		<button type="button" class="btn btn-danger" id="replyDelBtn1">삭제 &#xf083</button> &nbsp;
+	</div>
+	<br><br>
+	<table class="table">
 		
 		<tr style="font-size: 20x;">
-			<th width="100" style="text-align: center;">삭제</th>
+			<th width="100" style="text-align: center;">선택</th>
 			<th width="200" style="text-align: center;">제목</th>
-			<th width="200" style="text-align: center;">받는사람</th>
-			<th width="100" style="text-align: center;">작성일</th>
+			<th width="200" style="text-align: center;">받는 사람</th>
+			<th width="100" style="text-align: center;">보낸 날짜</th>
 			
 		</tr>
 		
@@ -60,7 +81,7 @@ body {
 			</tr>
 		</c:forEach>
 	</table>
-	</c:if>
+	
 	
 	<c:if test="${pageMaker.prev}">
 		<ul class="pagination">
@@ -82,11 +103,7 @@ body {
 			<li><a href="${pageMaker.endPage +1}">&raquo;</a></li>
 		</ul>
 	</c:if>
-	
-	<c:if test="${messages.size() != 0 }">
-	<button type="button" class="btn btn-danger" id="replyDelBtn1" >삭제 &#xf083</button>
 	</c:if>
-	
 	
 <form id="jobForm">
   <input type='hidden' name="page" value=${pageMaker.cri.perPageNum }>
@@ -101,7 +118,7 @@ body {
 		
 		var jobForm = $("#jobForm");
 		jobForm.find("[name='page']").val(targetPage);
-		jobForm.attr("action","/project/mailBox").attr("method", "get");
+		jobForm.attr("action","/message").attr("method", "get");
 		jobForm.submit();
 	});
 	</script>
