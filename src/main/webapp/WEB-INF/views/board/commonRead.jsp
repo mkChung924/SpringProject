@@ -49,11 +49,10 @@
 				<input type="hidden" name="userid" id="{{id}}" value={{id}}>
 				<input type="hidden" name="rno" id="{{rno}}">
 				<a class="btn btn-info btn-xs" style="float: right; margin-left: 5px;" id="msgSend" onclick="msgSend('{{id}}')">메시지함</a>
-				<a class="btn btn-danger btn-xs" style="float: right; margin-left: 5px;" id="reportSend" >신고</a>
 				{{#viewModifyBtn id}}
 				<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="float: right; margin-left: 5px;" id="replyModify">Modify</a>
 				{{else}}
-				<div></div>
+				<a class="btn btn-danger btn-xs"  data-toggle="modal" data-target="#myModal2" style="float: right; margin-left: 5px;" id="reportSend" onclick="reportSend('{{content}}','{{rno}}','{{id}}',2)">신고</a>
 				{{/viewModifyBtn}}
 			</div>
 			<div class="comment-content">{{content}}
@@ -273,26 +272,54 @@
 		open.document.getElementById("targetid").value = id;
 	};
 	
-	$(document).on("click", "#reportSend", function() {//신고 보내기
-		var w = 800;
-		var h = 400;
-		var left = (screen.width / 2) - (w / 2);
-		var top = (screen.height / 2) - (h / 2);
-		window.open("/CommonUpdate?tbno=" + ${commonBoard.tbno }, ${commonBoard.tbno } + "번 게시글 수정", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+	function reportSend(content,brno,replyer,kind) {//신고 보내기 전 보여주는 부분
+		var str = "";
+		$.ajax({
+			url : '/reportList',
+			type : 'POST',
+			success : function(result) {
+				for(var i=1;i<result.length;i++){
+					str += "<option>"+result[i]+"</option>";
+				}
+				$("#modalTitle2").html(replyer+"님을 신고 중입니다");
+				$("#brContent").val(content);
+				$("#brno").val(brno);
+				$("#brReportkind").val(kind);
+				$("#roportType").html(str);
+			},
+		}); 
+	};
+	
+	
+	$(document).on("click","#addReport",function(){//진짜 신고로 날라가는 부분
+		var input = confirm('정말로 신고 하시겠습니까?'); 
+		if(input){
+			$.ajax({
+				url : '/addReport',
+				type : 'POST',
+				data : {
+					brno : $("#brno").val(),
+					content : $("#brContent").val(),
+					reportkind : $("#brReportkind").val(),
+					reporttype :$("#roportType option:selected").val()
+				},
+				success : function(result) {
+					if(result=="SUCCESS"){
+						alert("신고 완료");
+						$(".btn btn-default").trigger('click');
+					}
+				},
+			}); 
+		}else{
+			$(".btn btn-default").trigger('click');
+		}
 	});
 	
 	$(function() {
 		getPage("/replies/all/" + $("#bno").val());
 	});
 	
-	function aaa(){
-		$('#dialog').dialog({
-			title: '다이얼로그 제목을 넣자',
-			modal: true,
-			width: '300',
-			height: '300'
-		});
-	}
+
 </script>
 <title>Insert title here</title>
 </head>
@@ -353,11 +380,10 @@
 				
 				<!-- ================ 게시글 작성자에게 메시지 보내기 표시 -->
 				<a class="btn btn-info btn-xs" style="float: right; margin-left: 5px;" id="msgSend" onclick="msgSend('${commonBoard.id}')">메시지함</a>
-				<a class="btn btn-danger btn-xs" style="float: right; margin-left: 5px;" id="reportSend">신고</a>
 				<!-- ================ 게시글 작성자에게 메시지 보내기 표시 끝 -->
 				
-				
-				
+				<!-- 신고 -->	
+				<a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal2" style="float: right; margin-left: 5px;" id="reportSendBoard" onclick="reportSend('${commonBoard.title}','${commonBoard.tbno}','${commonBoard.id}',1)">신고</a>			
 				
 				<!-- ================ 좋아요 표시 끝 -->
 				<p align="right">
@@ -406,26 +432,50 @@
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">
-
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">&times;</button>
-					<h4 class="modal-title" id="modalTitle"></h4>
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title" id="modalTitle"></h4>
+					</div>
+					<div class="modal-body">
+						<p>
+							<input class="form-control" type="text" id="modalText">
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
+						<button type="button" class="btn btn-danger" id="replyDelBtn">DELETE</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="modalClose">Close</button>
+					</div>
 				</div>
-				<div class="modal-body">
-					<p>
-						<input class="form-control" type="text" id="modalText">
-					</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-info" id="replyModBtn">Modify</button>
-					<button type="button" class="btn btn-danger" id="replyDelBtn">DELETE</button>
-					<button type="button" class="btn btn-default" data-dismiss="modal" id="modalClose">Close</button>
-				</div>
-			</div>
 		</div>
 	</div>
 	
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal2" role="dialog">
+		<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title" id="modalTitle2"></h4>
+					</div>
+					<div class="modal-body">
+						<p>
+							<input type="hidden" id="brno" name="brno"><!-- 게시글 or 댓글 번호 -->
+							<input type="hidden" id="brContent" name="content"><!--글 내용 -->
+							<input type="hidden" id="brReportkind" name="reportkind"><!--신고 종류 1:게시글, 2: 댓글  -->
+							<select name="roportType" id="roportType"></select><!-- 신고 유형 -->	
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-info" id="addReport">신고</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="modalClose">Close</button>
+					</div>
+				</div>
+		</div>
+	</div>
 </body>
 </html>

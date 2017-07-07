@@ -1,6 +1,8 @@
 package com.brothersplant.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -9,7 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.brothersplant.domain.Criteria;
-import com.brothersplant.domain.ReplyReportsVO;
+import com.brothersplant.domain.ReportsListVO;
 import com.brothersplant.domain.TableReportVO;
 @Repository
 public class ReportsDAOImpl implements ReportsDAO {
@@ -17,13 +19,42 @@ public class ReportsDAOImpl implements ReportsDAO {
 	@Inject
 	private SqlSession sqlSession;
 	
+	private static final String namespace = "report";
+
 	@Override
-	public void replyReportsCreate(ReplyReportsVO vo) throws Exception {
+	public int insertReport(ReportsListVO vo) throws Exception {//신고  
+		return sqlSession.insert(namespace+".insertReport",vo);
+	}
+
+	@Override
+	public List<String> selectReportList() throws Exception { //신고 유형 검색
+		return sqlSession.selectList("report.selectReportList");
+	}
+
+	@Override //게시글인지 댓글인지 종류에 따른 총 갯수 검색 (게시글 1, 댓글 2) 
+	public int countPaging(int kind) throws Exception {
+		return sqlSession.selectOne(namespace+".countPaging",kind);
+	}
+	
+	@Override //페이징 된 ReportsListVO 검색
+	public List<ReportsListVO> listCriteria(Criteria cri,int kind) throws Exception {
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		Map<String, Object> map = new HashMap<>();
+		map.put("kind", kind);
+		System.out.println("@@@@ : "+kind);
+		String what =  (kind ==1) ? "board":"reply";
+		map.put("what", what);
+		return sqlSession.selectList(namespace+".selectReportList2",map,bounds);
+	}
+}
+
+/*	@Override
+	public void replyReportsCreate(ReportsListVO vo) throws Exception {
 		sqlSession.insert("report.insertReply", vo);
 	}
 
 	@Override
-	public List<ReplyReportsVO> listReply(int page) throws Exception {
+	public List<ReportsListVO> listReply(int page) throws Exception {
 		if(page < 1) page=1;
 		
 		page = (page-1)*10;		
@@ -34,7 +65,7 @@ public class ReportsDAOImpl implements ReportsDAO {
 	}
 	
 	@Override
-	public ReplyReportsVO readReply(int rno) throws Exception {
+	public ReportsListVO readReply(int rno) throws Exception {
 		
 		return sqlSession.selectOne("report.replyContent",rno);
 	}
@@ -49,22 +80,16 @@ public class ReportsDAOImpl implements ReportsDAO {
 	}
 
 	@Override
-	public List<ReplyReportsVO> replyListCriteria(Criteria cri) throws Exception {
+	public List<ReportsListVO> replyListCriteria(Criteria cri) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
 		return sqlSession.selectList("report.replySelect",null,bounds);
 	}
 
 
-	@Override
-	public int replyCountPaging() throws Exception {
-		
-		return sqlSession.selectOne("report.replyCountPaging");
-	}
 
 	@Override
-	public void insertReply(int rno) throws Exception {
-		
-		sqlSession.insert("report.insertReply",rno);
+	public void insertReply(ReportsListVO vo) throws Exception {
+		sqlSession.insert("report.insertReply",vo);
 	}
 
 	@Override
@@ -135,4 +160,7 @@ public class ReportsDAOImpl implements ReportsDAO {
 				
 	}
 
-}
+	@Override
+	public List<String> selectReportList() throws Exception {
+		return sqlSession.selectList("report.selectReportList");
+	}*/

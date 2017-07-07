@@ -33,6 +33,7 @@
 			contentType: false,
 			processData: false,
 			success : function(result) {
+				alert("프로필 변경");
 				$("#profilePic").attr("src",result);			
 			},
 		});
@@ -55,10 +56,10 @@
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${admin.profile == 'default.png' }">						
-						<img src="${admin.profile }" class="img-responsive" alt="기존사진"><br>
+						<img src="${admin.profile }" class="img-responsive" alt="기존사진" id="profilePic"><br>
 						</c:if>
 						<c:if test="${admin.profile != 'default.png' }">
-						<img src="${admin.profile }" class="img-responsive" alt="프로필사진"><br>
+						<img src="${admin.profile }" class="img-responsive" alt="프로필사진" id="profilePic"><br>
 						</c:if>
 						<button type="button" class="btn btn-default" id="modifyProfilePicture">
   							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>

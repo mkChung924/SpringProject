@@ -112,10 +112,10 @@ body{
 		
 	<c:if test="${messages.size() > 0 }">
 	<br><br><br>
-	<div class="col-sm-6" style="text-align: left; padding-left: 20px; display: inline">
+	<div class="col-sm-4" style="text-align: left; padding-left: 20px; display: inline">
 	<label><font size=4>댓글 신고</font></label>
 	</div>
-	<div class="col-sm-6" style="text-align: right; padding-right: 15px; display: inline">
+	<div class="col-sm-8" style="text-align: right; padding-right: 15px; display: inline">
 		<button type="button" class="btn btn-danger" id="replyDelBtn">댓글 삭제 &#xf083</button> &nbsp;
 		<button type="button" class="btn btn-warning" id="reportsDelBtn">신고 삭제 &#xf083</button> &nbsp;
 		<button type="button" class="btn btn-info" id="reportsDelAllBtn">같은 신고 일괄 삭제 &#xf083</button>
@@ -124,15 +124,15 @@ body{
 		<table class="table">
 		<tr style="font-size: 20x;">
 			<th width="70" style="text-align: center;">선택</th>
-			<th width="80"style="text-align: center;">댓글 번호</th>
+			<th width="100"style="text-align: center;">댓글 번호</th>
 			<th width="300" style="text-align: center;">댓글 내용</th>
-			<th width="70" style="text-align: center;">위반한 사람</th>
+			<th width="110" style="text-align: center;">위반한 사람</th>
 			<th width="100" style="text-align: center;">신고일</th>
 		</tr>
 		<c:forEach items="${messages}" var="reply">
 			<tr style="text-align: center; font-size: 18px;">
-				<td><input type="checkbox" name="chbox1" value=${reply.repno }%${reply.rno }></td>
-				<td>${reply.rno }</td>
+				<td><input type="checkbox" name="chbox1" value=${reply.repno }%${reply.brno }></td>
+				<td>${reply.brno }</td>
 				<td>${reply.content }</td>
 				<td>${reply.offender}</td>
 				<td>${reply.senddate}</td>

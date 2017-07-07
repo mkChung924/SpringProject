@@ -24,9 +24,11 @@ public class AdminController {
 	@Inject
 	private MyPageService service;
 	@Inject
-	private ReportsService service2;
+	private ReportsService reportService;
 	@Inject
 	private BoardInfoService boardService;
+	
+	private static final int PERPAGENUM = 20;
 	
 	@RequestMapping("/admin")
 	public String admin(HttpSession session, Model model) throws Exception{
@@ -98,23 +100,45 @@ public class AdminController {
 			return "redirect:login";
 		}
 	}
-	
-	@RequestMapping("/tableReportBox")
-	public String tableReportBox(HttpSession session,Criteria cri,Model model, int page)throws Exception{
-		System.out.println("tableReportBox");
-		session.setAttribute("msg", "table");
+	//신고 목록이 댓글일때
+	@RequestMapping(value="/replyReportBox" ,method=RequestMethod.POST)
+	public String replyReportsBox(HttpSession session,Criteria cri,Model model, int page)throws Exception{
+		System.out.println("댓글 목록 가져오는 중");
+		session.setAttribute("msg", "reply");
 		cri.setPage(page);
-		cri.setPerPageNum(20);
-		model.addAttribute("tablereport",service2.tableReportListCriteria(cri));
+		cri.setPerPageNum(PERPAGENUM);
+		model.addAttribute("messages",reportService.listCriteria(cri,2));
+		System.out.println(reportService.listCriteria(cri,2));
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
-		maker.setTotalCount(service2.tableReportCountPaging());
+		maker.setTotalCount(reportService.countPaging(2));
+		
+		model.addAttribute("pageMaker",maker);
+		model.addAttribute("page", page);
+		
+		return "adminPage/reports/replyReportBox";
+	}
+	
+	//신고 목록이 게시글일때
+	@RequestMapping(value="/tableReportBox",method=RequestMethod.POST)
+	public String tableReportBox(HttpSession session,Criteria cri,Model model, int page)throws Exception{
+		session.setAttribute("msg", "table");
+		System.out.println("게시글");
+		cri.setPage(page);
+		cri.setPerPageNum(PERPAGENUM);
+		model.addAttribute("tablereport",reportService.listCriteria(cri,1));
+		System.out.println(reportService.listCriteria(cri,1));
+		PageMaker maker = new PageMaker();
+		maker.setCri(cri);
+		maker.setTotalCount(reportService.countPaging(1));
 		
 		model.addAttribute("pageMaker",maker);
 		model.addAttribute("page", page);
 		
 		return "adminPage/reports/tableReportBox";
 	}
+	
+/*	
 	
 	@RequestMapping("/tableReportContent")
 	public String tableReportContent(int trno, Model model, int page)throws Exception{
@@ -149,21 +173,7 @@ public class AdminController {
 	}
 
 	
-	@RequestMapping("/replyReportBox")
-	public String replyReportsBox(HttpSession session,Criteria cri,Model model, int page)throws Exception{
-		session.setAttribute("msg", "reply");
-		cri.setPage(page);
-		cri.setPerPageNum(20);
-		model.addAttribute("messages",service2.replyListCriteria(cri));
-		PageMaker maker = new PageMaker();
-		maker.setCri(cri);
-		maker.setTotalCount(service2.replyCountPaging());
-		
-		model.addAttribute("pageMaker",maker);
-		model.addAttribute("page", page);
-		
-		return "adminPage/reports/replyReportBox";
-	}
+
 	
 	
 	@RequestMapping("/replyRemove")//receivecontent
@@ -180,7 +190,7 @@ public class AdminController {
 		model.addAttribute("messages",service2.readReply(rno));
 		model.addAttribute("page",page);
 		return "adminPage/reports/replyContent";
-	}
+	}*/
 
 	@RequestMapping(value="/adminWrite", method=RequestMethod.GET)
 	public String adminWrite(HttpSession session, Model model) throws Exception{

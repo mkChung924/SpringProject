@@ -10,7 +10,7 @@
 <script type="text/javascript">
 	
 	$(function(){
-		
+		alert();
 		$("#tableDelBtn1").click(function() {
 			$('input:checkbox[name="chbox1"]').each(function() {
 				if (this.checked) { //checked 처리된 항목의 값	            
@@ -72,7 +72,7 @@ body{
 		</tr>
 		<c:forEach items="${tablereport }" var="table">
 			<tr  style="text-align: center; font-size: 18px;">
-				<td><input type="checkbox" name="chbox1" value=${table.trno }></td>
+				<td><input type="checkbox" name="chbox1" value=${table.brno }></td>
 				<td><a href="tableReportContent?trno=${table.trno }&page=${page}">${table.title}</a></td>
 				<td><input type="hidden" value="${table.tbno }" id="mno1">${table.id}</td>
 				<td>${table.reporter}</td>

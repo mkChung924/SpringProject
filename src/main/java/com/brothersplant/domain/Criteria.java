@@ -35,7 +35,6 @@ public class Criteria {
 	}
 	
 	public int getPageStart(){
-		
 		return (page-1)*perPageNum; //RowBounds의 offset으로 사용
 	}
 	

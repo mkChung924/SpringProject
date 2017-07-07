@@ -7,7 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.brothersplant.domain.Criteria;
-import com.brothersplant.domain.ReplyReportsVO;
+import com.brothersplant.domain.ReportsListVO;
 import com.brothersplant.domain.TableReportVO;
 import com.brothersplant.persistence.ReportsDAO;
 
@@ -20,12 +20,34 @@ public class ReportsServiceImpl implements ReportsService {
 	private ReportsDAO dao;
 	
 	@Override
-	public void replyReport(ReplyReportsVO vo) throws Exception {
+	public int insertReport(ReportsListVO vo) throws Exception {
+		return dao.insertReport(vo);
+	}
+	
+	@Override
+	public List<String> selectReportList() throws Exception {
+		return dao.selectReportList();
+	}
+
+	@Override
+	public int countPaging(int kind) throws Exception {
+		return dao.countPaging(kind);
+	}
+	
+	@Override
+	public List<ReportsListVO> listCriteria(Criteria cri,int kind) throws Exception {		
+		return dao.listCriteria(cri,kind);
+	}
+
+}
+
+/*	@Override
+	public void replyReport(ReportsListVO vo) throws Exception {
 		dao.replyReportsCreate(vo);
 	}
 
 	@Override
-	public ReplyReportsVO readReply(int rno) throws Exception {
+	public ReportsListVO readReply(int rno) throws Exception {
 		
 		return dao.readReply(rno);
 	}
@@ -36,22 +58,13 @@ public class ReportsServiceImpl implements ReportsService {
 		return dao.replyDelete(repno);
 	}
 
-	@Override
-	public List<ReplyReportsVO> replyListCriteria(Criteria cri) throws Exception {
-		
-		return dao.replyListCriteria(cri);
-	}
 
-	@Override
-	public int replyCountPaging() throws Exception {
-		
-		return dao.replyCountPaging();
-	}
+
 
 
 	@Override
-	public void insertReport(int rno) throws Exception {
-		dao.insertReply(rno);
+	public void insertReport(ReportsListVO vo) throws Exception {
+		dao.insertReply(vo);
 	}
 
 	@Override
@@ -95,8 +108,4 @@ public class ReportsServiceImpl implements ReportsService {
 	public TableReportVO readTableReport(int tbno) throws Exception {
 
 		return dao.readTableReport(tbno);
-	}
-
-	
-	
-}
+	}*/
