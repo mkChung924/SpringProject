@@ -102,7 +102,7 @@
 			success : function(data) {
 				$("#userid").val('${id}');
 				printData(data, $("#comments-list"), $("#template"));
-				//printPaging(data.pageMaker, $(".pagination"));
+				$('#userid').val('${id }');
 			}
 		});
 	}
@@ -140,7 +140,6 @@
 				if (result == 'SUCCESS') {
 					alert('등록되었습니다');
 					getPage("/replies/all/" + $("#bno").val());
-					//$("#userid").val(id);
 					replyerObj.val("");
 					replytextObj.val("");
 					$("#modalClose").trigger('click');

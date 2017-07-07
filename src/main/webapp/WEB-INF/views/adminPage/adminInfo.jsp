@@ -55,7 +55,7 @@
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${admin.profile == 'default.png' }">						
-						<img src="/resources/upload/${admin.profile }" class="img-responsive" alt="기존사진"><br>
+						<img src="${admin.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${admin.profile != 'default.png' }">
 						<img src="${admin.profile }" class="img-responsive" alt="프로필사진"><br>
@@ -63,7 +63,7 @@
 						<button type="button" class="btn btn-default" id="modifyProfilePicture">
   							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
 						</button>
-							<input type="file" style="display: none;" id="fileopen">	
+						<input type="file" style="display: none;" id="fileopen">	
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->

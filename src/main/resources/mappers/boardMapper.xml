@@ -304,10 +304,9 @@
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
 					 3 as ordered
 				from userinfos, tbl_boards a
-				where a.si = #{si} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind not in(0,2) and
-				a.id = userinfos.id	
-			)
-			order by ordered
+				where a.si = #{si} and a.dong != #{dong} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind not in(0,2) and
+				a.id = userinfos.id
+
 			</sql>
 
 	

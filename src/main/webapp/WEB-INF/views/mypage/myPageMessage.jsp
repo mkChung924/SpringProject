@@ -188,9 +188,6 @@
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
 	            	
 	            	<h3><b>메시지함</b></h3>
-	            	<div style="text-align: right; margin-right: 10px; margin-top: -35px;">
-	            	<font size="4"><a href="/msgSend" style="color: black;" id="writer">메시지 작성 &#xe800</a></font>
-	            	</div>
 					<br><br>
 					<div class="row" style="text-align: center;">
 					<form name="removeCheck">

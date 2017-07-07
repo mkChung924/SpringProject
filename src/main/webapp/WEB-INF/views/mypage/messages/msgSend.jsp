@@ -31,7 +31,6 @@
 
 			var form = $('[name=send]')[0]
 			var formData = new FormData(form);
-
 			$.ajax({
 				type : 'post',
 				url : '/msgSend',
@@ -49,6 +48,7 @@
 			})
 		});
 	});
+
 </script>
 <style type="text/css">
 body {
@@ -73,9 +73,10 @@ a {
 				<br> <input type="text" placeholder="제 목" name="title"
 					width="300" height="50"><br> <br>
 				<textarea placeholder="내 용" rows="15" cols="25" name="content"></textarea>
-				<br> <br> <a href="#" id="gobackto3"><i
-					class="glyphicon glyphicon-arrow-left">돌아가기</i></a>
-				<button type="button" class="sendr">보내기 &#xe800</button>
+				<br>
+				<br> <a href="#" id="gobackto3"><i
+					class="glyphicon glyphicon-arrow-left">돌아가기</i></a> 
+					<button type="button" class="sendr">보내기 &#xe800</button>
 			</form>
 		</div>
 	</div>

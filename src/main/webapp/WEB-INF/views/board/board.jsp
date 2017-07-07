@@ -168,14 +168,24 @@
 	<div class="container" style="margin-bottom: 5px;">
 		<div class="row">
 			<div class="header">
+				<c:if test="${auth == 2 }">
+				<b>${nick }</b> <kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd>
+				<div style="margin-top: 5px;">
+				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;
+				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
+				</div>	
+				</c:if>
+				<c:if test="${auth < 2 }">
 				<b>${nick }</b>님 게시글을 남겨보세요!<br>
 				<div style="margin-top: 5px;">
 					<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
-					<kbd>
-						<a href="/mypage"><font color="white">마이페이지</font></a>
-					</kbd>
+					<kbd><a href="/mypage"><font color="white">마이페이지</font></a></kbd>
+					&nbsp;&nbsp;|&nbsp;&nbsp;
+					<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
 				</div>
+				</c:if>
+				
 			</div>
 			<br>
 			<!-- 관리자 여행 추천 게시글 -->
@@ -298,7 +308,7 @@
 							</form>
 						</div>
 					</div>
-<!-- 게시글 -->
+			<!-- 게시글 -->
 			<c:forEach items="${list }" var="myList">
         	<div class="col-md-4" style="max-height: 400">
 	        	<div class="thumbnail">
@@ -332,7 +342,7 @@
 		                </div>
 		                <hr>
 		                <div style="cursor: pointer;">
-		                	<b><i onclick="readPage('${myList.tbno }')"><font size="4">" ${myList.title } "</font></i></b>
+		                	<b><i onclick="readPage('${myList.tbno }')"><font size="4">" ${myList.title.length() > 21 ? myList.title.substring(0,21) : myList.title } "</font></i></b>
 		                </div>
 		                <br>
 		                <div class="row" style="padding-left: 20px;">
@@ -362,7 +372,6 @@
 		             </div>
 		        </div>
 	        </div>
-	        
         </c:forEach>
 				</div>
 				<div class="text-center">

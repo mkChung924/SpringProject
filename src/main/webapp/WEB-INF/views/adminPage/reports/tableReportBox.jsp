@@ -40,29 +40,41 @@
 	})
 
 </script>
+<style>
+body{
+		font-family: "fontello";
+	}
+</style>
 	
 	<c:if test="${tablereport.size() < 1}">
-	<br><i><h4>게시글 신고함이 비었습니다.</h4></i>
+	<br><br><br><br><br><br><br><br><h4><i><font color=red>게시글</font> 신고함이 비었습니다</i></h4>
 	</c:if>
 	
 	<c:if test="${tablereport.size() > 0}">
+	<br><br><br>
+	<div class="col-sm-6" style="text-align: left; padding-left: 20px; display: inline">
+	<label><font size=4>댓글 신고</font></label>
+	</div>
+	<div class="col-sm-6" style="text-align: right; padding-right: 15px; display: inline">
+		<button type="button" class="btn btn-danger" id="boardDelBtn">게시글 삭제 &#xf083</button> &nbsp;
+		<button type="button" class="btn btn-warning" id="reportsDelBtn">신고 삭제 &#xf083</button> &nbsp;
+		<button type="button" class="btn btn-info" id="reportsDelAllBtn">같은 신고 일괄 삭제 &#xf083</button>
+	</div>
+	<br><br>
 		<table class="table">
 		<tr style="font-size: 20x;">
-			<th width="100" style="text-align: center;">삭제</th>
-			<th width="200" style="text-align: center;">번호</th>
-			<th width="200" style="text-align: center;">제목</th>
-			<th width="200" style="text-align: center;">위반자</th>
-			<th width="200" style="text-align: center;">신고자</th>
-			<th width="100" style="text-align: center;">작성일</th>
+			<th width="70" style="text-align: center;">삭제</th>
+			<th style="text-align: center;">게시글</th>
+			<th width="100" style="text-align: center;">위반한 사람</th>
+			<th width="100" style="text-align: center;">신고자</th>
+			<th width="100" style="text-align: center;">신고일</th>
 			
 		</tr>
 		<c:forEach items="${tablereport }" var="table">
 			<tr  style="text-align: center; font-size: 18px;">
 				<td><input type="checkbox" name="chbox1" value=${table.trno }></td>
-				<td>${table.trno }</td>
 				<td><a href="tableReportContent?trno=${table.trno }&page=${page}">${table.title}</a></td>
-				<td><input type="hidden" value="${table.tbno }" id="mno1">
-					${table.id}</td>
+				<td><input type="hidden" value="${table.tbno }" id="mno1">${table.id}</td>
 				<td>${table.reporter}</td>
 				<td>${table.senddate }</td>
 			</tr>
@@ -87,11 +99,8 @@
 			<li><a href="${pageMaker.endPage +1}">&raquo;</a></li>
 		</ul>
 	</c:if>
-	<button type="button" class="btn btn-danger" id="tableDelBtn1" >삭제 &#xf083</button>
-<form id="jobForm">
-  <input type='hidden' name="page" value=${pageMaker.cri.perPageNum }>
-  <input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum }>
-</form>
+	<form id="jobForm">
+	  <input type='hidden' name="page" value=${pageMaker.cri.perPageNum }>
+	  <input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum }>
+	</form>
 	</c:if>
-	
-

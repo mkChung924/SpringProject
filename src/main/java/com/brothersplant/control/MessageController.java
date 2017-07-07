@@ -37,7 +37,7 @@ public class MessageController {
 		System.out.println("수신함 검색");
 		session.setAttribute("msg", "receive");
 		cri.setPage(page);
-		cri.setPerPageNum(20);
+		cri.setPerPageNum(10);
 		System.out.println("받은 메시지 개수: " + service.receiverListCriteria(cri, (String) session.getAttribute("id")).size());
 		model.addAttribute("messages",service.receiverListCriteria(cri, (String) session.getAttribute("id")));
 		System.out.println(service.receiverListCriteria(cri, (String) session.getAttribute("id")));
@@ -56,7 +56,7 @@ public class MessageController {
 		System.out.println("발신함 검색");
 		session.setAttribute("msg", "send");
 		cri.setPage(page);
-		cri.setPerPageNum(20);
+		cri.setPerPageNum(10);
 		model.addAttribute("messages",service.senderListCriteria(cri, (String) session.getAttribute("id")));
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
@@ -95,12 +95,19 @@ public class MessageController {
 	}
 	
 	@RequestMapping(value="/msgSend",method=RequestMethod.POST)
-	public ResponseEntity<String> msgSendPost(HttpSession session,Criteria cri, InsertMessageVO vo)throws Exception{
-		ResponseEntity<String> entity =null;
-		vo.setSender((String) session.getAttribute("id"));
-		System.out.println(vo);
-		service.addMsg(vo);
-		return entity = new ResponseEntity<>("success",HttpStatus.OK);
+	public ResponseEntity<String> msgSendPost(HttpSession session,Criteria cri, InsertMessageVO vo){
+		System.out.println("메시지 보내는중!!!!");
+		ResponseEntity<String> entity = null;
+		
+		try {
+			vo.setSender((String) session.getAttribute("id"));
+			System.out.println(vo);
+			service.addMsg(vo);
+			entity = new ResponseEntity<>("success",HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<>("bad",HttpStatus.BAD_REQUEST);
+		}
+		return entity;
 	}
 	
 	@RequestMapping("/senderContent")

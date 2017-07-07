@@ -12,34 +12,77 @@
 	
 	$(function(){		
 		
-		$("#replyDelBtn1").click(function() {
-			$('input:checkbox[name="chbox1"]').each(function() {
-				if (this.checked) { //checked 처리된 항목의 값	            
-					$.ajax({
-						url : 'replyRemove',
-						data : 'rno=' + this.value+ '&page='+${page},
-						success : function(result) {
-							location.reload();
-						}
-					});
-				}
-			});
+		$("#replyDelBtn").click(function() {
+			
+			var a = $('input:checkbox[name="chbox1"]:checked').length;
+			if(a < 1){
+				alert('삭제할 댓글을 선택하세요');
+			} else {
+			
+				$('input:checkbox[name="chbox1"]').each(function() {
+					if (this.checked) { //checked 처리된 항목의 값	  
+						alert(this.value);
+						var rno = this.value.split('%')[1];
+						$.ajax({
+							url : 'replyRemove',
+							data : 'rno=' + rno + '&page='+${page},
+							success : function(result) {
+								location.reload();
+							}
+						});
+					}
+				});
+			}
 		});
 		
 		
-		$('#del_button').click(function(){	
-			var rno = $(this).val();
+		$('#reportsDelBtn').click(function(){	
 			
-			 $.ajax({
-					url:'replydel',
-					data: 'rno='+rno,
-					success:function(result){		
-						location.reload();
-					},
-					error:function(result){
-						alert("신고가 되지 않았습니다.");
+			var a = $('input:checkbox[name="chbox1"]:checked').length;
+			if(a < 1){
+				alert('삭제할 신고를 선택하세요')
+			} else {
+			
+				$('input:checkbox[name="chbox1"]').each(function() {
+					if (this.checked) {
+						var repno = this.value.split('%')[0];
+						 $.ajax({
+								url:'replydel',
+								data: 'repno='+ repno,
+								success:function(result){		
+									location.reload();
+								},
+								error:function(result){
+									alert("신고가 되지 않았습니다.");
+								}
+						});
 					}
-			});
+				});
+			}
+		});	
+		
+		$('#reportsDelAllBtn').click(function(){	
+			
+			var a = $('input:checkbox[name="chbox1"]:checked').length;
+			if(a < 1){
+				alert('삭제할 댓글을 선택하세요');
+			} else {
+				$('input:checkbox[name="chbox1"]').each(function() {
+					if (this.checked) {
+						var rno = this.value.split('%')[1];
+							 $.ajax({
+									url:'replydel',
+									data: 'rno='+rno,
+									success:function(result){		
+										location.reload();
+									},
+									error:function(result){
+										alert("신고가 되지 않았습니다.");
+									}
+							});
+					}
+				});
+			}
 		});	
 		
 		$(".pagination li a").on("click", function(event) {
@@ -57,30 +100,42 @@
 	});
 	
 </script>
-<title>Insert title here</title>
+<style>
+body{
+		font-family: "fontello";
+	}
+</style>
 	
 	<c:if test="${messages.size() < 1 }">
-		<br><i><h4>댓글 신고함이 비었습니다.</h4></i>
+		<br><br><br><br><br><br><br><br><h4><i><font color=red>댓글</font> 신고함이 비었습니다</i></h4>
 	</c:if>
 		
 	<c:if test="${messages.size() > 0 }">
+	<br><br><br>
+	<div class="col-sm-6" style="text-align: left; padding-left: 20px; display: inline">
+	<label><font size=4>댓글 신고</font></label>
+	</div>
+	<div class="col-sm-6" style="text-align: right; padding-right: 15px; display: inline">
+		<button type="button" class="btn btn-danger" id="replyDelBtn">댓글 삭제 &#xf083</button> &nbsp;
+		<button type="button" class="btn btn-warning" id="reportsDelBtn">신고 삭제 &#xf083</button> &nbsp;
+		<button type="button" class="btn btn-info" id="reportsDelAllBtn">같은 신고 일괄 삭제 &#xf083</button>
+	</div>
+	<br><br>
 		<table class="table">
 		<tr style="font-size: 20x;">
-			<th width="100" style="text-align: center;">삭제</th>
-			<th width="100" style="text-align: center;">댓글번호</th>
-			<th width="400" style="text-align: center;">내용</th>
-			<th width="200" style="text-align: center;">위반자</th>
-			<th width="100" style="text-align: center;">작성일</th>
-			<th width="200" style="text-align: center;">한 행 삭제</th>
+			<th width="70" style="text-align: center;">선택</th>
+			<th width="80"style="text-align: center;">댓글 번호</th>
+			<th width="300" style="text-align: center;">댓글 내용</th>
+			<th width="70" style="text-align: center;">위반한 사람</th>
+			<th width="100" style="text-align: center;">신고일</th>
 		</tr>
 		<c:forEach items="${messages}" var="reply">
 			<tr style="text-align: center; font-size: 18px;">
-				<td><input type="checkbox" name="chbox1" value=${reply.repno }></td>
-				<td>${reply.repno }</td>
+				<td><input type="checkbox" name="chbox1" value=${reply.repno }%${reply.rno }></td>
+				<td>${reply.rno }</td>
 				<td>${reply.content }</td>
 				<td>${reply.offender}</td>
 				<td>${reply.senddate}</td>
-				<td><button  id="del_button" class="btn btn-danger" value="${reply.rno }" style="font-size: small;">댓글삭제</button></td>
 			</tr>
 		</c:forEach>
 
@@ -103,7 +158,6 @@
 			<li><a href="${pageMaker.endPage +1}">&raquo;</a></li>
 		</ul>
 	</c:if>
-	<button type="button" class="btn btn-danger" id="replyDelBtn1">일괄 삭제 &#xf083</button>
 	<form id="jobForm">
 		<input type='hidden' name="page" value=${pageMaker.cri.perPageNum }>
 		<input type='hidden' name="perPageNum"

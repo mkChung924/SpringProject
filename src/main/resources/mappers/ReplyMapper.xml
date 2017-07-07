@@ -7,9 +7,10 @@
 	</insert>
 	
 	<select id="listReply" resultType="replyRow">
-	select r.RNO, r.TBNO, ID, r.CONTENT,r.REGDATE,r.UPDATEDATE,u.profile from tbl_replies r inner join userinfos u using(id) where tbno=#{tbno}
-	order by REGDATE desc
-	</select>
+	   select r.RNO, r.TBNO, ID, r.CONTENT,r.REGDATE,r.UPDATEDATE,u.profile from tbl_replies r inner join userinfos u using(id) where tbno=#{tbno}
+	   order by REGDATE desc
+   </select>
+
 	
 	<update id="modifyReply">
 		update tbl_replies set content = #{content}, updatedate = sysdate where rno=#{rno}
