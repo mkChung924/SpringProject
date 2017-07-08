@@ -16,9 +16,9 @@
     	<div class="idFind" style="text-align: center;">
     		<p><b><font size=4>가입 당시 입력한 <font color=red>이름</font>과 <font color=red>생년월일</font>을 입력하세요.</font></b></p>
     		<br>
-    		<input type='text' class="form-control" name="name_find" placeholder="이름" pattern="[ㄱ-힣]{2,10}" required autocomplete="off" style="width: 200px;">
+    		<input type='text' class="form-control" id="name_find" name="name_find" placeholder="이름" pattern="[ㄱ-힣]{2,10}" required autocomplete="off" style="width: 200px;">
     		<br>
-	    	<input type="date" class="form-control" name="birth_find" required style="width: 200px; text-align: center; display: inline">
+	    	<input type="date" class="form-control" id="birth_find" name="birth_find" required style="width: 200px; text-align: center; display: inline">
 	    	<br><br>
     	</div>
     	<div class="idList" style="text-align: center; display: inline-block;">
@@ -48,6 +48,11 @@
 		if(confirm("아이디 찾기를 종료하시겠습니까?") == true){
 			
 			$('#idModal').css("display","none");
+			$('[name=name_find]').val("");
+		   	$('[name=birth_find]').val("");
+			$('[name=search_id_btn]').css("display","");
+	 		$('[name=login_btn]').css("display","none");
+	 		$('.idList').html("");
 		}
 	});
 	
@@ -55,28 +60,56 @@
 		
 	      var name = $('[name=name_find]').val();
 	      var birth = $('[name=birth_find]').val();
+	      
+	      var today = new Date();
+			var dd = today.getDate();
+			var mm = today.getMonth()+1; //January is 0!
+			var yyyy = today.getFullYear();
+
+			if(dd<10) {
+			    dd = '0'+dd
+			} 
+
+			if(mm<10) {
+			    mm = '0'+mm
+			} 
+
+			today = yyyy + '-' + mm + '-' + dd;
+			
+			if(name.trim().length == 0){
+				//alert('이름을 입력하세요.');
+				$('.idList').html('<font color=red>이름을 입력하세요.</font>');
+				return false;
+			} 
+			else if(birth < '1940-01-01' || birth > today){
+				//alert('생년월일을 확인해주세요.');
+				$('.idList').html('<font color=red>생년월일을 확인해주세요.</font>');
+				return false;
+				
+			} else {
 	       
-    	  $.ajax({
-    		 	url:'/idFind/'+name+'/'+birth,
-    		 	cache:false,
-    		 	success:function(result){
-    		 		var output = "";
-    		 		
-    		 		$.each(result, function(index,item){
-    		 			output += "<div class=col-sm-3>"+item+"</div>";	
-    		 		});
-    		 		
-    		 		$('.idList').html("<b>회원님의 아이디는 다음과 같습니다.</b><br><br>"+ output);
-    		 		$('[name=search_id_btn]').css("display","none");
-    		 		$('[name=login_btn]').css("display","");
-	
-    		 	},
-    		 	error:function(result){
-    		 		$('.idList').html('일치하는 값 없음.');
-    		 		
-    		 	}
-    		 	
-    	  });
+		    	  $.ajax({
+		    		 	url:'/idFind/'+name+'/'+birth,
+		    		 	cache:false,
+		    		 	success:function(result){
+		    		 		var output = "";
+		    		 		
+		    		 		$.each(result, function(index,item){
+		    		 			output += "<div class=col-sm-3>"+item+"</div>";	
+		    		 		});
+		    		 		
+		    		 		$('.idList').html("<b>회원님의 아이디는 다음과 같습니다.</b><br><br>"+ output);
+		    		 		$('[name=search_id_btn]').css("display","none");
+		    		 		$('[name=login_btn]').css("display","");
+			
+		    		 	},
+		    		 	error:function(result){
+		    		 		$('.idList').html('<font color=red>일치하는 값 없음.</font>');
+		    		 		
+		    		 	}
+		    		 	
+		    	  });
+			}
 	 }
 	
 	function closeIdModal(){
@@ -84,7 +117,7 @@
 		$('[name=name_find]').val("");
 	   	$('[name=birth_find]').val("");
 		$('[name=search_id_btn]').css("display","");
- 		$('[name=login_btn]').css("display","gone");
+ 		$('[name=login_btn]').css("display","none");
  		$('.idList').html("");
 	}
 

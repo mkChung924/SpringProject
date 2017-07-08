@@ -20,11 +20,15 @@
     </bean>
 
 <!-- DataSource 등록 -->
-   <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" 
-         id="dataSource">	<!-- 아이디가 없을시 앞글자가 소문자가 되는 것이 자동으로 설정됨 -->
+   <bean class="org.springframework.jdbc.datasource.DriverManagerDataSource" id="dataSource">	
+   <!-- 아이디가 없을시 앞글자가 소문자가 되는 것이 자동으로 설정됨 -->
       <property name="driverClassName">
          <value>oracle.jdbc.driver.OracleDriver</value>
       </property>
+<!--       <property name="url" value="jdbc:oracle:thin:@//localhost:1521/orcl"/>
+      <property name="username" value="scott2"/>
+      <property name="password" value="tiger"/> -->
+<!-- ========= -->  
       <property name="url" value="jdbc:oracle:thin:@//localhost:1521/xe"/>
       <property name="username" value="cat"/>
       <property name="password" value="dog"/>

@@ -22,7 +22,8 @@
 	    <div class="header">
 				<b>${id }</b>님 마이페이지 입장<br>
 				<div style="margin-top: 5px;">
-				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
+				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
 				</div>			
 			</div>
 			<div class="col-md-3">
@@ -33,7 +34,7 @@
 						<img src="/resources/upload/${mypage.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${mypage.profile != 'default.png' }">
-						<img src="/resources/upload/${id }/${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
+						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
 						<button type="button" class="btn btn-default">
   						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
@@ -52,8 +53,13 @@
 					<!-- SIDEBAR MENU -->
 					<div class="profile-usermenu">
 						<ul class="nav">
-							<li class="active">
+							<li>
 								<a href="mypage">
+								<i class="glyphicon glyphicon-user"></i>
+								내 정보 </a>
+							</li>
+							<li class="active">
+								<a href="myContents">
 								<i class="glyphicon glyphicon-list"></i>
 								내 글보기 </a>
 							</li>

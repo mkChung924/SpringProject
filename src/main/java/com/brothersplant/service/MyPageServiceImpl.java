@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.brothersplant.domain.MyBookmarkVO;
 import com.brothersplant.domain.SecureVO;
 import com.brothersplant.domain.UserInfoVO;
 import com.brothersplant.persistence.MyPageDAO;
@@ -40,15 +41,21 @@ public class MyPageServiceImpl implements MyPageService{
 	}
 
 	@Override
-	public void updateUser(UserInfoVO vo) throws Exception {
-		// TODO Auto-generated method stub
+	public int updateUser(UserInfoVO vo) throws Exception {
+		return dao.updateUser(vo);
 		
 	}
 
 	@Override
 	public String updateAll(String id, String pass) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return dao.passMatch(id, pass);
+	}
+
+	@Override
+	public List<MyBookmarkVO> getMyBookmarks(String id) throws Exception {
+		
+		return dao.selectMyBookmark(id);
 	}
 
 }

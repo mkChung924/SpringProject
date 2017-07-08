@@ -17,13 +17,18 @@ public class UserInfoVO {
 	private String secure_ans;
 	private String regdate;
 	private String updatedate;
+	private int auth;
+	private int myBoards;
+	private int replyCount;
+	
+
 	
 	@Override
 	public String toString() {
 		return "UserInfoVO [id=" + id + ", password=" + password + ", name=" + name + ", nickname=" + nickname
 				+ ", birth=" + birth + ", email=" + email + ", tel=" + tel + ", addr=" + addr + ", profile=" + profile
 				+ ", secure=" + secure + ", secure_ans=" + secure_ans + ", regdate=" + regdate + ", updatedate="
-				+ updatedate + "]";
+				+ updatedate + ", auth=" + auth + ", myBoards=" + myBoards + ", replyCount=" + replyCount + "]";
 	}
 	
 	public String getId() {
@@ -110,6 +115,31 @@ public class UserInfoVO {
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
 	}
+
+	public int getAuth() {
+		return auth;
+	}
+
+	public void setAuth(int auth) {
+		this.auth = auth;
+	}
+
+	public int getMyBoards() {
+		return myBoards;
+	}
+
+	public void setMyBoards(int myBoards) {
+		this.myBoards = myBoards;
+	}
+
+	public int getReplyCount() {
+		return replyCount;
+	}
+
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
+	
 	
 	
 

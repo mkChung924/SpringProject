@@ -8,8 +8,11 @@
 <script type="text/javascript">
 
 	$(function(){
-		opener.location.reload();
+
+		$('form[role="form"]',opener.document).attr('method', 'POST');
+		$('form[role="form"]',opener.document).submit();
 		self.close();
+		
 	});
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

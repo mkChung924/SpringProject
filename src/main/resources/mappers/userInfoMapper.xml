@@ -3,7 +3,7 @@
 <mapper namespace="userinfo">
 
 	<insert id="insert" parameterType="userinfo">
-		insert into userinfos values(#{id}, #{password}, #{name},#{nickname},#{birth},#{addr},#{tel},#{profile},#{secure},#{secure_ans},sysdate, sysdate, #{email})
+		insert into userinfos values(#{id}, #{password}, #{name},#{nickname},#{birth},#{addr},#{tel},#{profile},#{secure},#{secure_ans},sysdate, sysdate, #{email},#{auth})
 	</insert>
 	
 	<select id="dupCheck" resultType="String">
@@ -30,4 +30,19 @@
 		select nickname from userinfos where nickname = #{nickname}
 	</select>
 	
+	<select id="selectprofile" resultType="String">
+		select profile from userinfos where id=#{id}
+	</select>
+	
+	<select id="selectMyAuth" resultType="int">
+		select auth from userinfos where id = #{id}
+	</select>
+	
+	<select id="selectMyNick" resultType="string">
+		select nickname from userinfos where id = #{id}
+	</select>
+	
+	<update id="updateProfilePicture">
+		update userinfos set profile = #{profile} where id = #{id}
+	</update>
 </mapper>

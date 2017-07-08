@@ -16,8 +16,14 @@
 				<input type="hidden" name="dong">
 				<input type="hidden" name="cno">
 				<input type="hidden" name="csno">
-				<input type="text" class="form-control" name="place1" style="width: 110px; display: inline;"> &nbsp;&nbsp;
-				<input type="text" class="form-control" name="place2" style="width: 110px; display: inline;">
+				<!-- 시 선택 -->
+				<select class="form-control" name="place1" id="sido" onchange="requestGugun()" style="width: 110px; display: inline;">
+				</select> &nbsp; &nbsp;
+				<!-- 도 선택 -->
+				<select class="form-control" name="place2" id="gugun" style="width: 110px; display: inline;">
+					<option>==선택==</option>
+				</select>
+				
 				<br><br>
 				<b><font size="4">2. 여행 유형을 선택하세요!</font></b><br><br>
 				<img id="subtravel" src="/resources/image/category_img/category_travel_1.png" draggable="false"
@@ -32,6 +38,51 @@
 	</div>
 
 	<script>
+	$(function(){
+		
+			$.ajax({
+
+				url:'/rest/selectSido',
+				success:function(sidoList){// 리스트 담을 배열 파라미터	
+				
+					var sido = $('#sido');
+					var ht='';
+					ht+='<option selected="selected"> ===선택=== </option>'
+					for(var i=0;i<sidoList.length; i++){
+						ht += '<option value='+sidoList[i].ds_sido+'>'+sidoList[i].ds_sido+'</option>';
+					}
+					
+					sido.html(ht);	
+				},
+				error:function(data){
+					alert('error')
+				}
+	
+		});
+
+	});
+		
+	function requestGugun(){
+		
+		var ds_sido = $('#sido').val();
+		//alert(ds_sido);
+		
+		$.ajax({
+			url:'/rest/selectGugun',
+			data:'ds_sido='+ds_sido,
+			success:function(DBgugunList){
+				
+				var gugunList=$('#gugun');
+				var ht='';
+				ht += '<option>==선택==</option>';
+				for(var i = 0 ; i < DBgugunList.length; i++){
+					ht += '<option value='+DBgugunList[i].ds_gugun+'>'+DBgugunList[i].ds_gugun+'</option>';
+				}
+				 gugunList.html(ht);
+			}
+		});
+		
+	}	
 
 	var modal_travel = document.getElementById('travelModal');
 	var span_travel = document.getElementsByClassName("close-travel")[0];

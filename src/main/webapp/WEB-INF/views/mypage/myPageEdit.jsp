@@ -24,7 +24,8 @@
 			<div class="header">
 				<b>${id }</b>님 마이페이지 입장<br>
 				<div style="margin-top: 5px;">
-				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
+				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
 				</div>			
 			</div>
 			<div class="col-md-3">
@@ -32,10 +33,10 @@
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${mypage.profile == 'default.png' }">						
-						<img src="/resources/upload/${mypage.profile }" class="img-responsive" alt="기존사진"><br>
+						<img src="${mypage.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${mypage.profile != 'default.png' }">
-						<img src="/resources/upload/${id }/${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
+						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
 						<button type="button" class="btn btn-default">
 							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
@@ -56,7 +57,16 @@
 					<div class="profile-usermenu">
 						<!-- mypage/ -->
 						<ul class="nav">
-							<li><a href="mypage"> <i class="glyphicon glyphicon-list"></i> 내 글보기</a></li>
+							<li>
+								<a href="mypage">
+								<i class="glyphicon glyphicon-user"></i>
+								내 정보 </a>
+							</li>
+							<li>
+								<a href="myContents">
+								<i class="glyphicon glyphicon-list"></i>
+								내 글보기 </a>
+							</li>
 							<li><a href="message"> <i class="glyphicon glyphicon-envelope"></i> 메시지함</a></li>
 							<li class="active"><a href="mypageEdit"><i class="glyphicon glyphicon-edit"></i> 정보수정</a></li>
 							<li><a href="favorite"> <i class="glyphicon glyphicon-heart"></i> 즐겨찾기</a></li>
@@ -69,7 +79,7 @@
 			<div class="col-md-9">
 
 				<form class="mypageUp" id="frm"
-					action="/mypage/myPageEdit" method="post">
+					action="/mypageEdit" method="post">
 					<div class="profile-content">
 						<h3><b>정보수정</b></h3>
 						<br> <label style="width: 100"><b>아이디<font
@@ -77,8 +87,8 @@
 							name="id" value="${mypage.id}" readonly> <br> <br>
 						<!-- 비번 -->
 						<label style="width: 100"><b>비밀번호<font color=red>*</font></b></label>
-						<input type="password" class="form-control" name="pass"
-							placeholder="비밀번호" required style="width: 200;"> <br>
+						<input type="password" class="form-control" name="password"
+							placeholder="비밀번호" required style="width: 200;"> &nbsp; &nbsp; * 숫자 영문 조합 6~15자 <br>
 						<br>
 						<!-- 비번확인 -->
 						<label style="width: 100"><b>비밀번호 확인<font color=red>*</font></b></label>
@@ -87,11 +97,11 @@
 						<!-- 이름 -->
 						<label style="width: 100"><b>이름<font color=red>*</font></b></label>
 						<input type="text" class="form-control" name="name"
-							value="${mypage.name}" pattern="[ㄱ-힣]{2,10}" required readonly>&nbsp;&nbsp;
+							value="${mypage.name}" required readonly>&nbsp;&nbsp;
 						<!-- 닉네임 -->
 						<label style="width: 50"><b>닉네임<font color=red>*</font></b></label>
 						<input type="text" class="form-control" name="nickname"
-							value="${mypage.nickname}" pattern="[a-ZA-Zㄱ-힣]{4,20}" required
+							value="${mypage.nickname}" required
 							autocomplete="off">&nbsp;&nbsp; <br> <br>
 						<!-- 생년월일 -->
 						<label style="width: 100"><b>생년월일</b></label> <input type="text"
@@ -116,17 +126,16 @@
 						<br>
 						<!-- 주소 -->
 						 <label style="width: 100"><b>우편번호<font color=red>*</font></b></label>
-		    			<input type="text" class="form-control" name="postcode"id="postcode" placeholder="우편번호" value="${mypage.addr.split('/')[2] }" required readonly>
+		    			<input type="text" class="form-control" name="postcode"id="postcode" placeholder="우편번호" value="${mypage.addr.split('%')[2] }" required readonly>
            				<input type="button" class="btn btn-warning" onclick="execDaumPostcode()" value="우편번호 찾기"><br><br>
             			<label style="width: 100"><b>주소<font color=red>*</font></b></label>
-            			<input type="text" class="form-control" name="roadAddress" id="address" placeholder="주소" value="${mypage.addr.split('/')[0] }" style="width: 300px;" required readonly>
-            			<input type="text" class="form-control" name="detailAddress" id="detailAddress" placeholder="상세주소" value="${mypage.addr.split('/')[1] }" style="width: 200px;" required readonly>
+            			<input type="text" class="form-control" name="roadAddress" id="address" placeholder="주소" value="${mypage.addr.split('%')[0] }" style="width: 300px;" required readonly>
+            			<input type="text" class="form-control" name="detailAddress" id="detailAddress" placeholder="상세주소" value="${mypage.addr.split('%')[1] }" style="width: 200px;" required readonly>
             			<br><br>
 						<!-- 보안질문 -->
 						<label style="width: 100"><b>보안질문<font color=red>*</font></b></label>
-						<select class="form-control" name="secure_code"
+						<select class="form-control" name="secure"
 							style="width: 200px; display: inline;">
-
 
 							<c:forEach var="i" items="${slist}">
 								<c:choose>
@@ -148,7 +157,9 @@
 						<div class="row" style="text-align: center">
 						<label style="width: 100"><b>기존 비밀번호<font color=red>*</font></b></label> 
 						<input type="password" class="form-control" name="expass" maxlength="20" size=20>
-						<br><br>
+						<br>
+						<div class="result" style="text-align: center"></div>
+						<br>
 						<div style="text-align: center">
 							<input type="button" class="btn btn-success" name="up-btn" value="수정">
 						</div>
@@ -164,27 +175,79 @@
 <script type="text/javascript">
 	
 	$(function(){		
+		
+		var result = '${msg}';
+
+		if (result == 'SUCCESS') {
+			alert("정보수정이 완료되었습니다.");
+		}
+
 		$('[name=up-btn]').click(function(){
 			
-			var pass = $('[name=expass]').val();
-			if(pass.trim().length > 5){
-				
-				$.ajax({
-						url:'/alter',
-						data: 'pass='+pass,
-						success:function(result){
-							
-								$('#frm').submit();
-							
-						},
-						error:function(result){
-							alert('비번틀림 :');
-						}
-				});
-			} else {
-				alert('비밀번호를 입력하세요.');
-			}
+			var pass1 = $('[name=password]').val();
+			var pass2 = $('[name=repass]').val();
+			var email = $('[name=email]').val();
+			var tel1 = $('[name=tel1]').val();
+			var tel2 = $('[name=tel2]').val();
+			var tel3 = $('[name=tel3]').val();			
 			
+			var emailExp = /^[a-zA-Z0-9]{3,15}@[a-zA-Z]+\.[a-zA-Z]+$/g;
+	        var passExp = /^[a-zA-Z0-9]{5,15}$/g;
+			
+			var pass = $('[name=expass]').val();
+			
+			if(pass1.length == 0 || pass2.length == 0){
+				alert('비밀번호를 입력하세요.')
+			} 
+			else if(!passExp.test(pass1)){
+				
+		    	alert('비밀번호 형식이 일치하지 않습니다.')
+		    	
+		    }else if(pass1 != pass2){
+				alert('비밀번호가 일치하지 않습니다');
+				$('[name=password]').focus();
+			} else if(pass1.indexOf(" ")> -1 || pass1.indexOf("\t")>=0 ||pass1.indexOf("\n")>-1 ||
+					pass2.indexOf(" ")> -1 || pass2.indexOf("\t")>=0 ||pass2.indexOf("\n")>-1){
+		           alert('비밀번호는 공백이 포함될 수 없습니다');       
+		           $('[name=password]').focus();
+		    } else if(tel1.indexOf(" ")> -1 || tel1.indexOf("\t")>=0 || tel1.indexOf("\n")>-1){
+		           alert('전화번호 입력 첫째칸에 공백이 있습니다');
+		           $('[name=tel1]').focus();
+		    } else if(tel2.indexOf(" ")> -1 || tel2.indexOf("\t")>=0 || tel2.indexOf("\n")>-1){
+		           alert('전화번호 입력 두번째칸에 공백이 있습니다');
+		           $('[name=tel2]').focus();
+		    } else if(tel3.indexOf(" ")> -1 || tel3.indexOf("\t")>=0 ||tel3.indexOf("\n")>-1){
+		           alert('전화번호 입력 셋째칸에 공백이 있습니다');
+		           $('[name=tel3]').focus();
+		    } else if(email.indexOf(" ")> -1 ||email.indexOf("\t")>=0 ||email.indexOf("\n")>-1){
+		           alert('이메일 입력칸에 공백이 있습니다');
+		           $('[name=email]').focus();
+		    } else if(!emailExp.test(email)){
+		    	alert('이메일 형식이 어긋납니다.')
+		    	
+		    } else if(!(tel1.match("[0-9]{3}")) || !(tel2.match("[0-9]{3,4}")) || !(tel3.match("[0-9]{4}"))){
+		           alert('전화번호 형식이 옳지 않습니다.');
+		           $('[name=tel1]').focus();
+		           
+		    } else if(!passExp.test(pass)){
+		    	$('.result').html('<br><font color=red>비밀번호 형식이 어긋납니다</font>')
+		    	
+		    } else {
+		    	
+				$.ajax({
+					url:'/alter/'+pass,
+					success:function(result){
+						
+							$('#frm').submit();
+						
+					},
+					error:function(result){
+						$('.result').html('<br><font color=red>기존 비밀번호와 일치하지 않습니다.</font>')
+					}
+			});
+
+		    }
+
 		});
 	
 	});
@@ -227,6 +290,7 @@
             document.getElementById('address').value = fullAddr;
 
             // 커서를 상세주소 필드로 이동한다.
+            $('#detailAddress').val('');
             document.getElementById('detailAddress').focus();
         }
     }).open();

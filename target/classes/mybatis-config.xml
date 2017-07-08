@@ -8,5 +8,10 @@
 	<typeAlias type="com.brothersplant.domain.SecureVO" alias="secure"/>
 	<typeAlias type="com.brothersplant.domain.BoardVO" alias="boardVO"/>
 	<typeAlias type="com.brothersplant.domain.BoardListVO" alias="boardListVO"/>
+	<typeAlias type="com.brothersplant.domain.ReplyVO" alias="replyRow"/>
+	<typeAlias type="com.brothersplant.domain.InsertMessageVO" alias="addMsg"/>
+	<typeAlias type="com.brothersplant.domain.MyBookmarkVO" alias="bookmark"/>
+	<typeAlias type="com.brothersplant.domain.SelectRegionVO" alias="region"/>
+	<typeAlias type="com.brothersplant.domain.ReportsListVO" alias="reportslist" />
 </typeAliases>
 </configuration>

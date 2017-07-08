@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="report">
+
+	<!-- 게시글 또는 댓글 신고 -->
+	<insert id="insertReport">
+		insert into TBL_REPORTSLIST
+		(REPNO,BRNO,CONTENT,REPORTER,SENDDATE,REPORTTYPE,REPORTKIND)
+		values
+		(TBL_REPORTLIST_SEQ.nextval,#{brno},#{content},#{reporter},sysdate,#{reporttype},#{reportkind})
+	</insert>
+
+	<!-- 신고 내역 전체 검색 -->
+	<select id="report" resultType="reportslist">
+		select * from TBL_REPORTSLIST
+	</select>
+	
+	<!-- 댓글 신고 검색 -->
+<!-- 	<select id="replySelect" resultType="reportslist">
+		select rno, repno,content,offender,reporter, to_char(senddate, 'yyyy-mm-dd hh24:mi:ss') senddate 
+		from tbl_replyreports order by senddate desc
+	</select> -->
+	
+	<!-- 신고 유형 검색 -->
+	<select id="selectReportList" resultType="String">
+		select REPORTLISTNAME from REPORTDETAILS
+	</select>
+	
+	<!-- 게시글 댓글에따른 총 갯수 검색 -->
+	<select id="countPaging" resultType="int">
+		select count(*) from TBL_REPORTSLIST where REPORTKIND=#{kind}
+	</select>
+	
+	<!-- 신고 목록 보이려고 검색 게시글 조회시 content=title 값임 --> 
+	<select id="selectReportList2" resultType="reportslist">
+		select r.REPNO, r.BRNO,r.CONTENT,r.REPORTER,to_char(r.senddate, 'yyyy-mm-dd hh24:mi:ss') SENDDATE,r.REPORTTYPE,b.id offender
+		from TBL_REPORTSLIST r INNER join 
+		<if test='what.equals("board")'>
+			(select tbno as BRNO,id from TBL_BOARDS) b 
+		</if>
+		<if test='what.equals("reply")'>
+			(select rno as BRNO,id from TBL_REPLIES) b 
+		</if>
+			on b.BRNO = r.BRNO where r.REPORTKIND=#{kind}
+			order by senddate desc
+	</select>
+	
+	<!-- 신고 목록 삭제 단,신고 목록만 삭제하는 것이므로 패널티 없음 -->
+	<delete id="selectedReprotListDelete">
+		delete from TBL_REPORTSLIST where REPNO in
+		<foreach collection="repnoList" item="item" index="index" separator="," open="(" close=")" >
+			#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="selectedReprotListDeletePenalty">
+	
+	</delete>
+</mapper>

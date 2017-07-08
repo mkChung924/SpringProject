@@ -79,7 +79,9 @@ public class HomeRestController {
 		System.out.println("검색된 이름:" + name + ", 검색된 생년월일: " + birth);
 		ResponseEntity<List<String>> entity = null;
 		
+		
 		try {
+			System.out.println(service.findId(name, birth));
 			if(service.findId(name, birth).size() > 0){
 				entity = new ResponseEntity<List<String>>(service.findId(name, birth), HttpStatus.OK);
 			} else {

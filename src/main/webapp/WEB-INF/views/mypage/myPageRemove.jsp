@@ -74,7 +74,7 @@
 						<img src="/resources/upload/${mypage.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${mypage.profile != 'default.png' }">
-						<img src="/resources/upload/${id }/${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
+						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
 						<button type="button" class="btn btn-default">
   						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
@@ -98,7 +98,16 @@
 					<div class="profile-usermenu">
 						<!-- mypage/ -->
 						<ul class="nav">
-							<li><a href="mypage"> <i class="glyphicon glyphicon-list"></i> 내 글보기</a></li>
+							<li>
+								<a href="mypage">
+								<i class="glyphicon glyphicon-user"></i>
+								내 정보 </a>
+							</li>
+							<li>
+								<a href="myContents">
+								<i class="glyphicon glyphicon-list"></i>
+								내 글보기 </a>
+							</li>
 							<li><a href="message"> <i class="glyphicon glyphicon-envelope"></i> 메시지함</a></li>
 							<li><a href="mypageEdit"><i class="glyphicon glyphicon-edit"></i> 정보수정</a></li>
 							<li><a href="favorite"> <i class="glyphicon glyphicon-heart"></i> 즐겨찾기</a></li>
@@ -119,7 +128,7 @@
            			<li>탈퇴시 회원님의 모든 개인정보는 삭제됩니다.</li>
            			<li>작성하신 여행후기는 탈퇴 이후에도 관리자에 의해 사용될 수 있습니다.</li>
            			</ul>
-           			<br><br><br>
+           			<br><br>
            			<div class="row" style="text-align: center">
 	           			<h4>계정을 삭제하려면 비밀번호를 입력하세요</h4>
 	           			<br>
@@ -127,7 +136,7 @@
 						<input type="password" class="form-control" placeholder="비밀번호 입력" name="password" style="display: inline; width: 200px;">
 						<p class="result"></p>
 						<br>
-						<input class="btn btn-danger" id="delBtn" type="button" value="탈퇴" >	
+						<input class="btn btn-danger" id="delBtn" type="button" value="계정 삭제" >	
            			</div>
 	            			
 	            </div>

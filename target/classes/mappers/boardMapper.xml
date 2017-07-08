@@ -6,14 +6,19 @@
 		<!-- insert into tbl_boards (TBNO,TB_KIND,ID,CNO,CSNO,DO1,SI,CONTENT,LIKES,title,NOTICE,OPENCHAT,TEL,DONG) values 
 		(TBL_BOARDS_SEQ.nextval ,#{tb_kind},#{id},#{cno},#{csno},#{do1},#{si},#{content},#{likes},#{title},#{notice},#{openchat},#{tel},#{dong}) -->
 	
-		<if test="place1 != null">
+		<if test="(tb_kind == 0 ) and (place1 != null)"><!-- 운영자가 쓸때 -->
+			insert into tbl_boards (tbno,TB_KIND,id,cno,csno,place1,place2,title,content) values (tbl_boards_seq.nextval,#{tb_kind},#{id},#{cno},#{csno},#{place1},#{place2},#{title},#{content})
+		</if>
+		
+		<if test="(tb_kind != 0 ) and (place1 != null)">
 			insert into tbl_boards(tbno, tb_kind, id, cno, csno, do1, si, dong, place1, place2, title, notice, openchat, tel, tel_ch, content) 
 			values(tbl_boards_seq.nextval, #{tb_kind}, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{place1}, #{place2}, #{title}, #{notice}, #{openchat}, #{tel}, #{tel_ch}, #{content})
 		</if>
-		<if test="place1 == null">
+		<if test="(tb_kind != 0 ) and (place1 == null)">
 			insert into tbl_boards(tbno, id, cno, csno, do1, si, dong, title, notice, openchat, tel, tel_ch, content) 
 			values(tbl_boards_seq.nextval, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{title}, #{notice}, #{openchat}, #{tel}, #{tel_ch}, #{content})
 		</if>
+		
 	</insert>
 	
 	<!-- 도 검색 -->
@@ -27,8 +32,8 @@
 	</select>
 	
 	<!-- 메인 카테고리 검색 -->
-	<select id="selectMainCategory" resultType="String">
-		select cname from TBL_CATEGORY
+	<select id="selectMainCategory" resultType="java.util.Map">
+		select cno, cname from TBL_CATEGORY
 	</select>
 	
 	<!-- 서브 카테고리 검색 -->
@@ -42,173 +47,319 @@
 	</select>
 	
 	<select id="selectCommonRow" resultType="boardVO">
-		select * from TBL_BOARDS where tbno=#{tbno}
+		select TBNO,TB_KIND,ID,CNO,CSNO,DO1,SI,DONG,PLACE1,PLACE2,TITLE,NOTICE,OPENCHAT,CONTENT,TEL,TEL_CH,IMAGE,VIEWCNT,REGDATE,UPDATEDATE,
+					(select count(*) from tbl_like where tbno =  #{tbno}) likes,
+					(select count(*) from bookmark where tbno = #{tbno} and id = #{id}) myFavor  
+		from TBL_BOARDS 
+		where tbno=#{tbno}
 	</select>
+	
+	
+	<delete id="deleteCommonRow">
+		delete from tbl_boards where tbno=#{tbno}
+	</delete>
 	
 	<select id="selectBoardList" resultType="boardListVO">
 		<if test="place1 != null">
 			select * from (
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
-					(select cname from tbl_category where cno = a.cno) cname,
-					(select csname from tbl_subcategory where csno = a.csno) csname,
-					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
-					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
-					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
-					 place1, place2,
-					 1 as ordered
-				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind != 0 and
-				a.id = userinfos.id
-				union
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
-					(select cname from tbl_category where cno = a.cno) cname,
-					(select csname from tbl_subcategory where csno = a.csno) csname,
-					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
-					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
-					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
-					 place1, place2,
-					 2 as ordered
-				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind != 0 and
-				a.id = userinfos.id
-				union
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
-					(select cname from tbl_category where cno = a.cno) cname,
-					(select csname from tbl_subcategory where csno = a.csno) csname,
-					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
-					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
-					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
-					 place1, place2,
-					 3 as ordered
-				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and
-				 a.place2 not like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind != 0 and
-				a.id = userinfos.id
-				union
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
-					(select cname from tbl_category where cno = a.cno) cname,
-					(select csname from tbl_subcategory where csno = a.csno) csname,
-					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
-					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
-					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
-					 place1, place2,
-					 4 as ordered
-				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 not like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind != 0 and
-				a.id = userinfos.id
-				union
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
-					(select cname from tbl_category where cno = a.cno) cname,
-					(select csname from tbl_subcategory where csno = a.csno) csname,
-					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
-					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
-					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
-					 place1, place2,
-					 5 as ordered
-				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind != 0 and
-				a.id = userinfos.id
-				union
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
-					(select cname from tbl_category where cno = a.cno) cname,
-					(select csname from tbl_subcategory where csno = a.csno) csname,
-					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
-					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
-					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
-					 place1, place2,
-					 6 as ordered
-				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind != 0 and
-				a.id = userinfos.id
-				union
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
-					(select cname from tbl_category where cno = a.cno) cname,
-					(select csname from tbl_subcategory where csno = a.csno) csname,
-					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
-					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
-					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
-					 place1, place2,
-					 7 as ordered
-				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 not like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind != 0 and
-				a.id = userinfos.id
-				union
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
-					(select cname from tbl_category where cno = a.cno) cname,
-					(select csname from tbl_subcategory where csno = a.csno) csname,
-					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
-					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
-					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
-					 place1, place2,
-					 8 as ordered
-				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
-				a.place2 not like '%'||#{place2}||'%' and a.csno != #{csno} and a.tb_kind != 0 and
-				a.id = userinfos.id
+				<include refid="travelBoardCount"/>
 			)
+			<include refid="search"/>
 			order by ordered
+			
 		</if>
 		
 		<if test="place1 == null">
 		
 			select * from (
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
-					(select cname from tbl_category where cno = a.cno) cname,
-					(select csname from tbl_subcategory where csno = a.csno) csname,
-					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
-					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
-					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
-					 1 as ordered
-				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong = #{dong} and a.csno = #{csno} and a.tb_kind != 0 and
-				a.id = userinfos.id
-				union
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
-					(select cname from tbl_category where cno = a.cno) cname,
-					(select csname from tbl_subcategory where csno = a.csno) csname,
-					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
-					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
-					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
-					 2 as ordered
-				from userinfos, tbl_boards a
-				where a.si = #{si} and a.dong = #{dong} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind != 0 and
-				a.id = userinfos.id
-				union
-				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
-					(select cname from tbl_category where cno = a.cno) cname,
-					(select csname from tbl_subcategory where csno = a.csno) csname,
-					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
-					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
-					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno) myfavor,
-					 3 as ordered
-				from userinfos, tbl_boards a
-				where a.si = #{si} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind != 0 and
-				a.id = userinfos.id
-			)
+					<include refid="count"/>		
+				)
+			<include refid="search"/>
 			order by ordered
 			
 		</if>
 	</select>
 	
+	<select id="selectTravelReview" resultType="boardListVO">
+		select * from (
+				<include refid="travelReview"/>
+			)
+			<include refid="search"/>
+			order by ordered
+	</select>
+	<select id="countTravelReview" resultType="int">
+		select count(*) from (
+			<include refid="travelReview"/>
+		)
+			<include refid="search"/>
+	</select>
 	
+	<select id="countBoardList" resultType="int">
+		<if test="place1 != null">
+			select count(*) from (
+				<include refid="travelBoardCount"/>
+			)
+			<include refid="search"/>
+			
+			
+		</if>
+		
+		<if test="place1 == null">
+		
+			select count(*) from (
+				<include refid="count"/>		
+			)
+			<include refid="search"/>
+			
+			
+		</if>
+	</select>
 	
+	<!-- 즐겨찾기 등록 -->
+	<insert id="insertBookmark">
+		insert into bookmark values(bookmark_seq.nextval, #{id}, #{tbno})
+	</insert>
 	
+	<!-- 즐겨찾기 해제 -->
+	<delete id="deleteBookmark">
+		delete from bookmark where id = #{id} and tbno = #{tbno}
+	</delete>
+	
+	<!-- 즐겨찾기 유무 확인 -->
+	<select id="selectBookmark" resultType="int">
+		select count(*) from bookmark where id = #{id} and tbno = #{tbno}
+	</select>
+	
+	<!-- 시도 불러오기 -->
+  <select id="selectSido" resultType="region">
+ 	 select distinct ds_sido from ds_zip
+  </select>
+  
+    <!-- 군구 불러오기 -->
+  <select id="selectGugun" resultType="region">
+  	select distinct ds_gugun 
+  	from ds_zip
+  	where ds_sido = #{ds_sido}
+  </select>
+	
+	<sql id="search">
+	<if test="searchType != null">
+		<if test="searchType == 'n'.toString()">
+			where nickname like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 't'.toString()">
+			where title like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'c'.toString()">
+			where content like '%'||#{keyword}||'%'
+		</if>
+	</if>
+	</sql>
+	
+	<sql id="travelBoardCount">
+		select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id} and id = #{id}) myfavor,
+					 place1, place2,
+					 1 as ordered
+				from userinfos, tbl_boards a
+				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
+				a.place2 like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind not in(0,2) and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 place1, place2,
+					 2 as ordered
+				from userinfos, tbl_boards a
+				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
+				a.place2 like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind not in(0,2) and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 place1, place2,
+					 3 as ordered
+				from userinfos, tbl_boards a
+				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and
+				 a.place2 not like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind not in(0,2) and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 place1, place2,
+					 4 as ordered
+				from userinfos, tbl_boards a
+				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
+				a.place2 not like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind not in(0,2) and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 place1, place2,
+					 5 as ordered
+				from userinfos, tbl_boards a
+				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
+				a.place2 like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind not in(0,2) and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 place1, place2,
+					 6 as ordered
+				from userinfos, tbl_boards a
+				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
+				a.place2 like '%'||#{place2}||'%' and a.csno != #{csno} and tb_kind not in(0,2) and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 place1, place2,
+					 7 as ordered
+				from userinfos, tbl_boards a
+				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
+				a.place2 not like '%'||#{place2}||'%' and a.csno = #{csno} and tb_kind not in(0,2) and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 place1, place2,
+					 8 as ordered
+				from userinfos, tbl_boards a
+				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
+				a.place2 not like '%'||#{place2}||'%' and a.csno != #{csno} and a.tb_kind not in(0,2) and
+				a.id = userinfos.id
+	</sql>
+	
+	<sql id="count">
+		select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 1 as ordered
+				from userinfos, tbl_boards a
+				where a.si = #{si} and a.dong = #{dong} and a.csno = #{csno} and a.tb_kind not in(0,2) and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 2 as ordered
+				from userinfos, tbl_boards a
+				where a.si = #{si} and a.dong = #{dong} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind not in(0,2) and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 3 as ordered
+				from userinfos, tbl_boards a
+				where a.si = #{si} and a.dong != #{dong} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind not in(0,2) and
+				a.id = userinfos.id
+
+			</sql>
+
+	
+	<update id="updateCommonRow">
+		update tbl_boards set TITLE=#{title},  NOTICE=#{notice}, OPENCHAT=#{openchat}, CONTENT=#{content}, TEL=#{tel} where tbno=#{tbno}
+	</update>
+	
+	<sql id="travelReview">
+		select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 place1, place2,
+					 1 as ordered
+				from userinfos, tbl_boards a
+				where a.place1 like '%'||#{place1}||'%' and 
+				a.place2 like '%'||#{place2}||'%' and 
+				a.csno = #{csno} and tb_kind = 2 and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 place1, place2,
+					 2 as ordered
+				from userinfos, tbl_boards a
+				where a.place1 like '%'||#{place1}||'%' and 
+				a.place2 like '%'||#{place2}||'%' and 
+				a.csno != #{csno} and tb_kind = 2 and
+				a.id = userinfos.id
+				union
+				select profile, nickname, a.id, a.do1, a.si, a.dong, a.cno, a.csno,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 place1, place2,
+					 3 as ordered
+				from userinfos, tbl_boards a
+				where a.place1 like '%'||#{place1}||'%' and
+				 a.place2 not like '%'||#{place2}||'%' and 
+				 a.csno = #{csno} and tb_kind = 2 and
+				a.id = userinfos.id
+				
+	</sql>
 </mapper>
 

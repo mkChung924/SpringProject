@@ -6,12 +6,15 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.CategoryInfoVO;
+import com.brothersplant.domain.SearchCriteria;
+import com.brothersplant.domain.SelectRegionVO;
 
 @Repository
 public class BoardInfoDAOImpl implements BoardInfoDAO {
@@ -40,12 +43,16 @@ private static final String namespace = "board";
 	}
 
 	@Override
-	public BoardVO selectCommonRow(int tbno) throws Exception {
-		return session.selectOne(namespace+".selectCommonRow",tbno);
+	public BoardVO selectCommonRow(int tbno,String id) throws Exception {
+		System.out.println("DAO : "+tbno);
+		Map<String, Object> map = new HashMap<>();
+		map.put("tbno", tbno);
+		map.put("id", id);
+		return session.selectOne(namespace+".selectCommonRow",map);
 	}
 
 	@Override
-	public List<String> selectMainCategory() throws Exception {
+	public List<Map<String, Object>> selectMainCategory() throws Exception {
 		return session.selectList(namespace+".selectMainCategory");
 	}
 
@@ -57,9 +64,31 @@ private static final String namespace = "board";
 
 
 	@Override
-	public List<BoardListVO> selectBoardList(CategoryInfoVO vo) throws Exception {
+	public List<BoardListVO> selectBoardList(SearchCriteria cri) throws Exception {
 		
-		return session.selectList(namespace+".selectBoardList", vo);
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		return session.selectList(namespace+".selectBoardList", cri, bounds);
+	}
+
+	@Override
+	public int selectBoardCount(SearchCriteria cri) throws Exception {
+		
+		return session.selectOne(namespace+".countBoardList", cri);
+	}
+	
+
+	@Override
+	public List<BoardListVO> selectTravelReviewList(SearchCriteria cri) throws Exception {
+		
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		return session.selectList(namespace+".selectTravelReview", cri, bounds);
+	}
+
+
+	@Override
+	public int selectTravelCount(SearchCriteria cri) throws Exception {
+		
+		return session.selectOne(namespace+".countTravelReview", cri);
 	}
 
 
@@ -68,6 +97,56 @@ private static final String namespace = "board";
 		
 		return session.selectOne(namespace+".selectCategory",csno);
 		
+	}
+
+	@Override
+	public void addBookmark(String id, int tbno) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("tbno", tbno);
+		session.insert(namespace+".insertBookmark", map);
+		
+	}
+
+
+	@Override
+	public void removeBookmark(String id, int tbno) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("tbno", tbno);
+		session.delete(namespace+".deleteBookmark", map);
+		
+	}
+
+
+	@Override
+	public int selectBookmark(String id, int tbno) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		map.put("tbno", tbno);
+		return session.selectOne(namespace+".selectBookmark", map);
+		
+	}
+
+	@Override
+	public int deleteCommonRow(int tbno) throws Exception {
+		return session.delete(namespace+".deleteCommonRow", tbno);
+	}
+//위에 똑같은 메소드 있음 나중에 삭제요망
+	@Override
+	public List<SelectRegionVO> selectSido() throws Exception {		
+		return session.selectList(namespace+".selectSido");
+	}
+	@Override
+	public List<SelectRegionVO> selectGugun(String ds_sido) throws Exception {
+		
+		return session.selectList(namespace+".selectGugun", ds_sido);
+	}
+//여기 까지 두개 
+
+	@Override
+	public int updateCommonRow(BoardVO vo) throws Exception {
+		return session.update(namespace+".updateCommonRow",vo);
 	}
 
 }
