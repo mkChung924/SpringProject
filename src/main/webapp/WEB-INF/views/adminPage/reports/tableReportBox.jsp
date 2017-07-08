@@ -7,38 +7,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.4">
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/fontello.css?ver=1.1">
-<script type="text/javascript">
-	
-	$(function(){
-		$("#tableDelBtn1").click(function() {
-			$('input:checkbox[name="chbox1"]').each(function() {
-				if (this.checked) { //checked 처리된 항목의 값	            
-					$.ajax({
-						url : 'tableReportRemove',
-						data : 'trno=' + this.value+ '&page='+${page},
-						success : function(result) {
-							location.reload();
-						}
-					});
-				}
-			});
-		});
-		
-		$(".pagination li a").on("click", function(event){
-			
-			event.preventDefault(); 
-			
-			var targetPage = $(this).attr("href");
-			
-			var jobForm = $("#jobForm");
-			jobForm.find("[name='page']").val(targetPage);
-			jobForm.attr("action","/project/reportBox").attr("method", "get");
-			jobForm.submit();
-		});
-		
-	})
 
-</script>
+<%-- 이 페이지는 관리자 신고페이지 중 게시글에 관한 신고를 처리하는 페이지 입니다 --%>
+<%-- 관련 함수는/resources/js/reportFunction.js --%>
 <style>
 body{
 		font-family: "fontello";
@@ -55,9 +26,10 @@ body{
 	<label><font size=4>게시글 신고</font></label>
 	</div>
 	<div class="col-sm-8" style="text-align: right; display: inline">
-		<button type="button" class="btn btn-danger" id="boardDelBtn">게시글 삭제 &#xf083</button>&nbsp;
+		<button type="button" class="btn btn-danger" id="reportsDelPenalty">게시글 삭제 &#xf083</button>&nbsp;
 		<button type="button" class="btn btn-warning" id="reportsDelBtn">신고 삭제 &#xf083</button> &nbsp;
 		<button type="button" class="btn btn-info" id="reportsDelAllBtn">같은 신고 일괄 삭제 &#xf083</button>
+		<input type="hidden" value=1 id="hiddenKind">
 	</div>
 	<br><br>
 		<table class="table">
@@ -71,11 +43,11 @@ body{
 		</tr>
 		<c:forEach items="${tablereport }" var="table">
 			<tr  style="text-align: center; font-size: 18px;">
-				<td><input type="checkbox" name="chbox1" value=${table.brno }></td>
-				<td><a href="tableReportContent?trno=${table.brno }&page=${page}">${table.content}</a></td>
-				<td><input type="hidden" value="${table.brno }" id="mno1">${table.offender}</td>
+				<td><input type="checkbox" name="chbox1" value=${table.repno }></td>
+				<td><a href="#" onclick="readPage('${table.brno}')">${table.content}</a></td> <!-- adminReport.jsp 부분에 readPage() -->
+				<td id="off-${table.repno }">${table.offender}</td>
 				<td>${table.reporter}</td>
-				<td>${table.senddate }</td>
+				<td>${table.senddate } <input type="hidden" id="brnoRow-${table.repno }" value="${table.brno }"> </td>
 			</tr>
 	</c:forEach>
 	</table>

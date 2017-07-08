@@ -46,6 +46,22 @@ public class ReportsDAOImpl implements ReportsDAO {
 		map.put("what", what);
 		return sqlSession.selectList(namespace+".selectReportList2",map,bounds);
 	}
+
+	@Override
+	public int selectedReprotListDelete(int kind, String[] repno) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("kind", kind);
+		map.put("repnoList", repno);
+		return sqlSession.delete(namespace+".selectedReprotListDelete",map);
+	}
+
+	@Override
+	public int selectedReprotListDeletePenalty(int kind, List<Map<String, String>> penaltyList) throws Exception {//신고 삭제 패널티 업음
+		Map<String, Object> map = new HashMap<>();
+		map.put("kind", kind);
+		map.put("penaltyList", penaltyList);
+		return sqlSession.delete(namespace+".selectedReprotListDeletePenalty", map);
+	}
 }
 
 /*	@Override

@@ -8,98 +8,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.4">
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/fontello.css?ver=1.1">
-<script type="text/javascript">
-	
-	$(function(){		
-		
-		$("#replyDelBtn").click(function() {
-			
-			var a = $('input:checkbox[name="chbox1"]:checked').length;
-			if(a < 1){
-				alert('삭제할 댓글을 선택하세요');
-			} else {
-			
-				$('input:checkbox[name="chbox1"]').each(function() {
-					if (this.checked) { //checked 처리된 항목의 값	  
-						alert(this.value);
-						var rno = this.value.split('%')[1];
-						$.ajax({
-							url : 'replyRemove',
-							data : 'rno=' + rno + '&page='+${page},
-							success : function(result) {
-								location.reload();
-							}
-						});
-					}
-				});
-			}
-		});
-		
-		
-		$('#reportsDelBtn').click(function(){	
-			
-			var a = $('input:checkbox[name="chbox1"]:checked').length;
-			if(a < 1){
-				alert('삭제할 신고를 선택하세요')
-			} else {
-			
-				$('input:checkbox[name="chbox1"]').each(function() {
-					if (this.checked) {
-						var repno = this.value.split('%')[0];
-						 $.ajax({
-								url:'replydel',
-								data: 'repno='+ repno,
-								success:function(result){		
-									location.reload();
-								},
-								error:function(result){
-									alert("신고가 되지 않았습니다.");
-								}
-						});
-					}
-				});
-			}
-		});	
-		
-		$('#reportsDelAllBtn').click(function(){	
-			
-			var a = $('input:checkbox[name="chbox1"]:checked').length;
-			if(a < 1){
-				alert('삭제할 댓글을 선택하세요');
-			} else {
-				$('input:checkbox[name="chbox1"]').each(function() {
-					if (this.checked) {
-						var rno = this.value.split('%')[1];
-							 $.ajax({
-									url:'replydel',
-									data: 'rno='+rno,
-									success:function(result){		
-										location.reload();
-									},
-									error:function(result){
-										alert("신고가 되지 않았습니다.");
-									}
-							});
-					}
-				});
-			}
-		});	
-		
-		$(".pagination li a").on("click", function(event) {
-			
-			event.preventDefault();
 
-			var targetPage = $(this).attr("href");
-
-			var jobForm = $("#jobForm");
-			jobForm.find("[name='page']").val(targetPage);
-			jobForm.attr("action", "/reports/replyBox").attr("method", "get");
-			jobForm.submit();
-		});
-		
-	});
-	
-</script>
+<%-- 이 페이지는 관리자 신고페이지 중 댓글에 관한 신고를 처리하는 페이지 입니다 --%>
+<%-- 관련 함수는/resources/js/reportFunction.js --%>
 <style>
 body{
 		font-family: "fontello";
@@ -116,9 +27,10 @@ body{
 	<label><font size=4>댓글 신고</font></label>
 	</div>
 	<div class="col-sm-8" style="text-align: right; padding-right: 15px; display: inline">
-		<button type="button" class="btn btn-danger" id="replyDelBtn">댓글 삭제 &#xf083</button> &nbsp;
+		<button type="button" class="btn btn-danger" id="reportsDelPenalty">댓글 삭제 &#xf083</button> &nbsp;
 		<button type="button" class="btn btn-warning" id="reportsDelBtn">신고 삭제 &#xf083</button> &nbsp;
 		<button type="button" class="btn btn-info" id="reportsDelAllBtn">같은 신고 일괄 삭제 &#xf083</button>
+		<input type="hidden" value=2 id="hiddenKind">
 	</div>
 	<br><br>
 		<table class="table">
@@ -131,11 +43,11 @@ body{
 		</tr>
 		<c:forEach items="${messages}" var="reply">
 			<tr style="text-align: center; font-size: 18px;">
-				<td><input type="checkbox" name="chbox1" value=${reply.repno }%${reply.brno }></td>
-				<td>${reply.brno }</td>
+				<td><input type="checkbox" name="chbox1" value=${reply.repno }></td>
+				<td >${reply.brno }</td>
 				<td>${reply.content }</td>
-				<td>${reply.offender}</td>
-				<td>${reply.senddate}</td>
+				<td  id="off-${reply.repno }">${reply.offender}</td>
+				<td>${reply.senddate} <input type="hidden" id="brnoRow-${reply.repno }" value="${reply.brno }">  </td>
 			</tr>
 		</c:forEach>
 

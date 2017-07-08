@@ -33,14 +33,27 @@
 	
 	<!-- 신고 목록 보이려고 검색 게시글 조회시 content=title 값임 --> 
 	<select id="selectReportList2" resultType="reportslist">
-		select r.REPNO, r.BRNO,r.CONTENT,r.REPORTER,to_char(r.senddate, 'yyyy-mm-dd hh24:mi:ss') SENDDATE,r.REPORTTYPE
+		select r.REPNO, r.BRNO,r.CONTENT,r.REPORTER,to_char(r.senddate, 'yyyy-mm-dd hh24:mi:ss') SENDDATE,r.REPORTTYPE,b.id offender
 		from TBL_REPORTSLIST r INNER join 
 		<if test='what.equals("board")'>
-			(select tbno as BRNO,id from TBL_BOARDS) b on b.BRNO = r.BRNO where r.REPORTKIND=1
+			(select tbno as BRNO,id from TBL_BOARDS) b 
 		</if>
 		<if test='what.equals("reply")'>
-			(select rno as BRNO,id from TBL_REPLIES) b on b.BRNO = r.BRNO where r.REPORTKIND=2
+			(select rno as BRNO,id from TBL_REPLIES) b 
 		</if>
-		  order by senddate desc
+			on b.BRNO = r.BRNO where r.REPORTKIND=#{kind}
+			order by senddate desc
 	</select>
+	
+	<!-- 신고 목록 삭제 단,신고 목록만 삭제하는 것이므로 패널티 없음 -->
+	<delete id="selectedReprotListDelete">
+		delete from TBL_REPORTSLIST where REPNO in
+		<foreach collection="repnoList" item="item" index="index" separator="," open="(" close=")" >
+			#{item}
+		</foreach>
+	</delete>
+	
+	<delete id="selectedReprotListDeletePenalty">
+	
+	</delete>
 </mapper>

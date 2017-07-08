@@ -1,6 +1,7 @@
 package com.brothersplant.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.ReportsListVO;
@@ -15,6 +16,10 @@ public interface ReportsDAO {
 	
 	public int countPaging (int kind)throws Exception;	//종류에 따른 총 data 갯수
 	public List<ReportsListVO> listCriteria(Criteria cri,int kind)throws Exception; //페이징된 리스트(ReportsListVO들)
+
+	public int selectedReprotListDelete(int kind, String[] repno) throws Exception;// 선택한 신고목록을 삭제 패널티 없음
+	public int selectedReprotListDeletePenalty(int kind, List<Map<String, String>> penaltyList) throws Exception; //신고 삭제 패널티 업음 
+	
 }
 /*	//댓글
 	public void replyReportsCreate(ReportsListVO vo)throws Exception;

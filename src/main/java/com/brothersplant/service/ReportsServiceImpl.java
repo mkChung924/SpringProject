@@ -1,6 +1,7 @@
 package com.brothersplant.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -37,6 +38,16 @@ public class ReportsServiceImpl implements ReportsService {
 	@Override
 	public List<ReportsListVO> listCriteria(Criteria cri,int kind) throws Exception {		
 		return dao.listCriteria(cri,kind);
+	}
+
+	@Override
+	public int selectedReprotListDelete(int kind, String[] repno) throws Exception {
+		return dao.selectedReprotListDelete(kind, repno);
+	}
+
+	@Override
+	public int selectedReprotListDeletePenalty(int kind, List<Map<String, String>> penaltyList) throws Exception{ //신고 삭제 패널티 업음 
+		return dao.selectedReprotListDeletePenalty(kind,penaltyList);
 	}
 
 }

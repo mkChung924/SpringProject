@@ -326,7 +326,7 @@
 <body>
 	<div class="container">
 		<h1 style="display: inline;">관심 페이지 이미지로~~</h1>
-		<c:if test="${commonBoard.id == id || auth == 2}">
+		<c:if test="${commonBoard.id == id}">
 			<input type="button" class="btn btn-danger" id="deleteBoard"
 				value="게시물 삭제" style="float: right;" />
 		</c:if>

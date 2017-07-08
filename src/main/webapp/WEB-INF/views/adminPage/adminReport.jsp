@@ -18,6 +18,7 @@
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>관리자페이지</title>
+<script src="/resources/js/repostFunction.js"></script><!--공통된 tableReport페이지와 replyReport페이지 함수 묶음 -->
 <script type="text/javascript">
 
      $(function(){//HTML문서가 브라우저 출력되었을때
@@ -44,15 +45,12 @@
      		 });
     	 }
     	 
-    	$('#button1').click(function(){
+    	$('#button1').click(function(){ //신고 댓글 목록
     		 $.ajax({
     			url:"replyReportBox",
     			data: "page=1",
     			type : "POST",
     			success:function(result){
-					 /*  $('#div1').html(result);
-					   $('#div2').css('display','none')
-					  $('#div1').css('display','block') */
     				location.href="reportBox?page=1";
 				  }
     		 });
@@ -70,15 +68,12 @@
 			  }
 		 });
      }
-    	$('#button2').click(function(){
+    	$('#button2').click(function(){// 신고 게시글 목록
     		 $.ajax({
     			url:"tableReportBox",
     			data: "page=1",
     			type : 'POST',
     			success:function(result){
-					/* $('#div2').html(result);
-					$('#div1').css('display','none');
-					$('#div2').css('display','block');  */
 					location.href="reportBox?page=1";
 				  },
 				  error:function(){
