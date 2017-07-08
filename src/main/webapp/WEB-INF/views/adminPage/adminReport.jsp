@@ -62,7 +62,7 @@
 		 $.ajax({
 			url:"tableReportBox",
 			data: "page="+${page},
-			type : "POST",
+			type : 'POST',
 			success:function(result){
 				  $('#div2').html(result);
 				   $('#div1').css('display','none')
@@ -76,10 +76,10 @@
     			data: "page=1",
     			type : 'POST',
     			success:function(result){
-					$('#div2').html(result);
+					/* $('#div2').html(result);
 					$('#div1').css('display','none');
-					$('#div2').css('display','block');  
-					//location.href="reportBox?page=1";
+					$('#div2').css('display','block');  */
+					location.href="reportBox?page=1";
 				  },
 				  error:function(){
 					  alert('error')
@@ -251,8 +251,8 @@ body {
 					</form>
 	            </div>
 	            <br><br>
-						<div id="div1" style="display: none;"></div>
-						<div id="div2" style="display: none;"></div>
+						<div id="div1" style="display: none; text-align: center"></div>
+						<div id="div2" style="display: none; text-align: center"></div>
 	            </div>
 			</div>
 		</div>

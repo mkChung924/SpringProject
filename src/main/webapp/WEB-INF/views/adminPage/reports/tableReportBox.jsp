@@ -10,7 +10,6 @@
 <script type="text/javascript">
 	
 	$(function(){
-		alert();
 		$("#tableDelBtn1").click(function() {
 			$('input:checkbox[name="chbox1"]').each(function() {
 				if (this.checked) { //checked 처리된 항목의 값	            
