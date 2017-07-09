@@ -41,7 +41,6 @@ public class ReportsDAOImpl implements ReportsDAO {
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
 		Map<String, Object> map = new HashMap<>();
 		map.put("kind", kind);
-		System.out.println("@@@@ : "+kind);
 		String what =  (kind ==1) ? "board":"reply";
 		map.put("what", what);
 		return sqlSession.selectList(namespace+".selectReportList2",map,bounds);
@@ -56,12 +55,38 @@ public class ReportsDAOImpl implements ReportsDAO {
 	}
 
 	@Override
-	public int selectedReprotListDeletePenalty(int kind, List<Map<String, String>> penaltyList) throws Exception {//신고 삭제 패널티 업음
+	public int deletefromBoard_Reply(int kind, List<String> brnoLists) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		map.put("kind", kind);
-		map.put("penaltyList", penaltyList);
-		return sqlSession.delete(namespace+".selectedReprotListDeletePenalty", map);
+		map.put("brnoLists", brnoLists);  //penaltyList [map(offender repno brno), ..]
+		return sqlSession.delete(namespace+".deletefromBoard_Reply",map);
 	}
+
+	@Override //패널티를 줄 유저들
+	public int addUserPenalty(List<String> uniqueOffenderList) {
+		Map<String, List<String>> map = new HashMap<>();
+		map.put("penaltyUserList", uniqueOffenderList);
+		return sqlSession.insert(namespace+".addUserPenalty",map);
+	}
+
+	@Override
+	public int selectPenaltyScore(List<String> uniqueOffenderList) throws Exception {
+		Map<String, List<String>> map = new HashMap<>();
+		map.put("penaltyUserList", uniqueOffenderList);
+		List<String> list = sqlSession.selectList(namespace+".selectPenaltyScore",map);
+		int result=0;
+		for(int i=0; i<list.size();i++){
+			System.out.println("현재 패널티 값은 : "+list.get(i));
+			if(Integer.parseInt(list.get(i)) >= 20){ // 벤을 먹임
+				Map<String, String> map2 = new HashMap<>();
+				map2.put("user",uniqueOffenderList.get(i) );
+				result += sqlSession.update(namespace+".addBlackList",map2);
+			}
+		}
+		return result;
+	}
+
+
 }
 
 /*	@Override

@@ -20,32 +20,19 @@ public class UserInfoVO {
 	private int auth;
 	private int myBoards;
 	private int replyCount;
-	
-
-	
-	@Override
-	public String toString() {
-		return "UserInfoVO [id=" + id + ", password=" + password + ", name=" + name + ", nickname=" + nickname
-				+ ", birth=" + birth + ", email=" + email + ", tel=" + tel + ", addr=" + addr + ", profile=" + profile
-				+ ", secure=" + secure + ", secure_ans=" + secure_ans + ", regdate=" + regdate + ", updatedate="
-				+ updatedate + ", auth=" + auth + ", myBoards=" + myBoards + ", replyCount=" + replyCount + "]";
-	}
-	
+	private int state; // 유저 상태 블랙리스트 인경우 1 정상유저 0 
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
-	
 	public String getPassword() {
 		return password;
 	}
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 	public String getName() {
 		return name;
 	}
@@ -82,15 +69,12 @@ public class UserInfoVO {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	
 	public String getProfile() {
 		return profile;
 	}
-
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-
 	public String getSecure() {
 		return secure;
 	}
@@ -115,32 +99,36 @@ public class UserInfoVO {
 	public void setUpdatedate(String updatedate) {
 		this.updatedate = updatedate;
 	}
-
 	public int getAuth() {
 		return auth;
 	}
-
 	public void setAuth(int auth) {
 		this.auth = auth;
 	}
-
 	public int getMyBoards() {
 		return myBoards;
 	}
-
 	public void setMyBoards(int myBoards) {
 		this.myBoards = myBoards;
 	}
-
 	public int getReplyCount() {
 		return replyCount;
 	}
-
 	public void setReplyCount(int replyCount) {
 		this.replyCount = replyCount;
 	}
-	
-	
-	
-
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	@Override
+	public String toString() {
+		return "UserInfoVO [id=" + id + ", password=" + password + ", name=" + name + ", nickname=" + nickname
+				+ ", birth=" + birth + ", email=" + email + ", tel=" + tel + ", addr=" + addr + ", profile=" + profile
+				+ ", secure=" + secure + ", secure_ans=" + secure_ans + ", regdate=" + regdate + ", updatedate="
+				+ updatedate + ", auth=" + auth + ", myBoards=" + myBoards + ", replyCount=" + replyCount + ", state="
+				+ state + "]";
+	}
 }

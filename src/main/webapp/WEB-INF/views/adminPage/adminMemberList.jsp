@@ -327,7 +327,12 @@
 					<td align="center">${mem.myBoards }</td>
 					<td align="center">${mem.replyCount }</td>
 					<td align="center">${mem.regdate }</td>
-					<td align="center"><font color="green">양호</font></td>
+					<c:if test="${mem.state == 0 }">
+						<td align="center"><font color="green">양호</font></td>					
+					</c:if>
+					<c:if test="${mem.state != 0 }">
+						<td align="center"><font color="red">불량</font></td>					
+					</c:if>
 					</tr>
 				
 	            </c:if>
