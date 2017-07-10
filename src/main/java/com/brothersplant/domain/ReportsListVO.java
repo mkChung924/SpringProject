@@ -10,7 +10,6 @@ public class ReportsListVO {
 	private String senddate;//신고 날짜
 	private String reporttype;//신고 유형
 	private int reportkind; //신고 종류 1:게시글, 2: 댓글 
-	private int tbno;
 	
 	public int getRepno() {
 		return repno;
@@ -60,19 +59,11 @@ public class ReportsListVO {
 	public void setOffender(String offender) {
 		this.offender = offender;
 	}
-	
-	
-	public int getTbno() {
-		return tbno;
-	}
-	public void setTbno(int tbno) {
-		this.tbno = tbno;
-	}
 	@Override
 	public String toString() {
 		return "ReportsListVO [repno=" + repno + ", brno=" + brno + ", content=" + content + ", offender=" + offender
 				+ ", reporter=" + reporter + ", senddate=" + senddate + ", reporttype=" + reporttype + ", reportkind="
-				+ reportkind + ", tbno=" + tbno + "]";
+				+ reportkind + "]";
 	}
 	
 

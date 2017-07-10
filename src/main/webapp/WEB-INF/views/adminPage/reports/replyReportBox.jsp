@@ -16,18 +16,6 @@ body{
 		font-family: "fontello";
 	}
 </style>
-
-<script>
-$(document).on("click",".pagination li a", function(event){ //실제  페이징 된 버튼
-	event.preventDefault(); 
-	var targetPage = $(this).attr("href");
-	var jobForm = $("#jobForm");
-	jobForm.find("[name='page']").val(targetPage);
-	alert($("input[name=keyword]").val());
-	jobForm.attr("action","/reportBox").attr("method", "get");
-	jobForm.submit();
-});
-</script>
 	
 	<c:if test="${messages.size() < 1 }">
 		<br><br><br><br><br><br><br><br><h4><i><font color=red>댓글</font> 신고함이 비었습니다</i></h4>
@@ -35,21 +23,13 @@ $(document).on("click",".pagination li a", function(event){ //실제  페이징 
 		
 	<c:if test="${messages.size() > 0 }">
 	<br><br><br>
-	<div class="col-sm-2" style="text-align: left; padding-left: 20px; display: inline">
+	<div class="col-sm-4" style="text-align: left; padding-left: 20px; display: inline">
 	<label><font size=4>댓글 신고</font></label>
 	</div>
-	<div class="col-sm-10" style="text-align: right; padding-right: 15px; display: inline">
+	<div class="col-sm-8" style="text-align: right; padding-right: 15px; display: inline">
 		<button type="button" class="btn btn-danger" id="reportsDelPenalty">댓글 삭제 &#xf083</button> &nbsp;
-		<button type="button" class="btn btn-warning" id="reportsDelBtn">신고 삭제 &#xf083</button>&nbsp;
-		<div class="col-sm-6" style="float: right;">
-			<select class="form-control s" id="option" name="searchType">
-				<option value="n" ${cri.searchType == 'n' ? 'selected' : '' }>게시글 번호</option>
-				<option value="r" ${cri.searchType == 'r' ? 'selected' : '' }>댓글 번호</option>
-				<option value="t" ${cri.searchType == 't' ? 'selected' : '' }>아이디</option>
-			</select> 
-			<input type="text" class="form-control t" name="keyword" placeholder="게시글 검색" autocomplete="off" value="${	cri.keyword }">
-			<input type="button" class="btn btn-info" id="searchIt" value="검색">
-		</div>
+		<button type="button" class="btn btn-warning" id="reportsDelBtn">신고 삭제 &#xf083</button> &nbsp;
+		<button type="button" class="btn btn-info" id="reportsDelAllBtn">같은 신고 일괄 삭제 &#xf083</button>
 		<input type="hidden" value=2 id="hiddenKind">
 	</div>
 	<br><br>

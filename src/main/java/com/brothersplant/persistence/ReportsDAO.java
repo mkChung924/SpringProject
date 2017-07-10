@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.ReportsListVO;
-import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.TableReportVO;
 
 
@@ -23,8 +22,6 @@ public interface ReportsDAO {
 	public int addUserPenalty(List<String> uniqueOffenderList);//중복이 제거된 불법 유저에게 패널티 점수를 주고
 	public int selectPenaltyScore(List<String> uniqueOffenderList) throws Exception; // 해당 유저를 벤먹일지 아닐지 결정 
 	
-	public List<ReportsListVO> searchReportList(SearchCriteria cri,int kind)throws Exception; //검색된 페이징된 리스트(ReportsListVO들)
-	public int searchCountPaging(SearchCriteria cri,int kind)throws Exception;// 검색된 행의 수
 }
 /*	//댓글
 	public void replyReportsCreate(ReportsListVO vo)throws Exception;

@@ -19,28 +19,6 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <title>관리자페이지</title>
 <script src="/resources/js/repostFunction.js"></script><!--공통된 tableReport페이지와 replyReport페이지 함수 묶음 -->
-<script>
-$(document).on("click","#searchIt",function(){
-	var keyword = $("input[name=keyword]").val();
-	var option =  $("#option").val();
-	var kind = $("#hiddenKind").val();
-	$.ajax({
-		url : "/tableReportBox",
-		type : 'post',
-		data : {
-			keyword : keyword,
-			searchType : option,
-			//kind : kind,
-			page :1
-		},
-		success : function(result) {
-			alert(result);
-			$("#div2").html(result);
-			$("input[name=keyword]").val(keyword);
-		}
-	});
-});
-</script>
 <script type="text/javascript">
 
      $(function(){//HTML문서가 브라우저 출력되었을때

@@ -31,44 +31,17 @@
 		select count(*) from TBL_REPORTSLIST where REPORTKIND=#{kind}
 	</select>
 	
-	<!--검색된 게시글 댓글에따른 총 갯수 검색  이름인경우 신고된 사람을 검색-->
-	<select id="seachCountPaging" resultType="int">
-		select count(*) from
-		<if test='kind==1'>
-			(select b.tbno, b.id from tbl_reportslist r, tbl_boards b where r.reportkind =1 and r.brno = b.tbno 
-		</if>
-		<if test='kind==2'>
-			(select c.tbno, c.id from tbl_reportslist r, tbl_replies b, tbl_boards c where r.reportkind =2 and r.brno = b.rno and b.tbno = c.tbno
-		</if>
-		<include refid="search"/>
-			)
-	</select>
-	
 	<!-- 신고 목록 보이려고 검색 게시글 조회시 content=title 값임 --> 
 	<select id="selectReportList2" resultType="reportslist">
-		select r.REPNO, r.BRNO,r.CONTENT,r.REPORTER,to_char(r.senddate, 'yyyy-mm-dd hh24:mi:ss') SENDDATE,r.REPORTTYPE,b.id offender,b.tbno
+		select r.REPNO, r.BRNO,r.CONTENT,r.REPORTER,to_char(r.senddate, 'yyyy-mm-dd hh24:mi:ss') SENDDATE,r.REPORTTYPE,b.id offender
 		from TBL_REPORTSLIST r INNER join 
 		<if test='what.equals("board")'>
-			(select tbno as BRNO, tbno,id from TBL_BOARDS) b 
+			(select tbno as BRNO,id from TBL_BOARDS) b 
 		</if>
 		<if test='what.equals("reply")'>
-			(select tbno,rno as BRNO,id from TBL_REPLIES) b 
+			(select rno as BRNO,id from TBL_REPLIES) b 
 		</if>
 			on b.BRNO = r.BRNO where r.REPORTKIND=#{kind}
-			order by senddate desc
-	</select>
-	
-	<select id="searchReportList" resultType="reportslist">
-		select r.REPNO, r.BRNO,r.CONTENT,r.REPORTER,to_char(r.senddate, 'yyyy-mm-dd hh24:mi:ss') SENDDATE,r.REPORTTYPE,b.id offender,b.tbno
-		from TBL_REPORTSLIST r INNER join 
-		<if test='what.equals("board")'>
-			(select tbno as BRNO, tbno,id from TBL_BOARDS) b 
-		</if>
-		<if test='what.equals("reply")'>
-			(select tbno,rno as BRNO,id from TBL_REPLIES) b 
-		</if>
-			on b.BRNO = r.BRNO where r.REPORTKIND=#{kind}
-			<include refid="search"/>
 			order by senddate desc
 	</select>
 	
@@ -110,23 +83,4 @@
 	<update id="addBlackList">
 		update USERSTATE set state = 1 where id= #{user}
 	</update>
-	
-	<sql id="search"><!-- n: 계시글 번호,t:아이디,r: 댓글 번호 scri -->
-	<if test="scri.searchType != null">
-		<if test="scri.searchType == 'n'.toString()">
-			and r.brno = #{scri.keyword}
-		</if>
-		<if test="scri.searchType == 't'.toString()">
-			<if test="search =='count'.toString()">
-				and b.id like '%'||#{scri.keyword}||'%'		
-			</if>
-			<if test="search =='select'.toString()">
-				and c.id like '%'||#{scri.keyword}||'%'		
-			</if>
-		</if>
-		<if test="scri.searchType == 'r'.toString()">
-			and r.brno = #{scri.keyword}
-		</if>
-	</if>
-	</sql>
 </mapper>
