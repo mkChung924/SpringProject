@@ -3,7 +3,10 @@
 <mapper namespace="userinfo">
 
 	<insert id="insert" parameterType="userinfo">
-		insert into userinfos values(#{id}, #{password}, #{name},#{nickname},#{birth},#{addr},#{tel},#{profile},#{secure},#{secure_ans},sysdate, sysdate, #{email},#{auth})
+		insert All
+			into userinfos values(#{id}, #{password}, #{name},#{nickname},#{birth},#{addr},#{tel},#{profile},#{secure},#{secure_ans},sysdate, sysdate, #{email},#{auth})
+			into USERSTATE (SNO,ID) values (USERSTATE_SEQ.NEXTVAL,#{id})
+			SELECT * FROM DUAL
 	</insert>
 	
 	<select id="dupCheck" resultType="String">

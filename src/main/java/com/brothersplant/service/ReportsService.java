@@ -16,7 +16,7 @@ public interface ReportsService {
 	public List<ReportsListVO> listCriteria(Criteria cri,int kind)throws Exception;
 	
 	public int selectedReprotListDelete(int kind,String[] repno) throws Exception; //신고 삭제 패널티 업음 
-	public int selectedReprotListDeletePenalty(int kind, List<Map<String, String>> penaltyList) throws Exception; //신고 삭제 패널티 업음 
+	public int selectedReprotListDeletePenalty(int kind, List<String> brnoLists,List<String> uniqueOffenderList) throws Exception; //신고 삭제 패널티 업음 
 }
 
 /*	public void replyReport(ReportsListVO vo)throws Exception;

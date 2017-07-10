@@ -1,9 +1,9 @@
 package com.brothersplant.control;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
@@ -66,24 +66,17 @@ public class ReportRestController {
 	@RequestMapping(value="/selectedReprotListDeletePenalty", method=RequestMethod.POST) //신고목록삭제 유저에게 패널티 있음!!
 	public ResponseEntity<String> reportListDeletePenalty(int kind,String repnoList,String offenderList,String brnoList)throws Exception{
 		ResponseEntity<String> entity=null;
-		String repnoListBrno[] = repnoList.split(",");
-		String offenderListArr[] = offenderList.split(",");
-		String brnoListArr[] = brnoList.split(",");
-		List<Map<String, String>> penaltyList = new ArrayList<>();
+		String repnoListTemp[] = repnoList.split(",");
 		
-		System.out.println(kind+" ||| "+repnoList+" ||| "+offenderList+" ||| "+brnoList);
-		
-		for (int i = 0; i < offenderListArr.length; i++) {
-			Map<String, String> map = new HashMap<>();
-			map.put("offender", offenderListArr[i]);
-			map.put("repno", repnoListBrno[i]);
-			map.put("brno", brnoListArr[i]);
-			penaltyList.add(map);
-			//mapper penaltyList[i].map.	offender
-		}
+		//String Array to List
+		List<String> offenderLIST = Arrays.asList(offenderList.split(","));
+		List<String> brnoLIST =  Arrays.asList(brnoList.split(","));
+
+		List<String> uniqueOffenderList = new ArrayList<String>(new HashSet<String>(offenderLIST));//신고자 명단 중복 제거
+		System.out.println("중복 제거된 신고자 명단 : "+uniqueOffenderList); // [1, 2, 3]
 		
 		try{
-			int result = service.selectedReprotListDeletePenalty(kind, penaltyList);
+			int result = service.selectedReprotListDeletePenalty(kind, brnoLIST,uniqueOffenderList);
 			System.out.println("삭제된 행의 수 : "+result +" || kind : "+kind);
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		}catch(Exception e){

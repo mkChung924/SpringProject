@@ -53,7 +53,34 @@
 		</foreach>
 	</delete>
 	
-	<delete id="selectedReprotListDeletePenalty">
-	
+	<delete id="deletefromBoard_Reply">
+		delete from
+			<if test="kind == 1"> <!-- 게시글 penaltyList[map(offender repno brno), ..] -->
+				TBL_BOARDS where TBNO in
+			</if>
+			<if test="kind == 2"> <!-- 게시글 -->
+				TBL_REPLIES where RNO in
+			</if>
+			<foreach collection="brnoLists" item="brno" index="index" separator="," open="(" close=")" >
+				#{brno}
+			</foreach>
 	</delete>
+	
+	<!-- 유저에게 패널티 숫자 올리고 -->
+	<update id="addUserPenalty">
+			<foreach collection="penaltyUserList" item="penaltyUser" separator=" ">
+				update USERSTATE SET PENALTY_CNT = (select PENALTY_CNT+1 from USERSTATE where id= #{penaltyUser}) where id=#{penaltyUser} 
+			</foreach>
+	</update>
+	
+	<!-- 패널티 먹일 유저를 심사 벤먹일지 아닐지 -->
+	<select id="selectPenaltyScore" resultType="String">
+		<foreach collection="penaltyUserList" item="penaltyUser" separator=" ">
+			select PENALTY_CNT from USERSTATE where id=#{penaltyUser}
+		</foreach>
+	</select>
+	
+	<update id="addBlackList">
+		update USERSTATE set state = 1 where id= #{user}
+	</update>
 </mapper>
