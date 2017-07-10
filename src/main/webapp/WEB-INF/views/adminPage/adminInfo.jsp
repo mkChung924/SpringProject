@@ -100,7 +100,7 @@
 								신고접수함 </a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="adminBoardsList">
 								<i class="glyphicon glyphicon-th-list"></i>
 								게시판 현황 </a>
 							</li>
@@ -109,6 +109,7 @@
 								<i class="glyphicon glyphicon-remove"></i>
 								여행 추천 게시글 쓰기</a>
 							</li>
+							
 						</ul>
 					</div>
 					<!-- END MENU -->

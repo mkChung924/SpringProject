@@ -114,12 +114,10 @@
 	</form>
 	
 <div id="loadingModal" class="modal">
-	<div class="modal-content" style="width: 9%; text-align: center; display: run-in; margin-top: 20%">
-		<div class="modal-body" style="padding: 10%;">
+		<div class="modal-body" style="margin-top: 20%; margin-left: 40%">
 			<div class="loader"></div><br>
 			<b>로그인 중...</b>
 		</div>
-	</div>
 </div>
 	
 	<%@ include file="join.jsp" %>

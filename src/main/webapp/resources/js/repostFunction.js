@@ -1,4 +1,7 @@
 //신고 삭제 , 패널티 없음
+
+
+
 	$(document).on("click","#reportsDelBtn",function(){	
 		var chkedSize = $('input:checkbox[name="chbox1"]:checked').length;
 		var kind = $("#hiddenKind").val();
@@ -11,6 +14,7 @@
 					repnoList += this.value+",";
 				}
 			});
+			
 			alert(repnoList);
 			 $.ajax({
 					url:'selectedReprotListDelete',

@@ -33,13 +33,13 @@
 	
 	<!-- 신고 목록 보이려고 검색 게시글 조회시 content=title 값임 --> 
 	<select id="selectReportList2" resultType="reportslist">
-		select r.REPNO, r.BRNO,r.CONTENT,r.REPORTER,to_char(r.senddate, 'yyyy-mm-dd hh24:mi:ss') SENDDATE,r.REPORTTYPE,b.id offender
+		select r.REPNO, r.BRNO,r.CONTENT,r.REPORTER,to_char(r.senddate, 'yyyy-mm-dd hh24:mi:ss') SENDDATE,r.REPORTTYPE,b.id offender, b.tbno
 		from TBL_REPORTSLIST r INNER join 
 		<if test='what.equals("board")'>
-			(select tbno as BRNO,id from TBL_BOARDS) b 
+			(select tbno as BRNO,id,tbno from TBL_BOARDS) b 
 		</if>
 		<if test='what.equals("reply")'>
-			(select rno as BRNO,id from TBL_REPLIES) b 
+			(select tbno, rno as BRNO,id from TBL_REPLIES) b 
 		</if>
 			on b.BRNO = r.BRNO where r.REPORTKIND=#{kind}
 			order by senddate desc
@@ -81,6 +81,6 @@
 	</select>
 	
 	<update id="addBlackList">
-		update USERSTATE set state = 1 where id= #{user}
+		update USERSTATE set state = state + 1 where id= #{user}
 	</update>
 </mapper>

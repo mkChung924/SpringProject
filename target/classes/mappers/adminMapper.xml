@@ -46,5 +46,25 @@
 		</if>
 	</if>
 	</sql>
+	
+											<!-- ######################################### -->
+														<!-- 게시판 현황 가져오기-->
+											<!-- ######################################### -->
+	
+	<!-- 카테고리 cname,cno, cno별로 DB개수 출력-->
+	<select id="selectBoardsCount" resultType="boardsCount">
+		select cname,cno,(select count(*) from tbl_boards where cno = a.cno) count 
+		from tbl_category a 
+		order by count desc
+		
+	</select>
+	
+	<!-- cno의 DB개수 -->
+	<select id="categoryDetail" resultType="boardVO">
+		select tbno,(select csname from tbl_subcategory where csno= b.csno) csname,title,id,regdate,likes,viewcnt 
+		from tbl_boards b
+		where cno=#{cno}
+		order by csno
+	</select>
 
 </mapper>

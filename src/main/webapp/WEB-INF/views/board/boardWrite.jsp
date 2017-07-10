@@ -166,11 +166,14 @@ function uploadFile(inp, editor) {
 			<select name="mainC" id="mainC" style="width: 80px;">
 				<option value="${cno }">${category }</option>
 				<c:if test="${cno != 1 }">
+					
 					<c:forEach var="mainc" items="${mainCategory}" varStatus="status">
 						<c:if test="${mainc.CNO != 1}">				
 							<option value="${mainc.CNO}">${mainc.CNAME}</option>
 						</c:if>
 					</c:forEach>
+					
+					<input type="hidden" name="tb_kind" value="1">
 				</c:if>
 				
 			</select> 

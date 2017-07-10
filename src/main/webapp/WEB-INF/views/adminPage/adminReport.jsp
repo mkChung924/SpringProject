@@ -150,15 +150,13 @@ body {
 	<div class="container">
 		<div class="row profile">
 			<div class="header">
-				<b>${id }</b>
+				<b>[ ${id } ]</b>
 				<kbd style="background-color: red">
 					<a href="/admin"><font color="white">관리자</font></a>
 				</kbd>
 				<div style="margin-top: 5px;">
 					<kbd style="background-color: #EAEAEA">
-						<a href="/logout"><font color="black">로그아웃</font></a>
-					</kbd>
-					&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;
 					<kbd>
 						<a href="/index"><font color="white">메인페이지</font></a>
 					</kbd>
@@ -219,7 +217,7 @@ body {
 								신고접수함 </a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="adminBoardsList">
 								<i class="glyphicon glyphicon-th-list"></i>
 								게시판 현황 </a>
 							</li>
@@ -245,9 +243,9 @@ body {
 						<input type="button" id="button2" value="게시글 신고함">
 					</form>
 	            </div>
-	            <br><br>
-						<div id="div1" style="display: none; text-align: center"></div>
-						<div id="div2" style="display: none; text-align: center"></div>
+	            	 * 신고 게시글 삭제시 해당 게시글의 댓글 및 댓글 신고가 일괄 삭제됩니다.<br>&nbsp;&nbsp;관리자는 이점을 유의하여 댓글 신고를 처리한 후 게시글 신고를 처리하시기 바랍니다.
+					<div id="div1" style="display: none; text-align: center"></div>
+					<div id="div2" style="display: none; text-align: center"></div>
 	            </div>
 			</div>
 		</div>

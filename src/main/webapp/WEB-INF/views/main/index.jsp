@@ -16,6 +16,21 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/resources/js/daum_api.js"></script>
+<script type="text/javascript" src="http://scmplayer.co/script.js" 
+data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.css',
+'volume':50,'autoplay':true,'shuffle':true,'repeat':1,'placement':'top','showplaylist':false,
+'playlist':[
+{'title':'A Lover`s concerto','url':'https://www.youtube.com/watch?v=KahAPQ9sl6g'},
+{'title':'Early in the morning','url':'https://www.youtube.com/watch?v=aGFuRN0n0pw'},
+{'title':'How Deep Is Your Love','url':'https://www.youtube.com/watch?v=XpqqjU7u5Yc'},
+{'title':'Those were the days','url':'https://www.youtube.com/watch?v=QO9A9u4GyGc'},
+{'title':'You Call It Love','url':'https://www.youtube.com/watch?v=YjtemOT9tWA'},
+{'title':'%uD558%uC6B8%uC758 %uC6C0%uC9C1%uC774%uB294 %uC131','url':'https://www.youtube.com/watch?v=NXt-YY3Xt8Q'},
+{'title':'Reality','url':'https://www.youtube.com/watch?v=arg-TuFxmq0'},
+{'title':'tie a yellow ribbon round the ole oak tree','url':'https://www.youtube.com/watch?v=CFCWv1CUhOE'},
+{'title':'%uC5BC%uC74C%uC5F0%uBABB-%uB450%uBC88%uC9F8 %uB2EC','url':'https://www.youtube.com/watch?v=bfcL8KqpgKs'},
+{'title':'Qui A Tue Grand Maman','url':'https://www.youtube.com/watch?v=-wgqxyOFngY'}]}" >
+</script>
 
 <link rel="stylesheet" type="text/css" href="/resources/css/main/index.css?ver=1.2">
 <title>카테고리 페이지</title>

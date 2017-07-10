@@ -349,14 +349,14 @@
 		                	<c:if test="${myList.myfavor == 1 }">
 		                	<div class="col-md-6">
 				                <p class="p-${myList.tbno }" align="left">
-				                <i class="glyphicon glyphicon-star" id="bk-${myList.tbno }" onclick="favor(${myList.tbno})" data-toggle="bookmark" data-placement="bottom" title="즐겨찾기 해제" style="font-size: 25px; cursor: pointer;"></i>
+				                <i class="glyphicon glyphicon-star" id="bk-${myList.tbno }" onclick="favor(${myList.tbno})" data-toggle="bookmark" data-placement="bottom" title="즐겨찾기 해제" style="font-size: 25px; cursor: pointer; color: #FFE400"></i>
 				                </p>
 		                	</div>
 		                	</c:if>
 		                	<c:if test="${myList.myfavor == 0 }">
 		                	<div class="col-md-6">
 				                <p align="left">
-				                <i class="glyphicon glyphicon-star-empty" id="bk-${myList.tbno }" onclick="favor(${myList.tbno})"  data-toggle="bookmark" data-placement="bottom" title="즐겨찾기 추가" style="font-size: 25px; cursor: pointer;"></i>
+				                <i class="glyphicon glyphicon-star-empty" id="bk-${myList.tbno }" onclick="favor(${myList.tbno})"  data-toggle="bookmark" data-placement="bottom" title="즐겨찾기 추가" style="font-size: 25px; cursor: pointer; color: #FFE400"></i>
 				                </p>
 		                	</div>
 		                	</c:if>
