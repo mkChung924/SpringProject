@@ -32,6 +32,15 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 {'title':'Qui A Tue Grand Maman','url':'https://www.youtube.com/watch?v=-wgqxyOFngY'}]}" >
 </script>
 
+<script type="text/javascript">
+var flag = true;
+if('${warningMSG != null}'){
+	if(flag == true){
+		alert('${warningMSG}번의 신고를 받았습니다 총 20번의 신고 누적 시 사이트를 이용하실수 없습니다');
+		flag=false;	
+	}
+}
+</script>
 <link rel="stylesheet" type="text/css" href="/resources/css/main/index.css?ver=1.2">
 <title>카테고리 페이지</title>
 </head>

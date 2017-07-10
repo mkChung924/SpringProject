@@ -1,5 +1,6 @@
 package com.brothersplant.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -86,6 +87,12 @@ public class UserInfoServiceImpl implements UserInfoService {
 	public String getMyNick(String id) throws Exception {
 		
 		return dao.selectMyNick(id);
+	}
+
+
+	@Override
+	public List<HashMap<String, String>> isYoublacklist(String id, String pw) throws Exception {
+		return dao.isYoublacklist(id, pw);
 	}
 
 }

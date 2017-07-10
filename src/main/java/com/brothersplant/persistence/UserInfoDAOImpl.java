@@ -136,4 +136,12 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		return sql.selectOne("userinfo.selectMyNick",id);
 	}
 
+	@Override
+	public List<HashMap<String, String>> isYoublacklist(String id, String pw) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("id", id);
+		map.put("pw", pw);
+		return sql.selectList("userinfo.isYoublacklist", map);
+	}
+
 }

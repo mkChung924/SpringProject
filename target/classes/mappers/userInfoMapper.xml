@@ -48,4 +48,8 @@
 	<update id="updateProfilePicture">
 		update userinfos set profile = #{profile} where id = #{id}
 	</update>
+	
+	<select id="isYoublacklist" resultType="java.util.HashMap">
+		select STATE, PENALTY_CNT from userstate inner join USERINFOS on USERINFOS.ID=userstate.ID WHERE USERINFOS.ID = #{id} and USERINFOS.PASSWORD = #{pw}
+	</select>
 </mapper>

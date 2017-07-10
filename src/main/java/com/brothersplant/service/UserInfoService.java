@@ -1,5 +1,6 @@
 package com.brothersplant.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.brothersplant.domain.UserInfoVO;
@@ -20,4 +21,6 @@ public interface UserInfoService {
 	public int getMyAuth(String id) throws Exception;
 	public String getMyNick(String id) throws Exception;
 	public int updateProfilePicture(String profile,String id) throws Exception;
+	
+	public List<HashMap<String, String>> isYoublacklist(String id, String pw)throws Exception;
 }

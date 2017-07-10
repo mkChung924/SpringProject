@@ -3,7 +3,9 @@ package com.brothersplant.control;
 import java.io.File;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
@@ -11,6 +13,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.type.IntegerTypeHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,10 +79,22 @@ public class HomeController {
 		System.out.println(id + ", " + pass);
 		int auth = service.getMyAuth(id);
 		String nick = service.getMyNick(id);
-		session.setAttribute("id", id);
-		session.setAttribute("auth", auth);
-		session.setAttribute("nick", nick);
-	 
+		List<HashMap<String, String>> isYou = service.isYoublacklist(id, pass);
+		System.out.println(isYou.get(0).values());
+		int penalty_cnt =Integer.parseInt(String.valueOf( isYou.get(0).get("PENALTY_CNT")));
+		int state =Integer.parseInt(String.valueOf( isYou.get(0).get("STATE")));
+		if(state ==2){
+			System.out.println("벤을 먹음");
+			return "main/loginPage";
+		}else if(state ==1 && penalty_cnt >=10 ){
+			System.out.println("추가 신고 "+(20-penalty_cnt)+"번 되면 아웃");
+			session.setAttribute("warningMSG", penalty_cnt);
+			
+		}
+			session.setAttribute("id", id);
+			session.setAttribute("auth", auth);
+			session.setAttribute("nick", nick);
+		
 		return "redirect:index";
 	}
 	
