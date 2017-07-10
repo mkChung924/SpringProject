@@ -248,5 +248,38 @@ public class AdminController {
 		System.out.println("===등록 완료===");
 		return "redirect:/admin";
 	}
+	
+	@RequestMapping("/adminBoardsList")
+	public String adminBoardsList(HttpSession session, Model model) throws Exception{
+		
+		String id = (String) session.getAttribute("id");
+		int auth = (int) session.getAttribute("auth");
+		
+		if(id != null){
+			
+			if(auth == 2){
+				model.addAttribute("admin", service.myPageInfo(id));
+				model.addAttribute("list",adminService.selectBoardsCountList());
+				
+				return "adminPage/adminBoardsList";
+				
+				
+			} else { //회원이 관리자 페이지를 임의로 접속하였을시
+				return "redirect:index";
+			}
+			
+		} else { //세션이 없으면 로그인화면
+			return "redirect:login";
+		}
+	}
+	
+	@RequestMapping("/categoryDetail")
+	public String listCategory(Model model,int cno) throws Exception{
+		System.out.println("카테고리 디테일 페이지 입장");
+				
+		System.out.println("선택된 카테고리 디테일: " + cno);
+		
+		return "adminPage/detail/detail";
+	}
 
 }

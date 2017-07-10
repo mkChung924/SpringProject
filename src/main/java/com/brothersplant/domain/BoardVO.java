@@ -24,6 +24,7 @@ public class BoardVO {//13
 	private int viewcnt;
 	private Date regdate;
 	private Date updatedate;
+	
 	public int getTbno() {
 		return tbno;
 	}

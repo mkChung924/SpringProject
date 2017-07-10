@@ -4,6 +4,7 @@ package com.brothersplant.domain;
 public class ReportsListVO {
 	private int repno;
 	private int brno;//게시글 또는 댓글 번호
+	private int tbno;
 	private String content;//댓글 내용 또는 게시글 제목 
 	private String offender;
 	private String reporter;//신고 한놈
@@ -11,6 +12,14 @@ public class ReportsListVO {
 	private String reporttype;//신고 유형
 	private int reportkind; //신고 종류 1:게시글, 2: 댓글 
 	
+	
+	
+	public int getTbno() {
+		return tbno;
+	}
+	public void setTbno(int tbno) {
+		this.tbno = tbno;
+	}
 	public int getRepno() {
 		return repno;
 	}
@@ -63,7 +72,7 @@ public class ReportsListVO {
 	public String toString() {
 		return "ReportsListVO [repno=" + repno + ", brno=" + brno + ", content=" + content + ", offender=" + offender
 				+ ", reporter=" + reporter + ", senddate=" + senddate + ", reporttype=" + reporttype + ", reportkind="
-				+ reportkind + "]";
+				+ reportkind + ", tbno = "+tbno+"]";
 	}
 	
 

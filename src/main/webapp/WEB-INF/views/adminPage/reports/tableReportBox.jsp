@@ -17,18 +17,17 @@ body{
 </style>
 	
 	<c:if test="${tablereport.size() < 1}">
-	<br><br><br><br><br><br><br><br><h4><i><font color=red>게시글</font> 신고함이 비었습니다</i></h4>
+	<br><br><br><br><br><br><br><h4><i><font color=red>게시글</font> 신고함이 비었습니다</i></h4>
 	</c:if>
 	
 	<c:if test="${tablereport.size() > 0}">
-	<br><br><br>
+	<br><br>
 	<div class="col-sm-4" style="text-align: left; padding-left: 20px; display: inline">
 	<label><font size=4>게시글 신고</font></label>
 	</div>
 	<div class="col-sm-8" style="text-align: right; display: inline">
 		<button type="button" class="btn btn-danger" id="reportsDelPenalty">게시글 삭제 &#xf083</button>&nbsp;
 		<button type="button" class="btn btn-warning" id="reportsDelBtn">신고 삭제 &#xf083</button> &nbsp;
-		<button type="button" class="btn btn-info" id="reportsDelAllBtn">같은 신고 일괄 삭제 &#xf083</button>
 		<input type="hidden" value=1 id="hiddenKind">
 	</div>
 	<br><br>

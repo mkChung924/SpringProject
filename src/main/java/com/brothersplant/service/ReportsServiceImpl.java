@@ -52,8 +52,8 @@ public class ReportsServiceImpl implements ReportsService {
 		//게시물 또는 댓글을 삭제 시키고 (신고목록은 어쩌피 검색한 값으로 이루어 지므로 게시글 또는 댓글 삭제시 자동으로 제외후 검색이 됨)
 		dao.deletefromBoard_Reply(kind,brnoLists);
 		dao.addUserPenalty(uniqueOffenderList);//유저에게 패널티 주고
-		dao.selectPenaltyScore(uniqueOffenderList);
-		return 0;
+		int t = dao.selectPenaltyScore(uniqueOffenderList);
+		return t;
 	}
 
 }

@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.brothersplant.domain.BoardsCountListVO;
 import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.UserInfoVO;
 import com.brothersplant.persistence.AdminPageDAO;
@@ -41,6 +42,12 @@ public class AdminPageServiceImp implements AdminPageService {
 	public void downgradeAuth(String id) throws Exception {
 		
 		dao.downgrade(id);	
+	}
+
+	@Override
+	public List<BoardsCountListVO> selectBoardsCountList() throws Exception {
+		
+		return dao.selectBoardsCountList();
 	}
 
 }

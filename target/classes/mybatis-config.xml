@@ -13,5 +13,6 @@
 	<typeAlias type="com.brothersplant.domain.MyBookmarkVO" alias="bookmark"/>
 	<typeAlias type="com.brothersplant.domain.SelectRegionVO" alias="region"/>
 	<typeAlias type="com.brothersplant.domain.ReportsListVO" alias="reportslist" />
+	<typeAlias type="com.brothersplant.domain.BoardsCountListVO" alias="boardsCount" />
 </typeAliases>
 </configuration>

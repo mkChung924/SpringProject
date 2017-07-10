@@ -8,6 +8,8 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.brothersplant.domain.BoardVO;
+import com.brothersplant.domain.BoardsCountListVO;
 import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.UserInfoVO;
 
@@ -46,6 +48,18 @@ public class AdminPageDAOImpl implements AdminPageDAO {
 	public void downgrade(String id) throws Exception {
 		
 		sql.update("admin.downgrade", id);	
+	}
+
+	@Override
+	public List<BoardsCountListVO> selectBoardsCountList() throws Exception {
+		
+		return sql.selectList("admin.selectBoardsCount");
+	}
+
+	@Override
+	public List<BoardVO> selectCategoryDetail(int cno) throws Exception {
+		
+		return null;
 	}
 
 }

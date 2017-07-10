@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <html>
 <head>
@@ -239,7 +239,7 @@
 								신고접수함 </a>
 							</li>
 							<li>
-								<a href="#">
+								<a href="adminBoardsList">
 								<i class="glyphicon glyphicon-th-list"></i>
 								게시판 현황 </a>
 							</li>
@@ -330,8 +330,11 @@
 					<c:if test="${mem.state == 0 }">
 						<td align="center"><font color="green">양호</font></td>					
 					</c:if>
-					<c:if test="${mem.state != 0 }">
-						<td align="center"><font color="red">불량</font></td>					
+					<c:if test="${mem.state == 1 }">
+						<td align="center"><font color="red">경고</font></td>					
+					</c:if>
+					<c:if test="${mem.state == 2 }">
+						<td align="center"><font color="red">정지</font></td>					
 					</c:if>
 					</tr>
 				

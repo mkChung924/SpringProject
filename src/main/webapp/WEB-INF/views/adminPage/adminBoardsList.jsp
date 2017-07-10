@@ -119,7 +119,19 @@
 				}
 			});
 		});
-	})
+	});
+	
+	
+	function showDetails(cno, count){
+		if(count != 0){
+			
+		alert(cno + "번 카테고리에 존재하는 게시글을 표시합니다");
+		window.open('/categoryDetail?cno='+cno, '카테고리 상세페이지','width=1200 height=800 menubar=no status=no scrollbars=yes left=190 top=50 resizable=0')
+		} else {
+			alert("해당 카테고리에는 게시글이 존재하지 않습니다");
+		}
+	}
+
 
 </script>
 
@@ -161,6 +173,11 @@ body {
 	-webkit-box-shadow: 2px 2px 4px #999999;
 	background: linear-gradient(to bottom, #FF0000, #375094);
 }
+
+.boards:hover {
+	background-color: #EAEAEA;
+}
+
 </style>
 
 </head>
@@ -174,8 +191,7 @@ body {
 				</kbd>
 				<div style="margin-top: 5px;">
 					<kbd style="background-color: #EAEAEA">
-						<a href="/logout"><font color="black">로그아웃</font></a>
-					</kbd>
+						<a href="/logout"><font color="black">로그아웃</font></a></kbd>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
 					<kbd>
 						<a href="/index"><font color="white">메인페이지</font></a>
@@ -217,12 +233,8 @@ body {
 							<li><a href="memList"> <i class="glyphicon glyphicon-user"></i>회원 현황</a></li>
 							<li><a href="admessage"> <i class="glyphicon glyphicon-envelope"></i> 메시지함</a></li>
 							<li><a href="reportBox"> <i class="glyphicon glyphicon-warning-sign"></i> 신고접수함</a></li>
-							<li>
-								<a href="adminBoardsList">
-								<i class="glyphicon glyphicon-th-list"></i>
-								게시판 현황 </a>
-							</li>
-							<li class="active"><a href="adminWrite"> <i class="glyphicon glyphicon-remove"></i>여행 추천 게시글 쓰기</a></li>
+							<li class="active"><a href="adminBoardsList"><i class="glyphicon glyphicon-th-list"></i>게시판 현황 </a></li>
+							<li><a href="adminWrite"> <i class="glyphicon glyphicon-remove"></i>여행 추천 게시글 쓰기</a></li>
 						</ul>
 					</div>
 					<!-- END MENU -->
@@ -231,40 +243,24 @@ body {
 			<div class="col-md-9">
 				<div class="profile-content">
 					<!-- 이곳에 html을 작성하면 됩니다! -->
-					<div class="col-sm-6">
-	           	 	<h3><b>추천 여행정보 작성</b></h3>
-	           	 	</div>
-					<br><br><br><br>
-					<div class="div1">
-						<form class="form-horizontal" role="form" method="post" action="admin_regit" enctype="multipart/form-data">
-							<input type="hidden" value="${id}" id="id" name="id">
-							<input name="tb_kind" value="0" type="hidden">
-							<input type="hidden" value="1" id="cno" name="cno"> 
-							
-							<input type="text" class="form-control" id="title" name="title" placeholder="제목을 간략하게 입력해주세요." maxlength="50";" required>
-							<br>
-							<!-- 여행일 때만 보여줌 -->
-								<select name="csno" required>
-									<option value=1>맛집탐방</option>
-									<option value=2>테마여행</option>
-									<option value=3>자유여행</option>
-								</select>
-								<select id="place1" name="place1" required></select>
-								<select id="place2" name="place2" required></select>
-							<br><br>		
-							<input type="text" class="form-control" id="notice" name="notice" placeholder="공지할 내용이 있다면 입력해주세요!">
-							<br>
-							<div class="form-group">
-								<!-- <label for="name" class="col-sm-2 control-label" required>내용</label> -->
-								<div class="col-sm-12">
-									<textarea id="editor" name="content" rows="20"></textarea>
+					<div class="col-sm-12">
+	           			<h3><b>게시판 현황</b></h3>
+	           			* 카테고리별 게시글의 수를 표시합니다.<br>&nbsp;&nbsp;
+	            	</div>
+	            	<br><br><br><br>
+					<div class="row">
+							<c:forEach items="${list}" var="list">
+								<div class="col-md-4" style="padding-left:30px; padding-right: 30px; padding-top: 15px; padding-bottom: 15px;">
+									<div class="boards" style="border: 1px solid black; text-align: center; cursor: pointer;"
+									 onclick="showDetails(${list.cno}, ${list.count })">
+									<br>
+									<h3>${list.cname}</h3>
+									<br>
+									<font color="#6799FF" size="6">${list.count }</font>
+									<br><br><br>
+									</div>
 								</div>
-							</div>
-							<div class="buttons" style="text-align: center">
-								<input id="submit" name="submit" type="submit" value="저장하기" class="btn btn-danger"> 
-								<input id="cancel" name="cancel" type="reset" value="취소" class="btn btn-primary">
-							</div>
-						</form>
+							</c:forEach>
 					</div>
 				</div>
 			</div>
