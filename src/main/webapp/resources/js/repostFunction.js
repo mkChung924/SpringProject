@@ -68,14 +68,25 @@
 			}
 		});	
 	
-	$(document).on("click",".pagination li a", function(event){ //실제  페이징 된 버튼
-		event.preventDefault(); 
-		var targetPage = $(this).attr("href");
-		var jobForm = $("#jobForm");
-		jobForm.find("[name='page']").val(targetPage);
-		jobForm.attr("action","/reportBox").attr("method", "get");
-		jobForm.submit();
-	});
+		$(document).on("click",".pagination li a", function(event){ //실제  페이징 된 버튼
+			event.preventDefault(); 
+			var targetPage = $(this).attr("href");
+			var jobForm = $("#jobForm");
+			var keyword = $("input[name=keyword]").val();
+			alert(keyword);
+			jobForm.find("[name='page']").val(targetPage);
+			
+			data = $("#jobForm").serialize();
+			$.ajax({
+				url : "/tableReportBox",
+				type : 'post',
+				data : data,
+				success : function(result) {
+					$("#div2").html(result);
+					$("input[name=keyword]").val(keyword);
+				}
+			});
+		});
 	
   	function readPage(tbno) {//신고된 게시글 보기
         var w = 1300;
@@ -84,3 +95,4 @@
         var top = (screen.height / 2) - (h / 2);
         window.open("/CommonRead?tbno=" + tbno, tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
     };
+  

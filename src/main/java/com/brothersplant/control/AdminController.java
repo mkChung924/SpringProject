@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.PageMaker;
+import com.brothersplant.domain.ReportsListVO;
 import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.service.AdminPageService;
 //import com.brothersplant.service.AdminPageService;
@@ -122,7 +123,7 @@ public class AdminController {
 	////신고함 - 게시글
 	
 	@RequestMapping("/reportBox")
-	public String reportBox(HttpSession session, String page, Model model)throws Exception{
+	public String reportBox(HttpSession session, String page, Model model,SearchCriteria cri)throws Exception{
 		if(page == null){
 			page = "1";
 		}
@@ -144,16 +145,16 @@ public class AdminController {
 	}
 	//신고 목록이 댓글일때
 	@RequestMapping(value="/replyReportBox" ,method=RequestMethod.POST)
-	public String replyReportsBox(HttpSession session,Criteria cri,Model model, int page)throws Exception{
+	public String replyReportsBox(HttpSession session,SearchCriteria cri,Model model, int page)throws Exception{
 		System.out.println("댓글 목록 가져오는 중");
 		session.setAttribute("msg", "reply");
 		cri.setPage(page);
 		cri.setPerPageNum(PERPAGENUM);
-		model.addAttribute("messages",reportService.listCriteria(cri,2));
-		System.out.println(reportService.listCriteria(cri,2));
+		model.addAttribute("messages",reportService.searchReportList(cri, 2));
+		System.out.println(reportService.searchReportList(cri, 2));
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
-		maker.setTotalCount(reportService.countPaging(2));
+		maker.setTotalCount(reportService.searchCountPaging(cri, 2));
 		
 		model.addAttribute("pageMaker",maker);
 		model.addAttribute("page", page);
@@ -163,76 +164,51 @@ public class AdminController {
 	
 	//신고 목록이 게시글일때
 	@RequestMapping(value="/tableReportBox",method=RequestMethod.POST)
-	public String tableReportBox(HttpSession session,Criteria cri,Model model, int page)throws Exception{
+	public String tableReportBox(HttpSession session,SearchCriteria cri,Model model, int page)throws Exception{
+		System.out.println(cri);
 		session.setAttribute("msg", "table");
 		System.out.println("게시글");
 		cri.setPage(page);
 		cri.setPerPageNum(PERPAGENUM);
-		model.addAttribute("tablereport",reportService.listCriteria(cri,1));
-		System.out.println(reportService.listCriteria(cri,1));
+		model.addAttribute("tablereport",reportService.searchReportList(cri, 1));
+		System.out.println(reportService.searchReportList(cri, 1));
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
-		maker.setTotalCount(reportService.countPaging(1));
+		maker.setTotalCount(reportService.searchCountPaging(cri, 1));
 		
 		model.addAttribute("pageMaker",maker);
 		model.addAttribute("page", page);
-		
 		return "adminPage/reports/tableReportBox";
 	}
 	
-/*	
-	
-	@RequestMapping("/tableReportContent")
-	public String tableReportContent(int trno, Model model, int page)throws Exception{
-		model.addAttribute("tablereport",service2.readTableReport(trno));
-		model.addAttribute("page",page);
-		return "adminPage/reports/tableReportContent";
-	}
-	
-	@RequestMapping("/tableReportRemove")//receivecontent
-	public String tableReportRemove(Model model,int trno,int page)throws Exception{
-		model.addAttribute("page",page);
-		service2.tableReportRemove(trno);
-		return "redirect:reportBox";
-	}
-
-	@RequestMapping(value="/tableReport",method=RequestMethod.POST)
-	public String tableReportPost(Criteria cri,TableReportVO vo)throws Exception{
-	
-		System.out.println(vo);
+	@RequestMapping(value="/searchReportList",method=RequestMethod.GET)// 검색되고 페이징된 신고 계시판
+	public String showSearchReportList(SearchCriteria scri,Model model,int page,int kind)throws Exception{
+		scri.setPage(page);
+		scri.setPerPageNum(PERPAGENUM);
+		System.out.println(scri+" || "+page+" || "+kind);
+		if(kind ==1){
+			model.addAttribute("tablereport",reportService.searchReportList(scri, kind));
+		}else{
+			model.addAttribute("messages",reportService.searchReportList(scri, kind));
+		}
+		System.out.println("검색된 신고갯수 : "+reportService.searchReportList(scri, kind).size());
+		for(ReportsListVO vo: reportService.searchReportList(scri, kind)){
+			System.out.println(vo.toString());
+		}
+		PageMaker maker = new PageMaker();
+		maker.setCri(scri);
+		maker.setTotalCount(reportService.searchCountPaging(scri, kind));
+		System.out.println("검색된 총 갯수"+reportService.searchCountPaging(scri, kind));
+		model.addAttribute("pageMaker",maker);
+		model.addAttribute("page", page);
 		
-		service2.tableReport(vo);
-	
-		return "redirect:reportBox";
-		
+		if(kind ==1){
+			return "adminPage/reports/tableReportBox";
+		}else{
+			return "adminPage/reports/replyReportBox";
+		}
 	}
 
-	@RequestMapping("/tableDelete")
-	public String tableDelete(Model model,int tbno,int page)throws Exception{
-		model.addAttribute("page",page);
-		service2.tableDelete(tbno);
-		return "redirect:reportBox";
-	}
-
-	
-
-	
-	
-	@RequestMapping("/replyRemove")//receivecontent
-	public String replyRemove(Model model,int rno,int page)throws Exception{
-		System.out.println("삭제될 MNO: "+rno);
-		System.out.println("전달된 페이지: "+page);
-		model.addAttribute("page",page);
-		service2.replyRemove(rno);
-		return "redirect:reportBox";
-	}
-	
-	@RequestMapping("/replyContent")
-	public String replyContent(int rno, Model model, int page)throws Exception{
-		model.addAttribute("messages",service2.readReply(rno));
-		model.addAttribute("page",page);
-		return "adminPage/reports/replyContent";
-	}*/
 
 	@RequestMapping(value="/adminWrite", method=RequestMethod.GET)
 	public String adminWrite(HttpSession session, Model model) throws Exception{

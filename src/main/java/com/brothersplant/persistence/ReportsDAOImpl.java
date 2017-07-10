@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.ReportsListVO;
+import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.TableReportVO;
 @Repository
 public class ReportsDAOImpl implements ReportsDAO {
@@ -35,6 +36,7 @@ public class ReportsDAOImpl implements ReportsDAO {
 	public int countPaging(int kind) throws Exception {
 		return sqlSession.selectOne(namespace+".countPaging",kind);
 	}
+	
 	
 	@Override //페이징 된 ReportsListVO 검색
 	public List<ReportsListVO> listCriteria(Criteria cri,int kind) throws Exception {
@@ -84,6 +86,31 @@ public class ReportsDAOImpl implements ReportsDAO {
 			}
 		}
 		return result;
+	}
+
+	@Override
+	public List<ReportsListVO> searchReportList(SearchCriteria cri, int kind) throws Exception {
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		Map<String, Object> map = new HashMap<>();
+		map.put("kind", kind);
+		map.put("scri", cri);
+		String what =  (kind ==1) ? "board":"reply";
+		map.put("what", what);
+		map.put("search", "select");
+		return sqlSession.selectList(namespace+".searchReportList",map,bounds);
+	}
+
+	@Override
+	public int searchCountPaging(SearchCriteria cri, int kind) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		String what =  (kind ==1) ? "board":"reply";
+
+		map.put("kind", kind);
+		map.put("scri", cri);
+		map.put("what", what);
+		map.put("search", "count");
+		System.out.println("searchcount dao 진입 kind : "+kind);
+		return sqlSession.selectOne(namespace+".seachCountPaging",map);
 	}
 
 

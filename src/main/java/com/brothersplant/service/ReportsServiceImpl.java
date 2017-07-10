@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.ReportsListVO;
+import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.TableReportVO;
 import com.brothersplant.persistence.ReportsDAO;
 
@@ -54,6 +55,19 @@ public class ReportsServiceImpl implements ReportsService {
 		dao.addUserPenalty(uniqueOffenderList);//유저에게 패널티 주고
 		dao.selectPenaltyScore(uniqueOffenderList);
 		return 0;
+	}
+
+	@Override
+	public List<ReportsListVO> searchReportList(SearchCriteria cri, int kind) throws Exception {
+		System.out.println("service : "+kind);
+		System.out.println("service : "+cri);
+		System.out.println(cri);
+		return dao.searchReportList(cri, kind);
+	}
+
+	@Override
+	public int searchCountPaging(SearchCriteria cri, int kind) throws Exception {
+		return dao.searchCountPaging(cri, kind);
 	}
 
 }
