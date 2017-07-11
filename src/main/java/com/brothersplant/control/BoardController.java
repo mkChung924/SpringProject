@@ -1,5 +1,8 @@
 package com.brothersplant.control;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.PageMaker;
 import com.brothersplant.domain.SearchCriteria;
@@ -92,6 +96,22 @@ public class BoardController {
 			session.setAttribute("list", service.showTravelReviewList(cri));
 			
 		}
+		List<BoardListVO>  list = (List<BoardListVO>)session.getAttribute("list");
+		System.out.println(list);
+		/*List<Object> viewList = new ArrayList<>();
+		for(int i=0; i<list.size(); i++){
+			BoardListVO vo = list.get(i);
+			viewList.add(vo.getTbno());
+			System.out.println("검색한 tbno : "+vo.getTbno());
+		}//일단 검색된 tbno만 뽑아오고
+		
+		List<Object> viewCntList = service.selectViewCnt(viewList);
+			
+		for(int i=0; i<list.size(); i++){
+			BoardListVO vo = list.get(i);
+			vo.setViewCnt((int)viewCntList.get(i));
+			System.out.println(vo.getViewCnt());
+		}*/
 		
 		session.setAttribute("tb_kind", tb_kind);
 		session.setAttribute("searchType", cri.getSearchType());
@@ -162,6 +182,9 @@ public class BoardController {
 	public String CommonRead(int tbno,Model model,HttpSession session) throws Exception{
 		model.addAttribute("commonBoard",service.selectCommonRow(tbno,(String)session.getAttribute("id")));
 		model.addAttribute("profile",userService.selectprofile((String)session.getAttribute("id")));
+		
+		//조회수
+		service.addViewCnt(tbno);
 		
 		return "board/commonRead";
 	}

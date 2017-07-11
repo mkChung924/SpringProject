@@ -69,7 +69,7 @@ public class CheckNickname {
 		System.out.println("중복 제거된 신고자 명단 : "+uniqueOffenderList); // [1, 2, 3]
 	}
 	
-	@Test
+	//@Test
 	public void addUserPenalty() throws Exception{
 		List<String> uniqueOffenderList = new ArrayList<>();
 		uniqueOffenderList.add("asdasd");
@@ -77,5 +77,18 @@ public class CheckNickname {
 		List<String> brnoLists = new ArrayList<>();
 		brnoLists.add("90");
 		serviceReport.selectedReprotListDeletePenalty(1, brnoLists, uniqueOffenderList);
+	}
+	@Test
+	public void aaa() throws Exception{
+		List<Object> list = new ArrayList<>();
+		list.add(88);
+		list.add(13);
+		list.add(14);
+		list.add(15);
+		list.add(17);
+		list.add(18);
+		list.add(19);
+		list.add(20);
+		dao2.selectViewCnt(list);
 	}
 }

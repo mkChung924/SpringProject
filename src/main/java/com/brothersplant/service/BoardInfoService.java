@@ -40,5 +40,7 @@ public interface BoardInfoService {
 	
 	public List<SelectRegionVO> sido() throws Exception;
 	public List<SelectRegionVO> gugun(String sido) throws Exception;
-
+	
+	public int addViewCnt(int tbno) throws Exception;
+	public List<Object> selectViewCnt(List<Object> tbnoList) throws Exception;
 }

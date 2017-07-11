@@ -243,6 +243,10 @@ public class AdminController {
 	
 	@RequestMapping(value = "admin_regit", method=RequestMethod.POST)
 	public String insertBoard2(BoardVO vo, MultipartFile file) throws Exception{
+		String content = vo.getContent();
+		int start = content.indexOf("/resources/");
+		int end = content.indexOf(" alt=\"/")-1;
+		vo.setImage(content.substring(start,end));
 		System.out.println(vo.toString());
 		boardService.insertBoard(vo);
 		System.out.println("===등록 완료===");

@@ -135,7 +135,12 @@ $(document).on("change","#fileopen",function(){
 					</tr>
 				</table>
 				<br>
-				<b>계정상태 : </b> <font color=green>양호</font>
+				<c:if test="${ userState ==0}">
+					<b>계정상태 : </b> <font color=green>양호</font>
+				</c:if>
+				<c:if test="${userState ==1 }">
+					<b>계정상태 : </b> <font color=red>경고</font>  <font><kbd>${20-userPenaltyCnt}회 신고 누적시</kbd> 사이트 이용 제한</font>
+				</c:if>
 	            </div>
 			</div>
 		</div>

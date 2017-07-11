@@ -149,4 +149,18 @@ private static final String namespace = "board";
 		return session.update(namespace+".updateCommonRow",vo);
 	}
 
+
+	@Override
+	public int addViewCnt(int tbno) throws Exception {
+		return session.update(namespace+".addViewCnt",tbno);
+	}
+
+
+	@Override
+	public List<Object> selectViewCnt(List<Object> tbnoList) throws Exception {
+		Map<String, List<Object>> map = new HashMap<>();
+		map.put("tbnoList", tbnoList);
+		return session.selectList(namespace+".selectViewCnt",map);
+	}
+
 }

@@ -130,4 +130,14 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 		return dao.updateCommonRow(vo);
 	}
 
+	@Override
+	public int addViewCnt(int tbno) throws Exception {
+		return dao.addViewCnt(tbno);
+	}
+
+	@Override
+	public List<Object> selectViewCnt(List<Object> tbnoList) throws Exception {
+		return dao.selectViewCnt(tbnoList);
+	}
+
 }

@@ -306,12 +306,12 @@
 				success : function(result) {
 					if(result=="SUCCESS"){
 						alert("신고 완료");
-						$(".btn btn-default").trigger('click');
+						$("#modalClose2").trigger('click');
 					}
 				},
 			}); 
 		}else{
-			$(".btn btn-default").trigger('click');
+			$("#modalClose2").trigger('click');
 		}
 	});
 	
@@ -472,7 +472,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-info" id="addReport">신고</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal" id="modalClose">Close</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal" id="modalClose2">Close</button>
 					</div>
 				</div>
 		</div>

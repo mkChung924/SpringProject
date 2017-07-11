@@ -34,7 +34,6 @@
 		$('#write').click(function() {
 
 			window.open('/regit', '게시글 작성', 'width=750 height=850 menubar=no status=no scrollbars=yes left=500 top=50 resizable=0');
-
 		})
 
 		var frm = $('form[role="form"]');
@@ -159,7 +158,8 @@
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2);
         window.open("/CommonRead?tbno=" + tbno, tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-    };
+		$("#ViewCnt-"+tbno).html(parseInt($("#ViewCnt-"+tbno).html())+1);
+  	};
 
 </script>
 </head>
@@ -270,40 +270,29 @@
 								</select> <input type="text" class="form-control t" id="keywords"
 									name="keyword" autocomplete="off" value="${keyword }">
 								<button type="button" class="btn btn-default" id="search">검색</button>
-								<div style="text-align: right; margin-top: 10px;">
+								
+								<div  style="width:100%; float: right; margin-top: 10px; margin-left: 10px; margin-bottom: 10px;">
 									<c:if test="${cno != 1 }">
 										<button type="button" class="btn btn-default" id="all">전체
 											보기</button>
 									</c:if>
-									<select class="form-control" id="perPageNum" name="pageNum"
-										style="display: inline; width: 100px;">
+									<select class="form-control" id="perPageNum" name="pageNum" style="display: inline; width: 120px;">
 										<c:out value=""></c:out>
-										<option value=9 ${pageNum == 9 ? 'selected': '' }>9개씩
-											보기</option>
-										<option value=15 ${pageNum == 15 ? 'selected': '' }>15개씩
-											보기</option>
-										<option value=30 ${pageNum == 30 ? 'selected': '' }>30개씩
-											보기</option>
-										<option value=60 ${pageNum == 60 ? 'selected': '' }>60개씩
-											보기</option>
+										<option value=9 ${pageNum == 9 ? 'selected': '' }>9개씩 보기</option>
+										<option value=15 ${pageNum == 15 ? 'selected': '' }>15개씩 보기</option>
+										<option value=30 ${pageNum == 30 ? 'selected': '' }>30개씩 보기</option>
+										<option value=60 ${pageNum == 60 ? 'selected': '' }>60개씩 보기</option>
 
 									</select>
-
-									<c:if test="${cno == 1 }">
-										<button type="button" class="btn btn-default" id="review"
-											style="background-color: black; color: white">여행 후기
-											모아보기</button>
-										<input type="hidden" name="tb_kind" value="${tb_kind }">
-										<button type="button" class="btn btn-default" id="together"
-											style="background-color: black; color: white">관심글
-											모아보기</button>
-										<button type="button" class="btn btn-default" id="write">게시글
-											및 후기 작성</button>
-									</c:if>
-									<c:if test="${cno != 1 }">
-										<button type="button" class="btn btn-default" id="write">게시글
-											작성</button>
-									</c:if>
+										<c:if test="${cno == 1 }">
+											<button type="button" class="btn btn-default" id="review" style="background-color: black; color: white">여행 후기 모아보기</button>
+											<input type="hidden" name="tb_kind" value="${tb_kind }">
+											<button type="button" class="btn btn-default" id="together" style="background-color: black; color: white">관심글 모아보기</button>
+											<button type="button" class="btn btn-default" id="write">게시글 및 후기 작성</button>
+										</c:if>
+										<c:if test="${cno != 1 }">
+											<button type="button" class="btn btn-default" id="write">게시글 작성</button>
+										</c:if>
 								</div>
 							</form>
 						</div>
@@ -354,11 +343,16 @@
 		                	</div>
 		                	</c:if>
 		                	<c:if test="${myList.myfavor == 0 }">
-		                	<div class="col-md-6">
+		                	<div class="col-md-3">
 				                <p align="left">
 				                <i class="glyphicon glyphicon-star-empty" id="bk-${myList.tbno }" onclick="favor(${myList.tbno})"  data-toggle="bookmark" data-placement="bottom" title="즐겨찾기 추가" style="font-size: 25px; cursor: pointer; color: #FFE400"></i>
 				                </p>
 		                	</div>
+		                	<div class="col-md-3"><!-- 조회수 부분 -->
+								<span class="badge" id="ViewCnt-${myList.tbno }" style="background-color: blue">${myList.viewCnt}</span>
+				                <i class="glyphicon glyphicon-eye-open" data-toggle="like" data-placement="top" title="조회수"></i>&nbsp;
+		                	</div>
+
 		                	</c:if>
 		                	<div class="col-md-6">
 				                <p align="right">

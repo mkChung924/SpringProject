@@ -7,7 +7,9 @@
 		(TBL_BOARDS_SEQ.nextval ,#{tb_kind},#{id},#{cno},#{csno},#{do1},#{si},#{content},#{likes},#{title},#{notice},#{openchat},#{tel},#{dong}) -->
 	
 		<if test="(tb_kind == 0 ) and (place1 != null)"><!-- 운영자가 쓸때 -->
-			insert into tbl_boards (tbno,TB_KIND,id,cno,csno,place1,place2,title,content) values (tbl_boards_seq.nextval,#{tb_kind},#{id},#{cno},#{csno},#{place1},#{place2},#{title},#{content})
+			<![CDATA[
+			insert into tbl_boards (tbno,TB_KIND,id,cno,csno,place1,place2,title,content,IMAGE) values (tbl_boards_seq.nextval,#{tb_kind},#{id},#{cno},#{csno},#{place1},#{place2},#{title},#{content},#{image})
+			]]>
 		</if>
 		
 		<if test="(tb_kind != 0 ) and (place1 != null)">
@@ -165,7 +167,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id} and id = #{id}) myfavor,
-					 place1, place2,
+					 place1, place2, a.viewcnt,
 					 1 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
@@ -179,7 +181,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-					 place1, place2,
+					 place1, place2, a.viewcnt,
 					 2 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
@@ -193,7 +195,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-					 place1, place2,
+					 place1, place2, a.viewcnt,
 					 3 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and
@@ -207,7 +209,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-					 place1, place2,
+					 place1, place2, a.viewcnt,
 					 4 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.place1 like '%'||#{place1}||'%' and 
@@ -221,7 +223,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-					 place1, place2,
+					 place1, place2, a.viewcnt,
 					 5 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
@@ -235,7 +237,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-					 place1, place2,
+					 place1, place2, a.viewcnt,
 					 6 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
@@ -249,7 +251,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-					 place1, place2,
+					 place1, place2, a.viewcnt,
 					 7 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
@@ -263,7 +265,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-					 place1, place2,
+					 place1, place2, a.viewcnt,
 					 8 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong != #{dong} and a.place1 like '%'||#{place1}||'%' and 
@@ -278,7 +280,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor, a.viewcnt,
 					 1 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.csno = #{csno} and a.tb_kind not in(0,2) and
@@ -290,7 +292,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor, a.viewcnt,
 					 2 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong = #{dong} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind not in(0,2) and
@@ -302,7 +304,7 @@
 					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, round(15 - (sysdate - a.regdate)) ddate, 
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
-					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor, a.viewcnt,
 					 3 as ordered
 				from userinfos, tbl_boards a
 				where a.si = #{si} and a.dong != #{dong} and a.cno = #{cno} and a.csno != #{csno} and a.tb_kind not in(0,2) and
@@ -323,7 +325,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-					 place1, place2,
+					 place1, place2, a.viewcnt,
 					 1 as ordered
 				from userinfos, tbl_boards a
 				where a.place1 like '%'||#{place1}||'%' and 
@@ -338,7 +340,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-					 place1, place2,
+					 place1, place2, a.viewcnt,
 					 2 as ordered
 				from userinfos, tbl_boards a
 				where a.place1 like '%'||#{place1}||'%' and 
@@ -353,7 +355,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-					 place1, place2,
+					 place1, place2, a.viewcnt,
 					 3 as ordered
 				from userinfos, tbl_boards a
 				where a.place1 like '%'||#{place1}||'%' and
@@ -362,5 +364,15 @@
 				a.id = userinfos.id
 				
 	</sql>
+	
+	<update id="addViewCnt">
+		update tbl_boards set VIEWCNT= VIEWCNT+1 where tbno= #{tbno}
+	</update>
+	
+	<select id="selectViewCnt" resultType="String">
+		<foreach collection="tbnoList" item="value" separator="" open="(" close=")">
+			select VIEWCNT from TBL_BOARDS where tbno = #{value}
+		</foreach>
+	</select>
 </mapper>
 

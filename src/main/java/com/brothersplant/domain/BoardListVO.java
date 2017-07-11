@@ -27,6 +27,7 @@ public class BoardListVO {
 	private String likes;
 	private String replies;
 	private String myfavor;
+	private int viewCnt;
 	
 	@Override
 	public String toString() {
@@ -34,8 +35,17 @@ public class BoardListVO {
 				+ ", ddate=" + ddate + ", do1=" + do1 + ", si=" + si + ", dong=" + dong + ", place1=" + place1
 				+ ", place2=" + place2 + ", cno=" + cno + ", csno=" + csno + ", cname=" + cname + ", csname=" + csname
 				+ ", tbno=" + tbno + ", title=" + title + ", likes=" + likes + ", replies=" + replies + ", myfavor="
-				+ myfavor + "]";
+				+ myfavor + ", viewCnt=" + viewCnt + "]";
 	}
+	
+	public int getViewCnt() {
+		return viewCnt;
+	}
+
+	public void setViewCnt(int viewCnt) {
+		this.viewCnt = viewCnt;
+	}
+
 	public String getProfile() {
 		return profile;
 	}

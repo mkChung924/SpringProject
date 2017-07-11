@@ -73,14 +73,13 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value= "/login", method = RequestMethod.POST)
-	public String tryLogin(HttpSession session, String id, String pass) throws Exception{
+	public String tryLogin(HttpSession session, String id, String pass,RedirectAttributes rttr) throws Exception{
 		
 		System.out.println("login post 들어옴");
 		System.out.println(id + ", " + pass);
 		int auth = service.getMyAuth(id);
 		String nick = service.getMyNick(id);
 		List<HashMap<String, String>> isYou = service.isYoublacklist(id, pass);
-		System.out.println(isYou.get(0).values());
 		int penalty_cnt =Integer.parseInt(String.valueOf( isYou.get(0).get("PENALTY_CNT")));
 		int state =Integer.parseInt(String.valueOf( isYou.get(0).get("STATE")));
 		if(state ==2){
@@ -88,7 +87,7 @@ public class HomeController {
 			return "main/loginPage";
 		}else if(state ==1 && penalty_cnt >=10 ){
 			System.out.println("추가 신고 "+(20-penalty_cnt)+"번 되면 아웃");
-			session.setAttribute("warningMSG", penalty_cnt);
+			rttr.addFlashAttribute("warningMSG", penalty_cnt);
 			
 		}
 			session.setAttribute("id", id);

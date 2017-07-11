@@ -34,6 +34,9 @@ public interface BoardInfoDAO {
 	
 	public List<SelectRegionVO> selectSido() throws Exception;
 	public List<SelectRegionVO> selectGugun(String ds_sido) throws Exception;
+	
+	public int addViewCnt(int tbno) throws Exception;//조회수
+	public List<Object> selectViewCnt(List<Object> tbnoList) throws Exception;
 }
 
 

@@ -20,7 +20,7 @@ public class UserInfoVO {
 	private int auth;
 	private int myBoards;
 	private int replyCount;
-	private int state; // 유저 상태 블랙리스트 인경우 1 정상유저 0 
+	private int state; // 유저 상태 정상유저 0 경고 유저 1 블랙리스트 인경우 2 
 	public String getId() {
 		return id;
 	}

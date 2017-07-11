@@ -24,6 +24,7 @@ public class BoardVO {//13
 	private int viewcnt;
 	private Date regdate;
 	private Date updatedate;
+	private String image;
 	
 	public int getTbno() {
 		return tbno;
@@ -152,21 +153,19 @@ public class BoardVO {//13
 		this.updatedate = updatedate;
 	}
 	
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
 	@Override
 	public String toString() {
 		return "BoardVO [tbno=" + tbno + ", tb_kind=" + tb_kind + ", id=" + id + ", cno=" + cno + ", csno=" + csno
 				+ ", do1=" + do1 + ", si=" + si + ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2
 				+ ", title=" + title + ", content=" + content + ", notice=" + notice + ", openchat=" + openchat
 				+ ", tel=" + tel + ", tel_ch=" + tel_ch + ", myFavor=" + myFavor + ", likes=" + likes + ", viewcnt="
-				+ viewcnt + ", regdate=" + regdate + ", updatedate=" + updatedate + ", getTbno()=" + getTbno()
-				+ ", getTb_kind()=" + getTb_kind() + ", getId()=" + getId() + ", getCno()=" + getCno() + ", getCsno()="
-				+ getCsno() + ", getDo1()=" + getDo1() + ", getSi()=" + getSi() + ", getDong()=" + getDong()
-				+ ", getPlace1()=" + getPlace1() + ", getPlace2()=" + getPlace2() + ", getTitle()=" + getTitle()
-				+ ", getContent()=" + getContent() + ", getNotice()=" + getNotice() + ", getOpenchat()=" + getOpenchat()
-				+ ", getTel()=" + getTel() + ", getTel_ch()=" + getTel_ch() + ", getMyFavor()=" + getMyFavor()
-				+ ", getLikes()=" + getLikes() + ", getViewcnt()=" + getViewcnt() + ", getRegdate()=" + getRegdate()
-				+ ", getUpdatedate()=" + getUpdatedate() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+				+ viewcnt + ", regdate=" + regdate + ", updatedate=" + updatedate + ", image=" + image + "]";
 	}
 	
 

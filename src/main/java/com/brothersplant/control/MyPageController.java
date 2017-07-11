@@ -1,5 +1,8 @@
 package com.brothersplant.control;
 
+import java.util.HashMap;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
@@ -12,6 +15,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.brothersplant.domain.SecureVO;
 import com.brothersplant.domain.UserInfoVO;
 import com.brothersplant.service.MyPageService;
+import com.brothersplant.service.UserInfoService;
 
 @Controller
 public class MyPageController {
@@ -19,19 +23,26 @@ public class MyPageController {
 	@Inject
 	private MyPageService service;
 	
+	@Inject
+	private UserInfoService userService;
+	
 	
 	@RequestMapping("/mypage")
 	public String myPage(HttpSession session, Model model) throws Exception {
 		System.out.println("마이페이지-내글보기 입장");
 		String id = (String) session.getAttribute("id");
+		String pw = service.myPageInfo(id).getPassword();
+		
 		int auth = (int) session.getAttribute("auth");
 		if(id != null && auth != 2){
-			System.out.println("my정보: "+service.myPageInfo(id));
-			System.out.println(service.secureCode());
-			System.out.println(id);
+			List<HashMap<String, String>> isYou = userService.isYoublacklist(id, pw);
+			int penalty_cnt =Integer.parseInt(String.valueOf( isYou.get(0).get("PENALTY_CNT")));
+			int state =Integer.parseInt(String.valueOf( isYou.get(0).get("STATE")));
+			service.myPageInfo(id).setState(state);
 			
 			model.addAttribute("mypage", service.myPageInfo(id));
-			
+			model.addAttribute("userState", state);
+			model.addAttribute("userPenaltyCnt", penalty_cnt);
 			return "mypage/myInfo";
 		} else {
 			return "redirect:login";
