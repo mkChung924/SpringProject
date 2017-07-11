@@ -27,9 +27,8 @@ public class BoardVO {// 13
 	private Date updatedate;
 	private String image;
 	private int replies;
+	private int reviews;
 
-	
-	
 	@Override
 	public String toString() {
 		return "BoardVO [tbno=" + tbno + ", tb_kind=" + tb_kind + ", id=" + id + ", nickname=" + nickname + ", cno="
@@ -37,8 +36,21 @@ public class BoardVO {// 13
 				+ ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2 + ", title=" + title + ", content="
 				+ content + ", notice=" + notice + ", openchat=" + openchat + ", myFavor=" + myFavor + ", likes="
 				+ likes + ", viewcnt=" + viewcnt + ", regdate=" + regdate + ", updatedate=" + updatedate + ", image="
-				+ image + ", replies=" + replies + "]";
+				+ image + ", replies=" + replies + ", reviews=" + reviews + "]";
 	}
+
+
+	public int getReviews() {
+		return reviews;
+	}
+
+
+
+	public void setReviews(int reviews) {
+		this.reviews = reviews;
+	}
+
+
 
 	public int getReplies() {
 		return replies;

@@ -252,7 +252,7 @@
 								<i class="glyphicon glyphicon-thumbs-up" data-toggle="like" data-placement="top" title="좋아요"></i>&nbsp;
 								<span class="badge" style="background-color: blue">${travel.likes }</span>&nbsp;&nbsp;&nbsp; 
 								<i class="glyphicon glyphicon-tags" data-toggle="review" data-placement="bottom" title="후기"></i>&nbsp;
-								<span class="badge" style="background-color: green">1</span>
+								<span class="badge" style="background-color: green">${travel.reviews }</span>
 							</div>
 						</div>
 					</div>
