@@ -172,7 +172,6 @@
 	});
 
 	$(document).on("click", "#replyDelBtn", function() {
-		if ("${commonBoard.id}" == '${id}') {
 			var rno = $("#modalTitle").html();
 			var replytext = $("#modalText").val();
 			$.ajax({
@@ -190,9 +189,6 @@
 					}
 				}
 			});
-		}else{
-			alert("당신은 삭제할 권한이 없습니다.");
-		}
 	});
 
 	$(document).on("click", "#deleteBoard", function() {//게시글 삭제
