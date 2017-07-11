@@ -8,18 +8,18 @@
 	
 		<if test="(tb_kind == 0 ) and (place1 != null)"><!-- 운영자가 쓸때 -->
 			<![CDATA[
-			insert into tbl_boards (tbno,TB_KIND,id,cno,csno,place1,place2,title,content,IMAGE) values (tbl_boards_seq.nextval,#{tb_kind},#{id},#{cno},#{csno},#{place1},#{place2},#{title},#{content},#{image})
+			insert into tbl_boards (tbno,TB_KIND,id,cno,csno,place1,place2,title,content,notice,IMAGE) values (tbl_boards_seq.nextval,#{tb_kind},#{id},#{cno},#{csno},#{place1},#{place2},#{title},#{content},#{notice}#{image})
 			]]>
 		</if>
 		
 		<if test="(tb_kind != 0 ) and (place1 != null)">
-			insert into tbl_boards(tbno, tb_kind, id, cno, csno, do1, si, dong, place1, place2, title, notice, openchat, tel, tel_ch, content) 
-			values(tbl_boards_seq.nextval, #{tb_kind}, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{place1}, #{place2}, #{title}, #{notice}, #{openchat}, #{tel}, #{tel_ch}, #{content})
+			insert into tbl_boards(tbno, tb_kind, id, cno, csno, do1, si, dong, place1, place2, title, notice, openchat,content) 
+			values(tbl_boards_seq.nextval, #{tb_kind}, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{place1}, #{place2}, #{title}, #{notice}, #{openchat}, #{content})
 		</if>
 		
 		<if test="(tb_kind != 0 ) and (place1 == null)">
-			insert into tbl_boards(tbno, id, cno, csno, do1, si, dong, title, notice, openchat, tel, tel_ch, content) 
-			values(tbl_boards_seq.nextval, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{title}, #{notice}, #{openchat}, #{tel}, #{tel_ch}, #{content})
+			insert into tbl_boards(tbno, id, cno, csno, do1, si, dong, title, notice, openchat, content) 
+			values(tbl_boards_seq.nextval, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{title}, #{notice}, #{openchat}, #{content})
 		</if>
 		
 	</insert>
@@ -50,7 +50,7 @@
 	</select>
 	
 	<select id="selectCommonRow" resultType="boardVO">
-		select TBNO,TB_KIND,ID,CNO,CSNO,DO1,SI,DONG,PLACE1,PLACE2,TITLE,NOTICE,OPENCHAT,CONTENT,TEL,TEL_CH,IMAGE,VIEWCNT,REGDATE,UPDATEDATE,
+		select TBNO,TB_KIND,ID,CNO,CSNO,DO1,SI,DONG,PLACE1,PLACE2,TITLE,NOTICE,OPENCHAT,CONTENT,IMAGE,VIEWCNT,REGDATE,UPDATEDATE,
 					(select count(*) from tbl_like where tbno =  #{tbno}) likes,
 					(select count(*) from bookmark where tbno = #{tbno} and id = #{id}) myFavor  
 		from TBL_BOARDS 
@@ -61,6 +61,20 @@
 	<delete id="deleteCommonRow">
 		delete from tbl_boards where tbno=#{tbno}
 	</delete>
+	
+	<select id="selectTravelAdmin" resultType="boardVO">
+		select nickname, a.id, a.cno, a.csno, a.notice,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate,
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from bookmark where tbno = a.tbno and id = #{id} and id = #{id}) myfavor,
+					 place1, place2, a.viewcnt, a.image
+				from userinfos, tbl_boards a
+				where a.place1 like '%'||#{place1}||'%' and tb_kind = 0 and
+				a.id = userinfos.id
+	</select>
 	
 	<select id="selectBoardList" resultType="boardListVO">
 		<if test="place1 != null">
@@ -78,7 +92,7 @@
 					<include refid="count"/>		
 				)
 			<include refid="search"/>
-			order by ordered
+			order by ordered, regdate desc
 			
 		</if>
 	</select>
@@ -88,7 +102,7 @@
 				<include refid="travelReview"/>
 			)
 			<include refid="search"/>
-			order by ordered
+			order by ordered, regdate desc
 	</select>
 	<select id="countTravelReview" resultType="int">
 		select count(*) from (
@@ -314,7 +328,7 @@
 
 	
 	<update id="updateCommonRow">
-		update tbl_boards set TITLE=#{title},  NOTICE=#{notice}, OPENCHAT=#{openchat}, CONTENT=#{content}, TEL=#{tel} where tbno=#{tbno}
+		update tbl_boards set TITLE=#{title},  NOTICE=#{notice}, OPENCHAT=#{openchat}, CONTENT=#{content}, where tbno=#{tbno}
 	</update>
 	
 	<sql id="travelReview">

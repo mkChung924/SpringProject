@@ -72,6 +72,12 @@ public class BoardController {
 			
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(service.countBoardList(cri));
+			
+			//관리자 여행글 가져오기
+			if(Integer.parseInt(cri.getCno()) == 1){
+				System.out.println("관리자 여행 정보: "+service.selectAdminTravel(cri));
+				session.setAttribute("travelList", service.selectAdminTravel(cri));
+			}
 
 			//관심 목록 가져오기
 			session.setAttribute("list", service.selectMyInterestList(cri));
@@ -93,6 +99,13 @@ public class BoardController {
 			
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(service.countTravelReviewList(cri));
+			
+			//관리자 추천 여행 가져오기
+			//관리자 여행글 가져오기
+			if(Integer.parseInt(cri.getCno()) == 1){
+				System.out.println("관리자 여행 정보: "+service.selectAdminTravel(cri));
+				session.setAttribute("travelList", service.selectAdminTravel(cri));
+			}
 
 			//여행후기 가져오기
 			session.setAttribute("list", service.showTravelReviewList(cri));
@@ -100,20 +113,6 @@ public class BoardController {
 		}
 		List<BoardListVO>  list = (List<BoardListVO>)session.getAttribute("list");
 		System.out.println(list);
-		/*List<Object> viewList = new ArrayList<>();
-		for(int i=0; i<list.size(); i++){
-			BoardListVO vo = list.get(i);
-			viewList.add(vo.getTbno());
-			System.out.println("검색한 tbno : "+vo.getTbno());
-		}//일단 검색된 tbno만 뽑아오고
-		
-		List<Object> viewCntList = service.selectViewCnt(viewList);
-			
-		for(int i=0; i<list.size(); i++){
-			BoardListVO vo = list.get(i);
-			vo.setViewCnt((int)viewCntList.get(i));
-			System.out.println(vo.getViewCnt());
-		}*/
 		
 		session.setAttribute("tb_kind", tb_kind);
 		session.setAttribute("searchType", cri.getSearchType());
@@ -194,6 +193,7 @@ public class BoardController {
 	@RequestMapping(value = "CommonUpdate", method=RequestMethod.GET)//페이지는 보여주고
 	public String CommonUpdate(int tbno,Model model,HttpSession session) throws Exception{
 		if(session.getAttribute("id") != null){
+			System.out.println(service.selectCommonRow(tbno,(String)session.getAttribute("id")));
 			model.addAttribute("commonBoard",service.selectCommonRow(tbno,(String)session.getAttribute("id")));
 			return "board/boardUpdate";
 		}else{

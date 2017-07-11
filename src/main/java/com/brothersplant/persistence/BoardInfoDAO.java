@@ -38,6 +38,10 @@ public interface BoardInfoDAO {
 	
 	public int addViewCnt(int tbno) throws Exception;//조회수
 	
+	//관리자가 입력한 여행 정보 가져오기
+	public List<BoardVO> selectAdminTravel(SearchCriteria cri) throws Exception;
+	
+	//다른 지역 관련글 찾기
 	public List<Map<String, Object>> selectCnoList(SearchCriteria cri) throws Exception;
 	public List<Map<String, Object>> selectCityList(String do1, int cno) throws Exception;
 }

@@ -164,4 +164,9 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 		return session.selectList("admin.selectCityList", map);
 	}
 
+	@Override
+	public List<BoardVO> selectAdminTravel(SearchCriteria cri) throws Exception {
+		return session.selectList(namespace + ".selectTravelAdmin",cri);
+	}
+
 }

@@ -214,13 +214,6 @@ function uploadFile(inp, editor) {
 			<input type="text" class="form-control" id="openchat" name="openchat" placeholder="더욱 수월하게 소통할 수있는 오픈카톡방이 있나요?" value="">
 		</div>
 	</div>
-		<div class="form-group">
-		<label for="name" class="col-sm-2 control-label">연락처</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" id="tel" name="tel" placeholder="전화 번호" value="">
-			&nbsp; &nbsp;&nbsp;<input type="checkbox" id="chbox" name="tel_ch" value="1"><b>&nbsp; 연락처 공개</b>
-		</div>
-	</div>
 	<div class="form-group">
 		<label for="name" class="col-sm-2 control-label">내용</label>
 		<div class="col-sm-10">

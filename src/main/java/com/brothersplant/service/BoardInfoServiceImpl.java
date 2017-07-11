@@ -145,4 +145,9 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	public List<Map<String, Object>> selectCityList(String do1, int cno) throws Exception {
 		return dao.selectCityList(do1, cno);
 	}
+
+	@Override
+	public List<BoardVO> selectAdminTravel(SearchCriteria cri) throws Exception {
+		return dao.selectAdminTravel(cri);
+	}
 }

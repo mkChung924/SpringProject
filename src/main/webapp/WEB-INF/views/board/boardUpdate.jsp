@@ -102,7 +102,7 @@
 		<input type="hidden" value="${id}" id="id" name="id"> <input
 			type="hidden" value="${cno}" id="id" name="cno"> <input
 			type="hidden" value="${csno}" id="id" name="csno">
-		<h4>게시글 작성</h4>
+		<h4>게시글 수정</h4>
 		<hr>
 		<div class="form-group">
 			<label for="name" class="col-sm-2 control-label">제목</label>
@@ -117,6 +117,7 @@
 					type="hidden" name="dong" value="${dong }">
 			</div>
 		</div>
+		<c:if test="${commonBoard.cno == 1 }">
 		<div class="form-group">
 			<label for="name" class="col-sm-2 control-label"></label>
 			<div class="col-sm-10">
@@ -129,6 +130,7 @@
 					<input type="hidden" name="place2" value="${p2 }">
 			</div>
 		</div>
+		</c:if>
 		<div class="form-group">
 			<label for="name" class="col-sm-2 control-label">공지사항</label>
 			<div class="col-sm-10">
@@ -142,15 +144,6 @@
 				<input type="text" class="form-control" id="openchat"
 					name="openchat" placeholder="더욱 수월하게 소통할 수있는 오픈카톡방이 있나요?"
 					value="${commonBoard.openchat}">
-			</div>
-		</div>
-		<div class="form-group">
-			<label for="name" class="col-sm-2 control-label">연락처</label>
-			<div class="col-sm-10">
-				<input type="text" class="form-control" id="tel" name="tel"
-					placeholder="xxxx-xxxx-xxxx" value="${commonBoard.tel}">
-				&nbsp; &nbsp;&nbsp;<input type="checkbox" id="chbox" name="tel_ch"
-					value="1"><b>&nbsp; 연락처 공개</b>
 			</div>
 		</div>
 		<div class="form-group">
