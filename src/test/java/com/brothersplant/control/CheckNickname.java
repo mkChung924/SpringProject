@@ -78,17 +78,5 @@ public class CheckNickname {
 		brnoLists.add("90");
 		serviceReport.selectedReprotListDeletePenalty(1, brnoLists, uniqueOffenderList);
 	}
-	@Test
-	public void aaa() throws Exception{
-		List<Object> list = new ArrayList<>();
-		list.add(88);
-		list.add(13);
-		list.add(14);
-		list.add(15);
-		list.add(17);
-		list.add(18);
-		list.add(19);
-		list.add(20);
-		dao2.selectViewCnt(list);
-	}
+
 }

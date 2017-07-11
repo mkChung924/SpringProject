@@ -118,11 +118,11 @@ public class HomeController {
 		System.out.println("/signUp");
 		
 		String tel = tel1+"-"+tel2+"-"+tel3;
-		String addr = address +"$"+ detailAddress +"$"+postcode;
+		String addr = address +"%"+ detailAddress +"%"+postcode;
 		
 		try {
 			if(profilePicture == null){
-				vo.setProfile("default.png");
+				vo.setProfile("default.jpeg");
 			}else{
 				String filePath = "/resources/upload/"+vo.getId()+"/profilePicture/";
 				//해당 아이디의 폴더를 만들고
@@ -133,7 +133,12 @@ public class HomeController {
 	            profileDir.mkdir();
 	            
 	            String path = "";
-	            path = filePath + profilePicture.getOriginalFilename();
+	            System.out.println("프로필 사진이름: " + profilePicture.getOriginalFilename());
+	            if(profilePicture.getOriginalFilename().trim().isEmpty()){
+	            	path = "/resources/upload/default.jpeg";
+	            } else {
+	            	path = filePath + profilePicture.getOriginalFilename();
+	            }
                 File destination = new File(context.getRealPath("/")+path);
                 System.out.println("프로필 사진 경로 : "+destination);
                 profilePicture.transferTo(destination);

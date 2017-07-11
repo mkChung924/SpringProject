@@ -50,7 +50,9 @@ body {
 
 </style>
 	<c:if test="${messages.size() < 1 }">
-		<br><br><br><br><br><br><br><br><h4><i>발신 메지시함이 비었습니다</i></h4>
+		<div class="col-sm-12" style="text-align: center">
+		<br><br><br><br><br><br><h4><i><font color=red>발신</font> 메지시함이 비었습니다</i></h4>
+		</div>
 	</c:if>
 	<c:if test="${messages.size() > 0 }">
 	<br><br><br>

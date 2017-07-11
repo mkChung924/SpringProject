@@ -123,10 +123,10 @@
 		$('[name=csno]').val(kind2);
 				
 		/* 여행지 선택 유무 확인후 submit */
-		if($('[name=place1]').val() == ""){
+		if($('[name=place1]').val() == "==선택=="){
 			alert("여행지를 선택하세요!");
 			
-		} else if($('[name=place2]').val() == ""){
+		} else if($('[name=place2]').val() == "==선택=="){
 			alert("여행지를 선택하세요!");
 		} else {
 			
@@ -149,10 +149,10 @@
 		$('[name=csno]').val(kind2);
 				
 		/* 여행지 선택 유무 확인후 submit */
-		if($('[name=place1]').val() == ""){
+		if($('[name=place1]').val() == "==선택=="){
 			alert("여행지를 선택하세요!");
 			
-		} else if($('[name=place2]').val() == ""){
+		} else if($('[name=place2]').val() == "==선택=="){
 			alert("여행지를 선택하세요!");
 		} else {
 
@@ -175,10 +175,10 @@
 		$('[name=csno]').val(kind2);
 				
 		/* 여행지 선택 유무 확인후 submit */
-		if($('[name=place1]').val() == ""){
+		if($('[name=place1]').val() == "==선택=="){
 			alert("여행지를 선택하세요!");
 			
-		} else if($('[name=place2]').val() == ""){
+		} else if($('[name=place2]').val() == "==선택=="){
 			alert("여행지를 선택하세요!");
 		} else {
 			

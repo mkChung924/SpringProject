@@ -23,6 +23,7 @@
 
      $(function(){//HTML문서가 브라우저 출력되었을때
 
+    	 //alert();
 		form = document.removeCheck;
      
     	 if(${msg != "table"}){
@@ -31,7 +32,7 @@
     		 $.ajax({
      			url:"/replyReportBox",
      			type : "POST",
-     			data: "page="+${page},
+     			data: "page="+${cri.page}+"&perPageNum="+${cri.perPageNum}+"&searchType="+'${cri.searchType}'+"&keyword="+'${cri.keyword}',
      			success:function(result){
      					$("button1").trigger("click");
 						$('#div1').html(result);
@@ -40,7 +41,7 @@
  					  
  				  },
  				  error:function(){
- 					  alert("error")
+ 					  alert("error");
  				  }
      		 });
     	 }
@@ -59,7 +60,7 @@
      if(${msg == "table"} ){
 		 $.ajax({
 			url:"tableReportBox",
-			data: "page="+${page},
+			data: "page="+${cri.page}+"&perPageNum="+${cri.perPageNum}+"&searchType="+'${cri.searchType}'+"&keyword="+'${cri.keyword}',
 			type : 'POST',
 			success:function(result){
 				  $('#div2').html(result);
@@ -150,7 +151,7 @@ body {
 	<div class="container">
 		<div class="row profile">
 			<div class="header">
-				<b>[ ${id } ]</b>
+				<b>[ ${nick } ]</b>
 				<kbd style="background-color: red">
 					<a href="/admin"><font color="white">관리자</font></a>
 				</kbd>
@@ -243,7 +244,8 @@ body {
 						<input type="button" id="button2" value="게시글 신고함">
 					</form>
 	            </div>
-	            	 * 신고 게시글 삭제시 해당 게시글의 댓글 및 댓글 신고가 일괄 삭제됩니다.<br>&nbsp;&nbsp;관리자는 이점을 유의하여 댓글 신고를 처리한 후 게시글 신고를 처리하시기 바랍니다.
+	            	 * 신고 게시글 삭제시 해당 게시글의 댓글 및 댓글 신고가 일괄 삭제됩니다.<br>&nbsp;&nbsp;관리자는 이점을 유의하여 댓글 신고를 처리한 후 게시글 신고를 처리하시기 바랍니다.<br>
+	            	 * 검색란을 비우면 전체검색이 가능합니다.
 					<div id="div1" style="display: none; text-align: center"></div>
 					<div id="div2" style="display: none; text-align: center"></div>
 	            </div>

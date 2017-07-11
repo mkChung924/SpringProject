@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.ReportsListVO;
+import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.TableReportVO;
 import com.brothersplant.persistence.ReportsDAO;
 
@@ -32,13 +33,18 @@ public class ReportsServiceImpl implements ReportsService {
 	}
 
 	@Override
-	public int countPaging(int kind) throws Exception {
-		return dao.countPaging(kind);
+	public int countPaging(SearchCriteria cri,int kind) throws Exception {
+		return dao.countPaging(cri,kind);
 	}
 	
 	@Override
 	public List<ReportsListVO> listCriteria(Criteria cri,int kind) throws Exception {		
 		return dao.listCriteria(cri,kind);
+	}
+	
+	@Override
+	public List<ReportsListVO> listSearchCriteria(SearchCriteria cri, int kind) throws Exception {
+		return dao.listSearchCriteria(cri, kind);
 	}
 
 	@Override
@@ -55,6 +61,8 @@ public class ReportsServiceImpl implements ReportsService {
 		int t = dao.selectPenaltyScore(uniqueOffenderList);
 		return t;
 	}
+
+
 
 }
 

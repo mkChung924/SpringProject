@@ -27,10 +27,11 @@
 	
 	<!-- 내 즐겨찾기 검색 -->
 	<select id="selectMyBookmark" resultType="bookmark">
-		select b.tbno, (select nickname from userinfos where id = b.id) nickname, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, a.cno, a.csno, 
-		(select cname from tbl_category where cno = a.cno) cname, (select csname from tbl_subcategory where csno = a.csno) csname, 
-		(select count(*) from tbl_like where tbno = a.tbno) likes, a.viewcnt
+		select b.tbno, (select nickname from userinfos where id = b.id) nickname, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, 
+		a.cno, a.csno, (select cname from tbl_category where cno = a.cno) cname, 
+		(select csname from tbl_subcategory where csno = a.csno) csname, 
+		(select count(*) from tbl_like where tbno = a.tbno) likes, a.viewcnt 
 		from bookmark b, tbl_boards a 
-		where b.id = a.id and b.tbno = a.tbno and b.id = #{id}
+		where b.tbno = a.tbno and b.id = #{id}
 	</select>
 </mapper>

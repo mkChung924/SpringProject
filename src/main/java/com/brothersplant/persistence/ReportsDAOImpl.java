@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.ReportsListVO;
+import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.TableReportVO;
 @Repository
 public class ReportsDAOImpl implements ReportsDAO {
@@ -32,8 +33,11 @@ public class ReportsDAOImpl implements ReportsDAO {
 	}
 
 	@Override //게시글인지 댓글인지 종류에 따른 총 갯수 검색 (게시글 1, 댓글 2) 
-	public int countPaging(int kind) throws Exception {
-		return sqlSession.selectOne(namespace+".countPaging",kind);
+	public int countPaging(SearchCriteria cri,int kind) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("cri", cri);
+		map.put("kind", kind);
+		return sqlSession.selectOne(namespace+".countPaging",map);
 	}
 	
 	@Override //페이징 된 ReportsListVO 검색
@@ -45,6 +49,19 @@ public class ReportsDAOImpl implements ReportsDAO {
 		map.put("what", what);
 		return sqlSession.selectList(namespace+".selectReportList2",map,bounds);
 	}
+	
+
+	@Override
+	public List<ReportsListVO> listSearchCriteria(SearchCriteria cri, int kind) throws Exception {
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		Map<String, Object> map = new HashMap<>();
+		map.put("kind", kind);
+		String what =  (kind ==1) ? "board":"reply";
+		map.put("what", what);
+		map.put("cri", cri);
+		return sqlSession.selectList(namespace+".selectReportList2",map,bounds);
+	}
+
 
 	@Override
 	public int selectedReprotListDelete(int kind, String[] repno) throws Exception {

@@ -168,7 +168,7 @@ body {
 	<div class="container">
 		<div class="row profile">
 			<div class="header">
-				<b>${id }</b>
+				<b>[ ${nick } ]</b>
 				<kbd style="background-color: red">
 					<a href="/admin"><font color="white">관리자</font></a>
 				</kbd>

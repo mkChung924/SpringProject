@@ -28,8 +28,21 @@
 	
 	<!-- 게시글 댓글에따른 총 갯수 검색 -->
 	<select id="countPaging" resultType="int">
-		select count(*) from TBL_REPORTSLIST where REPORTKIND=#{kind}
+	select count(*) from (
+		select repno, brno, a.content, reporter, senddate, reporttype, reportkind, b.tbno,
+		
+		<if test="kind == 1">
+			 (select id from tbl_boards where tbno = a.brno) offender
+			from TBL_REPORTSLIST a, tbl_boards b where REPORTKIND=#{kind} and b.tbno = a.brno
+		</if>
+		<if test="kind == 2">
+			(select id from tbl_replies where rno = a.brno) offender
+			from TBL_REPORTSLIST a, tbl_replies b where REPORTKIND=#{kind} and b.rno = a.brno
+		</if>
+		<include refid="search"/>
+	)
 	</select>
+
 	
 	<!-- 신고 목록 보이려고 검색 게시글 조회시 content=title 값임 --> 
 	<select id="selectReportList2" resultType="reportslist">
@@ -41,7 +54,9 @@
 		<if test='what.equals("reply")'>
 			(select tbno, rno as BRNO,id from TBL_REPLIES) b 
 		</if>
-			on b.BRNO = r.BRNO where r.REPORTKIND=#{kind}
+			on b.BRNO = r.BRNO 
+			where r.REPORTKIND=#{kind}
+			<include refid="search"/>
 			order by senddate desc
 	</select>
 	
@@ -83,4 +98,15 @@
 	<update id="addBlackList">
 		update USERSTATE set state = state + 1 where id= #{user}
 	</update>
+	
+	<sql id="search">
+		<if test="cri.searchType != null">
+			<if test="cri.searchType == 'n'.toString()">
+				and tbno like '%'||#{cri.keyword}||'%'
+			</if>
+			<if test="cri.searchType == 't'.toString()">
+				and b.id like '%'||#{cri.keyword}||'%'
+			</if>
+		</if>
+	</sql>
 </mapper>

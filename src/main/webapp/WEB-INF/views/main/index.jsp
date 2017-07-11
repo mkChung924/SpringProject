@@ -16,7 +16,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/resources/js/daum_api.js"></script>
-<script type="text/javascript" src="http://scmplayer.co/script.js" 
+<!-- <script type="text/javascript" src="http://scmplayer.co/script.js" 
 data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.css',
 'volume':50,'autoplay':true,'shuffle':true,'repeat':1,'placement':'top','showplaylist':false,
 'playlist':[
@@ -30,7 +30,7 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 {'title':'tie a yellow ribbon round the ole oak tree','url':'https://www.youtube.com/watch?v=CFCWv1CUhOE'},
 {'title':'%uC5BC%uC74C%uC5F0%uBABB-%uB450%uBC88%uC9F8 %uB2EC','url':'https://www.youtube.com/watch?v=bfcL8KqpgKs'},
 {'title':'Qui A Tue Grand Maman','url':'https://www.youtube.com/watch?v=-wgqxyOFngY'}]}" >
-</script>
+</script> -->
 
 <script type="text/javascript">
 		var msg = '${warningMSG}';
@@ -46,17 +46,18 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 		<div class="row">
 		<div class="header">
 			<c:if test="${auth == 2 }">			
-			<b>${nick }</b> <kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd><br>
+				<b>[ ${nick } ]</b> <kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd><br>
+				<div style="margin-top: 5px;">
+				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>
+				</div>
 			</c:if>
 			<c:if test="${auth != 2 }">			
-			<b>${nick }</b>님 메인페이지 입장<br>
-			</c:if>			
-			<div style="margin-top: 5px;">
-			<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>
-			<c:if test="${auth != 2 }">			
-			<kbd><a href="/mypage"><font color="white">마이페이지</font></a></kbd>
+				<b>[ ${nick } ]</b>님 메인페이지 입장<br>		
+				<div style="margin-top: 5px;">
+				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd> &nbsp;&nbsp;|&nbsp;&nbsp;
+				<kbd><a href="/mypage"><font color="white">마이페이지</font></a></kbd>
+				</div>
 			</c:if>
-			</div>
 		</div> 
 		<div class="myLocation">
 			<div class="col-sm-4" style="height: 40px; text-align: center; padding-top: 0px"><b><font size="4">자신의 <kbd><font color=white>위치</font></kbd>를 설정해주세요!!</font></b></div>

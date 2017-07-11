@@ -1,6 +1,7 @@
 package com.brothersplant.persistence;
 
 import java.util.List;
+import java.util.Map;
 
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.BoardsCountListVO;
@@ -18,6 +19,10 @@ public interface AdminPageDAO {
 	
 	//게시판현황
 	public  List<BoardsCountListVO> selectBoardsCountList()throws Exception;
-	public List<BoardVO> selectCategoryDetail(int cno)throws Exception;
+	public List<BoardVO> selectCategoryDetail(SearchCriteria cri)throws Exception;
+	public int selectCategoryDetailCount(SearchCriteria cri) throws Exception;
+	public List<Map<String, Object>> selectCnoList(SearchCriteria cri) throws Exception;
+	public List<Map<String, Object>> selectCityList(SearchCriteria cri) throws Exception;
+	
 
 }

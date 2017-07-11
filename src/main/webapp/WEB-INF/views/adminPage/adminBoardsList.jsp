@@ -125,8 +125,12 @@
 	function showDetails(cno, count){
 		if(count != 0){
 			
-		alert(cno + "번 카테고리에 존재하는 게시글을 표시합니다");
-		window.open('/categoryDetail?cno='+cno, '카테고리 상세페이지','width=1200 height=800 menubar=no status=no scrollbars=yes left=190 top=50 resizable=0')
+		//alert(cno + "번 카테고리에 존재하는 게시글을 표시합니다");
+		var w = screen.width - 200;
+        var h = screen.height - 300;
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2) - 80;
+		window.open('/categoryDetail?cno='+cno, '카테고리 상세페이지','width='+ w +' height='+ h +' menubar=no status=no scrollbars=yes left='+ left +' top='+ top +' resizable=0')
 		} else {
 			alert("해당 카테고리에는 게시글이 존재하지 않습니다");
 		}
@@ -185,7 +189,7 @@ body {
 	<div class="container">
 		<div class="row profile">
 			<div class="header">
-				<b>${id }</b>
+				<b>[ ${nick } ]</b>
 				<kbd style="background-color: red">
 					<a href="/admin"><font color="white">관리자</font></a>
 				</kbd>

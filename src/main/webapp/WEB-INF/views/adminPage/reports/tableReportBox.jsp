@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="stylesheet"
@@ -21,76 +20,63 @@ body {
 }
 </style>
 
-<script>
-
+<script type="text/javascript">
+	$(function(){
+		$('#searchIt').click(function(){
+			//alert('haha');
+			var jobForm = $("#jobForm");
+			jobForm.attr("action","/reportBox").attr("method", "get");
+			jobForm.submit();
+		})
+	})
 </script>
-
-<c:if test="${tablereport.size() < 1}">
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<h4>
-		<i><font color=red>게시글</font> 신고함이 비었습니다</i>
-	</h4>
-</c:if>
-
-<c:if test="${tablereport.size() > 0}">
-	<br>
-	<br>
-	<br>
-	<div class="col-sm-2"
-		style="text-align: left; padding-left: 20px; display: inline">
-		<label><font size=4>게시글 신고</font></label>
+	
+	<c:if test="${tablereport.size() < 1}">
+	<br><br><br><br><br><br><br><h4><i><font color=red>게시글</font> 신고함이 비었습니다</i></h4>
+	</c:if>
+	
+	<c:if test="${tablereport.size() > 0}">
+	<br><br>
+	<div class="col-sm-3" style="text-align: left; padding-left: 20px; margin-top:10px; display: inline">
+	<label><font size=4>게시글 신고</font></label>
 	</div>
-	<form action="" id="jobForm" method="post">
-
-		<div class="col-sm-10" style="text-align: right; display: inline">
-			<button type="button" class="btn btn-danger" id="reportsDelPenalty">게시글
-				삭제 &#xf083</button>
-			&nbsp;
-			<button type="button" class="btn btn-warning" id="reportsDelBtn">신고
-				삭제 &#xf083</button>
-			&nbsp;
-			<div class="col-sm-6" style="float: right;">
-				<select class="form-control s" id="option" name="searchType">
-					<option value="n" ${cri.searchType == 'n' ? 'selected' : '' }>게시글
-						번호</option>
-					<option value="t" ${cri.searchType == 't' ? 'selected' : '' }>아이디</option>
-				</select> <input type="text" class="form-control t" name="keyword"
-					placeholder="게시글 검색" autocomplete="off" value="${	cri.keyword }">
-				<input type="button" class="btn btn-info" id="searchIt" value="검색">
-			</div>
-			<input type="hidden" value=1 id="hiddenKind" name="kind"><input
-				type='hidden' name="page" value=${pageMaker.cri.page }> <input type='hidden' name="perPageNum"
-				value=${pageMaker.cri.perPageNum }>
+	<form id="jobForm">
+		<input type='hidden' name="page" value=${pageMaker.cri.page }>
+		<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum }>
+		<div class="col-sm-9" style="text-align: right; padding-right: 10px; display: inline">
+		<button type="button" class="btn btn-danger" id="reportsDelPenalty">게시글 삭제 &#xf083</button>
+		<button type="button" class="btn btn-warning" id="reportsDelBtn">신고 삭제 &#xf083</button>&nbsp;
+		<input type="hidden" value=1 id="hiddenKind">
+           	<select class="form-control s" id="option" name="searchType">
+				<option value="n" ${cri.searchType == 'n' ? 'selected' : '' }>게시글번호</option>
+				<option value="t" ${cri.searchType == 't' ? 'selected' : '' }>아이디</option>
+			</select>
+           <input type="text" class="form-control t" name="keyword" placeholder="검색" autocomplete="off" value="${cri.keyword }">
+           <button type="button" class="btn btn-info" id="searchIt">검색</button>   
+		<input type="hidden" value=2 id="hiddenKind">
 		</div>
 	</form>
-	<br>
-	<br>
-	<table class="table">
+	<br><br>
+		<table class="table">
 		<tr style="font-size: 20x;">
 			<th width="70" style="text-align: center;">삭제</th>
+			<th width="90" style="text-align: center;">게시글 번호</th>
 			<th style="text-align: center;">게시글</th>
 			<th width="100" style="text-align: center;">위반한 사람</th>
-			<th width="100" style="text-align: center;">신고자</th>
 			<th width="100" style="text-align: center;">신고일</th>
 
 		</tr>
 		<c:forEach items="${tablereport }" var="table">
 			<tr style="text-align: center; font-size: 18px;">
 				<td><input type="checkbox" name="chbox1" value=${table.repno }></td>
-				<td><a href="#" onclick="readPage('${table.brno}')">${table.content}</a></td>
-				<!-- adminReport.jsp 부분에 readPage() -->
+				<td>${table.tbno}</td>
+				<td>
+					<a href="#" onclick="readPage('${table.brno}')">
+					${table.content.length() > 21 ? table.content.substring(0,21) : table.content } 
+					</a>
+				</td> <!-- adminReport.jsp 부분에 readPage() -->
 				<td id="off-${table.repno }">${table.offender}</td>
-				<td>${table.reporter}</td>
-				<td>${table.senddate }<input type="hidden"
-					id="brnoRow-${table.repno }" value="${table.brno }">
-				</td>
+				<td>${table.senddate } <input type="hidden" id="brnoRow-${table.repno }" value="${table.brno }"> </td>
 			</tr>
 		</c:forEach>
 	</table>

@@ -61,10 +61,65 @@
 	
 	<!-- cno의 DB개수 -->
 	<select id="categoryDetail" resultType="boardVO">
-		select tbno,(select csname from tbl_subcategory where csno= b.csno) csname,title,id,regdate,likes,viewcnt 
+		select do1, si, place1, place2, tbno,(select cname from tbl_category where cno = b.cno) cname,
+		(select csname from tbl_subcategory where csno= b.csno) csname, title,
+		id, (select nickname from userinfos where id = b.id) nickname, regdate, viewcnt 
 		from tbl_boards b
-		where cno=#{cno}
-		order by csno
+		where cno= #{cno}
+		<include refid="search2"/>
+		order by regdate desc, do1, csno
 	</select>
+	
+	<select id="categoryDetailCount" resultType="int">
+		select count(*) from (
+			select do1, si, place1, place2, tbno,(select csname from tbl_subcategory where csno= b.csno) csname, title,
+			id, (select nickname from userinfos where id = b.id) nickname, regdate, viewcnt 
+			from tbl_boards b
+			where cno= #{cno}
+			<include refid="search2"/>
+		)
+	</select>
+	
+	<select id="selectCnoList" resultType="java.util.Map">
+		select do1, count(*) count from tbl_boards
+			where cno = #{cno}		
+		<if test="place1 != null">
+			and place1 like #{place1} <!-- and place2 like #{place2} -->
+		</if>
+		group by do1 
+		order by count desc, do1
+	</select>
+	
+	<select id="selectCityList" resultType="java.util.Map">
+		select si, dong, count(*) count from tbl_boards 
+		where do1 like #{do1} and cno = #{cno}
+		<if test="place1 neq ''">
+			and place1 like #{place1}
+		</if>
+		group by si,dong 
+		order by count desc, si
+	</select>
+	
+		<sql id="search2">
+	<if test="searchType != null">
+		
+		<if test="searchType == 'd'.toString()">
+			and do1 like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 's'.toString()">
+			and si like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'p1'.toString()">
+			and place1 like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'p2'.toString()">
+			and place2 like '%'||#{keyword}||'%'
+		</if>
+		<if test="searchType == 'k'.toString()">
+			and csname like '%'||#{keyword}||'%'
+		</if>
+	</if>
+	</sql>
+	
 
 </mapper>
