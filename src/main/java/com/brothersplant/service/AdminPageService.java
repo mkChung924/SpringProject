@@ -1,7 +1,9 @@
 package com.brothersplant.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.BoardsCountListVO;
 import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.UserInfoVO;
@@ -17,5 +19,10 @@ public interface AdminPageService {
 	
 	//게시판 현황
 	public List<BoardsCountListVO> selectBoardsCountList()throws Exception;
+	public List<BoardVO> selectCategoryDetail(SearchCriteria cri)throws Exception;
+	public int selectCategoryDetailCount(SearchCriteria cri) throws Exception;
+	public List<Map<String, Object>> selectCnoList(SearchCriteria cri) throws Exception;
+	public List<Map<String, Object>> selectCityList(SearchCriteria cri) throws Exception;
+
 
 }

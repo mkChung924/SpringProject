@@ -69,7 +69,7 @@
 		$('[name=cno]').val(kind1);
 		$('[name=csno]').val(kind2);
 				
-		alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
+		//alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
 		health_form();
 	}
 	function gym(){
@@ -80,7 +80,7 @@
 		$('[name=cno]').val(kind1);
 		$('[name=csno]').val(kind2);
 				
-		alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
+		//alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
 		health_form();
 	}
 	function balls(){
@@ -91,7 +91,7 @@
 		$('[name=cno]').val(kind1);
 		$('[name=csno]').val(kind2);
 				
-		alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
+		//alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
 		health_form();
 	}
 	function bodyWork(){
@@ -102,7 +102,7 @@
 		$('[name=cno]').val(kind1);
 		$('[name=csno]').val(kind2);
 				
-		alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
+		//alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
 		health_form();
 	}
 </script>

@@ -115,9 +115,9 @@
 	<div class="container">
 	    <div class="row profile">
 	    <div class="header">
-				<b>${id }</b>님 마이페이지 입장<br>
+				<b>[ ${nick } ]</b>님 마이페이지 입장<br>
 				<div style="margin-top: 5px;">
-				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;
+				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd> &nbsp;&nbsp;|&nbsp;&nbsp;
 				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
 				</div>			
 			</div>
@@ -187,13 +187,16 @@
 	            <div class="profile-content">
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
 	            	
-	            	<h3><b>메시지함</b></h3>
-					<br><br>
-					<div class="row" style="text-align: center;">
-					<form name="removeCheck">
-						<input type="button" id="button1" value="수신 메세지함"> &nbsp; 
-						<input type="button" id="button2" value="발신 메세지함">
+	            	<div class="col-sm-6">
+		            <h3><b>메시지함</b></h3>
+		            </div>
+		            <div class="col-sm-6" style="text-align: right; margin-top: 15px">
+		           	<form name="removeCheck">
+							<input type="button" id="button1" value="수신 메세지함"> &nbsp; 
+							<input type="button" id="button2" value="발신 메세지함">
 					</form>
+		            </div>
+		            <br><br>
 					
 					<div id="div1" style="display: none;"></div>
 					<div id="div2" style="display: none;"></div>

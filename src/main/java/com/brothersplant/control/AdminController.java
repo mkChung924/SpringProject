@@ -31,7 +31,7 @@ public class AdminController {
 	@Inject
 	private AdminPageService adminService;
 	
-	private static final int PERPAGENUM = 20;
+	private static final int PERPAGENUM = 10;
 	
 	@RequestMapping("/admin")
 	public String admin(HttpSession session, Model model) throws Exception{
@@ -99,6 +99,7 @@ public class AdminController {
 		System.out.println("메시지 입장");
 		String id = (String) session.getAttribute("id");
 		int auth = (int) session.getAttribute("auth");
+		
 		System.out.println("아이디: " + id + ", 등급: " + auth);
 		
 		if(id != null && auth == 2){
@@ -122,21 +123,30 @@ public class AdminController {
 	////신고함 - 게시글
 	
 	@RequestMapping("/reportBox")
-	public String reportBox(HttpSession session, String page, Model model)throws Exception{
-		if(page == null){
-			page = "1";
-		}
-		model.addAttribute("page", Integer.parseInt(page));	
+	public String reportBox(HttpSession session, SearchCriteria cri, Model model)throws Exception{
+		
 		System.out.println("관리자페이지-신고함 입장");
 		
 		String id = (String) session.getAttribute("id");
 		int auth = (int) session.getAttribute("auth");
 		
-		if(id != null && auth == 2){
+		if(id != null){
+			
+			if(auth == 2){
+				
 			System.out.println("아이디: " + id + ", 등급: " + auth);
 			model.addAttribute("admin", service.myPageInfo(id));
+			System.out.println(cri);
+			//model.addAttribute("page", cri.getPage());	
+			model.addAttribute("cri", cri);
+			System.out.println("page: " + cri.getPage());
+			System.out.println("perPageNum :" + cri.getPerPageNum());
 		
 			return "adminPage/adminReport";
+			
+			} else {
+				return "redirect:index";
+			}
 			
 		} else {
 			return "redirect:login";
@@ -144,38 +154,53 @@ public class AdminController {
 	}
 	//신고 목록이 댓글일때
 	@RequestMapping(value="/replyReportBox" ,method=RequestMethod.POST)
-	public String replyReportsBox(HttpSession session,Criteria cri,Model model, int page)throws Exception{
-		System.out.println("댓글 목록 가져오는 중");
+	public String replyReportsBox(HttpSession session,SearchCriteria cri, Model model, int page)throws Exception{
 		session.setAttribute("msg", "reply");
+		System.out.println("댓글 신고 목록 가져오는 중");
+		System.out.println("cri: " + cri);
+		System.out.println("페이지:"+ cri.getPage());
+		System.out.println("게시물 수: "+cri.getPerPageNum());
+		System.out.println("bounds 시작지점: "+cri.getPageStart());
+		System.out.println("searchType: " + cri.getSearchType());
+		System.out.println("keyword: " + cri.getKeyword());
 		cri.setPage(page);
 		cri.setPerPageNum(PERPAGENUM);
-		model.addAttribute("messages",reportService.listCriteria(cri,2));
-		System.out.println(reportService.listCriteria(cri,2));
+		model.addAttribute("messages",reportService.listSearchCriteria(cri,2));
+		System.out.println(reportService.listSearchCriteria(cri,2));
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
-		maker.setTotalCount(reportService.countPaging(2));
+		maker.setTotalCount(reportService.countPaging(cri,2));
 		
 		model.addAttribute("pageMaker",maker);
 		model.addAttribute("page", page);
+		model.addAttribute("cri", cri);
 		
 		return "adminPage/reports/replyReportBox";
 	}
 	
 	//신고 목록이 게시글일때
 	@RequestMapping(value="/tableReportBox",method=RequestMethod.POST)
-	public String tableReportBox(HttpSession session,Criteria cri,Model model, int page)throws Exception{
+	public String tableReportBox(HttpSession session,SearchCriteria cri,Model model, int page)throws Exception{
 		session.setAttribute("msg", "table");
 		System.out.println("게시글");
+		System.out.println("cri: " + cri);
+		System.out.println("페이지:"+ cri.getPage());
+		System.out.println("게시물 수: "+cri.getPerPageNum());
+		System.out.println("bounds 시작지점: "+cri.getPageStart());
+		System.out.println("searchType: " + cri.getSearchType());
+		System.out.println("keyword: " + cri.getKeyword());
 		cri.setPage(page);
 		cri.setPerPageNum(PERPAGENUM);
-		model.addAttribute("tablereport",reportService.listCriteria(cri,1));
-		System.out.println(reportService.listCriteria(cri,1));
+		model.addAttribute("tablereport",reportService.listSearchCriteria(cri,1));
+		System.out.println(reportService.listSearchCriteria(cri,1));
 		PageMaker maker = new PageMaker();
 		maker.setCri(cri);
-		maker.setTotalCount(reportService.countPaging(1));
+		maker.setTotalCount(reportService.countPaging(cri,1));
 		
 		model.addAttribute("pageMaker",maker);
 		model.addAttribute("page", page);
+		model.addAttribute("cri", cri);
+		
 		
 		return "adminPage/reports/tableReportBox";
 	}
@@ -274,12 +299,47 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/categoryDetail")
-	public String listCategory(Model model,int cno) throws Exception{
+	public String listCategory(HttpSession session, Model model,SearchCriteria cri) throws Exception{
 		System.out.println("카테고리 디테일 페이지 입장");
-				
-		System.out.println("선택된 카테고리 디테일: " + cno);
+		String id = (String) session.getAttribute("id");
+		int auth = (int) session.getAttribute("auth");
+		System.out.println("아이디: " + id + ", 등급: " + auth);
 		
-		return "adminPage/detail/detail";
+		if(id != null){
+			
+			if(auth == 2){
+				
+				System.out.println("cri: " + cri);
+				System.out.println("페이지:"+ cri.getPage());
+				System.out.println("게시물 수: "+cri.getPerPageNum());
+				System.out.println("bounds 시작지점: "+cri.getPageStart());
+				System.out.println("searchType: " + cri.getSearchType());
+				System.out.println("keyword: " + cri.getKeyword());
+				System.out.println("선택된 카테고리 디테일: " + cri.getCno());
+				System.out.println("카테고리의 게시글 수: "+ adminService.selectCategoryDetail(cri).size());
+				System.out.println("카테고리: "+ adminService.selectCnoList(cri).size());
+				
+				PageMaker pageMaker = new PageMaker();
+				pageMaker.setCri(cri);
+				pageMaker.setTotalCount(adminService.selectCategoryDetailCount(cri));
+				
+				model.addAttribute("list", adminService.selectCategoryDetail(cri));
+				model.addAttribute("map", adminService.selectCnoList(cri));
+				model.addAttribute("cno",cri.getCno());
+				model.addAttribute("pageMaker", pageMaker);
+				model.addAttribute("cri", cri);
+				
+				return "adminPage/detail/detail";
+				
+			} else {
+				return "redirect:index";
+			}
+			
+			
+		} else {
+			return "redirect:login";
+		}
+				
 	}
 
 }

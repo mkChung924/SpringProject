@@ -1,6 +1,8 @@
 package com.brothersplant.persistence;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -57,9 +59,33 @@ public class AdminPageDAOImpl implements AdminPageDAO {
 	}
 
 	@Override
-	public List<BoardVO> selectCategoryDetail(int cno) throws Exception {
+	public List<BoardVO> selectCategoryDetail(SearchCriteria cri) throws Exception {
+
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
 		
-		return null;
+		return sql.selectList("admin.categoryDetail",cri,bounds);
 	}
+	
+	@Override
+	public int selectCategoryDetailCount(SearchCriteria cri) throws Exception {
+		return sql.selectOne("admin.categoryDetailCount",cri);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectCnoList(SearchCriteria cri) throws Exception {
+		return sql.selectList("admin.selectCnoList",cri);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectCityList(SearchCriteria cri) throws Exception {
+		//System.out.println(do1 + ", " + cno);
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("do1", cri);
+//		map.put("cno", cno);
+		System.out.println(cri);
+		return sql.selectList("admin.selectCityList",cri);
+	}
+
+
 
 }

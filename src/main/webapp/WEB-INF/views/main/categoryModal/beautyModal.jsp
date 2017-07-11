@@ -67,7 +67,7 @@
 		$('[name=cno]').val(kind1);
 		$('[name=csno]').val(kind2);
 				
-		alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
+		//alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
 		beauty_form();
 	}
 	function makeUp(){
@@ -78,7 +78,7 @@
 		$('[name=cno]').val(kind1);
 		$('[name=csno]').val(kind2);
 				
-		alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
+		//alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
 		beauty_form();
 	}
 	function plastic(){
@@ -89,7 +89,7 @@
 		$('[name=cno]').val(kind1);
 		$('[name=csno]').val(kind2);
 				
-		alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
+		//alert($('[name=cno]').val() + ", " + $('[name=csno]').val() + ", " + $('[name=do1]').val() + ", " + $('[name=si]').val() + ", " + $('[name=dong]').val());
 		beauty_form();
 	}
 </script>

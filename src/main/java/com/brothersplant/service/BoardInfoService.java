@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
+import com.brothersplant.domain.BoardsCountListVO;
 import com.brothersplant.domain.CategoryInfoVO;
 import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.SelectRegionVO;
@@ -40,5 +41,9 @@ public interface BoardInfoService {
 	
 	public List<SelectRegionVO> sido() throws Exception;
 	public List<SelectRegionVO> gugun(String sido) throws Exception;
+	
+	//카테고리별 지역 가져오기
+	public List<Map<String, Object>> selectCnoList(SearchCriteria cri) throws Exception;
+	public List<Map<String, Object>> selectCityList(String do1, int cno) throws Exception;
 
 }

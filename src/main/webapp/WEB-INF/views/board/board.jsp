@@ -5,18 +5,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- jQuery library -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css"
-	href="/resources/css/board/board.css?ver=2.0">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/resources/css/board/board.css?ver=2.1">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="/resources/js/daum_api2.js"></script>
 
@@ -154,12 +148,61 @@
 	}
 
   	function readPage(tbno) {
-        var w = 1300;
-        var h = 850;
+        var w = screen.width - 300;
+        var h = screen.height - 200;
         var left = (screen.width / 2) - (w / 2);
-        var top = (screen.height / 2) - (h / 2);
+        var top = (screen.height / 2) - (h / 2) - 50;
         window.open("/CommonRead?tbno=" + tbno, tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
     };
+    
+	
+	function dropIt(do1,cno){
+		
+		var p1 = $('[name=place1]').val();
+		var p2 = $('[name=place2]').val();
+		
+		if(p1 == null || p2 == null){
+			p1='';
+			p2='';
+		}
+		
+		$.ajax({
+			url:'citylist',
+			data:'do1='+do1+'&cno='+cno+'&place1='+p1+'&place2='+p2,
+			success:function(result){
+				
+				var div = $('#dropdown-menu-'+do1);
+				html = "";
+				
+				for(var i = 0; i < result.length; i++){
+
+					html += "<li><a onclick='moveIt(\""+do1 +"\",\""+result[i].SI+"\",\""+result[i].DONG+"\")'>"+result[i].SI +" "+ result[i].DONG +" ["+ result[i].COUNT +"]</a></li>";
+						
+				}
+				
+				div.html(html);
+			},
+			error:function(result){
+				alert('error');
+			}
+		});
+		
+	}
+	
+	function moveIt(do1, si, dong){
+		
+		//alert(do1 +","+si);
+		$('#do1').val(do1);
+        $('#si').val(si);
+        $('#dong').val(dong);
+        
+        var formObj = $('form[role="form"]');
+		
+		formObj.attr("method", "POST");
+		formObj.attr("action", "/board");
+		formObj.submit();
+	}
+ 
 
 </script>
 </head>
@@ -238,7 +281,7 @@
 									<button type="button" class="btn btn-warning" id="myLocBtn"
 										onclick="sample4_execDaumPostcode()"
 										style="padding: 0px; width: 66px;">내 위치</button>
-									&nbsp; <i><font size=3>${do1 } ${si } ${dong }</font></i> <span
+									<i><font size=3>${do1 } ${si } ${dong }</font></i> <span
 										id="guide" style="color: #999"></span> <input type="hidden"
 										name="do1" id="do1" value="${do1 }"> <input
 										type="hidden" name="si" id="si" value="${si }"> <input
@@ -249,7 +292,7 @@
 									<button type="button" class="btn btn-info"
 										${cno == 1 ? 'onclick="alert(1)"': 'onclick="alert(2)"' }
 										style="padding: 0px; width: 66px;">카테고리</button>
-									&nbsp; <i><font size=3>${category } - ${subcategory }</font></i>
+									<i><font size=3>${category } - ${subcategory }</font></i>
 									<input type="hidden" name="cno" value="${cno }"> <input
 										type="hidden" name="csno" value="${csno }">
 								</div>
@@ -257,8 +300,8 @@
 									<div class="col-sm-2"
 										style="text-align: center; padding-top: 5">
 										<button type="button" class="btn btn-success"
-											style="padding: 0px; width: 66px;">여행 장소</button>
-										&nbsp; <i><font size=3><b>${p1 } ${p2 }</b></font></i> <input
+											style="padding: 0px; width: 66px;">여행장소</button>
+										<i><font size=3><b>${p1 } ${p2 }</b></font></i> <input
 											type="hidden" name="place1" value="${p1 }"> <input
 											type="hidden" name="place2" value="${p2 }">
 									</div>
@@ -398,6 +441,47 @@
 
 					</ul>
 				</div>
+				
+				<c:forEach items="${cnoMap }" var="map" end="0">
+					<c:if test="${map.size() > 0 }">
+				<div class="col-sm-12" style="text-align: left; margin-bottom: 10px;">
+				<b>다른 지역 살펴보기!</b>
+				</div>
+				<div class="thumbnail" style="display: grid; background-color: transparent;">
+					<div class="col-md-12" style="background-color: transparent; text-align: center;">
+						<c:forEach items="${cnoMap }" var="map">
+						<div class="col-sm-1" style="text-align: center; padding: 5px">
+						<div class="dropup" style="text-align: left;">
+				            <button class="btn btn-danger dropdown-toggle" onclick="dropIt('${map.DO1}',${cno })" type="button" data-toggle="dropdown">
+				                ${map.DO1 } 
+				                <c:if test="${map.COUNT < 10 }">
+				                	[0${map.COUNT }]
+				                </c:if>
+				                <c:if test="${map.COUNT > 9 }">
+				                	[${map.COUNT }]
+				                </c:if>
+				                <span class="caret"></span>
+				            </button>
+				            <ul class="dropdown-menu" id="dropdown-menu-${map.DO1 }"> <!-- <li class="divider"></li> -->
+				            </ul>
+				        </div>
+				        </div>
+					 		<%-- <div class="col-sm-1" style="text-align: center; padding: 20px">
+						 		<div class="dropdown" style="cursor: pointer;">
+						 		
+							 		<div class="infos" id="i${map.DO1 }" style="border: 1px solid black; width: 60px;" onmouseover="showIt('${map.DO1}',${cno })" onmouseleave="hideIt('${map.DO1}')">
+							 			${map.DO1 }<br>${map.COUNT }
+							 		</div>
+							 		<div class="dropdown-content" id="${map.DO1 }" style="width: 50px;">
+								 		
+							 		</div>
+						 		</div>
+					 		</div> --%>
+					 	</c:forEach>	
+					</div>
+				</div>
+					</c:if>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

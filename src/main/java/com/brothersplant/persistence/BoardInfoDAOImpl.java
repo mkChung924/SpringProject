@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
+import com.brothersplant.domain.BoardsCountListVO;
 import com.brothersplant.domain.CategoryInfoVO;
 import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.SelectRegionVO;
@@ -147,6 +148,21 @@ private static final String namespace = "board";
 	@Override
 	public int updateCommonRow(BoardVO vo) throws Exception {
 		return session.update(namespace+".updateCommonRow",vo);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> selectCnoList(SearchCriteria cri) throws Exception {
+		return session.selectList("admin.selectCnoList",cri);
+	}
+
+
+	@Override
+	public List<Map<String, Object>> selectCityList(String do1, int cno) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("do1", do1);
+		map.put("cno", cno);
+		return session.selectList("admin.selectCityList",map);
 	}
 
 }

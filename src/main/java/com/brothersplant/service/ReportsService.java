@@ -5,15 +5,18 @@ import java.util.Map;
 
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.ReportsListVO;
+import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.TableReportVO;
 
 public interface ReportsService {
 
 	public int insertReport(ReportsListVO vo)throws Exception;
 	public List<String> selectReportList() throws Exception;
-	public int countPaging(int kind) throws Exception;
+	public int countPaging(SearchCriteria cri,int kind) throws Exception;
 	
 	public List<ReportsListVO> listCriteria(Criteria cri,int kind)throws Exception;
+	public List<ReportsListVO> listSearchCriteria(SearchCriteria cri,int kind)throws Exception; //페이징된 리스트(ReportsListVO들)
+
 	
 	public int selectedReprotListDelete(int kind,String[] repno) throws Exception; //신고 삭제 패널티 업음 
 	public int selectedReprotListDeletePenalty(int kind, List<String> brnoLists,List<String> uniqueOffenderList) throws Exception; //신고 삭제 패널티 업음 

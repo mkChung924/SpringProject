@@ -40,4 +40,9 @@ public class TestController {
 		return "test/boardTest";
 	}
 	
+	@RequestMapping("home")
+	public String home(){
+		return "test/home";
+	}
+	
 }

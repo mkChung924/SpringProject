@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.ReportsListVO;
+import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.TableReportVO;
 
 
@@ -14,8 +15,9 @@ public interface ReportsDAO {
 	
 	public List<String> selectReportList() throws Exception; //신고 내역 목록 ("욕설,광고 등등 이런거")
 	
-	public int countPaging (int kind)throws Exception;	//종류에 따른 총 data 갯수
+	public int countPaging (SearchCriteria cri, int kind)throws Exception;	//종류에 따른 총 data 갯수
 	public List<ReportsListVO> listCriteria(Criteria cri,int kind)throws Exception; //페이징된 리스트(ReportsListVO들)
+	public List<ReportsListVO> listSearchCriteria(SearchCriteria cri,int kind)throws Exception; //페이징된 리스트(ReportsListVO들)
 
 	public int selectedReprotListDelete(int kind, String[] repno) throws Exception;// 선택한 신고목록을 삭제 패널티 없음
 	public int deletefromBoard_Reply(int kind, List<String> brnoLists) throws Exception; //신고에 해당한 게시글 또는 댓글 삭제 

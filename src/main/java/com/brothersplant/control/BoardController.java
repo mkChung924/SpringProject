@@ -71,6 +71,8 @@ public class BoardController {
 
 			//관심 목록 가져오기
 			session.setAttribute("list", service.selectMyInterestList(cri));
+			System.out.println(service.selectCnoList(cri));
+			session.setAttribute("cnoMap", service.selectCnoList(cri));
 
 		} else {
 			

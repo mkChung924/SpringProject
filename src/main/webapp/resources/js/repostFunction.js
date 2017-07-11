@@ -81,6 +81,8 @@
 		jobForm.submit();
 	});
 	
+
+	
   	function readPage(tbno) {//신고된 게시글 보기
         var w = 1300;
         var h = 850;

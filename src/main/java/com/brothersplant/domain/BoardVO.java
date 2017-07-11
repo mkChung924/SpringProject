@@ -1,13 +1,16 @@
 package com.brothersplant.domain;
 
-import java.util.Date;
+import java.sql.Date;
 
 public class BoardVO {//13
 	private int tbno;
 	private int tb_kind;
 	private String id;
+	private String nickname;
 	private int cno;
 	private int csno;
+	private String cname;
+	private String csname;
 	private String do1;
 	private String si;
 	private String dong;
@@ -25,6 +28,49 @@ public class BoardVO {//13
 	private Date regdate;
 	private Date updatedate;
 	
+	
+	@Override
+	public String toString() {
+		return "BoardVO [tbno=" + tbno + ", tb_kind=" + tb_kind + ", id=" + id + ", nickname=" + nickname + ", cno="
+				+ cno + ", csno=" + csno + ", cname=" + cname + ", csname=" + csname + ", do1=" + do1 + ", si=" + si
+				+ ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2 + ", title=" + title + ", content="
+				+ content + ", notice=" + notice + ", openchat=" + openchat + ", tel=" + tel + ", tel_ch=" + tel_ch
+				+ ", myFavor=" + myFavor + ", likes=" + likes + ", viewcnt=" + viewcnt + ", regdate=" + regdate
+				+ ", updatedate=" + updatedate + "]";
+	}
+
+
+
+	public String getCname() {
+		return cname;
+	}
+
+
+
+	public void setCname(String cname) {
+		this.cname = cname;
+	}
+
+
+
+	public String getCsname() {
+		return csname;
+	}
+
+
+
+	public void setCsname(String csname) {
+		this.csname = csname;
+	}
+
+
+
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 	public int getTbno() {
 		return tbno;
 	}
@@ -152,22 +198,7 @@ public class BoardVO {//13
 		this.updatedate = updatedate;
 	}
 	
-	@Override
-	public String toString() {
-		return "BoardVO [tbno=" + tbno + ", tb_kind=" + tb_kind + ", id=" + id + ", cno=" + cno + ", csno=" + csno
-				+ ", do1=" + do1 + ", si=" + si + ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2
-				+ ", title=" + title + ", content=" + content + ", notice=" + notice + ", openchat=" + openchat
-				+ ", tel=" + tel + ", tel_ch=" + tel_ch + ", myFavor=" + myFavor + ", likes=" + likes + ", viewcnt="
-				+ viewcnt + ", regdate=" + regdate + ", updatedate=" + updatedate + ", getTbno()=" + getTbno()
-				+ ", getTb_kind()=" + getTb_kind() + ", getId()=" + getId() + ", getCno()=" + getCno() + ", getCsno()="
-				+ getCsno() + ", getDo1()=" + getDo1() + ", getSi()=" + getSi() + ", getDong()=" + getDong()
-				+ ", getPlace1()=" + getPlace1() + ", getPlace2()=" + getPlace2() + ", getTitle()=" + getTitle()
-				+ ", getContent()=" + getContent() + ", getNotice()=" + getNotice() + ", getOpenchat()=" + getOpenchat()
-				+ ", getTel()=" + getTel() + ", getTel_ch()=" + getTel_ch() + ", getMyFavor()=" + getMyFavor()
-				+ ", getLikes()=" + getLikes() + ", getViewcnt()=" + getViewcnt() + ", getRegdate()=" + getRegdate()
-				+ ", getUpdatedate()=" + getUpdatedate() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
-	}
+
 	
 
 

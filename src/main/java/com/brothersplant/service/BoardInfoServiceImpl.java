@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
+import com.brothersplant.domain.BoardsCountListVO;
 import com.brothersplant.domain.CategoryInfoVO;
 import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.SelectRegionVO;
@@ -129,5 +130,16 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	public int updateCommonRow(BoardVO vo) throws Exception {
 		return dao.updateCommonRow(vo);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectCnoList(SearchCriteria cri) throws Exception {
+		return dao.selectCnoList(cri);
+	}
+
+	@Override
+	public List<Map<String, Object>> selectCityList(String do1, int cno) throws Exception {
+		return dao.selectCityList(do1, cno);
+	}
+
 
 }
