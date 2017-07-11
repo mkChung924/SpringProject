@@ -24,7 +24,7 @@
 <script>
 	tinymce.init({
 		selector : '#editor',
-		height : 500,
+		height : 660,
 		readonly : true,
 		menubar : false,
 		toolbar : false
@@ -48,7 +48,7 @@
 				<i class="fa fa-heart"></i>
 				<input type="hidden" name="userid" id="{{id}}" value={{id}}>
 				<input type="hidden" name="rno" id="{{rno}}">
-				<a class="btn btn-info btn-xs" style="float: right; margin-left: 5px;" id="msgSend" onclick="msgSend('{{id}}')">메시지함</a>
+				<a class="btn btn-info btn-xs" style="float: right; margin-left: 5px;" id="msgSend" onclick="msgSend('{{id}}')">메시지</a>
 				{{#viewModifyBtn id}}
 				<a class="btn btn-primary btn-xs" data-toggle="modal" data-target="#myModal" style="float: right; margin-left: 5px;" id="replyModify">Modify</a>
 				{{else}}
@@ -249,10 +249,10 @@
 	}
 	
 	$(document).on("click", "#updateBoard", function() {
-		var w = 800;
-		var h = 400;
+		var w = 750;
+		var h = 800;
 		var left = (screen.width / 2) - (w / 2);
-		var top = (screen.height / 2) - (h / 2);
+		var top = (screen.height / 2) - (h / 2) - 50;
 		window.open("/CommonUpdate?tbno=" + ${commonBoard.tbno }, ${commonBoard.tbno } + "번 게시글 수정", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 	   	self.close();
 	});
@@ -317,42 +317,37 @@
 	
 
 </script>
-<title>Insert title here</title>
+<title>${commonBoard.title }</title>
 </head>
 <body>
-	<div class="container">
-		<h1 style="display: inline;">관심 페이지 이미지로~~</h1>
-		<c:if test="${commonBoard.id == id}">
-			<input type="button" class="btn btn-danger" id="deleteBoard"
-				value="게시물 삭제" style="float: right;" />
-		</c:if>
-		<c:if test="${commonBoard.id == id || auth == 2}">
-			<input type="button" class="btn btn-info" id="updateBoard"
-				value="게시물 수정" style="float: right; margin-right: 15px;" />
-		</c:if>
-		<input type="hidden" id="userid" value="${id }" readonly> <input
-			type="hidden" id="bno" value="${commonBoard.tbno }" readonly>
-		<div class="row">
+		<br>
+		<div class="col-sm-12">
 			<div class="col-sm-6">
-				<!-- 왼쪽 div -->
-				<input type="text" class="form-control" id="title"
-					value="${commonBoard.title}" placeholder="제목 입력란" readonly>
-				<br> <input type="text" class="form-control" id="title"
-					value="${commonBoard.notice}" placeholder="공지 사항" readonly>
-				<br>
-				<textarea id="editor" name="content" readonly="readonly"
-					style="width: 100%;">${commonBoard.content}</textarea>
+				<label>제목</label>
+				<input type="text" class="form-control" id="title" value="${commonBoard.title}" placeholder="제목 입력란" readonly><br>
+				<label>내용</label>
+				<textarea id="editor" name="content" readonly="readonly" style="width: 100%;">${commonBoard.content}</textarea>
+				<input type="hidden" id="userid" value="${id }" readonly> 
+				<input type="hidden" id="bno" value="${commonBoard.tbno }" readonly>
 			</div>
-
+			
 			<div class="col-sm-6">
-				<!-- 오른쪽 div -->
-				<label>OpenChat</label> <input type="text" class="form-control"
-					id="title" value="${commonBoard.openchat}" placeholder="작성자"
-					readonly> <br>
-
-				<!-- ================ 즐겨 찾기 표시 -->
+				<c:if test="${commonBoard.id == id}">
+				<input type="button" class="btn btn-danger" id="deleteBoard"
+					value="삭제" style="float: right;"/>
+				</c:if>
+				<c:if test="${commonBoard.id == id || auth == 2}">
+					<input type="button" class="btn btn-info" id="updateBoard"
+						value="수정" style="float: right; margin-right: 15px;"/><br>
+				</c:if>
+				<label>공지사항</label>
+				<input type="text" class="form-control" id="title" value="${commonBoard.notice}" placeholder="공지 사항" readonly><br>
+				<label>오픈 채팅방</label> 
+				<input type="text" class="form-control" id="title" value="${commonBoard.openchat}" placeholder="작성자" readonly> <br>
+				
+				<div class="col-sm-12">
 				<c:if test="${commonBoard.myFavor == 1 }">
-					<div class="col-md-6">
+					<div class="col-sm-1">
 						<p class="p-${commonBoard.tbno }" align="left">
 							<i class="glyphicon glyphicon-star" id="bk-${commonBoard.tbno }"
 								onclick="favor(${commonBoard.tbno})" data-toggle="bookmark"
@@ -362,7 +357,7 @@
 					</div>
 				</c:if>
 				<c:if test="${commonBoard.myFavor == 0 }">
-					<div class="col-md-6">
+					<div class="col-sm-1">				
 						<p align="left">
 							<i class="glyphicon glyphicon-star-empty"
 								id="bk-${commonBoard.tbno }"
@@ -370,61 +365,42 @@
 								data-placement="bottom" title="즐겨찾기 추가"
 								style="font-size: 25px; cursor: pointer;"></i>
 						</p>
-					</div>
+					</div>	
 				</c:if>
-				<!-- ================ 즐겨 찾기 표시 끝 -->
-				
-				<!-- ================ 게시글 작성자에게 메시지 보내기 표시 -->
-				<a class="btn btn-info btn-xs" style="float: right; margin-left: 5px;" id="msgSend" onclick="msgSend('${commonBoard.id}')">메시지함</a>
-				<!-- ================ 게시글 작성자에게 메시지 보내기 표시 끝 -->
-				
-				<!-- 신고 -->	
-				<a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal2" style="float: right; margin-left: 5px;" id="reportSendBoard" onclick="reportSend('${commonBoard.title}','${commonBoard.tbno}','${commonBoard.id}',1)">신고</a>			
-				
-				<!-- ================ 좋아요 표시 끝 -->
-				<p align="right">
-					<span class="badge" style="background-color: blue"
-						onclick="likes(${commonBoard.tbno})" id="likeCnt">${commonBoard.likes }</span>
-					<i class="glyphicon glyphicon-thumbs-up" data-toggle="like"
-						style="size: 50px;" data-placement="top" title="좋아요"
-						onclick="likes(${commonBoard.tbno})"></i>
-				</p>
-				<!-- ================ 좋아요 표시 끝 -->
-
-
-				<label>전화 번호</label>
-				<div>
-					<c:set var="telParts" value="${fn:split(commonBoard.tel, '-')}" />
-					<input class="form-control" id="inputPhone" maxlength="4"
-						name="phone1" required="required" size="3" type="tel"
-						value="${telParts[0]}" style="width: 25%; display: inline"
-						readonly>- <input class="form-control" id="inputPhone"
-						maxlength="4" name="phone2" required="required" size="3"
-						type="tel" value="${telParts[1]}"
-						style="width: 25%; display: inline" readonly>- <input
-						class="form-control" id="inputPhone" maxlength="4" name="phone3"
-						required="required" size="3" type="tel" value="${telParts[2]}"
-						style="width: 25%; display: inline" readonly>
+					<div class="col-sm-2" style="margin-top: 2px;">
+						<p align="left">
+							<span class="badge" style="background-color: blue" onclick="likes(${commonBoard.tbno})" id="likeCnt">${commonBoard.likes }</span>
+							<i class="glyphicon glyphicon-thumbs-up" data-toggle="like" style="size: 50px;" data-placement="top" title="좋아요"
+								onclick="likes(${commonBoard.tbno})"></i>
+						</p>
+					</div>
+					<div class="col-sm-9" style="text-align: right; margin-top: 3px;">
+						<a class="btn btn-info btn-xs" style="float: right; margin-left: 5px;" id="msgSend" onclick="msgSend('${commonBoard.id}')">메시지</a>
+						<a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal2" style="float: right; margin-left: 5px;"
+						 id="reportSendBoard" onclick="reportSend('${commonBoard.title}','${commonBoard.tbno}','${commonBoard.id}',1)">신고</a>			
+								
+					</div>
 				</div>
-				<div style="margin-top: 10px;">
-					<input type="text" class="form-control" id="replyContent"
-						placeholder="댓글 입력" style="width: 75%; display: inline"> <input
-						id="addReply" type="button" class="btn btn-success" value="입력">
+				<br>
+				<div class="reply" style="text-align: right; margin-top: 10px;">
+					<input type="text" class="form-control" id="replyContent" placeholder="댓글 입력" style="width: 85%; display: inline"> 
+					<input id="addReply" type="button" class="btn btn-success" value="입력" style="display: inline;">
 				</div>
-				<hr>
 				<!-- 여기 부터 댓글 부분 -->
-
 				<div class="comments-container scrollbar force-overflow"
-					style="margin-top: 10px; width: 100%; overflow: scroll overfl; overflow:x:hidden; height: 500px"
+					style="margin-top: 10px; width: 100%; overflow: scroll overfl; overflow:x:hidden; height: 520px; background-color: #EBF7FF;
+					border-radius: 1%;"
 					id="scrollbar119">
 					<ul id="comments-list" class="comments-list">
 					</ul>
 				</div>
-			</div>
-			<!-- 두번째 div -->
+				
+
+			</div> <!-- 오른쪽  -->
+		
 		</div>
+
 		<!-- 통합 div -->
-	</div>
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" role="dialog">
 		<div class="modal-dialog">

@@ -28,6 +28,9 @@ public class BoardListVO {
 	private String replies;
 	private String myfavor;
 	private int viewCnt;
+	private String image;
+	
+
 	
 	@Override
 	public String toString() {
@@ -35,9 +38,23 @@ public class BoardListVO {
 				+ ", ddate=" + ddate + ", do1=" + do1 + ", si=" + si + ", dong=" + dong + ", place1=" + place1
 				+ ", place2=" + place2 + ", cno=" + cno + ", csno=" + csno + ", cname=" + cname + ", csname=" + csname
 				+ ", tbno=" + tbno + ", title=" + title + ", likes=" + likes + ", replies=" + replies + ", myfavor="
-				+ myfavor + ", viewCnt=" + viewCnt + "]";
+				+ myfavor + ", viewCnt=" + viewCnt + ", image=" + image + "]";
 	}
-	
+
+
+
+	public String getImage() {
+		return image;
+	}
+
+
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+
+
 	public int getViewCnt() {
 		return viewCnt;
 	}

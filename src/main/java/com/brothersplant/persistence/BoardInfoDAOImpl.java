@@ -179,5 +179,9 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 		map.put("id", id);
 		return session.selectOne(namespace+".iwroteTOTCnt",map);
 	}
+	@Override
+	public List<BoardVO> selectAdminTravel(SearchCriteria cri) throws Exception {
+		return session.selectList(namespace + ".selectTravelAdmin",cri);
+	}
 
 }

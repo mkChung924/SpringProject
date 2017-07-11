@@ -231,34 +231,33 @@
 			<br>
 			<!-- 관리자 여행 추천 게시글 -->
 			<c:if test="${cno == 1 }">
+				<c:forEach items="${travelList }" var="travel">
 				<div class="row">
 					<div class="col-md-3">
 						<div class="thumbnail m">
-							<img src="http://placehold.it/320x200" alt="ALT NAME"
+							<img src="${travel.image }" alt="ALT NAME"
 								class="img-responsive" />
 							<div class="caption">
 								<h3>
-									<i>속초로 떠나요 !</i>
+									<i>${travel.title } !</i>
 								</h3>
-								<p>Description</p>
+								<p>${travel.notice }</p>
 								<p align="center">
-									<a href="#" class="btn btn-primary btn-block">Open</a>
+									<a href="#" class="btn btn-primary btn-block">떠나자!!</a>
 								</p>
 							</div>
 							<div style="padding-bottom: 10px;">
-								<i class="glyphicon glyphicon-comment" data-toggle="comment"
-									data-placement="bottom" title="댓글"></i>&nbsp; <span
-									class="badge" style="background-color: gray">2</span>
-								&nbsp;&nbsp;&nbsp; <i class="glyphicon glyphicon-thumbs-up"
-									data-toggle="like" data-placement="top" title="좋아요"></i>&nbsp;
-								<span class="badge" style="background-color: blue">5</span>
-								&nbsp;&nbsp;&nbsp; <i class="glyphicon glyphicon-tags"
-									data-toggle="review" data-placement="bottom" title="후기"></i>&nbsp;
+								<i class="glyphicon glyphicon-comment" data-toggle="comment" data-placement="bottom" title="댓글"></i>&nbsp; 
+								<span class="badge" style="background-color: gray">${travel.replies }</span>&nbsp;&nbsp;&nbsp; 
+								<i class="glyphicon glyphicon-thumbs-up" data-toggle="like" data-placement="top" title="좋아요"></i>&nbsp;
+								<span class="badge" style="background-color: blue">${travel.likes }</span>&nbsp;&nbsp;&nbsp; 
+								<i class="glyphicon glyphicon-tags" data-toggle="review" data-placement="bottom" title="후기"></i>&nbsp;
 								<span class="badge" style="background-color: green">1</span>
 							</div>
 						</div>
 					</div>
 				</div>
+				</c:forEach>
 				<div class="row"
 					style="text-align: right; margin-right: 20px; margin-top: -5px;">
 					<button type="button" class="btn btn-success">
@@ -311,29 +310,40 @@
 								</select> <input type="text" class="form-control t" id="keywords"
 									name="keyword" autocomplete="off" value="${keyword }">
 								<button type="button" class="btn btn-default" id="search">검색</button>
-								
-								<div  style="width:100%; float: right; margin-top: 10px; margin-left: 10px; margin-bottom: 10px;">
+								<div style="text-align: right; margin-top: 10px;">
 									<c:if test="${cno != 1 }">
 										<button type="button" class="btn btn-default" id="all">전체
 											보기</button>
 									</c:if>
-									<select class="form-control" id="perPageNum" name="pageNum" style="display: inline; width: 120px;">
+									<select class="form-control" id="perPageNum" name="pageNum"
+										style="display: inline; width: 100px;">
 										<c:out value=""></c:out>
-										<option value=9 ${pageNum == 9 ? 'selected': '' }>9개씩 보기</option>
-										<option value=15 ${pageNum == 15 ? 'selected': '' }>15개씩 보기</option>
-										<option value=30 ${pageNum == 30 ? 'selected': '' }>30개씩 보기</option>
-										<option value=60 ${pageNum == 60 ? 'selected': '' }>60개씩 보기</option>
+										<option value=9 ${pageNum == 9 ? 'selected': '' }>9개씩
+											보기</option>
+										<option value=15 ${pageNum == 15 ? 'selected': '' }>15개씩
+											보기</option>
+										<option value=30 ${pageNum == 30 ? 'selected': '' }>30개씩
+											보기</option>
+										<option value=60 ${pageNum == 60 ? 'selected': '' }>60개씩
+											보기</option>
 
 									</select>
-										<c:if test="${cno == 1 }">
-											<button type="button" class="btn btn-default" id="review" style="background-color: black; color: white">여행 후기 모아보기</button>
-											<input type="hidden" name="tb_kind" value="${tb_kind }">
-											<button type="button" class="btn btn-default" id="together" style="background-color: black; color: white">관심글 모아보기</button>
-											<button type="button" class="btn btn-default" id="write">게시글 및 후기 작성</button>
-										</c:if>
-										<c:if test="${cno != 1 }">
-											<button type="button" class="btn btn-default" id="write">게시글 작성</button>
-										</c:if>
+
+									<c:if test="${cno == 1 }">
+										<button type="button" class="btn btn-default" id="review"
+											style="background-color: black; color: white">여행 후기
+											모아보기</button>
+										<input type="hidden" name="tb_kind" value="${tb_kind }">
+										<button type="button" class="btn btn-default" id="together"
+											style="background-color: black; color: white">관심글
+											모아보기</button>
+										<button type="button" class="btn btn-default" id="write">게시글
+											및 후기 작성</button>
+									</c:if>
+									<c:if test="${cno != 1 }">
+										<button type="button" class="btn btn-default" id="write">게시글
+											작성</button>
+									</c:if>
 								</div>
 							</form>
 						</div>

@@ -20,14 +20,33 @@ public class BoardVO {// 13
 	private String content;
 	private String notice;
 	private String openchat;
-	private String tel;
-	private int tel_ch;
 	private int myFavor;
 	private int likes;
 	private int viewcnt;
 	private Date regdate;
 	private Date updatedate;
 	private String image;
+	private int replies;
+
+	
+	
+	@Override
+	public String toString() {
+		return "BoardVO [tbno=" + tbno + ", tb_kind=" + tb_kind + ", id=" + id + ", nickname=" + nickname + ", cno="
+				+ cno + ", csno=" + csno + ", cname=" + cname + ", csname=" + csname + ", do1=" + do1 + ", si=" + si
+				+ ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2 + ", title=" + title + ", content="
+				+ content + ", notice=" + notice + ", openchat=" + openchat + ", myFavor=" + myFavor + ", likes="
+				+ likes + ", viewcnt=" + viewcnt + ", regdate=" + regdate + ", updatedate=" + updatedate + ", image="
+				+ image + ", replies=" + replies + "]";
+	}
+
+	public int getReplies() {
+		return replies;
+	}
+
+	public void setReplies(int replies) {
+		this.replies = replies;
+	}
 
 	public String getCname() {
 		return cname;
@@ -165,21 +184,6 @@ public class BoardVO {// 13
 		this.openchat = openchat;
 	}
 
-	public String getTel() {
-		return tel;
-	}
-
-	public void setTel(String tel) {
-		this.tel = tel;
-	}
-
-	public int getTel_ch() {
-		return tel_ch;
-	}
-
-	public void setTel_ch(int tel_ch) {
-		this.tel_ch = tel_ch;
-	}
 
 	public int getMyFavor() {
 		return myFavor;
@@ -229,13 +233,6 @@ public class BoardVO {// 13
 		this.image = image;
 	}
 
-	@Override
-	public String toString() {
-		return "BoardVO [tbno=" + tbno + ", tb_kind=" + tb_kind + ", id=" + id + ", cno=" + cno + ", csno=" + csno
-				+ ", do1=" + do1 + ", si=" + si + ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2
-				+ ", title=" + title + ", content=" + content + ", notice=" + notice + ", openchat=" + openchat
-				+ ", tel=" + tel + ", tel_ch=" + tel_ch + ", myFavor=" + myFavor + ", likes=" + likes + ", viewcnt="
-				+ viewcnt + ", regdate=" + regdate + ", updatedate=" + updatedate + ", image=" + image + "]";
-	}
+
 
 }

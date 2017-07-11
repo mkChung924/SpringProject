@@ -24,13 +24,11 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 
 	@Override
 	public List<String> selectDo() throws Exception {
-		// TODO Auto-generated method stub
 		return dao.selectDo();
 	}
 
 	@Override
 	public List<String> selectSi(String do1) throws Exception {
-		// TODO Auto-generated method stub
 		return dao.selectSi(do1);
 	}
 
@@ -155,5 +153,9 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	@Override
 	public int iwroteTOTCnt(String id) throws Exception {
 		return dao.iwroteTOTCnt(id);
+	}
+	@Override
+	public List<BoardVO> selectAdminTravel(SearchCriteria cri) throws Exception {
+		return dao.selectAdminTravel(cri);
 	}
 }

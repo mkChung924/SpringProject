@@ -46,6 +46,9 @@ public interface BoardInfoService {
 	//조회수 증가
 	public int addViewCnt(int tbno) throws Exception;
 	
+	//관리자 여행글 가져오기
+	public List<BoardVO> selectAdminTravel(SearchCriteria cri) throws Exception;
+	
 	//카테고리별 지역 가져오기
 	public List<Map<String, Object>> selectCnoList(SearchCriteria cri) throws Exception;
 	public List<Map<String, Object>> selectCityList(String do1, int cno) throws Exception;
