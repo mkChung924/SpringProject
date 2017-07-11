@@ -53,7 +53,7 @@
 	
 	<!-- 카테고리 cname,cno, cno별로 DB개수 출력-->
 	<select id="selectBoardsCount" resultType="boardsCount">
-		select cname,cno,(select count(*) from tbl_boards where cno = a.cno and tbno != 0) count 
+		select cname,cno,(select count(*) from tbl_boards where cno = a.cno and tb_kind != 0) count 
 		from tbl_category a 
 		order by count desc
 		
@@ -65,7 +65,7 @@
 		(select csname from tbl_subcategory where csno= b.csno) csname, title,
 		id, (select nickname from userinfos where id = b.id) nickname, regdate, viewcnt 
 		from tbl_boards b
-		where cno= #{cno} and tbno != 0
+		where cno= #{cno} and tb_kind != 0
 		<include refid="search2"/>
 		order by regdate desc, do1, csno
 	</select>
@@ -75,14 +75,14 @@
 			select do1, si, place1, place2, tbno,(select csname from tbl_subcategory where csno= b.csno) csname, title,
 			id, (select nickname from userinfos where id = b.id) nickname, regdate, viewcnt 
 			from tbl_boards b
-			where cno= #{cno} and tbno != 0
+			where cno= #{cno} and tb_kind != 0
 			<include refid="search2"/>
 		)
 	</select>
 	
 	<select id="selectCnoList" resultType="java.util.Map">
 		select do1, count(*) count from tbl_boards
-			where cno = #{cno} and tbno != 0
+			where cno = #{cno} and tb_kind != 0
 		<if test="place1 != null">
 			and place1 like #{place1} <!-- and place2 like #{place2} -->
 		</if>
@@ -92,7 +92,7 @@
 	
 	<select id="selectCityList" resultType="java.util.Map">
 		select si, dong, count(*) count from tbl_boards 
-		where do1 like #{do1} and cno = #{cno} and tbno != 0
+		where do1 like #{do1} and cno = #{cno} and tb_kind != 0
 		<if test="place1 neq ''">
 			and place1 like #{place1}
 		</if>

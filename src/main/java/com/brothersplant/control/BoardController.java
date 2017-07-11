@@ -109,6 +109,7 @@ public class BoardController {
 
 			//여행후기 가져오기
 			session.setAttribute("list", service.showTravelReviewList(cri));
+			session.setAttribute("cnoMap", service.selectCnoList(cri));
 			
 		}
 		List<BoardListVO>  list = (List<BoardListVO>)session.getAttribute("list");

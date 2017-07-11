@@ -199,7 +199,8 @@
 			url : '/CommonDelete/'+tbno,
 			success : function(result) {
 				if(result=='success'){
-					opener.location.reload();
+					$('form[role="form"]',opener.document).attr('method', 'POST');
+					$('form[role="form"]',opener.document).submit();
 					self.close();
 				}else{
 					opener.location.reload();
