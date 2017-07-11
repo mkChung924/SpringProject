@@ -14,6 +14,16 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
+<script>
+$(document).on("click",".pagination li a", function(event){
+	event.preventDefault(); 
+	var targetPage = $(this).attr("href");
+	var paging = $("#paging");
+	paging.find("[name='page']").val(targetPage);
+	paging.attr("action","/myContents").attr("method", "get");
+	paging.submit();
+});
+</script>
 <title>마이페이지-내글보기</title>
 </head>
 <body>
@@ -91,8 +101,51 @@
 			<div class="col-md-9">
 	            <div class="profile-content">
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
-	            
-				  마이페이지로 들어왔을 시 [내 글보기]가 실행되도록 합니다. 즉, 마이페이지는 내글보기.jsp
+	            <table class="table">
+					<tr>
+						<th>게시물 번호</th>
+						<th>제목</th>
+						<th>지역1</th>
+						<th>지역2</th>
+						<th>조회수</th>
+						<th>등록날짜</th>
+					</tr>	
+					<c:forEach items="${myboardList }" var="myboard">
+						<tr>
+							<td>${myboard.tbno }</td>
+							<td>${myboard.title }</td>
+							<td>${myboard.place1 }</td>
+							<td>${myboard.place2 }</td>
+							<td>${myboard.viewcnt }</td>
+							<td>${myboard.regdate }</td>
+						</tr>
+					</c:forEach>
+	            </table>
+				
+				<div class="div1" style="text-align: center">
+					<c:if test="${pageMaker.prev}">
+						<ul class="pagination">
+							<li><a href="${pageMaker.startPage - 1}">&laquo;</a></li>
+						</ul>
+					</c:if>
+					<ul class="pagination">
+						<c:forEach begin="${pageMaker.startPage }" end="${pageMaker.endPage }" var="idx">
+							<li <c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+								<a href="${idx}">${idx}</a>
+							</li>
+						</c:forEach>
+					</ul>
+					<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+						<ul class="pagination">
+							<li><a href="${pageMaker.endPage +1}">&raquo;</a></li>
+						</ul>
+					</c:if>		
+				</div>
+					
+					<form id="paging">
+						<input type='hidden' name="page" value=${pageMaker.cri.page }>
+				 		<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum }>
+					</form>
 	            </div>
 			</div>
 		</div>

@@ -11,6 +11,7 @@ import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.BoardsCountListVO;
 import com.brothersplant.domain.CategoryInfoVO;
+import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.SelectRegionVO;
 import com.brothersplant.persistence.BoardInfoDAO;
@@ -144,5 +145,15 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	@Override
 	public List<Map<String, Object>> selectCityList(String do1, int cno) throws Exception {
 		return dao.selectCityList(do1, cno);
+	}
+
+	@Override
+	public List<BoardListVO> iwrote(String id,Criteria cri) throws Exception {
+		return dao.iwrote(id,cri);
+	}
+
+	@Override
+	public int iwroteTOTCnt(String id) throws Exception {
+		return dao.iwroteTOTCnt(id);
 	}
 }

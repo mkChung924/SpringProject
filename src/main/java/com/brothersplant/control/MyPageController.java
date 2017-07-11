@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.brothersplant.domain.Criteria;
+import com.brothersplant.domain.PageMaker;
 import com.brothersplant.domain.SecureVO;
 import com.brothersplant.domain.UserInfoVO;
+import com.brothersplant.service.BoardInfoService;
 import com.brothersplant.service.MyPageService;
 import com.brothersplant.service.UserInfoService;
 
@@ -25,6 +28,9 @@ public class MyPageController {
 	
 	@Inject
 	private UserInfoService userService;
+	
+	@Inject 
+	private BoardInfoService boardService;
 	
 	
 	@RequestMapping("/mypage")
@@ -50,17 +56,20 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/myContents")
-	public String myContents(HttpSession session, Model model) throws Exception {
+	public String myContents(HttpSession session, Model model,Criteria cri) throws Exception {
 		System.out.println("마이페이지-내글보기 입장");
 		String id = (String) session.getAttribute("id");
 		int auth = (int) session.getAttribute("auth");
 		if(id != null && auth != 2){
-		System.out.println("my정보: "+service.myPageInfo(id));
-		System.out.println(service.secureCode());
-		System.out.println(id);
-		
+			
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(boardService.iwroteTOTCnt(id));	
+			
 		model.addAttribute("mypage", service.myPageInfo(id));
-		
+		model.addAttribute("myboardList",boardService.iwrote(id,cri));
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
 		return "mypage/myPageTravelList";
 		} else {
 			return "redirect:login";

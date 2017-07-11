@@ -66,7 +66,7 @@ public class AdminController {
 		
 		if(id != null && auth == 2){
 
-			System.out.println("페이지:"+ cri.getPage());
+/*			System.out.println("페이지:"+ cri.getPage());
 			System.out.println("게시물 수: "+cri.getPerPageNum());
 			System.out.println("bounds 시작지점: "+cri.getPageStart());
 			System.out.println("searchType: " + cri.getSearchType());
@@ -74,7 +74,7 @@ public class AdminController {
 			System.out.println("관리자 정보: "+service.myPageInfo(id));
 			System.out.println("모든 관리자 정보: " + adminService.selectAdminList());
 			System.out.println("모든 회원 정보: " + adminService.selectMemeberList(cri));
-			System.out.println("검색된 회원 수: " + adminService.selectMemeberList(cri).size());
+			System.out.println("검색된 회원 수: " + adminService.selectMemeberList(cri).size());*/
 			//System.out.println(service.secureCode());
 			PageMaker pageMaker = new PageMaker();
 			pageMaker.setCri(cri);
@@ -204,60 +204,6 @@ public class AdminController {
 		
 		return "adminPage/reports/tableReportBox";
 	}
-	
-/*	
-	
-	@RequestMapping("/tableReportContent")
-	public String tableReportContent(int trno, Model model, int page)throws Exception{
-		model.addAttribute("tablereport",service2.readTableReport(trno));
-		model.addAttribute("page",page);
-		return "adminPage/reports/tableReportContent";
-	}
-	
-	@RequestMapping("/tableReportRemove")//receivecontent
-	public String tableReportRemove(Model model,int trno,int page)throws Exception{
-		model.addAttribute("page",page);
-		service2.tableReportRemove(trno);
-		return "redirect:reportBox";
-	}
-
-	@RequestMapping(value="/tableReport",method=RequestMethod.POST)
-	public String tableReportPost(Criteria cri,TableReportVO vo)throws Exception{
-	
-		System.out.println(vo);
-		
-		service2.tableReport(vo);
-	
-		return "redirect:reportBox";
-		
-	}
-
-	@RequestMapping("/tableDelete")
-	public String tableDelete(Model model,int tbno,int page)throws Exception{
-		model.addAttribute("page",page);
-		service2.tableDelete(tbno);
-		return "redirect:reportBox";
-	}
-
-	
-
-	
-	
-	@RequestMapping("/replyRemove")//receivecontent
-	public String replyRemove(Model model,int rno,int page)throws Exception{
-		System.out.println("삭제될 MNO: "+rno);
-		System.out.println("전달된 페이지: "+page);
-		model.addAttribute("page",page);
-		service2.replyRemove(rno);
-		return "redirect:reportBox";
-	}
-	
-	@RequestMapping("/replyContent")
-	public String replyContent(int rno, Model model, int page)throws Exception{
-		model.addAttribute("messages",service2.readReply(rno));
-		model.addAttribute("page",page);
-		return "adminPage/reports/replyContent";
-	}*/
 
 	@RequestMapping(value="/adminWrite", method=RequestMethod.GET)
 	public String adminWrite(HttpSession session, Model model) throws Exception{

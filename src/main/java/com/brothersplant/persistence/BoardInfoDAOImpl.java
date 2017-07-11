@@ -14,6 +14,7 @@ import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.BoardsCountListVO;
 import com.brothersplant.domain.CategoryInfoVO;
+import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.SelectRegionVO;
 
@@ -162,6 +163,21 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 		map.put("do1", do1);
 		map.put("cno", cno);
 		return session.selectList("admin.selectCityList", map);
+	}
+
+	@Override
+	public List<BoardListVO> iwrote(String id,Criteria cri) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
+		return session.selectList(namespace+".iwrote", map,bounds);
+	}
+
+	@Override
+	public int iwroteTOTCnt(String id) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", id);
+		return session.selectOne(namespace+".iwroteTOTCnt",map);
 	}
 
 }
