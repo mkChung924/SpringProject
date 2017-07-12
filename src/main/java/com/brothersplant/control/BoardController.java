@@ -204,16 +204,16 @@ public class BoardController {
 	@RequestMapping(value = "CommonUpdate", method=RequestMethod.POST)
 	public String CommonUpdate(BoardVO vo,Model model,HttpSession session) throws Exception{
 		if(session.getAttribute("id") != null){
-			System.out.println(vo);
-			 if(service.updateCommonRow(vo) >0){
+			System.out.println("수정될 내용: "+vo);
+			 if(service.updateCommonRow(vo) > 0){
 				 System.out.println("수정 성공");
-				 return "selfClose";				 
+				 return "selfClose2";				 
 			 }else{
-				 System.out.println("수정 삭제");
-				 return "selfClose";				 				 
+				 System.out.println("수정 실패");
+				 return "selfClose2";				 				 
 			 }
 		}else{
-			return "selfClose";
+			return "selfClose2";
 		}
 	}
 	@RequestMapping(value = "CommonDelete/{data}", method= RequestMethod.DELETE)

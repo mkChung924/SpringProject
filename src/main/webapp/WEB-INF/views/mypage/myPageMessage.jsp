@@ -192,8 +192,8 @@
 		            </div>
 		            <div class="col-sm-6" style="text-align: right; margin-top: 15px">
 		           	<form name="removeCheck">
-							<input type="button" id="button1" value="수신 메세지함"> &nbsp; 
-							<input type="button" id="button2" value="발신 메세지함">
+							<input type="button" id="button1" value="받은 메세지함"> &nbsp; 
+							<input type="button" id="button2" value="보낸 메세지함">
 					</form>
 		            </div>
 		            <br><br>

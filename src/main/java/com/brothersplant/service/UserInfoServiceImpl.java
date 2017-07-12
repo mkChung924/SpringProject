@@ -91,8 +91,14 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 
 	@Override
-	public List<HashMap<String, String>> isYoublacklist(String id, String pw) throws Exception {
-		return dao.isYoublacklist(id, pw);
+	public List<HashMap<String, String>> isYoublacklist(String id) throws Exception {
+		return dao.isYoublacklist(id);
+	}
+
+
+	@Override
+	public String getUserAddr(String id) throws Exception {
+		return dao.selectAddr(id);
 	}
 
 }

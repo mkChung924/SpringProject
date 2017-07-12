@@ -39,21 +39,25 @@
 			}
 			
 			$('#login').click(function(){
-				popup();
-				setTimeout(login, 2000);
-			});
-			
-			function login(){
+				
 				var id = $('[name=id]').val();
 				var pass = $('[name=pass]').val();
 				
 				if(id.length==0){
-					$('#loadingModal').css('display','none');
 					$("#Fail").html('<br><font color=red>아이디를 입력하세요.</font>');
 				} else if(pass.length == 0){
-					$('#loadingModal').css('display','none');
 					$("#Fail").html('<br><font color=red>비밀번호를 입력하세요.</font>');
 				} else {
+				
+				popup();
+				setTimeout(login, 2000);
+				}
+			});
+			
+			function login(){
+				
+				var id = $('[name=id]').val();
+				var pass = $('[name=pass]').val();
 				
 					$.ajax({
 							url: "/loggingIn",
@@ -62,13 +66,11 @@
 							success:function(result){
 								if(result == 'SUCCESS'){
 									
-									//alert('success');
-									$('#loadingModal').css('display','none');
 									$("#frm").submit();
 									
 								} else {
-									//alert('fail');
-									$('#loadingModal').css('display','none');
+									$('#loaderModal').css('display','none');
+									$('#loader').css('display','none');
 									$("#Fail").html('<br><font color=red>아이디 또는 비밀번호를 확인하세요.</font>');
 									$("[name=id]").val("");
 									$("[name=pass]").val("");
@@ -77,11 +79,13 @@
 							}
 							
 					});//ajax
-				}
+				
 			}	
 			
 			function popup(){
-				$('#loadingModal').css('display','block');
+				$('#loaderModal').css('display','inline-block');
+				$('#loader').css('display','inline-block');
+				$("#Fail").html('');
 			}
 
 			
@@ -103,7 +107,17 @@
 	    <input type="text" class="form-control" placeholder="ID" name="id" pattern="[a-z0-9]{8,15}" title="아이디는 영문 소문자와 숫자로 조합된 8~15자입니다." required autocomplete="off"><br>
 	    <div class="pass"><b>PASSWORD</b></div><br>
 	    <input type="password" class="form-control" placeholder="PASSWORD" name="pass" required>
-	    <div id="Fail"></div><br>
+	    <div id="Fail">			
+	    </div>
+	    <div id="cool">
+	    	<div class="modal" id="loaderModal" style="display: none;">
+				<div class="modal-body" id="loader" style="display:inline-block; z-index:2; padding:10px; margin-top: 20%; margin-bottom: 1; text-align: center; background-color: gray">
+					<div class="loader"></div><br>
+					<b><font color=white size="3">로그인 중...</font></b>
+				</div>
+			</div>	
+	    </div>
+	    <br>
 	    <button type="button" class="btn btn-success" id="login">Login</button><br><br>
 	    
 	 	   <b><a id="myBtn" style="cursor: pointer;">Sign-Up</a></b>&nbsp;&nbsp;&nbsp;
@@ -113,12 +127,6 @@
 	  </div>
 	</form>
 	
-<div id="loadingModal" class="modal">
-		<div class="modal-body" style="margin-top: 20%; margin-left: 40%">
-			<div class="loader"></div><br>
-			<b>로그인 중...</b>
-		</div>
-</div>
 	
 	<%@ include file="join.jsp" %>
 	<%@ include file="idFind.jsp" %>

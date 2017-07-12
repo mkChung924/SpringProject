@@ -107,8 +107,8 @@
 	<h1>MESSAGE </h1>
 	<HR>
 	<form name="removeCheck">
-		<input type="button" id="button1" value="수신 메세지함">
-		<input type="button" id="button2" value="발신 메세지함">
+		<input type="button" id="button1" value="받은 메세지함">
+		<input type="button" id="button2" value="보낸 메세지함">
 	</form>
 	<div class="container">
 		<div id="div1" style="display: none;"></div>

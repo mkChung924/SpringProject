@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
@@ -10,16 +9,38 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>	
 <script src="/resources/js/jquery3.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>보낸 메시지</title>
 <script type="text/javascript">
 
 $(function(){
 	$('#senderRemove').click(function(){
-	document.getElementsByName("senderRemove").submit();
+		
+		var mno = $('[name=mno]').val();
+		var page = $('[name=page]').val();
+		
+		$.ajax({
+				url:'sendRemove',
+				data:'mno='+mno+'&page='+page,
+				success:function(result){
+					if(result == 'success'){
+						opener.location.reload();
+						self.close();
+					}
+					
+				},
+				error:function(result){
+					alert('삭제중 에러가 발생하였습니다');
+				}
+		});
+
 	});
 
-	$('#gobackto2').click(function(){
-		location.href="mailBox?page="+${page};
+	$('#goback').click(function(){
+		self.close();
+	});
+	
+	$('#goback2').click(function(){
+		self.close();
 	});
 });
 </script>
@@ -27,23 +48,42 @@ $(function(){
 	body{
 		font-family: "fontello";
 	}
+	
+	.form-control{
+		width: 300px;
+	}
+	label{
+		text-align: left;
+	}
+	.msg {
+		padding: 30px;
+	}
+	b{
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
-<center>
-수신자
-${messages.targetid}<br>
-제목
-${messages.title}<br>
-<textarea rows="25" cols="50">${messages.content}</textarea>
-
-<form action="sendRemove" method="post" name="senderRemove">
-<button id="senderRemove">&#xf083</button>
-<a href="#" id="gobackto2"><i class="glyphicon glyphicon-arrow-left">돌아가기</i></a>
-
-<input type="hidden" name="mno" value="${messages.mno }">
-<input type="hidden" name="page" value="${page }">
-</form>
-</center>
+<div class="msg">
+	<label>받는 사람</label><br>
+	<input type="text" class="form-control" value="${messages.targetid}" readonly="readonly">
+	<br>
+	<label>제목</label><br>
+	<input type="text" class="form-control" value="${messages.title}" readonly="readonly">
+	<br>
+	<label>내용</label><br>
+	<textarea class="form-control" rows="10" cols="50" readonly="readonly">${messages.content}</textarea>
+	<br>
+	<div class="buttons" style="text-align: center">
+	<form action="sendRemove" method="post" name="remove" id="remove">
+	
+		<b id="goback" class="glyphicon glyphicon-arrow-left"></b> <b id="goback2">닫기</b> &nbsp; &nbsp; &nbsp; &nbsp;
+		<b id="senderRemove"><font color=red size="4">&#xf083</font> 삭제</b> &nbsp; &nbsp; &nbsp; &nbsp;
+	
+	<input type="hidden" name="mno" value="${messages.mno }">
+	<input type="hidden" name="page" value="${page }">
+	</form>
+	</div>
+</div>
 </body>
 </html>

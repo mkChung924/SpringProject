@@ -19,14 +19,17 @@ body{
 	border-radius: 5%;
 }
 
-/*
-#together:hover {
-	background-color: pink;
+.footer{
+	display: grid;
+	text-align: center;
+	padding: 25px;
+	padding-left: 100px;
+	padding-right: 100px;
+	background-color: #FFD9EC;
+	border: 3px dashed fuchsia;
+	border-radius: 25px;
 }
 
-#together:focus {
-	background-color: pink;
-} */
 
 .t {
 	width: 180;
