@@ -19,109 +19,14 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- 프로필사진 업로드 -->
+<script type="text/javascript" src="/resources/js/profileUpload.js"></script>
+
 <title>관리자페이지</title>
 
-<!-- TinyMCE -->
-<script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
-<script>
-	tinymce.init({
-		selector : '#editor', // change this value according to your HTML
-		auto_focus : 'element1',
-		toolbar : 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | imageupload',
-		menubar : false,
-		plugins : [
-			'advlist autolink lists link image charmap print preview anchor',
-			'searchreplace visualblocks code fullscreen',
-			'insertdatetime media table contextmenu paste code'
-		],
-		setup : function(editor) {
-			// create input and insert in the DOM
-			var inp = $('<input id="tinymce-uploader" type="file" name="pic" accept="image/*" style="display:none">');
-			$(editor.getElement()).parent().append(inp);
-
-			// add the image upload button to the editor toolbar
-			editor.addButton('imageupload', {
-				text : '이미지',
-				icon : 'image',
-				onclick : function(e) { // when toolbar button is clicked, open file select modal
-
-					inp.trigger('click');
-				}
-			});
-
-			// when a file is selected, upload it to the server
-			inp.on("change", function(e) {
-
-				uploadFile($(this), editor);
-			});
-		}
-	});
-	function uploadFile(inp, editor) {
-		var input = inp.get(0);
-		var data = new FormData();
-		data.append('files', input.files[0]);
-
-		$.ajax({
-			url : '/rest2/a/images',
-			type : 'POST',
-			data : data,
-			enctype : 'multipart/form-data',
-			dataType : 'json',
-			processData : false, // Don't process the files
-			contentType : false, // Set content type to false as jQuery will tell the server its a query string request
-			success : function(data, textStatus, jqXHR) {
-				editor.insertContent('<img class="content-img" src="${pageContext.request.contextPath}' + data.location + '" data-mce-src="${pageContext.request.contextPath}' + data.location
-					+ '" alt=' + data.location + '/>');
-			},
-			error : function(jqXHR, textStatus, errorThrown) {
-				if (jqXHR.responseText) {
-					errors = JSON.parse(jqXHR.responseText).errors
-					alert('Error uploading image: ' + errors.join(", ") + '. Make sure the file is an image and has extension jpg/jpeg/png.');
-				}
-			}
-		});
-	}
-</script>
 
 <script>
-
-	
-	$(function(){		
-		var str="";
-		$.ajax({
-			type : 'post',
-			url : '/rest/selectSido',
-			dateType : "json",
-			success : function(result) {
-				str="<option>지역 선택</option>";
-				for(var i=0; i<result.length;i++){
-					str+="<option>"+result[i].ds_sido+"</option>"
-				}
-				$("#place1").html(str);
-			}
-		});
 		
-		/* 카테고리2 변경시 그 값이 저장됨 */
-		$('#place1').on("change",function(){
-			var do1 = $("#place1").val();
-			var str="";
-			$.ajax({
-				type : 'post',
-				url : '/rest/selectGugun',
-				dateType : "json",
-				data : {ds_sido : do1}, 
-				success : function(result) {
-					str="<option>지역 선택</option>";
-					for(var i=0; i<result.length;i++){
-						str+="<option>"+result[i].ds_gugun+"</option>"
-					}
-					$("#place2").html(str);
-				}
-			});
-		});
-	});
-	
-	
 	function showDetails(cno, count){
 		if(count != 0){
 			
@@ -215,10 +120,10 @@ body {
 							<img src="${admin.profile }" class="img-responsive" alt="프로필사진" id="profilePic">
 							<br>
 						</c:if>
-						<button type="button" class="btn btn-default">
-							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-							<font size=2>사진 수정</font>
+						<button type="button" class="btn btn-default" id="modifyProfilePicture">
+  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
 						</button>
+						<input type="file" style="display: none;" id="fileopen">
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->

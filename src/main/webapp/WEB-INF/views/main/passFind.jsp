@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" type="text/css" href="/resources/css/main/passFind.css?ver=1.1">
+<link rel="stylesheet" type="text/css" href="/resources/css/main/passFind.css?ver=1.3">
 
 <div id="passModal" class="modal">
   <!-- Modal content -->

@@ -341,4 +341,33 @@ public class AdminController {
 		model.addAttribute("travelRow",boardService.selectCommonRow(tbno, (String)session.getId()));
 		return "adminPage/adminTravelUpdate";
 	}
+	
+	@RequestMapping("/adminFavorite")
+	public String myPageFavorite(HttpSession session, Model model) throws Exception {
+		System.out.println("즐겨찾기 입장");
+		String id = (String) session.getAttribute("id");
+		int auth = (int) session.getAttribute("auth");
+		
+		if(id != null){
+			
+			if(auth == 2){
+				System.out.println("my정보: "+service.myPageInfo(id));
+				System.out.println(service.secureCode());
+				System.out.println(id);
+				
+				model.addAttribute("mypage", service.myPageInfo(id));
+				System.out.println(service.getMyBookmarks(id));
+				model.addAttribute("bookmark", service.getMyBookmarks(id));
+				
+				return "adminPage/adminFavorite";
+				
+			} else {
+				return "redirect:index";
+			}
+			
+		} else {
+			return "redirect:login";
+		}
+
+	}
 }

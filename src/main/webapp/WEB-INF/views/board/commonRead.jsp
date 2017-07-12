@@ -21,6 +21,21 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.js"></script>
 <!-- TinyMCE -->
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+<script type="text/javascript" src="http://scmplayer.co/script.js" 
+data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.css',
+'volume':50,'autoplay':true,'shuffle':true,'repeat':1,'placement':'top','showplaylist':false,
+'playlist':[
+{'title':'A Lover`s concerto','url':'https://www.youtube.com/watch?v=KahAPQ9sl6g'},
+{'title':'Early in the morning','url':'https://www.youtube.com/watch?v=aGFuRN0n0pw'},
+{'title':'How Deep Is Your Love','url':'https://www.youtube.com/watch?v=XpqqjU7u5Yc'},
+{'title':'Those were the days','url':'https://www.youtube.com/watch?v=QO9A9u4GyGc'},
+{'title':'You Call It Love','url':'https://www.youtube.com/watch?v=YjtemOT9tWA'},
+{'title':'%uD558%uC6B8%uC758 %uC6C0%uC9C1%uC774%uB294 %uC131','url':'https://www.youtube.com/watch?v=NXt-YY3Xt8Q'},
+{'title':'Reality','url':'https://www.youtube.com/watch?v=arg-TuFxmq0'},
+{'title':'tie a yellow ribbon round the ole oak tree','url':'https://www.youtube.com/watch?v=CFCWv1CUhOE'},
+{'title':'%uC5BC%uC74C%uC5F0%uBABB-%uB450%uBC88%uC9F8 %uB2EC','url':'https://www.youtube.com/watch?v=bfcL8KqpgKs'},
+{'title':'Qui A Tue Grand Maman','url':'https://www.youtube.com/watch?v=-wgqxyOFngY'}]}" >
+</script>
 <script>
 	tinymce.init({
 		selector : '#editor',

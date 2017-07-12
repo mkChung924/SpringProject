@@ -15,9 +15,9 @@
 }
 
 /* Modal Content */
-.modal-content-passfind {
+#modal-content-passfind {
     position: relative;
-    background-color: transparent;
+    background-color: #fefefe;
     margin: auto;
     padding: 0;
     border: 1px solid #888;
