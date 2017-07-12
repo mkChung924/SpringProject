@@ -196,15 +196,7 @@ $(document).on("change","#fileopen",function(){
 			}
 		});
 	});
-	
-	$(document).on("click", "#updateBoard", function() {
-		var w = 750;
-		var h = 800;
-		var left = (screen.width / 2) - (w / 2);
-		var top = (screen.height / 2) - (h / 2) - 50;
-		window.open("/CommonUpdate?tbno=" + ${commonBoard.tbno }, ${commonBoard.tbno } + "번 게시글 수정", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-	   	self.close();
-	});
+
 </script>
 <title>관리자페이지</title>
 </head>
