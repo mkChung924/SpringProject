@@ -8,7 +8,7 @@
 
 		<if test="(tb_kind == 0 ) and (place1 != null)"><!-- 운영자가 쓸때 -->
 			<![CDATA[
-			insert into tbl_boards (tbno,TB_KIND,id,cno,csno,place1,place2,title,content,notice,IMAGE) values (tbl_boards_seq.nextval,#{tb_kind},#{id},#{cno},#{csno},#{place1},#{place2},#{title},#{content},#{notice}#{image})
+			insert into tbl_boards (tbno,TB_KIND,id,cno,csno,place1,place2,title,content,notice,IMAGE) values (tbl_boards_seq.nextval,#{tb_kind},#{id},#{cno},#{csno},#{place1},#{place2},#{title},#{content},#{notice},#{image})
 			]]>
 		</if>
 

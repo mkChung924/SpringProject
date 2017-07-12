@@ -143,7 +143,11 @@
 		self.close();
 	});
 	
-
+	$(window).bind('beforeunload', function(){ //window x 버튼 눌렀을 때 끝
+		$("#deleteBoard",opener.document).removeAttr("disabled");// 삭제 해제
+		$("#updateBoard",opener.document).removeAttr("disabled");// 수정도 해제
+		return 'Are you sure you want to leave?';
+	});
 </script>
 
 <style type="text/css">

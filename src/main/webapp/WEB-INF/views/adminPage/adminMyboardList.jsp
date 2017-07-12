@@ -72,6 +72,14 @@ $(document).on("click","#updateBoard",function(){
 		
 	}
 });
+
+function adminReadPage(tbno,place1,place2,cno,csno) {
+    var w = screen.width - 300;
+    var h = screen.height - 200;
+    var left = (screen.width / 2) - (w / 2);
+    var top = (screen.height / 2) - (h / 2) - 50;
+    window.open("/adminTravelRead?tbno=" + tbno+"&place1="+place1+"&place2="+place2+"&cno="+cno+"&csno="+csno, "관리자 여행 추천 "+tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+};
 </script>
 <title>마이페이지-내글보기</title>
 </head>
@@ -123,7 +131,8 @@ $(document).on("click","#updateBoard",function(){
 	            	<input id="updateBoard" name="submit" type="button" value="수정" class="btn btn-danger"> 
 	            	<input id="deleteBoard" name="delete" type="button" value="게시물 삭제" class="btn btn-primary">
 	            </div>
-	            <table class="table">
+	            <table class="table table-striped">
+	           		<thead class="thead-inverse">
 					<tr>
 						<th>선택</th>
 						<th>제목</th>
@@ -131,17 +140,20 @@ $(document).on("click","#updateBoard",function(){
 						<th>지역2</th>
 						<th>조회수</th>
 						<th>등록날짜</th>
-					</tr>	
+					</tr>
+					</thead>	
+					<tbody>
 					<c:forEach items="${myboardList }" var="myboard">
 						<tr>
 							<td><div class="checkbox"><label><input type="checkbox" name=chbox1 value="${myboard.tbno }"></label></div></td>
-							<td>${myboard.title }</td>
+							<td onclick="adminReadPage('${myboard.tbno}','${myboard.place1}','${myboard.place2}','${myboard.cno}','${myboard.csno}')">${myboard.title }</td>
 							<td>${myboard.place1 }</td>
 							<td>${myboard.place2 }</td>
 							<td>${myboard.viewcnt }</td>
 							<td>${myboard.regdate }</td>
 						</tr>
 					</c:forEach>
+					</tbody>
 	            </table>
 				
 				<div class="div1" style="text-align: center">
