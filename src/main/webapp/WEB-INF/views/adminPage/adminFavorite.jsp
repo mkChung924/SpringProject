@@ -14,26 +14,33 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
+<script type="text/javascript" src="/resources/js/profileUpload.js"></script>
 <script type="text/javascript">
 	function read(tbno){
-	        var w = 800;
-	        var h = 400;
+			var w = screen.width - 300;
+	        var h = screen.height - 200;
 	        var left = (screen.width / 2) - (w / 2);
-	        var top = (screen.height / 2) - (h / 2);
+	        var top = (screen.height / 2) - (h / 2) - 50;
 	        window.open("/CommonRead?tbno=" + tbno, tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 	}
 </script>
-<title>마이페이지-즐겨찾기</title>
+<title>관리자페이지-즐겨찾기</title>
 </head>
 <body>
 	<div class="container">
 	    <div class="row profile">
 	    <div class="header">
-				<b>[ ${nick } ]</b>님 마이페이지 입장<br>
+				<b>[ ${nick } ]</b>
+				<kbd style="background-color: red">
+					<a href="/admin"><font color="white">관리자</font></a>
+				</kbd>
 				<div style="margin-top: 5px;">
-				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd> &nbsp;&nbsp;|&nbsp;&nbsp;
-				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
-				</div>			
+					<kbd style="background-color: #EAEAEA">
+						<a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<kbd>
+						<a href="/index"><font color="white">메인페이지</font></a>
+					</kbd>
+				</div>	
 			</div>
 			<div class="col-md-3">
 				<div class="profile-sidebar">
@@ -45,9 +52,10 @@
 						<c:if test="${mypage.profile != 'default.png' }">
 						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
-						<button type="button" class="btn btn-default">
-  						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
+						<button type="button" class="btn btn-default" id="modifyProfilePicture">
+  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
 						</button>
+						<input type="file" style="display: none;" id="fileopen">
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->
@@ -61,38 +69,7 @@
 					<!-- END SIDEBAR BUTTONS -->
 					<!-- SIDEBAR MENU -->
 					<div class="profile-usermenu">
-						<ul class="nav">
-							<li>
-								<a href="mypage">
-								<i class="glyphicon glyphicon-user"></i>
-								내 정보 </a>
-							</li>
-							<li>
-								<a href="myContents">
-								<i class="glyphicon glyphicon-list"></i>
-								내 글보기 </a>
-							</li>
-							<li>
-								<a href="message">
-								<i class="glyphicon glyphicon-envelope"></i>
-								메시지함 </a>
-							</li>
-							<li>
-								<a href="mypageEdit">
-								<i class="glyphicon glyphicon-edit"></i>
-								정보수정 </a>
-							</li>
-							<li class="active">
-								<a href="favorite">
-								<i class="glyphicon glyphicon-heart"></i>
-								즐겨찾기 </a>
-							</li>
-							<li>
-								<a href="del">
-								<i class="glyphicon glyphicon-remove"></i>
-								탈퇴 </a>
-							</li>
-						</ul>
+						<%@include file="adminNavList.jsp" %>
 					</div>
 					<!-- END MENU -->
 				</div>
@@ -100,11 +77,13 @@
 			<div class="col-md-9">
 	            <div class="profile-content">
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
-	            <h3><b>즐겨찾기 게시물</b></h3>
+	            <div class="col-sm-12">
+		            <h3><b>즐겨찾기</b></h3>
+		        </div>
 	            <br>
 	            <c:if test="${bookmark.size() < 1 }">
 	            	<div style="text-align: center; margin-top: 12%;">
-	            	<i><h4>즐겨찾기에 추가된 게시글이 없습니다.</h4></i>
+	            	<h4><i>즐겨찾기에 추가된 게시글이 없습니다.</i></h4>
 	            	</div>
 	            </c:if>
 	            <c:if test="${bookmark.size() > 0 }">

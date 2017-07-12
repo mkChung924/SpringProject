@@ -17,6 +17,8 @@
 <link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.6">
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- 프로필사진 업로드 -->
+<script type="text/javascript" src="/resources/js/profileUpload.js"></script>
 <title>관리자페이지</title>
 <script src="/resources/js/repostFunction.js"></script><!--공통된 tableReport페이지와 replyReport페이지 함수 묶음 -->
 <script type="text/javascript">
@@ -83,29 +85,7 @@
     		 });
     	});//click
      });//function
-     
- 	$(document).on("click","#modifyProfilePicture",function(){
-		var fileName = $("#fileopen").trigger('click',function(){
-		});
-	});
-	
-	$(document).on("change","#fileopen",function(){
-		
-		var formData = new FormData();
-		 //첫번째 파일태그
-		 formData.append("file",$("#fileopen")[0].files[0]);
-	
-		$.ajax({
-			url : '/rest2/profile/image',
-			data : formData,
-			type : "POST",
-			contentType: false,
-			processData: false,
-			success : function(result) {
-				$("#profilePic").attr("src",result);			
-			},
-		});
-	});
+
 </script>
 <style type="text/css">
 body {

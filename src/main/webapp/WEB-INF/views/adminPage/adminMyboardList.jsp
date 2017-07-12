@@ -14,6 +14,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
+<!-- 프로필사진 업로드 -->
+<script type="text/javascript" src="/resources/js/profileUpload.js"></script>
 <script>
 $(document).on("click",".pagination li a", function(event){
 	event.preventDefault(); 
@@ -73,31 +75,38 @@ $(document).on("click","#updateBoard",function(){
 	}
 });
 </script>
-<title>마이페이지-내글보기</title>
+<title>관리자페이지-내글보기</title>
 </head>
 <body>
 	<div class="container">
 	    <div class="row profile">
 	    <div class="header">
-				<b>[ ${nick } ]</b>님 마이페이지 입장<br>
+				<b>[ ${nick } ]</b>
+				<kbd style="background-color: red">
+					<a href="/admin"><font color="white">관리자</font></a>
+				</kbd>
 				<div style="margin-top: 5px;">
-				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd> &nbsp;&nbsp;|&nbsp;&nbsp;
-				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
-				</div>			
+					<kbd style="background-color: #EAEAEA">
+						<a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;
+					<kbd>
+						<a href="/index"><font color="white">메인페이지</font></a>
+					</kbd>
+				</div>		
 			</div>
 			<div class="col-md-3">
 				<div class="profile-sidebar">
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${mypage.profile == 'default.png' }">						
-						<img src="/resources/upload/${mypage.profile }" class="img-responsive" alt="기존사진"><br>
+						<img src="${mypage.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${mypage.profile != 'default.png' }">
 						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
-						<button type="button" class="btn btn-default">
-  						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
+						<button type="button" class="btn btn-default" id="modifyProfilePicture">
+  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
 						</button>
+						<input type="file" style="display: none;" id="fileopen">
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->
@@ -119,10 +128,24 @@ $(document).on("click","#updateBoard",function(){
 			<div class="col-md-9">
 	            <div class="profile-content">
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
-	            <div style="float: right; margin-bottom: 20px;">
-	            	<input id="updateBoard" name="submit" type="button" value="수정" class="btn btn-danger"> 
-	            	<input id="deleteBoard" name="delete" type="button" value="게시물 삭제" class="btn btn-primary">
+	            
+	            <div class="col-sm-12">
+		            <h3><b>나의 글보기</b></h3>
+		        </div>
+
+	            <c:if test="${myboardList.size() < 1 }">
+	            <div style="text-align: center; margin-top: 20%;">
+	            	<h4><i>게시글이 존재하지 않습니다. 글을 남겨보세요!</i></h4>
 	            </div>
+	            </c:if>
+	            <br>
+	            <c:if test="${myboardList.size() > 0 }">
+	            <br><br>
+	            <div class="col-sm-12" style="text-align: right; display: inline">
+	            	<input id="updateBoard" name="submit" type="button" value="수정" class="btn btn-primary"> 
+	            	<input id="deleteBoard" name="delete" type="button" value="삭제" class="btn btn-danger">
+	            </div>
+	            <br><br>
 	            <table class="table">
 					<tr>
 						<th>선택</th>
@@ -134,7 +157,7 @@ $(document).on("click","#updateBoard",function(){
 					</tr>	
 					<c:forEach items="${myboardList }" var="myboard">
 						<tr>
-							<td><div class="checkbox"><label><input type="checkbox" name=chbox1 value="${myboard.tbno }"></label></div></td>
+							<td><input type="checkbox" name=chbox1 value="${myboard.tbno }"></td>
 							<td>${myboard.title }</td>
 							<td>${myboard.place1 }</td>
 							<td>${myboard.place2 }</td>
@@ -168,6 +191,7 @@ $(document).on("click","#updateBoard",function(){
 						<input type='hidden' name="page" value=${pageMaker.cri.page }>
 				 		<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum }>
 					</form>
+					</c:if>
 	            </div>
 			</div>
 		</div>

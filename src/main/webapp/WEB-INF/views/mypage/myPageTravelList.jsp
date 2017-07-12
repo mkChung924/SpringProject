@@ -41,7 +41,7 @@ $(document).on("click",".pagination li a", function(event){
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${mypage.profile == 'default.png' }">						
-						<img src="/resources/upload/${mypage.profile }" class="img-responsive" alt="기존사진"><br>
+						<img src="${mypage.profile }" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${mypage.profile != 'default.png' }">
 						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
@@ -101,6 +101,15 @@ $(document).on("click",".pagination li a", function(event){
 			<div class="col-md-9">
 	            <div class="profile-content">
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
+	            <div class="col-sm-12">
+		            <h3><b>나의 글!</b></h3>
+		        </div>
+	            <c:if test="${myboardList.size() < 1 }">
+	            <div style="text-align: center; margin-top: 25%;">
+	            	<h4><i>게시글이 존재하지 않습니다. 글을 남겨보세요!</i></h4>
+	            </div>
+	            </c:if>
+	            <c:if test="${myboardList.size() > 0 }">
 	            <table class="table">
 					<tr>
 						<th>게시물 번호</th>
@@ -146,6 +155,7 @@ $(document).on("click",".pagination li a", function(event){
 						<input type='hidden' name="page" value=${pageMaker.cri.page }>
 				 		<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum }>
 					</form>
+	            </c:if>
 	            </div>
 			</div>
 		</div>

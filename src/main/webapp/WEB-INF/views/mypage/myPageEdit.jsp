@@ -150,7 +150,7 @@
 
 						</select>&nbsp;&nbsp; 
 						<label style="width: 65"><b>보안 답<font color=red>*</font></b></label> 
-						<input type="text" class="form-control" name="secure_ans" value="${mypage.secure_ans}" maxlength="20" size=20 required autocomplete="off"> <br> <br>
+						<input type="text" class="form-control" name="secure_ans" maxlength="20" size=20 required autocomplete="off"> <br> <br>
 						<br> 
 						
 						<p align="center">기존의 비밀번호를 입력하면 정보수정이 완료됩니다<p>

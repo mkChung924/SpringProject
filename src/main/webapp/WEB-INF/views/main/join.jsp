@@ -20,18 +20,19 @@
     	<p align="right" style="padding-right: 20px;"><input type="checkbox" name="agree" value="agree" onclick="aaa(this)"> 내용을 읽었으며, 동의함</p><br>
     	<p align="left"><b><font size="5">2.정보입력</font></b></p>
     	<div class="memberinfo">
-	    	<label style="width: 85"><b>아이디<font color=red>*</font></b></label>
-		    <input type="text" class="form-control" name="id" placeholder="아이디" pattern="[a-z0-9]{8,15}" required readonly autocomplete="off" onclick="dupCheck()">
+	    	<label style="width: 90"><b>아이디<font color=red>*</font></b></label>
+		    <input type="text" class="form-control" name="id" placeholder="아이디" pattern="[a-z]{1}[a-zA-Z0-9]{5,20}" required readonly autocomplete="off" onclick="dupCheck()">
 		    <input type="button" class="btn btn-info" id="idCheck" value="중복확인" onclick="dupCheck()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		    <label style="width: 80"><b>프로필 사진</b></label>
         	<input type="file" class="form-control" name="profilePicture" style="width: 200px; display: inline"><br>
 		   	
-		   	<label style="width: 85"><b>비밀번호<font color=red>*</font></b></label>
-		    <input type="password" class="form-control" name="password" placeholder="비밀번호" required><br>
-		    <label style="width: 85"><b>비밀번호 확인<font color=red>*</font></b></label>
-		    <input type="password" class="form-control" name="repass" placeholder="비밀번호 확인" required><br>
+		   	<label style="width: 90"><b>비밀번호<font color=red>*</font></b></label>
+		    <input type="password" class="form-control" name="password" pattern="[a-zA-Z0-9]{5,15}" placeholder="비밀번호" required>&nbsp;&nbsp;영문, 숫자 조합 5~15자
+		    <br>
+		    <label style="width: 90"><b>비밀번호 확인<font color=red>*</font></b></label>
+		    <input type="password" class="form-control" name="repass" pattern="[a-zA-Z0-9]{5,15}" placeholder="비밀번호 확인" required><br>
 		    
-		    <label style="width: 85"><b>이름<font color=red>*</font></b></label>
+		    <label style="width: 90"><b>이름<font color=red>*</font></b></label>
 		    <input type="text" class="form-control" name="name" placeholder="이름" pattern="[ㄱ-힣]{2,10}" required autocomplete="off">&nbsp;&nbsp;
 		    
 		    <label style="width: 50"><b>닉네임<font color=red>*</font></b></label>
@@ -39,21 +40,21 @@
 		    <b class="nick"></b>
 		    <br>
 		    
-        	<label style="width: 85"><b>생년월일</b></label>
+        	<label style="width: 90"><b>생년월일</b></label>
         	<input type="date" class="form-control" name="birth" style="width: 200px; display: inline" min="1940-01-01"><br>
 		    
-		    <label style="width: 85"><b>이메일<font color=red>*</font></b></label>
-		    <input type="email" class="form-control" name="email" placeholder="이메일" required style="width: 200px; display: inline">&nbsp;&nbsp;
+		    <label style="width: 90"><b>이메일<font color=red>*</font></b></label>
+		    <input type="email" class="form-control" name="email" placeholder="이메일" pattern="[a-zA-Z0-9]{3,15}@[a-zA-Z]+\.[a-zA-Z]+" required style="width: 200px; display: inline">&nbsp;&nbsp;
 		    
 		    <label style="width: 80"><b>핸드폰 번호<font color=red>*</font></b></label>
-		    <input type="text" class="form-control" name="tel1" maxlength="3" size="5" style="width: 70px;" required autocomplete="off" onkeyup="movetoTel2()"> -
-            <input type="text" class="form-control" name="tel2" maxlength="4" size="5" style="width: 75px;" required autocomplete="off" onkeyup="movetoTel3()"> -
-            <input type="text" class="form-control" name="tel3" maxlength="4" size="5" style="width: 75px;" required autocomplete="off"><br>
+		    <input type="text" class="form-control" name="tel1" maxlength="3" size="5" style="width: 70px;" pattern="[0-9]{3}" required autocomplete="off" onkeyup="movetoTel2()"> -
+            <input type="text" class="form-control" name="tel2" maxlength="4" size="5" style="width: 75px;" pattern="[0-9]{3,4}"required autocomplete="off" onkeyup="movetoTel3()"> -
+            <input type="text" class="form-control" name="tel3" maxlength="4" size="5" style="width: 75px;" pattern="[0-9]{4}"required autocomplete="off"><br>
 		    
-		    <label style="width: 85"><b>우편번호<font color=red>*</font></b></label>
+		    <label style="width: 90"><b>우편번호<font color=red>*</font></b></label>
 		    <input type="text" class="form-control" name="postcode"id="postcode" placeholder="우편번호" required readonly>
             <input type="button" class="btn btn-warning" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-            <label style="width: 85"><b>주소<font color=red>*</font></b></label>
+            <label style="width: 90"><b>주소<font color=red>*</font></b></label>
             <input type="text" class="form-control" name="address" id="address" placeholder="주소" style="width: 300px;" required readonly>
             <input type="text" class="form-control" name="detailAddress" id="detailAddress" placeholder="상세주소" style="width: 200px; required readonly">
             
@@ -61,7 +62,7 @@
               String secure[] = { "==선택==", "당신의 고향은 어디신가요?", "가장 소중한 것은 무엇입니까?", "내가 졸업한 고등학교는?", "유년시절 나의 별명은?","아버지의 성함은?", "어머님의 성함은?",
                     "기타" };
           	%> 
-          	<br><label style="width: 85"><b>보안질문<font color=red>*</font></b></label>
+          	<br><label style="width: 90"><b>보안질문<font color=red>*</font></b></label>
           	<select class="form-control" name="secure" style="width: 200px; display: inline;">
             <%
                for (int i = 0; i < secure.length; i++) {
@@ -122,6 +123,7 @@
 	
 	
 	var checked = false;
+	var nicknameChecked = false;
 
 	//약관 동의 유무 확인 후 submit
 	function check(){
@@ -132,7 +134,8 @@
 		var secure = $('[name=secure]').val();
 		var birth = $('[name=birth]').val();
 		var postcode = $('[name=postcode]').val();
-		var roadAddress = $('[name=roadAddress]').val();
+		var roadAddress = $('[name=roadAddress]').val();		
+        var passExp = /^[a-z][a-zA-Z0-9]{5,15}$/g;
 		
 		var today = new Date();
 		var dd = today.getDate();
@@ -149,36 +152,31 @@
 
 		today = yyyy + '-' + mm + '-' + dd;
 		
+		
 		if(checked == false){
 			alert('약관에 동의하세요.');
-			return false;
-		}
-		if(id.length == 0){
+		} else if(!nicknameChecked){
+			alert('불가능한 닉네임 입니다');
+		} else if(id.length == 0){
 			alert('아이디를 입력하세요.');
-			return false;
-		}
-		if(pass != repass){
+		} else if(pass != repass){
 			alert('비밀번호가 일치하지 않습니다.');
-			return false;
-		}
-		if(secure == '==선택=='){
+		} else if(secure == '==선택=='){
 			alert('보안 질문을 선택하세요.');
-			return false;
-		}
-		if(birth.length > 10){
-			alert('잘못된 생년월일입니다.');
-			return false;
-			
+		} else if(birth.length > 10){
+			alert('잘못된 생년월일입니다.');	
 		} else if(birth < '1940-01-01' || birth > today){
 			alert('생년월일을 확인해주세요.');
-			return false;
-		}
-		if(postcode.length == 0 || roadAddress.length == 0){
+		} else if(postcode.length == 0 || roadAddress.length == 0){
 			alert('주소를 입력하세요.');
-			return false;
+		} else if(nickname.indexOf(" ")> -1 || nickname.indexOf("\t")>=0 || nickname.indexOf("\n")>-1){
+			alert('닉네임에 공백이 있습니다');
+		} else {
+			
+			return true;
 		}
 		
-		return true;
+		return false;
 				
 	}
 
@@ -201,28 +199,44 @@
 				'resizable=yes,width=500,height=300,top=200,left=700')
 	}
 	
+	
+	
+	
 	function nickCheck(){
 		
 		var nick = $('[name=nickname]').val().trim();
 		
-		if($('[name=nickname]').val().trim().length > 2){
+		if(nick.length > 2){
 			
-			$.ajax({
-				url:'/nickCheck',
-				data:'nickname='+nick,
-				success:function(result){
-					$('.nick').html('<font color=green>가능한 닉네임 입니다.</font>');
-				},
-				error:function(result){
-					$('.nick').html('<font color=red>불가능한 닉네임 입니다..</font>');
-					
-				}
-			});
+			if(nick.indexOf(" ") > -1 || nick.indexOf("\t") >= 0 || nick.indexOf("\n") > -1){
+				$('.nick').html('<font color=red>공백은 존재할수 없습니다.</font>');
+				nicknameChecked = false;
+				
+			} else {
+			
+			
+				$.ajax({
+					url:'/nickCheck',
+					data:'nickname='+nick,
+					success:function(result){
+						$('.nick').html('<font color=green>가능한 닉네임 입니다.</font>');
+						nicknameChecked = true;
+					},
+					error:function(result){
+						$('.nick').html('<font color=red>불가능한 닉네임 입니다..</font>');
+						nicknameChecked = false;
+						
+					}
+				});
+				
+			}
 		} else if(nick.length <= 2 && nick.length > 0){
 			$('.nick').html('<font color=red>닉네임이 너무 짧습니다</font>');
+			nicknameChecked = false;
 			
 		} else {
 			$('.nick').html('');
+			nicknameChecked = false;
 			
 		}
 	}

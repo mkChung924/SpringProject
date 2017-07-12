@@ -56,7 +56,7 @@ $(document).on("change","#fileopen",function(){
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${mypage.profile == 'default.png' }">						
-						<img src="/resources/upload/${mypage.profile }" class="img-responsive" alt="기존사진" id="profilePic"><br>
+						<img src="${mypage.profile }" class="img-responsive" alt="기존사진" id="profilePic"><br>
 						</c:if>
 						<c:if test="${mypage.profile != 'default.png' }">
 						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진" id="profilePic"><br>

@@ -12,6 +12,8 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- 프로필사진 업로드 -->
+<script type="text/javascript" src="/resources/js/profileUpload.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.6">
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/fontello.css?ver=1.1">
@@ -70,29 +72,7 @@
     		 });
     	});//click
      });//function
-     
- 	$(document).on("click","#modifyProfilePicture",function(){
-		var fileName = $("#fileopen").trigger('click',function(){
-		});
-	});
-	
-	$(document).on("change","#fileopen",function(){
-		
-		var formData = new FormData();
-		 //첫번째 파일태그
-		 formData.append("file",$("#fileopen")[0].files[0]);
-	
-		$.ajax({
-			url : '/rest2/profile/image',
-			data : formData,
-			type : "POST",
-			contentType: false,
-			processData: false,
-			success : function(result) {
-				$("#profilePic").attr("src",result);			
-			},
-		});
-	});
+
 </script>
 <style type="text/css">
 	body{

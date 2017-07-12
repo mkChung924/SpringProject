@@ -19,8 +19,11 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- 프로필사진 업로드 -->
+<script type="text/javascript" src="/resources/js/profileUpload.js"></script>
 <!-- TinyMCE -->
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+
 
 <title>관리자페이지</title>
 

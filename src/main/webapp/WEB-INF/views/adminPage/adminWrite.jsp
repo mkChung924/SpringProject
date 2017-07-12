@@ -19,34 +19,11 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<!-- 프로필사진 업로드 -->
+<script type="text/javascript" src="/resources/js/profileUpload.js"></script>
 <!-- TinyMCE -->
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
 
-<script>
-	$(document).on("click","#modifyProfilePicture",function(){
-		var fileName = $("#fileopen").trigger('click',function(){
-		});
-	});
-	
-	$(document).on("change","#fileopen",function(){
-		
-		var formData = new FormData();
-		 //첫번째 파일태그
-		 formData.append("file",$("#fileopen")[0].files[0]);
-	
-		$.ajax({
-			url : '/rest2/profile/image',
-			data : formData,
-			type : "POST",
-			contentType: false,
-			processData: false,
-			success : function(result) {
-				alert("프로필 변경");
-				$("#profilePic").attr("src",result);			
-			},
-		});
-	});
-</script>
 <title>관리자페이지</title>
 
 <script>
