@@ -18,6 +18,7 @@ import com.brothersplant.service.AdminPageService;
 import com.brothersplant.service.BoardInfoService;
 import com.brothersplant.service.MyPageService;
 import com.brothersplant.service.ReportsService;
+import com.brothersplant.service.UserInfoService;
 
 @Controller
 public class AdminController {
@@ -30,6 +31,8 @@ public class AdminController {
 	private BoardInfoService boardService;
 	@Inject
 	private AdminPageService adminService;
+	@Inject
+	private UserInfoService userService;
 	
 	private static final int PERPAGENUM = 10;
 	
@@ -211,7 +214,6 @@ public class AdminController {
 		model.addAttribute("admin", service.myPageInfo(id));
 		return "adminPage/adminWrite";
 	};
-	
 	@RequestMapping(value = "admin_regit", method=RequestMethod.POST)
 	public String insertBoard2(BoardVO vo, MultipartFile file) throws Exception{
 		String content = vo.getContent();
@@ -291,5 +293,52 @@ public class AdminController {
 		}
 				
 	}
+	
+	@RequestMapping("/adminWroteContents")
+	public String myContents(HttpSession session, Model model,Criteria cri) throws Exception {
+		System.out.println("관리자-내글보기 입장");
+		String id = (String) session.getAttribute("id");
+		int auth = (int) session.getAttribute("auth");
+		if(id != null){
+			
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(boardService.iwroteTOTCnt(id));	
+			
+		model.addAttribute("mypage", service.myPageInfo(id));
+		model.addAttribute("myboardList",boardService.iwrote(id,cri));
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
+		return "adminPage/adminMyboardList";
+		} else {
+			return "redirect:login";
+		}
+	}
+	//관리자가 쓴 여행 추천 게시글 보기
+	@RequestMapping(value="/adminTravelRead",method=RequestMethod.GET)
+	public String adminTravel(HttpSession session, Model model,int tbno,SearchCriteria cri) throws Exception {
+		model.addAttribute("commonBoard",boardService.selectCommonRow(tbno,(String)session.getAttribute("id")));
+		model.addAttribute("profile",userService.selectprofile((String)session.getAttribute("id")));
+		
+		//페이징 버튼만 만들어 주고 데이터는 ajax로 
+		String id = (String) session.getAttribute("id");
+		cri.setId(id);
+		cri.setPerPageNum(3);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+		pageMaker.setTotalCount(boardService.countTravelReviewList(cri));				
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("cri", cri);
+		
+		//조회수
+		boardService.addViewCnt(tbno);
+		
+		return "adminPage/adminTravelRead";
+	}
 
+	@RequestMapping(value="/adminTravelUpdate",method=RequestMethod.GET)
+	public String adminTravelUpdate(int tbno,HttpSession session,Model model) throws Exception{
+		model.addAttribute("travelRow",boardService.selectCommonRow(tbno, (String)session.getId()));
+		return "adminPage/adminTravelUpdate";
+	}
 }

@@ -48,6 +48,9 @@ public interface BoardInfoDAO {
 
 	public List<BoardListVO> iwrote(String id,Criteria cri) throws Exception;// 내가 쓴글 검색
 	public int iwroteTOTCnt(String id) throws Exception; //페이징용 카운드
+	
+	public int adminBoardUpdate(BoardVO vo) throws Exception;//관리자 게시글 수정
+	public int deleteAdminBoard(String[] tbno) throws Exception;//관리자 게시글 삭제
 }
 
 

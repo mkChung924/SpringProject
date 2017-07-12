@@ -158,4 +158,14 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	public List<BoardVO> selectAdminTravel(SearchCriteria cri) throws Exception {
 		return dao.selectAdminTravel(cri);
 	}
+
+	@Override
+	public int adminBoardUpdate(BoardVO vo) throws Exception {
+		return dao.adminBoardUpdate(vo);
+	}
+
+	@Override
+	public int deleteAdminBoard(String[] tbno) throws Exception {
+		return dao.deleteAdminBoard(tbno);
+	}
 }

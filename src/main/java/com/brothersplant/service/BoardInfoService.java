@@ -32,6 +32,7 @@ public interface BoardInfoService {
 	public BoardListVO selectMyInterestRow(SearchCriteria cri) throws Exception;
 	public int countBoardList(SearchCriteria cri) throws Exception;
 	
+	//여행 후기
 	public List<BoardListVO> showTravelReviewList(SearchCriteria cri) throws Exception;
 	public int countTravelReviewList(SearchCriteria cri) throws Exception;
 	
@@ -55,4 +56,9 @@ public interface BoardInfoService {
 
 	public List<BoardListVO> iwrote(String id,Criteria cri) throws Exception;
 	public int iwroteTOTCnt(String id) throws Exception;
+	
+	public int adminBoardUpdate(BoardVO vo) throws Exception;//관리자 게시글 수정
+	public int deleteAdminBoard(String tbno[]) throws Exception;//관리자 게시글 삭제
+	
+	
 }

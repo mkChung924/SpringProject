@@ -202,6 +202,15 @@
 		formObj.attr("action", "/board");
 		formObj.submit();
 	}
+	
+  	function adminReadPage(tbno,place1,place2,cno,csno) {
+        var w = screen.width - 300;
+        var h = screen.height - 200;
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2) - 50;
+        window.open("/adminTravelRead?tbno=" + tbno+"&place1="+place1+"&place2="+place2+"&cno="+cno+"&csno="+csno, "관리자 여행 추천 "+tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+		$("#ViewCnt-"+tbno).html(parseInt($("#ViewCnt-"+tbno).html())+1);
+    };
 </script>
 </head>
 
@@ -243,7 +252,7 @@
 								</h3>
 								<p>${travel.notice }</p>
 								<p align="center">
-									<a href="#" class="btn btn-primary btn-block">떠나자!!</a>
+									<a href="#" class="btn btn-primary btn-block" onclick="adminReadPage('${travel.tbno}','${p1 }','${p2 }','${cno}','${csno}')">떠나자!!</a>
 								</p>
 							</div>
 							<div style="padding-bottom: 10px;">
@@ -468,17 +477,6 @@
 				            </ul>
 				        </div>
 				        </div>
-					 		<%-- <div class="col-sm-1" style="text-align: center; padding: 20px">
-						 		<div class="dropdown" style="cursor: pointer;">
-						 		
-							 		<div class="infos" id="i${map.DO1 }" style="border: 1px solid black; width: 60px;" onmouseover="showIt('${map.DO1}',${cno })" onmouseleave="hideIt('${map.DO1}')">
-							 			${map.DO1 }<br>${map.COUNT }
-							 		</div>
-							 		<div class="dropdown-content" id="${map.DO1 }" style="width: 50px;">
-								 		
-							 		</div>
-						 		</div>
-					 		</div> --%>
 					 	</c:forEach>	
 					</div>
 				</div>

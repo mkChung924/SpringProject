@@ -19,10 +19,11 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<title>관리자페이지</title>
-
 <!-- TinyMCE -->
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+
+<title>관리자페이지</title>
+
 <script>
 	tinymce.init({
 		selector : '#editor', // change this value according to your HTML
@@ -84,8 +85,6 @@
 </script>
 
 <script>
-
-	
 	$(function(){		
 		var str="";
 		$.ajax({
@@ -121,21 +120,29 @@
 		});
 	});
 	
+	$(document).on("click","#submit",function(){
+		var formdata = $("#ffm");
+		$.ajax({
+			type : 'post',
+			url : 'admin_update',
+			data : formdata.serialize(), 
+			success : function(result) {
+				if(result=='success'){
+					alert("수정 성공");
+					$("#deleteBoard",opener.document).removeAttr("disabled");// 삭제 해제
+					$("#updateBoard",opener.document).removeAttr("disabled");// 수정도 해제
+					opener.location.reload();
+					self.close();
+				}
+			}
+		});		
+	});
+	$(document).on("click","#cancel",function(){
+		$("#deleteBoard",opener.document).removeAttr("disabled");// 삭제 해제
+		$("#updateBoard",opener.document).removeAttr("disabled");// 수정도 해제
+		self.close();
+	});
 	
-	function showDetails(cno, count){
-		if(count != 0){
-			
-		//alert(cno + "번 카테고리에 존재하는 게시글을 표시합니다");
-		var w = screen.width - 200;
-        var h = screen.height - 300;
-        var left = (screen.width / 2) - (w / 2);
-        var top = (screen.height / 2) - (h / 2) - 80;
-		window.open('/categoryDetail?cno='+cno, '카테고리 상세페이지','width='+ w +' height='+ h +' menubar=no status=no scrollbars=yes left='+ left +' top='+ top +' resizable=0')
-		} else {
-			alert("해당 카테고리에는 게시글이 존재하지 않습니다");
-		}
-	}
-
 
 </script>
 
@@ -177,93 +184,51 @@ body {
 	-webkit-box-shadow: 2px 2px 4px #999999;
 	background: linear-gradient(to bottom, #FF0000, #375094);
 }
-
-.boards:hover {
-	background-color: #EAEAEA;
-}
-
 </style>
 
 </head>
 <body>
 	<div class="container">
-		<div class="row profile">
-			<div class="header">
-				<b>[ ${nick } ]</b>
-				<kbd style="background-color: red">
-					<a href="/admin"><font color="white">관리자</font></a>
-				</kbd>
-				<div style="margin-top: 5px;">
-					<kbd style="background-color: #EAEAEA">
-						<a href="/logout"><font color="black">로그아웃</font></a></kbd>
-					&nbsp;&nbsp;|&nbsp;&nbsp;
-					<kbd>
-						<a href="/index"><font color="white">메인페이지</font></a>
-					</kbd>
-				</div>
-			</div>
-			<div class="col-md-3">
-				<div class="profile-sidebar">
-					<!-- SIDEBAR USERPIC -->
-					<div class="profile-userpic">
-						<c:if test="${admin.profile == 'default.png' }">
-							<img src="/resources/upload/${admin.profile }"
-								class="img-responsive" alt="기존사진" id="profilePic">
-							<br>
-						</c:if>
-						<c:if test="${admin.profile != 'default.png' }">
-							<img src="${admin.profile }" class="img-responsive" alt="프로필사진" id="profilePic">
-							<br>
-						</c:if>
-						<button type="button" class="btn btn-default">
-							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-							<font size=2>사진 수정</font>
-						</button>
-					</div>
-					<!-- END SIDEBAR USERPIC -->
-					<!-- SIDEBAR USER TITLE -->
-					<div class="profile-usertitle">
-						<div class="profile-usertitle-name">${admin.name}</div>
-						<div class="profile-usertitle-job">${admin.nickname}</div>
-					</div>
-					<!-- END SIDEBAR USER TITLE -->
-					<!-- SIDEBAR BUTTONS -->
-
-					<!-- END SIDEBAR BUTTONS -->
-					<!-- SIDEBAR MENU -->
-					<div class="profile-usermenu">
-						<%@include file="adminNavList.jsp" %>
-					</div>
-					<!-- END MENU -->
-				</div>
-			</div>
-			<div class="col-md-9">
 				<div class="profile-content">
 					<!-- 이곳에 html을 작성하면 됩니다! -->
-					<div class="col-sm-12">
-	           			<h3><b>게시판 현황</b></h3>
-	           			* 카테고리별 게시글의 수를 표시합니다.<br>&nbsp;&nbsp;
-	            	</div>
-	            	<br><br><br><br>
-					<div class="row">
-							<c:forEach items="${list}" var="list">
-								<div class="col-md-4" style="padding-left:30px; padding-right: 30px; padding-top: 15px; padding-bottom: 15px;">
-									<div class="boards" style="border: 1px solid black; text-align: center; cursor: pointer;"
-									 onclick="showDetails(${list.cno}, ${list.count })">
-									<br>
-									<h3>${list.cname}</h3>
-									<br>
-									<font color="#6799FF" size="6">${list.count }</font>
-									<br><br><br>
-									</div>
+					<div class="col-sm-6">
+	           	 	<h3><b>추천 여행정보 작성</b></h3>
+	           	 	</div>
+					<br><br><br><br>
+					<div class="div1">
+						<form class="form-horizontal" role="form" method="post" action="admin_update" enctype="multipart/form-data" id="ffm">
+							<input type="hidden" value="${id}" id="id" name="id">
+							<input name="tb_kind" value="0" type="hidden">
+							<input type="hidden" value="1" id="cno" name="cno"> 
+							<input type="hidden" value="${travelRow.tbno }" id="tbno" name="tbno"> 
+							
+							<input type="text" class="form-control" id="title" name="title" placeholder="제목을 간략하게 입력해주세요." maxlength="50";" required value="${travelRow.title }">
+							<br>
+							<!-- 여행일 때만 보여줌 -->
+								<select name="csno" required>
+									<option value=1 ${travelRow.csno == 1? 'selected': ''}>맛집탐방</option>
+									<option value=2 ${travelRow.csno == 2? 'selected': ''}>테마여행</option>
+									<option value=3 ${travelRow.csno == 3? 'selected': ''}>자유여행</option>
+								</select>
+								<select id="place1" name="place1" required></select>
+								<select id="place2" name="place2" required></select>
+							<br><br>		
+							<input type="text" class="form-control" id="notice" name="notice" placeholder="공지할 내용이 있다면 입력해주세요!" value="${travelRow.notice }">
+							<br>
+							<div class="form-group">
+								<!-- <label for="name" class="col-sm-2 control-label" required>내용</label> -->
+								<div class="col-sm-12">
+									<textarea id="editor" name="content" rows="20">${travelRow.content }</textarea>
 								</div>
-							</c:forEach>
+							</div>
+							<div class="buttons" style="text-align: center">
+								<input id="submit" name="button" type="button" value="수정하기" class="btn btn-danger"> 
+								<input id="cancel" name="cancel" type="reset" value="취소" class="btn btn-primary">
+							</div>
+						</form>
 					</div>
 				</div>
-			</div>
 
-
-		</div>
 	</div>
 </body>
 </html>

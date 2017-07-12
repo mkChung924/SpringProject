@@ -60,7 +60,7 @@ public class MyPageController {
 		System.out.println("마이페이지-내글보기 입장");
 		String id = (String) session.getAttribute("id");
 		int auth = (int) session.getAttribute("auth");
-		if(id != null && auth != 2){
+		if(id != null){
 			
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);

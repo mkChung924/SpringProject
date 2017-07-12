@@ -15,28 +15,29 @@
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/admin/admin.css?ver=1.6">
 <script>
-	$(document).on("click","#modifyProfilePicture",function(){
-		var fileName = $("#fileopen").trigger('click',function(){
-		});
+$(document).on("click","#modifyProfilePicture",function(){
+	var fileName = $("#fileopen").trigger('click',function(){
 	});
+});
+
+$(document).on("change","#fileopen",function(){
 	
-	$(document).on("change","#fileopen",function(){
-		
-		var formData = new FormData();
-		 //첫번째 파일태그
-		 formData.append("file",$("#fileopen")[0].files[0]);
-	
-		$.ajax({
-			url : '/rest2/profile/image',
-			data : formData,
-			type : "POST",
-			contentType: false,
-			processData: false,
-			success : function(result) {
-				$("#profilePic").attr("src",result);			
-			},
-		});
+	var formData = new FormData();
+	 //첫번째 파일태그
+	 formData.append("file",$("#fileopen")[0].files[0]);
+
+	$.ajax({
+		url : '/rest2/profile/image',
+		data : formData,
+		type : "POST",
+		contentType: false,
+		processData: false,
+		success : function(result) {
+			alert("프로필 변경");
+			$("#profilePic").attr("src",result);			
+		},
 	});
+});
 	
 	$(function(){
 		
@@ -177,6 +178,33 @@
 		
 	});
 	
+	$(document).on("click", "#deleteBoard", function() {//게시글 삭제
+		var tbno = $("#bno").val();
+		alert(tbno+" : "+<%=request.getParameter("tbno")%>);
+		$.ajax({
+			type : 'delete',
+			url : '/CommonDelete/'+tbno,
+			success : function(result) {
+				if(result=='success'){
+					$('form[role="form"]',opener.document).attr('method', 'POST');
+					$('form[role="form"]',opener.document).submit();
+					self.close();
+				}else{
+					opener.location.reload();
+					self.close();
+				}
+			}
+		});
+	});
+	
+	$(document).on("click", "#updateBoard", function() {
+		var w = 750;
+		var h = 800;
+		var left = (screen.width / 2) - (w / 2);
+		var top = (screen.height / 2) - (h / 2) - 50;
+		window.open("/CommonUpdate?tbno=" + ${commonBoard.tbno }, ${commonBoard.tbno } + "번 게시글 수정", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+	   	self.close();
+	});
 </script>
 <title>관리자페이지</title>
 </head>
@@ -195,10 +223,10 @@
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${admin.profile == 'default.png' }">						
-						<img src="${admin.profile }" class="img-responsive" alt="기존사진"><br>
+						<img src="${admin.profile }" class="img-responsive" alt="기존사진" id="profilePic"><br>
 						</c:if>
 						<c:if test="${admin.profile != 'default.png' }">
-						<img src="${admin.profile }" class="img-responsive" alt="프로필사진"><br>
+						<img src="${admin.profile }" class="img-responsive" alt="프로필사진" id="profilePic"><br>
 						</c:if>
 						<button type="button" class="btn btn-default" id="modifyProfilePicture">
   							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
@@ -217,38 +245,7 @@
 					<!-- END SIDEBAR BUTTONS -->
 					<!-- SIDEBAR MENU -->
 					<div class="profile-usermenu">
-						<ul class="nav">
-							<li>
-								<a href="admin">
-								<i class="glyphicon glyphicon-exclamation-sign"></i>
-								내 정보 </a>
-							</li>
-							<li class="active">
-								<a href="memList">
-								<i class="glyphicon glyphicon-user"></i>
-								회원 현황 </a>
-							</li>
-							<li>
-								<a href="admessage">
-								<i class="glyphicon glyphicon-envelope"></i>
-								메시지함 </a>
-							</li>
-							<li>
-								<a href="reportBox">
-								<i class="glyphicon glyphicon-warning-sign"></i>
-								신고접수함 </a>
-							</li>
-							<li>
-								<a href="adminBoardsList">
-								<i class="glyphicon glyphicon-th-list"></i>
-								게시판 현황 </a>
-							</li>
-							<li>
-								<a href="adminWrite"> 
-								<i class="glyphicon glyphicon-remove"></i>
-								여행 추천 게시글 쓰기</a>
-							</li>
-						</ul>
+						<%@include file="adminNavList.jsp" %>
 					</div>
 					<!-- END MENU -->
 				</div>

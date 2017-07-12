@@ -428,8 +428,7 @@
 	</sql>
 
 	<update id="addViewCnt">
-		update tbl_boards set VIEWCNT= VIEWCNT+1 where tbno=
-		#{tbno}
+		update tbl_boards set VIEWCNT= VIEWCNT+1 where tbno=#{tbno}
 	</update>
 
 	<select id="selectViewCnt" resultType="String">
@@ -447,5 +446,21 @@
 	<select id="iwroteTOTCnt" resultType="int">
 		select count(*) from tbl_boards where id=#{id} order by regdate desc
 	</select>
+	
+	<update id="updateAdminBoard">
+		<![CDATA[
+			update tbl_boards set  TB_KIND  = #{tb_kind},id = #{id},
+											cno= #{cno},csno=#{csno},PLACE1=#{place1},PLACE2=#{place2},
+											title=#{title},content=#{content},notice=#{notice},IMAGE=#{image}
+						where tbno=#{tbno}
+		]]>
+	</update>
+	
+	<delete id="deleteAdminBoard">
+		delete from tbl_boards where tbno in 
+		<foreach collection="array" item="item" separator="," index="index" open="(" close=")">
+			#{item}
+		</foreach>
+	</delete>
 </mapper>
 

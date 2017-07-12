@@ -1,5 +1,7 @@
 package com.brothersplant.persistence;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -182,6 +184,25 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 	@Override
 	public List<BoardVO> selectAdminTravel(SearchCriteria cri) throws Exception {
 		return session.selectList(namespace + ".selectTravelAdmin",cri);
+	}
+
+	@Override
+	public int adminBoardUpdate(BoardVO vo) throws Exception {
+		return session.update(namespace+".updateAdminBoard",vo);
+	}
+
+	@Override
+	public int deleteAdminBoard(String[] tbno) throws Exception {
+		System.out.println(">>> deleteAdminBoard: "+ tbno);
+		/*Map<String, String[]> map  = new HashMap<>();
+		map.put("'tbnoList", tbno);*/
+		/*Map<String, List<String>> map  = new HashMap<>();
+		List<String> list = new ArrayList<>();
+		   list.add("1000");
+		map.put("'tbnoList", list);*/
+		//System.out.println(tbno[1]+" | | "+tbno[0]);
+		System.out.println("t삭제 "+session.delete(namespace+".deleteAdminBoard",tbno));
+		return 1;
 	}
 
 }

@@ -19,10 +19,36 @@
 <link rel="stylesheet" type="text/css"
 	href="/resources/bootstrap/css/fontello.css?ver=1.1">
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-<title>관리자페이지</title>
-
 <!-- TinyMCE -->
 <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+
+<script>
+	$(document).on("click","#modifyProfilePicture",function(){
+		var fileName = $("#fileopen").trigger('click',function(){
+		});
+	});
+	
+	$(document).on("change","#fileopen",function(){
+		
+		var formData = new FormData();
+		 //첫번째 파일태그
+		 formData.append("file",$("#fileopen")[0].files[0]);
+	
+		$.ajax({
+			url : '/rest2/profile/image',
+			data : formData,
+			type : "POST",
+			contentType: false,
+			processData: false,
+			success : function(result) {
+				alert("프로필 변경");
+				$("#profilePic").attr("src",result);			
+			},
+		});
+	});
+</script>
+<title>관리자페이지</title>
+
 <script>
 	tinymce.init({
 		selector : '#editor', // change this value according to your HTML
@@ -186,19 +212,16 @@ body {
 				<div class="profile-sidebar">
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
-						<c:if test="${admin.profile == 'default.png' }">
-							<img src="/resources/upload/${admin.profile }"
-								class="img-responsive" alt="기존사진" id="profilePic">
-							<br>
+						<c:if test="${admin.profile == 'default.png' }">						
+						<img src="${admin.profile }" class="img-responsive" alt="기존사진" id="profilePic"><br>
 						</c:if>
 						<c:if test="${admin.profile != 'default.png' }">
-							<img src="${admin.profile }" class="img-responsive" alt="프로필사진" id="profilePic">
-							<br>
+						<img src="${admin.profile }" class="img-responsive" alt="프로필사진" id="profilePic"><br>
 						</c:if>
-						<button type="button" class="btn btn-default">
-							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-							<font size=2>사진 수정</font>
+						<button type="button" class="btn btn-default" id="modifyProfilePicture">
+  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
 						</button>
+						<input type="file" style="display: none;" id="fileopen">	
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->
@@ -212,18 +235,7 @@ body {
 					<!-- END SIDEBAR BUTTONS -->
 					<!-- SIDEBAR MENU -->
 					<div class="profile-usermenu">
-						<ul class="nav">
-							<li><a href="admin"> <i class="glyphicon glyphicon-exclamation-sign"></i> 내 정보</a></li>
-							<li><a href="memList"> <i class="glyphicon glyphicon-user"></i>회원 현황</a></li>
-							<li><a href="admessage"> <i class="glyphicon glyphicon-envelope"></i> 메시지함</a></li>
-							<li><a href="reportBox"> <i class="glyphicon glyphicon-warning-sign"></i> 신고접수함</a></li>
-							<li>
-								<a href="adminBoardsList">
-								<i class="glyphicon glyphicon-th-list"></i>
-								게시판 현황 </a>
-							</li>
-							<li class="active"><a href="adminWrite"> <i class="glyphicon glyphicon-remove"></i>여행 추천 게시글 쓰기</a></li>
-						</ul>
+						<%@include file="adminNavList.jsp" %>
 					</div>
 					<!-- END MENU -->
 				</div>
