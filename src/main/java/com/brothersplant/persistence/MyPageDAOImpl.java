@@ -41,7 +41,7 @@ public class MyPageDAOImpl implements MyPageDAO {
 	public String passMatch(String id, String pass) throws Exception {
 		Map<String, String> map = new HashMap<>();
 			map.put("id", id);
-			map.put("pass", pass);
+			map.put("pass", new PassEncrypt().encrypt(pass));
 		int result = sql.selectOne("mypage.auth",map);
 		if(result>0){
 			return "success";

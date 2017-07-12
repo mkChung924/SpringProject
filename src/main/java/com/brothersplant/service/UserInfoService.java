@@ -22,5 +22,7 @@ public interface UserInfoService {
 	public String getMyNick(String id) throws Exception;
 	public int updateProfilePicture(String profile,String id) throws Exception;
 	
-	public List<HashMap<String, String>> isYoublacklist(String id, String pw)throws Exception;
+	public List<HashMap<String, String>> isYoublacklist(String id)throws Exception;
+	public String getUserAddr(String id) throws Exception;
+
 }

@@ -71,21 +71,39 @@ public class MessageController {
 
 	
 	@RequestMapping("/sendRemove")//sendcontent
-	public String sendRemove(Model model,int mno,int page)throws Exception{
+	public ResponseEntity<String> sendRemove(HttpSession session, int mno,int page) {
+		ResponseEntity<String> entity = null;
+		
 		System.out.println("삭제될 MNO: "+mno);
 		System.out.println("전달된 페이지: "+page);
-		model.addAttribute("page",page);
-		service.sendDelete(mno);
-		return "redirect:message";
+		session.setAttribute("page", page);
+		
+		try {
+			service.sendDelete(mno);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+			
+		}
+		return entity;
 	}
 	
 	@RequestMapping("/receiveRemove")//receivecontent
-	public String receiveRemove(Model model,int mno,int page)throws Exception{
+	public ResponseEntity<String> receiveRemove(HttpSession session, int mno,int page) {
+		ResponseEntity<String> entity = null;
+		
 		System.out.println("삭제될 MNO: "+mno);
 		System.out.println("전달된 페이지: "+page);
-		model.addAttribute("page",page);
-		service.receiveDelete(mno);
-		return "redirect:message";
+		session.setAttribute("page", page);	
+		
+		try {
+			service.receiveDelete(mno);
+			entity = new ResponseEntity<String>("success", HttpStatus.OK);
+		} catch (Exception e) {
+			entity = new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
 	}	
 	
 	@RequestMapping(value="/msgSend",method=RequestMethod.GET)

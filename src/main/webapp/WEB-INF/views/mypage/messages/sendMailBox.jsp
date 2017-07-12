@@ -32,7 +32,10 @@ $(function(){
 })
 
 	function readMsg(mno, page){
-		window.open('senderContent?mno='+mno+'&page='+page, '받은 메시지', 'width=600 height=600 menubar=no status=no scrollbars=yes left=500 top=50 resizable=0')
+		var width = 370;
+		var height = 500;
+	
+		window.open('senderContent?mno='+mno+'&page='+page, '받은 메시지', 'width='+ width +' height='+ height +' menubar=no status=no scrollbars=yes left=600 top=100 resizable=0')
 	}
 	
 	function reply(sender, page){

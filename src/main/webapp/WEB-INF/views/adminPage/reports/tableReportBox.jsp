@@ -60,8 +60,9 @@ body {
 		<table class="table">
 		<tr style="font-size: 20x;">
 			<th width="70" style="text-align: center;">삭제</th>
-			<th width="90" style="text-align: center;">게시글 번호</th>
+			<th width="90" style="text-align: center;">번호</th>
 			<th style="text-align: center;">게시글</th>
+			<th style="text-align: center;">위반 유형</th>
 			<th width="100" style="text-align: center;">위반한 사람</th>
 			<th width="100" style="text-align: center;">신고일</th>
 
@@ -71,10 +72,11 @@ body {
 				<td><input type="checkbox" name="chbox1" value=${table.repno }></td>
 				<td>${table.tbno}</td>
 				<td>
-					<a href="#" onclick="readPage('${table.brno}')">
+					<a style="cursor: pointer;" onclick="readPage('${table.brno}')">
 					${table.content.length() > 21 ? table.content.substring(0,21) : table.content } 
 					</a>
 				</td> <!-- adminReport.jsp 부분에 readPage() -->
+				<td>${table.reporttype}</td>
 				<td id="off-${table.repno }">${table.offender}</td>
 				<td>${table.senddate } <input type="hidden" id="brnoRow-${table.repno }" value="${table.brno }"> </td>
 			</tr>

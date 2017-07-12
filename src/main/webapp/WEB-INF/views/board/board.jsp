@@ -10,7 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/css/board/board.css?ver=2.1">
+<link rel="stylesheet" type="text/css" href="/resources/css/board/board.css?ver=2.3">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="/resources/js/daum_api2.js"></script>
 
@@ -240,6 +240,7 @@
 			<br>
 			<!-- 관리자 여행 추천 게시글 -->
 			<c:if test="${cno == 1 }">
+				<c:if test="${travelList.size() > 0 }">
 				<c:forEach items="${travelList }" var="travel">
 				<div class="row">
 					<div class="col-md-3">
@@ -274,10 +275,11 @@
 							class="glyphicon glyphicon-plus-sign"></i>
 					</button>
 				</div>
+			</c:if>	
 			</c:if>
 
 			<!-- 검색 -->
-			<div class="row">
+			<div class="row" style="min-height: 65%;">
 				<div class="col-md-12">
 					<div class="thumbnail">
 						<div class="caption"
@@ -359,7 +361,7 @@
 					</div>
 			<!-- 게시글 -->
 			<c:forEach items="${list }" var="myList">
-        	<div class="col-md-4" style="max-height: 400">
+        	<div class="col-md-4" style="max-height: 400;">
 	        	<div class="thumbnail">
 		        	<div class="caption">
 		        		<div style="text-align: left; padding-top: 0px;">
@@ -396,7 +398,7 @@
 		                <br>
 		                <div class="row" style="padding-left: 20px;">
 		                	<c:if test="${myList.myfavor == 1 }">
-		                	<div class="col-md-6">
+		                	<div class="col-md-3">
 				                <p class="p-${myList.tbno }" align="left">
 				                <i class="glyphicon glyphicon-star" id="bk-${myList.tbno }" onclick="favor(${myList.tbno})" data-toggle="bookmark" data-placement="bottom" title="즐겨찾기 해제" style="font-size: 25px; cursor: pointer; color: #FFE400"></i>
 				                </p>
@@ -408,14 +410,12 @@
 				                <i class="glyphicon glyphicon-star-empty" id="bk-${myList.tbno }" onclick="favor(${myList.tbno})"  data-toggle="bookmark" data-placement="bottom" title="즐겨찾기 추가" style="font-size: 25px; cursor: pointer; color: #FFE400"></i>
 				                </p>
 		                	</div>
-		                	<div class="col-md-3"><!-- 조회수 부분 -->
-								<span class="badge" id="ViewCnt-${myList.tbno }" style="background-color: blue">${myList.viewCnt}</span>
-				                <i class="glyphicon glyphicon-eye-open" data-toggle="like" data-placement="top" title="조회수"></i>&nbsp;
-		                	</div>
-
 		                	</c:if>
-		                	<div class="col-md-6">
+
+		                	<div class="col-md-9">
 				                <p align="right">
+				                <span class="badge" id="ViewCnt-${myList.tbno }" style="background-color: blue">${myList.viewCnt}</span>
+				                <i class="glyphicon glyphicon-eye-open" data-toggle="like" data-placement="top" title="조회수"></i>&nbsp;
 				                <span class="badge" id="likeCnt-${myList.tbno }" style="background-color: blue">${myList.likes }</span>
 				                <i class="glyphicon glyphicon-thumbs-up" data-toggle="like" data-placement="top" title="좋아요"></i>&nbsp;
 		                   		<span class="badge" style="background-color: gray">${myList.replies }</span>
@@ -482,6 +482,11 @@
 				</div>
 					</c:if>
 				</c:forEach>
+			</div>
+			<div class="footer">
+			
+			김주영 | 정명규 | 지영준 | 이재욱 | 김영대 | 김가희<br>
+			&copy; Social Life All rights reserved
 			</div>
 		</div>
 	</div>

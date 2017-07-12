@@ -63,9 +63,9 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 			<div class="col-sm-4" style="height: 40px; text-align: center; padding-top: 0px"><b><font size="4">자신의 <kbd><font color=white>위치</font></kbd>를 설정해주세요!!</font></b></div>
 			<div class="col-sm-2"><input type="button" id="locationBtn" onclick="sample4_execDaumPostcode()" value="위치 설정"></div>
 			<span id="guide" style="color:#999"></span>
-			<div class="col-sm-2" style="height: 40px;"><input type="text" class="form-control" id="do1" placeholder="지역1" value="${do1 }" readonly style="width: 80px"></div>
-			<div class="col-sm-2" style="height: 40px;"><input type="text" class="form-control" id="si" placeholder="지역2" value="${si }" readonly style="width: 90px"></div>
-			<div class="col-sm-2" style="height: 40px;"><input type="text" class="form-control" id="dong" placeholder="지역3" value="${dong }" readonly style="width: 90px"></div>
+			<div class="col-sm-2" style="height: 40px;"><input type="text" class="form-control" id="do1" placeholder="지역1" value="${do1 == null ? addr.split('%')[0].split(' ')[0] : do1 }" readonly style="width: 80px"></div>
+			<div class="col-sm-2" style="height: 40px;"><input type="text" class="form-control" id="si" placeholder="지역2" value="${si == null ? addr.split('%')[0].split(' ')[1] : si }" readonly style="width: 90px"></div>
+			<div class="col-sm-2" style="height: 40px;"><input type="text" class="form-control" id="dong" placeholder="지역3" value="${dong == null ? addr.split('%')[0].split(' ')[2] : dong }" readonly style="width: 90px"></div>
 		</div>
 		<div class="row" style="text-align: center">
 			<div class="col-sm-4"><img src="/resources/image/category_img/category_travel.png" id="travelBtn" class="img-circle" alt="travel" width="90%" draggable="false"></div>

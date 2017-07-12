@@ -260,16 +260,19 @@
 	
 	
 	function msgSend(id) {//메시지 보내기
-		var w = 300;
+
+		var w = 370;
 		var h = 500;
 		var left = (screen.width / 2) - (w / 2);
-		var top = (screen.height / 2) - (h / 2);
-		alert(id);
+		var top = (screen.height / 2) - (h / 2) - 100;
 		var open = window.open("/msgSend?id="+id, "메시지 보내기", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 		open.document.getElementById("targetid").value = id;
 	};
 	
 	function reportSend(content,brno,replyer,kind) {//신고 보내기 전 보여주는 부분
+		
+		//alert(content +"," + brno +", " + replyer +"," + kind);
+		
 		var str = "";
 		$.ajax({
 			url : '/reportList',
@@ -302,8 +305,8 @@
 				},
 				success : function(result) {
 					if(result=="SUCCESS"){
-						alert("신고 완료");
 						$("#modalClose2").trigger('click');
+						alert("신고 완료");
 					}
 				},
 			}); 
@@ -325,7 +328,7 @@
 		<div class="col-sm-12">
 			<div class="col-sm-6">
 				<label>제목</label>
-				<input type="text" class="form-control" id="title" value="${commonBoard.title}" placeholder="제목 입력란" readonly><br>
+				<input style="font-size: 18px" type="text" class="form-control" id="title" value="${commonBoard.title}" placeholder="제목 입력란" readonly><br>
 				<label>내용</label>
 				<textarea id="editor" name="content" readonly="readonly" style="width: 100%;">${commonBoard.content}</textarea>
 				<input type="hidden" id="userid" value="${id }" readonly> 
@@ -342,9 +345,9 @@
 						value="수정" style="float: right; margin-right: 15px;"/><br>
 				</c:if>
 				<label>공지사항</label>
-				<input type="text" class="form-control" id="title" value="${commonBoard.notice}" placeholder="공지 사항" readonly><br>
+				<input style="font-size: 18px" type="text" class="form-control" id="title" value="${commonBoard.notice}" placeholder="공지 사항" readonly><br>
 				<label>오픈 채팅방</label> 
-				<input type="text" class="form-control" id="title" value="${commonBoard.openchat}" placeholder="작성자" readonly> <br>
+				<input style="font-size: 18px" type="text" class="form-control" id="title" value="${commonBoard.openchat}" placeholder="작성자" readonly> <br>
 				
 				<div class="col-sm-12">
 				<c:if test="${commonBoard.myFavor == 1 }">
@@ -389,7 +392,7 @@
 				</div>
 				<!-- 여기 부터 댓글 부분 -->
 				<div class="comments-container scrollbar force-overflow"
-					style="margin-top: 10px; width: 100%; overflow: scroll overfl; overflow:x:hidden; height: 520px; background-color: #EBF7FF;
+					style="margin-top: 10px; text-align:right; width: 100%; overflow: scroll overfl; overflow:x:hidden; height: 520px; background-color: #EBF7FF;
 					border-radius: 1%;"
 					id="scrollbar119">
 					<ul id="comments-list" class="comments-list">

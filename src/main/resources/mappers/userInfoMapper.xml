@@ -4,10 +4,12 @@
 
 	<insert id="insert" parameterType="userinfo">
 		insert All
-			into userinfos values(#{id}, #{password}, #{name},#{nickname},#{birth},#{addr},#{tel},#{profile},#{secure},#{secure_ans},sysdate, sysdate, #{email},#{auth})
+			into userinfos values(#{id},#{password}, #{name},#{nickname},#{birth},#{email},#{addr},#{tel},#{profile},#{secure},#{secure_ans},
+			sysdate, sysdate,#{auth})
 			into USERSTATE (SNO,ID) values (USERSTATE_SEQ.NEXTVAL,#{id})
 			SELECT * FROM DUAL
 	</insert>
+
 	
 	<select id="dupCheck" resultType="String">
 		select id from userinfos where id = #{id}
@@ -50,6 +52,10 @@
 	</update>
 	
 	<select id="isYoublacklist" resultType="java.util.HashMap">
-		select STATE, PENALTY_CNT from userstate inner join USERINFOS on USERINFOS.ID=userstate.ID WHERE USERINFOS.ID = #{id} and USERINFOS.PASSWORD = #{pw}
+		select STATE, PENALTY_CNT from userstate inner join USERINFOS on USERINFOS.ID=userstate.ID WHERE USERINFOS.ID = #{id}
+	</select>
+	
+	<select id="selectAddr" resultType="string">
+		select addr from userinfos where id = #{id}
 	</select>
 </mapper>

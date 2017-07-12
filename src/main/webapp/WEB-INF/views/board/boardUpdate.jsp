@@ -117,6 +117,9 @@
 					type="hidden" name="dong" value="${dong }">
 			</div>
 		</div>
+		<c:if test="${commonBoard.cno != 1 }">
+			<input type="hidden" name="tbno" value="${commonBoard.tbno}">
+		</c:if>
 		<c:if test="${commonBoard.cno == 1 }">
 		<div class="form-group">
 			<label for="name" class="col-sm-2 control-label"></label>

@@ -44,11 +44,19 @@ public class HomeController {
 	
 	//카테고리 페이지(index.jsp) : 로그인된 상태가 아니라면 로그인 페이지로 redirect 된다.
 	@RequestMapping("/index")
-	public String index(HttpSession session){
+	public String index(HttpSession session, Model model) throws Exception{
 		
 		System.out.println("index들어옴");
 		String id = (String) session.getAttribute("id");
 		if(id != null){
+			
+			String addr = service.getUserAddr(id);
+			System.out.println("사용자 주소: " + addr);
+			System.out.println(addr.split("%")[0].split(" ")[0]);
+			System.out.println(addr.split("%")[0].split(" ")[1]);
+			System.out.println(addr.split("%")[0].split(" ")[2]);
+			
+			model.addAttribute("addr", service.getUserAddr(id));
 			return "main/index";
 		} else {
 			return "redirect:login";
@@ -79,7 +87,7 @@ public class HomeController {
 		System.out.println(id + ", " + pass);
 		int auth = service.getMyAuth(id);
 		String nick = service.getMyNick(id);
-		List<HashMap<String, String>> isYou = service.isYoublacklist(id, pass);
+		List<HashMap<String, String>> isYou = service.isYoublacklist(id);
 		int penalty_cnt =Integer.parseInt(String.valueOf( isYou.get(0).get("PENALTY_CNT")));
 		int state =Integer.parseInt(String.valueOf( isYou.get(0).get("STATE")));
 		if(state ==2){

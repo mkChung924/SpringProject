@@ -48,8 +48,10 @@
 				var info = $('input:checkbox[name="chbox2"]:checked').val();
 				var mno = info.split('%')[0];
 				var id = info.split('%')[1];
-				alert(id);
-				window.open('/msgSend?id='+id+'&page='+${page}, '받은 메시지', 'width=600 height=600 menubar=no status=no scrollbars=yes left=500 top=50 resizable=0')
+				//alert(id);
+				var width = 370;
+				var height = 500;
+				window.open('/msgSend?id='+id+'&page='+${page}, '받은 메시지', 'width='+ width +' height='+ height +' menubar=no status=no scrollbars=yes left=600 top=100 resizable=0')
 			}
 			
 			
@@ -60,12 +62,15 @@
 	
 	function reply(sender, page){
 		var a = $('input:checkbox[name="chbox2"]:checked').length;
-		alert(a + ", " + sender + ", " + page);
+		//alert(a + ", " + sender + ", " + page);
 
 	}
 	
 	function readMsg(mno, page){
-		window.open('/receiverContent?mno='+mno+'&page='+page, '받은 메시지', 'width=600 height=600 menubar=no status=no scrollbars=yes left=500 top=50 resizable=0')
+		var width = 370;
+		var height = 500;
+		
+		window.open('/receiverContent?mno='+mno+'&page='+page, '받은 메시지', 'width='+ width +' height='+ height +' menubar=no status=no scrollbars=yes left=600 top=100 resizable=0')
 	}
 
   

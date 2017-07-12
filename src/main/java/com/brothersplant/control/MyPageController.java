@@ -37,11 +37,9 @@ public class MyPageController {
 	public String myPage(HttpSession session, Model model) throws Exception {
 		System.out.println("마이페이지-내글보기 입장");
 		String id = (String) session.getAttribute("id");
-		String pw = service.myPageInfo(id).getPassword();
-		
 		int auth = (int) session.getAttribute("auth");
 		if(id != null && auth != 2){
-			List<HashMap<String, String>> isYou = userService.isYoublacklist(id, pw);
+			List<HashMap<String, String>> isYou = userService.isYoublacklist(id);
 			int penalty_cnt =Integer.parseInt(String.valueOf( isYou.get(0).get("PENALTY_CNT")));
 			int state =Integer.parseInt(String.valueOf( isYou.get(0).get("STATE")));
 			service.myPageInfo(id).setState(state);
@@ -88,10 +86,13 @@ public class MyPageController {
 			
 			model.addAttribute("mypage", service.myPageInfo(id));
 			
-			if(page == null){
-				System.out.println("null~~");
-				page = "1";
+			String mpage = (String) session.getAttribute("page");
+			if(mpage == null){
+				page ="1";
+			} else {
+				page = mpage;
 			}
+
 			model.addAttribute("page", Integer.parseInt(page));		
 			
 			return "mypage/myPageMessage";

@@ -200,8 +200,7 @@ body {
 				</kbd>
 				<div style="margin-top: 5px;">
 					<kbd style="background-color: #EAEAEA">
-						<a href="/logout"><font color="black">로그아웃</font></a>
-					</kbd>
+						<a href="/logout"><font color="black">로그아웃</font></a></kbd>
 					&nbsp;&nbsp;|&nbsp;&nbsp;
 					<kbd>
 						<a href="/index"><font color="white">메인페이지</font></a>
@@ -253,7 +252,7 @@ body {
 							<input name="tb_kind" value="0" type="hidden">
 							<input type="hidden" value="1" id="cno" name="cno"> 
 							
-							<input type="text" class="form-control" id="title" name="title" placeholder="제목을 간략하게 입력해주세요." maxlength="50";" required>
+							<input type="text" class="form-control" id="title" name="title" placeholder="제목을 간략하게 입력해주세요." maxlength="50;" required>
 							<br>
 							<!-- 여행일 때만 보여줌 -->
 								<select name="csno" required>

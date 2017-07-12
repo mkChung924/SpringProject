@@ -23,6 +23,8 @@ public interface UserInfoDAO {
 	public int selectAuth(String id) throws Exception;
 	public String selectMyNick(String id) throws Exception;
 	public int updateProfilePicture(String profile,String id) throws Exception;
-	public List<HashMap<String, String>> isYoublacklist(String id, String pw) throws Exception;//로그인시 블랙리스트 유저인지 경고 유저인지
+	public List<HashMap<String, String>> isYoublacklist(String id) throws Exception;//로그인시 블랙리스트 유저인지 경고 유저인지
+	public String selectAddr(String id) throws Exception;
+
 
 }

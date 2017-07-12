@@ -19,7 +19,9 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 
 	@Override
 	public void insert(UserInfoVO vo) throws Exception {
-		//System.out.println("dao: " + vo);
+
+		vo.setPassword(new PassEncrypt().encrypt(vo.getPassword()));
+		vo.setSecure_ans(new PassEncrypt().encrypt(vo.getSecure_ans()));
 		sql.insert("userinfo.insert",vo);
 
 	}
@@ -64,7 +66,7 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		System.out.println("검색된 비밀번호: " + password);
 		System.out.println("내가 입력한 비밀번호: " + pass);
 		if(password == null) return false;
-		if(password.equals(pass)) return true;
+		if(password.equals(new PassEncrypt().encrypt(pass))) return true;
 		else return false;
 	}
 
@@ -75,7 +77,7 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		map.put("name", name);
 		List<UserInfoVO> secureList = sql.selectList("userinfo.passChange",map);
 		if(secureList.size() > 0){
-			if(secureList.get(0).getSecure().equals(secure) && secureList.get(0).getSecure_ans().equals(secure_ans)){
+			if(secureList.get(0).getSecure().equals(secure) && secureList.get(0).getSecure_ans().equals(new PassEncrypt().encrypt(secure_ans))){
 				return "pass";
 			} else {
 				return "not_pass";
@@ -90,7 +92,7 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 	public void updatePassword(String id, String pass) throws Exception {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id);
-		map.put("password", pass);
+		map.put("password", new PassEncrypt().encrypt(pass));
 		
 		sql.update("userinfo.updatePassword",map);
 		
@@ -137,11 +139,15 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 	}
 
 	@Override
-	public List<HashMap<String, String>> isYoublacklist(String id, String pw) throws Exception {
+	public List<HashMap<String, String>> isYoublacklist(String id) throws Exception {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id);
-		map.put("pw", pw);
 		return sql.selectList("userinfo.isYoublacklist", map);
+	}
+
+	@Override
+	public String selectAddr(String id) throws Exception {
+		return sql.selectOne("userinfo.selectAddr",id);
 	}
 
 }
