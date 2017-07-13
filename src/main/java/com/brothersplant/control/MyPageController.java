@@ -104,7 +104,8 @@ public class MyPageController {
 			
 			model.addAttribute("mypage", service.myPageInfo(id));
 			
-			String mpage = (String) session.getAttribute("page");
+			int npage = (int) session.getAttribute("page");
+			String mpage = String.valueOf(npage);
 			if(mpage == null){
 				page ="1";
 			} else {
