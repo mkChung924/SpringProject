@@ -39,5 +39,94 @@
 	<context:component-scan base-package="com.brothersplant.control" />
 	
 	
+	<beans:bean id="loginInterCeptor" class="com.brothersplant.aop.InterCeptorLoingCheck"></beans:bean>
+	<beans:bean id="authInterCeptor" class="com.brothersplant.aop.InterCeptorAuthCheck"></beans:bean>
+	<!-- 인터 셉터 -->
+	<interceptors>
+		<interceptor><!-- 로그인 세션 나갈 경우 -->
+			<mapping path="/admin"/>
+			<mapping path="/memList"/>
+			<mapping path="/admessage"/>
+			<mapping path="/reportBox"/>
+			<mapping path="/replyReportBox"/>
+			<mapping path="/tableReportBox"/>
+			<mapping path="/adminWrite"/>
+			<mapping path="/admin_regit"/>
+			<mapping path="/adminBoardsList"/>
+			<mapping path="/categoryDetail"/>
+			<mapping path="/adminWroteContents"/>
+			<mapping path="/adminTravelRead"/>
+			<mapping path="/adminFavorite"/>
+			<mapping path="/adminTravelUpdate"/>
+			<mapping path="/adminTravelRie/{page}"/><!--  -->
+			<mapping path="/upgrade"/>
+			<mapping path="/downgrade"/>
+			<mapping path="/citylist"/>
+			<mapping path="/deleteAdminBoard"/>
+			<mapping path="/admin_update"/>
+			<mapping path="/common_regit"/>
+			<mapping path="/regit"/>
+			<mapping path="/board"/>
+			<mapping path="/CommonRead"/>
+			<mapping path="/CommonUpdate"/><!-- get -->
+			<mapping path="/CommonUpdate"/><!-- post -->
+			<mapping path="/CommonDelete/{data}"/>
+			<mapping path="/rest/{data}"/>
+			<mapping path="/rest/bookmark"/>
+			<mapping path="/rest/selectSido"/>
+			<mapping path="/rest/selectGugun"/>
+			<mapping path="/rest/b/images"/>
+			<mapping path="/like/add"/>
+			<mapping path="/mailBox"/>
+			<mapping path="/receiveMailBox"/>
+			<mapping path="/sendMailBox"/>
+			<mapping path="/sendRemove"/>
+			<mapping path="/receiveRemove"/>
+			<mapping path="/msgSend"/><!-- get -->
+			<mapping path="/msgSend"/>
+			<mapping path="/senderContent"/>
+			<mapping path="/receiverContent"/>
+			<mapping path="/del"/>
+			<mapping path="/message"/>
+			<mapping path="/myContents"/>
+			<mapping path="/favorite"/>
+			<mapping path="/mypage"/>
+			<mapping path="/mypageEdit"/><!-- get -->
+			<mapping path="/mypageEdit"/>
+			<mapping path="/alter/{pass}"/>
+			<mapping path="/tal"/>
+			<mapping path="/replies/{rno}"/>
+			<mapping path="/replies"/>
+			<mapping path="/replies/{rno}"/>
+			<mapping path="/replies/all/{tbno}"/>
+			<mapping path="/addReport"/>
+			<mapping path="/selectedReprotListDelete"/>
+			<mapping path="/selectedReprotListDeletePenalty"/>
+			<mapping path="/reportList"/>
+			<mapping path="/rest2/{data}"/>
+			<mapping path="/rest2/profile/image"/>
+			<mapping path="/rest2/a/images"/>
+			
+			<beans:ref bean="loginInterCeptor"/>
+		</interceptor>
+		
+		<interceptor>
+			<mapping path="/admessage"/>
+			<mapping path="/memList"/>
+			<mapping path="/adminWrite"/>
+			<mapping path="/admin_regit"/>
+			<mapping path="/adminBoardsList"/>
+			<mapping path="/adminWroteContents"/>
+			<mapping path="/adminTravelRead"/>
+			<mapping path="/adminFavorite"/>
+			<mapping path="/adminTravelUpdate"/>
+			<mapping path="/adminTravelRie/{page}"/><!--  -->
+			<mapping path="/upgrade"/>
+			<mapping path="/downgrade"/>
+			<mapping path="/deleteAdminBoard"/>
+			<mapping path="/admin_update"/>
+			<beans:ref bean="authInterCeptor"/>
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>
