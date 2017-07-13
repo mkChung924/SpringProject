@@ -498,5 +498,20 @@
 				where a.place1 like '%'||#{place1}||'%' and tb_kind = 0
 
 	</select>
+	
+	<!-- 여행 후기 또는 여행 게시글 갯수 가져오기 -->
+	<select id="selectReviewBoardCount" resultType="int">
+		select count(*) from tbl_boards a where a.si like '%'||#{si}||'%' and a.place1 like '%'||#{place1}||'%' and a.cno = #{cno} and a.tb_kind = 2
+
+	</select>
+	<select id="selectNonReviewBoardCount" resultType="int">
+		<if test="place1 == null">
+			select count(*) from tbl_boards a where a.si like '%'||#{si}||'%' and a.cno = #{cno} and a.tb_kind = 1
+		</if>
+		<if test="place1 != null">
+			select count(*) from tbl_boards a where a.si like '%'||#{si}||'%' and a.place1 like '%'||#{place1}||'%' and a.cno = #{cno} and a.tb_kind = 1
+		</if>
+	</select>
+	
 </mapper>
 

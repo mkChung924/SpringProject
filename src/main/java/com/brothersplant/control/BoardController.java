@@ -84,6 +84,7 @@ public class BoardController {
 			System.out.println(service.selectCnoList(cri));
 			session.setAttribute("cnoMap", service.selectCnoList(cri));
 
+
 		} else {
 			
 			System.out.println("들어온 페이지: " + page);
@@ -110,6 +111,7 @@ public class BoardController {
 			//여행후기 가져오기
 			session.setAttribute("list", service.showTravelReviewList(cri));
 			session.setAttribute("cnoMap", service.selectCnoList(cri));
+
 			
 		}
 		List<BoardListVO>  list = (List<BoardListVO>)session.getAttribute("list");
@@ -122,6 +124,12 @@ public class BoardController {
 		session.setAttribute("page", Integer.parseInt(page));
 		session.setAttribute("pageMaker", pageMaker);
 		
+		//후기 및 게시글 갯수 가져오기
+		session.setAttribute("boardCount", service.selectNonReviewBoardCount(cri));
+		if(cri.getPlace1() != null){
+			session.setAttribute("reviewBoardCount", service.selectReviewBoardCount(cri));
+		}
+		
 		//내가 고른 카테고리 이름 가져오기
 		session.setAttribute("category", service.selectCategory(Integer.parseInt(cri.getCsno())).get("CNAME"));
 		session.setAttribute("subcategory", service.selectCategory(Integer.parseInt(cri.getCsno())).get("CSNAME"));
@@ -133,6 +141,7 @@ public class BoardController {
 		session.setAttribute("csno", cri.getCsno());
 		session.setAttribute("p1", cri.getPlace1());
 		session.setAttribute("p2", cri.getPlace2());
+		
 		
 		
 		return "board/board";
@@ -173,10 +182,12 @@ public class BoardController {
 		
 	}
 	@RequestMapping(value = "common_regit", method=RequestMethod.POST)
-	public String insertBoard(BoardVO vo, MultipartFile file) throws Exception{
+	public String insertBoard(BoardVO vo, MultipartFile file, Model model) throws Exception{
 		System.out.println(vo.toString());
 		service.insertBoard(vo);
+		System.out.println(vo.getTb_kind());
 		System.out.println("===등록 완료===");
+		model.addAttribute("tb_kind", vo.getTb_kind());
 		return "selfClose";
 	}
 	

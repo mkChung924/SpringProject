@@ -178,4 +178,14 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	public List<BoardVO> selectSpecificTravelRegion(String place1) throws Exception {
 		return dao.selectSpecificTravelRegion(place1);
 	}
+
+	@Override
+	public int selectReviewBoardCount(SearchCriteria cri) throws Exception {
+		return dao.selectReviewBoardCount(cri);
+	}
+
+	@Override
+	public int selectNonReviewBoardCount(SearchCriteria cri) throws Exception {
+		return dao.selectNonReviewBoardCount(cri);
+	}
 }

@@ -65,6 +65,9 @@ public interface BoardInfoService {
 		public List<Map<String, Object>> selectAllTravelRegionCount() throws Exception;
 		// 2. 지역별 상세 여행지 가져오기
 		public List<BoardVO> selectSpecificTravelRegion(String place1) throws Exception;
+		
+		public int selectReviewBoardCount(SearchCriteria cri) throws Exception;
+		public int selectNonReviewBoardCount(SearchCriteria cri) throws Exception;	
 	
 	
 }

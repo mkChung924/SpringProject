@@ -335,7 +335,7 @@
 								<div style="text-align: right; margin-top: 10px;">
 									<c:if test="${cno != 1 }">
 										<button type="button" class="btn btn-default" id="all">전체
-											보기</button>
+											보기[${boardCount }]</button>
 									</c:if>
 									<select class="form-control" id="perPageNum" name="pageNum"
 										style="display: inline; width: 100px;">
@@ -354,11 +354,11 @@
 									<c:if test="${cno == 1 }">
 										<button type="button" class="btn btn-default" id="review"
 											style="background-color: black; color: white">여행 후기
-											모아보기</button>
+											모아보기[${reviewBoardCount }]</button>
 										<input type="hidden" name="tb_kind" value="${tb_kind }">
 										<button type="button" class="btn btn-default" id="together"
 											style="background-color: black; color: white">관심글
-											모아보기</button>
+											모아보기[${boardCount }]</button>
 										<button type="button" class="btn btn-default" id="write">게시글
 											및 후기 작성</button>
 									</c:if>
