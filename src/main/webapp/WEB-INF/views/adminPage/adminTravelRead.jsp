@@ -32,7 +32,11 @@
 {{#each .}}
 <li>
 	<div class="comment-main-level" >
+		{{#profileCheck profile}}
 		<div class="comment-avatar"><img src="{{profile}}" alt=""></div>
+		{{else}}
+		<div class="comment-avatar"><img src="http://goo.gl/5SYWQ9" alt=""></div>
+		{{/profileCheck}}
 		<div class="comment-box" >
 			<div class="comment-head">
 				{{#isAuthor id}}
@@ -80,6 +84,14 @@
 
 	Handlebars.registerHelper('isAuthor', function(id, options) {
 		if (id == '${commonBoard.id}') {
+			return options.fn(this);
+		} else {
+			return options.inverse(this);
+		}
+	});
+	
+	Handlebars.registerHelper('profileCheck', function(profile, options) {
+		if (profile != 'default.png') {
 			return options.fn(this);
 		} else {
 			return options.inverse(this);

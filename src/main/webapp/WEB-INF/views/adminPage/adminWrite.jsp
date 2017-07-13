@@ -189,7 +189,7 @@ body {
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${admin.profile == 'default.png' }">						
-						<img src="${admin.profile }" class="img-responsive" alt="기존사진" id="profilePic"><br>
+						<img src="http://goo.gl/5SYWQ9" class="img-responsive" alt="기존사진" id="profilePic"><br>
 						</c:if>
 						<c:if test="${admin.profile != 'default.png' }">
 						<img src="${admin.profile }" class="img-responsive" alt="프로필사진" id="profilePic"><br>

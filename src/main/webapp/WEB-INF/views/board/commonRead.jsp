@@ -50,7 +50,11 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 {{#each .}}
 <li>
 	<div class="comment-main-level" >
+		{{#profileCheck profile}}
 		<div class="comment-avatar"><img src="{{profile}}" alt=""></div>
+		{{else}}
+		<div class="comment-avatar"><img src="http://goo.gl/5SYWQ9" alt=""></div>
+		{{/profileCheck}}
 		<div class="comment-box" >
 			<div class="comment-head">
 				{{#isAuthor id}}
@@ -93,6 +97,16 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 			return options.inverse(this);
 		}
 	});
+	
+	Handlebars.registerHelper('profileCheck', function(profile, options) {
+		if (profile != 'default.png') {
+			return options.fn(this);
+		} else {
+			return options.inverse(this);
+		}
+	});
+	
+
 	
 	Handlebars.registerHelper('viewModifyBtn', function(id, options) {
 		if (id == '${id}') {

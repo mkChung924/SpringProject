@@ -9,6 +9,7 @@
 
 	$(function(){
 
+		$('[name=tb_kind]', opener.document).val('${tb_kind}');
 		$('form[role="form"]',opener.document).attr('method', 'POST');
 		$('form[role="form"]',opener.document).submit();
 		self.close();

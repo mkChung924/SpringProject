@@ -219,4 +219,15 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 		return session.selectList(namespace +".selectSpecificTravelRegion",place1);
 	}
 
+	@Override
+	public int selectReviewBoardCount(SearchCriteria cri) throws Exception {
+		return session.selectOne(namespace+".selectReviewBoardCount", cri);
+	}
+
+	@Override
+	public int selectNonReviewBoardCount(SearchCriteria cri) throws Exception {
+		
+		return session.selectOne(namespace+".selectNonReviewBoardCount", cri);
+	}
+
 }
