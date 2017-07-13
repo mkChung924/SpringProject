@@ -168,4 +168,14 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	public int deleteAdminBoard(String[] tbno) throws Exception {
 		return dao.deleteAdminBoard(tbno);
 	}
+
+	@Override
+	public List<Map<String, Object>> selectAllTravelRegionCount() throws Exception {
+		return dao.selectAllTravelRegionCount();
+	}
+
+	@Override
+	public List<BoardVO> selectSpecificTravelRegion(String place1) throws Exception {
+		return dao.selectSpecificTravelRegion(place1);
+	}
 }

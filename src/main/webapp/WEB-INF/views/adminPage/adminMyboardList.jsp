@@ -169,8 +169,8 @@ function adminReadPage(tbno,place1,place2,cno,csno) {
 						<tr>
 							<td><input type="checkbox" name=chbox1 value="${myboard.tbno }"></td>
 							<td onclick="adminReadPage('${myboard.tbno}','${myboard.place1}','${myboard.place2}','${myboard.cno}','${myboard.csno}')" style="cursor: pointer;">${myboard.title }</td>
-							<td>${myboard.place1 }</td>
-							<td>${myboard.place2 }</td>
+							<td>${myboard.place1 == '1' ? 'N/A' : myboard.place1 }</td>
+							<td>${myboard.place2 == '2' ? 'N/A' : myboard.place2 }</td>
 							<td>${myboard.viewcnt }</td>
 							<td>${myboard.regdate }</td>
 						</tr>

@@ -51,6 +51,11 @@ public interface BoardInfoDAO {
 	
 	public int adminBoardUpdate(BoardVO vo) throws Exception;//관리자 게시글 수정
 	public int deleteAdminBoard(String[] tbno) throws Exception;//관리자 게시글 삭제
+	
+	//추천 여행지 전부 가져오기
+	// 1. 여행지 수 가져오기
+	public List<Map<String, Object>> selectAllTravelRegionCount() throws Exception;
+	public List<BoardVO> selectSpecificTravelRegion(String place1) throws Exception;
 }
 
 

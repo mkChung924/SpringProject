@@ -82,8 +82,8 @@
 		        </div>
 	            <br>
 	            <c:if test="${bookmark.size() < 1 }">
-	            	<div style="text-align: center; margin-top: 12%;">
-	            	<h4><i>즐겨찾기에 추가된 게시글이 없습니다.</i></h4>
+	            	<div style="text-align: center; margin-top: 25%;">
+	            	<h4><i><font color=red>즐겨찾기</font>에 추가된 게시글이 없습니다.</i></h4>
 	            	</div>
 	            </c:if>
 	            <c:if test="${bookmark.size() > 0 }">

@@ -8,11 +8,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.PageMaker;
 import com.brothersplant.domain.SearchCriteria;
+import com.brothersplant.domain.SecureVO;
+import com.brothersplant.domain.UserInfoVO;
 import com.brothersplant.service.AdminPageService;
 //import com.brothersplant.service.AdminPageService;
 import com.brothersplant.service.BoardInfoService;
@@ -57,6 +60,64 @@ public class AdminController {
 		}
 
 	}
+	
+	@RequestMapping(value = "/adminEdit", method = RequestMethod.GET)
+	public String myPageEditForm(HttpSession session, SecureVO svo, UserInfoVO pvo, Model model) throws Exception {
+		System.out.println("관리자페이지-정보수정 입장");
+		String id = (String) session.getAttribute("id");
+		if(id != null){
+			int auth = (int) session.getAttribute("auth");
+			System.out.println(auth);
+			
+			if(auth == 2){
+				
+				System.out.println("관리자 my정보: "+service.myPageInfo(id));
+				System.out.println(service.secureCode());
+				System.out.println(id);
+			
+				model.addAttribute("mypage", service.myPageInfo(id));
+				model.addAttribute("slist", service.secureCode());
+			
+				return "adminPage/adminPageEdit";
+				
+			} else {
+				
+				return "redirect:index";
+			}
+
+		
+		} else {
+			return "redirect:login";
+		}
+	}
+	
+	@RequestMapping(value = "/adminEdit", method = RequestMethod.POST)
+	public String adminPageEditUpdate(HttpSession session, UserInfoVO vo, 
+			String tel1, String tel2, String tel3,
+			String postcode, String address, String detailAddress, RedirectAttributes attr) throws Exception {
+		System.out.println("관리자페이지-정보수정 입장");
+		String id = (String) session.getAttribute("id");
+		
+		String tel = tel1+"-"+tel2+"-"+tel3;
+		String addr = address +"$"+ detailAddress +"$"+postcode;
+		
+		if(id != null){
+			
+			vo.setId(id);
+			vo.setTel(tel);
+			vo.setAddr(addr);
+			
+			service.updateUser(vo);
+			attr.addFlashAttribute("msg", "SUCCESS");
+			
+			return "redirect:adminEdit";
+			
+		} else {
+			return "redirect:login";
+			
+		}
+	}
+	
 	
 	//회원현황
 	@RequestMapping("/memList")

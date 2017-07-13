@@ -442,7 +442,7 @@
 	<select id="iwrote" resultType="boardVO">
 <!-- 		select * from tbl_boards where id=#{id} order by regdate desc
  -->		
-		select do1, si, dong, cno, csno, tb_kind,tbno,
+		select do1, si, dong, cno, csno, tb_kind, tbno, place1, place2,
 		(select cname from tbl_category where cno = a.cno) cname,
 		(select csname from tbl_subcategory where csno = a.csno) csname,
 		a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, 
@@ -474,5 +474,29 @@
 			#{item}
 		</foreach>
 	</delete>
+	
+	
+	<!-- 추천 여행지 전부 가져오기 -->
+	<!-- 1. 각 지역별 추천 여행지 개수 가져오기 -->
+	<select id="selectAllTravelRegionCount" resultType="java.util.Map">
+		select place1, (select count(*) from tbl_boards where tb_kind = 0 and place1 = a.place1) count 
+		from tbl_boards a where tb_kind = 0 
+		group by place1 
+		order by place1
+	</select>
+	
+	<!-- 2. 지역별 상세 지역 게시글 가져오기 -->
+	<select id="selectSpecificTravelRegion" resultType="boardVO">
+		select a.id, a.cno, a.csno, a.notice, a.tbno, a.title, a.notice,
+					(select cname from tbl_category where cno = a.cno) cname,
+					(select csname from tbl_subcategory where csno = a.csno) csname,
+					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
+					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
+					 (select count(*) from tbl_boards where tb_kind = 2 and place1 like '%'||#{place1}||'%' and place2 like '%'||a.place2||'%') reviews,
+					 a.place1, a.place2, a.viewcnt, a.image
+				from tbl_boards a
+				where a.place1 like '%'||#{place1}||'%' and tb_kind = 0
+
+	</select>
 </mapper>
 

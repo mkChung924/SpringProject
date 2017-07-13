@@ -230,4 +230,22 @@ public class BoardController {
 		return entity;
 	}
 	//===========
+	
+	@RequestMapping("/allTrip")
+	public String allTrip(HttpSession session, Model model) throws Exception{
+		String id =	(String) session.getAttribute("id");
+		
+		if(id != null){
+
+			System.out.println(service.selectAllTravelRegionCount());
+			model.addAttribute("regionCount", service.selectAllTravelRegionCount());
+
+			
+		} else {
+			return "redirect:login";
+		}
+		
+		
+		return "board/allTravelList";
+	}
 }
