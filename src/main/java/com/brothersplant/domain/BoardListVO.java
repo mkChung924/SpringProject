@@ -29,6 +29,7 @@ public class BoardListVO {
 	private String myfavor;
 	private int viewCnt;
 	private String image;
+	private int tb_kind;
 	
 
 	
@@ -38,11 +39,17 @@ public class BoardListVO {
 				+ ", ddate=" + ddate + ", do1=" + do1 + ", si=" + si + ", dong=" + dong + ", place1=" + place1
 				+ ", place2=" + place2 + ", cno=" + cno + ", csno=" + csno + ", cname=" + cname + ", csname=" + csname
 				+ ", tbno=" + tbno + ", title=" + title + ", likes=" + likes + ", replies=" + replies + ", myfavor="
-				+ myfavor + ", viewCnt=" + viewCnt + ", image=" + image + "]";
+				+ myfavor + ", viewCnt=" + viewCnt + ", image=" + image + ", tb_kind="+tb_kind+"]";
 	}
 
+	public int getTb_kind() {
+		return tb_kind;
+	}
 
-
+	public void setTb_kind(int tb_kind) {
+		this.tb_kind = tb_kind;
+	}
+	
 	public String getImage() {
 		return image;
 	}

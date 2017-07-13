@@ -192,7 +192,7 @@
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id} and id =
 		#{id}) myfavor,
-		place1, place2, a.viewcnt,
+		place1, place2, a.viewcnt, a.tb_kind,
 		1 as ordered
 		from userinfos, tbl_boards a
 		where a.si = #{si} and a.dong = #{dong} and a.place1 like
@@ -209,7 +209,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		place1, place2, a.viewcnt,
+		place1, place2, a.viewcnt, a.tb_kind,
 		2 as ordered
 		from userinfos, tbl_boards a
 		where a.si = #{si} and a.dong = #{dong} and a.place1 like
@@ -226,7 +226,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		place1, place2, a.viewcnt,
+		place1, place2, a.viewcnt, a.tb_kind,
 		3 as ordered
 		from userinfos, tbl_boards a
 		where a.si = #{si} and a.dong = #{dong} and a.place1 like
@@ -243,7 +243,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		place1, place2, a.viewcnt,
+		place1, place2, a.viewcnt, a.tb_kind,
 		4 as ordered
 		from userinfos, tbl_boards a
 		where a.si = #{si} and a.dong = #{dong} and a.place1 like
@@ -260,7 +260,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		place1, place2, a.viewcnt,
+		place1, place2, a.viewcnt, a.tb_kind,
 		5 as ordered
 		from userinfos, tbl_boards a
 		where a.si = #{si} and a.dong != #{dong} and a.place1 like
@@ -277,7 +277,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		place1, place2, a.viewcnt,
+		place1, place2, a.viewcnt, a.tb_kind,
 		6 as ordered
 		from userinfos, tbl_boards a
 		where a.si = #{si} and a.dong != #{dong} and a.place1 like
@@ -294,7 +294,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		place1, place2, a.viewcnt,
+		place1, place2, a.viewcnt, a.tb_kind,
 		7 as ordered
 		from userinfos, tbl_boards a
 		where a.si = #{si} and a.dong != #{dong} and a.place1 like
@@ -311,7 +311,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		place1, place2, a.viewcnt,
+		place1, place2, a.viewcnt, a.tb_kind,
 		8 as ordered
 		from userinfos, tbl_boards a
 		where a.si = #{si} and a.dong != #{dong} and a.place1 like
@@ -331,7 +331,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		a.viewcnt,
+		a.viewcnt, a.tb_kind,
 		1 as ordered
 		from userinfos, tbl_boards a
 		where a.si = #{si} and a.dong = #{dong} and a.csno = #{csno} and a.tb_kind
@@ -346,7 +346,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		a.viewcnt,
+		a.viewcnt, a.tb_kind,
 		2 as ordered
 		from userinfos, tbl_boards a
 		where a.si = #{si} and a.dong = #{dong} and a.cno = #{cno} and a.csno !=
@@ -361,7 +361,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		a.viewcnt,
+		a.viewcnt, a.tb_kind,
 		3 as ordered
 		from userinfos, tbl_boards a
 		where a.si = #{si} and a.dong != #{dong} and a.cno = #{cno} and a.csno !=
@@ -385,7 +385,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		place1, place2, a.viewcnt,
+		place1, place2, a.viewcnt, a.tb_kind,
 		1 as ordered
 		from userinfos, tbl_boards a
 		where a.place1 like '%'||#{place1}||'%' and
@@ -401,7 +401,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		place1, place2, a.viewcnt,
+		place1, place2, a.viewcnt, a.tb_kind,
 		2 as ordered
 		from userinfos, tbl_boards a
 		where a.place1 like '%'||#{place1}||'%' and
@@ -417,7 +417,7 @@
 		(select count(*) from tbl_like where tbno = a.tbno) likes,
 		(select count(*) from tbl_replies where tbno = a.tbno) replies,
 		(select count(*) from bookmark where tbno = a.tbno and id = #{id}) myfavor,
-		place1, place2, a.viewcnt,
+		place1, place2, a.viewcnt, a.tb_kind,
 		3 as ordered
 		from userinfos, tbl_boards a
 		where a.place1 like '%'||#{place1}||'%' and
@@ -440,7 +440,19 @@
 
 	<!-- 내가 쓴 글 검색 -->
 	<select id="iwrote" resultType="boardVO">
-		select * from tbl_boards where id=#{id}
+<!-- 		select * from tbl_boards where id=#{id} order by regdate desc
+ -->		
+		select do1, si, dong, cno, csno, tb_kind,tbno,
+		(select cname from tbl_category where cno = a.cno) cname,
+		(select csname from tbl_subcategory where csno = a.csno) csname,
+		a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, 
+		round(15 - (sysdate - regdate)) ddate,
+		(select count(*) from tbl_like where tbno = a.tbno) likes,
+		(select count(*) from tbl_replies where tbno = a.tbno) replies, a.viewcnt
+		from tbl_boards a
+		where id = #{id}
+		order by regdate desc
+		
 	</select>
 	
 	<select id="iwroteTOTCnt" resultType="int">

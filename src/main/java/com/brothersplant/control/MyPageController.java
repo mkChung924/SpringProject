@@ -68,7 +68,7 @@ public class MyPageController {
 		model.addAttribute("myboardList",boardService.iwrote(id,cri));
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("cri", cri);
-		return "mypage/myPageTravelList";
+		return "mypage/myPageBoardList";
 		} else {
 			return "redirect:login";
 		}

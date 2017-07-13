@@ -204,7 +204,7 @@
 	}
 	
   	function adminReadPage(tbno,place1,place2,cno,csno) {
-        var w = screen.width - 300;
+        var w = screen.width - 100;
         var h = screen.height - 200;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2) - 50;
@@ -219,7 +219,7 @@
 		<div class="row">
 			<div class="header">
 				<c:if test="${auth == 2 }">
-				<b>${nick }</b> <kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd>
+				<b>[ ${nick } ]</b> <kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd>
 				<div style="margin-top: 5px;">
 				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;
 				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
@@ -241,8 +241,8 @@
 			<!-- 관리자 여행 추천 게시글 -->
 			<c:if test="${cno == 1 }">
 				<c:if test="${travelList.size() > 0 }">
-				<c:forEach items="${travelList }" var="travel">
 				<div class="row">
+				<c:forEach items="${travelList }" var="travel">
 					<div class="col-md-3">
 						<div class="thumbnail m">
 							<img src="${travel.image }" alt="ALT NAME"
@@ -266,8 +266,8 @@
 							</div>
 						</div>
 					</div>
-				</div>
 				</c:forEach>
+				</div>
 				<div class="row"
 					style="text-align: right; margin-right: 20px; margin-top: -5px;">
 					<button type="button" class="btn btn-success">
@@ -366,7 +366,10 @@
 		        	<div class="caption">
 		        		<div style="text-align: left; padding-top: 0px;">
 			              	 <div style="display: block; text-align: right; padding-top: 0px;">
-			              		 ${myList.regdate } <font color=red>D-${myList.ddate }</font>
+			              		 ${myList.regdate } 
+			              		 <c:if test="${myList.tb_kind != 2 }">
+			              		  <font color=red>D-${myList.ddate }</font>
+			              		 </c:if>
 			              		 <br>${myList.si } ${myList.dong }
 			              		 <br>
 			              		 <c:if test="${myList.place1 != null }">

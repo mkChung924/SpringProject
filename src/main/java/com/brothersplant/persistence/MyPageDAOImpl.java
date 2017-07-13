@@ -52,6 +52,8 @@ public class MyPageDAOImpl implements MyPageDAO {
 	@Override
 	public int updateUser(UserInfoVO vo) throws Exception {
 		System.out.println("doa: " + vo);
+		vo.setSecure_ans(new PassEncrypt().encrypt(vo.getSecure_ans()));
+		vo.setPassword(new PassEncrypt().encrypt(vo.getPassword()));
 		return sql.update("mypage.update",vo);
 		
 	}
