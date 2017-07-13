@@ -41,6 +41,7 @@
 	
 	<beans:bean id="loginInterCeptor" class="com.brothersplant.aop.InterCeptorLoingCheck"></beans:bean>
 	<beans:bean id="authInterCeptor" class="com.brothersplant.aop.InterCeptorAuthCheck"></beans:bean>
+	<beans:bean id="ieCheck" class="com.brothersplant.aop.IEcheck"></beans:bean>
 	<!-- 인터 셉터 -->
 	<interceptors>
 		<interceptor><!-- 로그인 세션 나갈 경우 -->
@@ -127,6 +128,87 @@
 			<mapping path="/admin_update"/>
 			<beans:ref bean="authInterCeptor"/>
 		</interceptor>
+		
+		<interceptor>
+			<mapping path="/adminEdit"/>
+			<mapping path="/admessage"/>
+			<mapping path="/reportBox"/>
+			<mapping path="/replyReportBox"/>
+			<mapping path="/tableReportBox"/>
+			<mapping path="/adminWrite"/>
+			<mapping path="/admin_regit"/>
+			<mapping path="/adminBoardsList"/>
+			<mapping path="/categoryDetail"/>
+			<mapping path="/adminWroteContents"/>
+			<mapping path="/adminTravelRead"/>
+			<mapping path="/adminFavorite"/>
+			<mapping path="/adminEdit"/>
+			<mapping path="/adminTravelUpdate"/>
+			<mapping path="/admin"/>
+			<mapping path="/adminTravelRie/{page}"/>
+			<mapping path="/upgrade"/>
+			<mapping path="/downgrade"/>
+			<mapping path="/deleteAdminBoard"/>
+			<mapping path="/citylist"/>
+			<mapping path="/admin_update"/>
+			<mapping path="/regit"/>
+			<mapping path="/common_regit"/>
+			<mapping path="/board"/>
+			<mapping path="/CommonRead"/>
+			<mapping path="/CommonUpdate"/>
+			<mapping path="/CommonUpdate"/>
+			<mapping path="/CommonDelete/{data}"/>
+			<mapping path="/allTrip"/>
+			<mapping path="/rest/{data}"/>
+			<mapping path="/rest/bookmark"/>
+			<mapping path="/rest/selectSido"/>
+			<mapping path="/rest/selectGugun"/>
+			<mapping path="/rest/regionDetail"/>
+			<mapping path="/rest/b/images"/>
+			<mapping path="/login"/>
+			<mapping path="/logout"/>
+			<mapping path="/login"/>
+			<mapping path="/signUp"/>
+			<mapping path="/idCheck"/>
+			<mapping path="/loggingIn"/>
+			<mapping path="/dupCheck"/>
+			<mapping path="/nickCheck"/>
+			<mapping path="/passUp"/>
+			<mapping path="/passFind/"/>
+			<mapping path="/idFind/{name}/{birth}"/>
+			<mapping path="/like/add"/>
+			<mapping path="/mailBox"/>
+			<mapping path="/receiveMailBox"/>
+			<mapping path="/sendMailBox"/>
+			<mapping path="/sendRemove"/>
+			<mapping path="/receiveRemove"/>
+			<mapping path="/msgSend"/>
+			<mapping path="/senderContent"/>
+			<mapping path="/receiverContent"/>
+			<mapping path="/del"/>
+			<mapping path="/mypageEdit"/>
+			<mapping path="/message"/>
+			<mapping path="/myContents"/>
+			<mapping path="/favorite"/>
+			<mapping path="/mypage"/>
+			<mapping path="/mypageEdit"/>
+			<mapping path="/alter/{pass}"/>
+			<mapping path="/tal"/>
+			<mapping path="/replies/{rno}"/>
+			<mapping path="/replies"/>
+			<mapping path="/replies/{rno}"/>
+			<mapping path="/replies/all/{tbno}"/>
+			<mapping path="/reportList"/>
+			<mapping path="/selectedReprotListDelete"/>
+			<mapping path="/addReport"/>
+			<mapping path="/selectedReprotListDeletePenalty"/>
+			<mapping path="/rest2/{data}"/>
+			<mapping path="/rest2/a/images"/>
+			<mapping path="/rest2/profile/image"/>
+			<beans:ref bean="ieCheck"/>
+		</interceptor>
+		
 	</interceptors>
+
 	
 </beans:beans>

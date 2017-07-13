@@ -178,5 +178,9 @@ public class HomeController {
 		return "main/idCheck";
 	}
 	
-	
+	@RequestMapping(value="IEgoChrome",method=RequestMethod.GET)
+	public String goChrome(HttpSession session){
+		session.invalidate();
+		return "goChome";
+	}
 }
