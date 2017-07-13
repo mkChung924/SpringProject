@@ -37,17 +37,25 @@ public class MyPageController {
 	public String myPage(HttpSession session, Model model) throws Exception {
 		System.out.println("마이페이지-내글보기 입장");
 		String id = (String) session.getAttribute("id");
-		int auth = (int) session.getAttribute("auth");
-		if(id != null && auth != 2){
-			List<HashMap<String, String>> isYou = userService.isYoublacklist(id);
-			int penalty_cnt =Integer.parseInt(String.valueOf( isYou.get(0).get("PENALTY_CNT")));
-			int state =Integer.parseInt(String.valueOf( isYou.get(0).get("STATE")));
-			service.myPageInfo(id).setState(state);
+		
+		if(id != null){
+				int auth = (int) session.getAttribute("auth");
 			
-			model.addAttribute("mypage", service.myPageInfo(id));
-			model.addAttribute("userState", state);
-			model.addAttribute("userPenaltyCnt", penalty_cnt);
-			return "mypage/myInfo";
+				if(auth != 2){
+				
+				List<HashMap<String, String>> isYou = userService.isYoublacklist(id);
+				int penalty_cnt =Integer.parseInt(String.valueOf( isYou.get(0).get("PENALTY_CNT")));
+				int state =Integer.parseInt(String.valueOf( isYou.get(0).get("STATE")));
+				service.myPageInfo(id).setState(state);
+				
+				model.addAttribute("mypage", service.myPageInfo(id));
+				model.addAttribute("userState", state);
+				model.addAttribute("userPenaltyCnt", penalty_cnt);
+				return "mypage/myInfo";
+			
+			} else {
+				return "redirect:index";
+			}
 		} else {
 			return "redirect:login";
 		}
@@ -57,18 +65,25 @@ public class MyPageController {
 	public String myContents(HttpSession session, Model model,Criteria cri) throws Exception {
 		System.out.println("마이페이지-내글보기 입장");
 		String id = (String) session.getAttribute("id");
-		int auth = (int) session.getAttribute("auth");
 		if(id != null){
+			int auth = (int) session.getAttribute("auth");
 			
-		PageMaker pageMaker = new PageMaker();
-		pageMaker.setCri(cri);
-		pageMaker.setTotalCount(boardService.iwroteTOTCnt(id));	
+			if(auth != 2){
 			
-		model.addAttribute("mypage", service.myPageInfo(id));
-		model.addAttribute("myboardList",boardService.iwrote(id,cri));
-		model.addAttribute("pageMaker", pageMaker);
-		model.addAttribute("cri", cri);
-		return "mypage/myPageBoardList";
+				PageMaker pageMaker = new PageMaker();
+				pageMaker.setCri(cri);
+				pageMaker.setTotalCount(boardService.iwroteTOTCnt(id));	
+					
+				model.addAttribute("mypage", service.myPageInfo(id));
+				model.addAttribute("myboardList",boardService.iwrote(id,cri));
+				model.addAttribute("pageMaker", pageMaker);
+				model.addAttribute("cri", cri);
+				return "mypage/myPageBoardList";
+			} else {
+				
+				return "redirect:index";
+				
+			}
 		} else {
 			return "redirect:login";
 		}

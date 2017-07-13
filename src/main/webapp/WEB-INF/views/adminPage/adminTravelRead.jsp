@@ -327,11 +327,11 @@
 		});
 	}
 	
-	function linkReview(tbno) {//메시지 보내기
-		var w = 500;
-		var h = 600;
+	function linkReview(tbno) {
+		var w = screen.width-200;
+		var h = screen.height-100;
 		var left = (screen.width / 2) - (w / 2);
-		var top = (screen.height / 2) - (h / 2);
+		var top = (screen.height / 2) - (h / 2) - 50;
 		var open = window.open("/CommonRead?tbno="+tbno, tbno+"번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 	};
 	

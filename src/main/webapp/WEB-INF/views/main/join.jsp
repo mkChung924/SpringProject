@@ -36,7 +36,7 @@
 		    <input type="text" class="form-control" name="name" placeholder="이름" pattern="[ㄱ-힣]{2,10}" required autocomplete="off">&nbsp;&nbsp;
 		    
 		    <label style="width: 50"><b>닉네임<font color=red>*</font></b></label>
-		    <input type="text" class="form-control" name="nickname" placeholder="닉네임" pattern="[a-ZA-Zㄱ-힣]{3,20}" required autocomplete="off" onkeydown="nickCheck()">&nbsp;&nbsp;
+		    <input type="text" class="form-control" name="nickname" placeholder="닉네임" pattern="[a-ZA-Zㄱ-힣]{3,20}" title="한글 영어 조합 3~20자" required autocomplete="off" onkeydown="nickCheck()">&nbsp;&nbsp;
 		    <b class="nick"></b>
 		    <br>
 		    

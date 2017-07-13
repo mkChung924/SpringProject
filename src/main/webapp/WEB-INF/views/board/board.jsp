@@ -211,6 +211,17 @@
         window.open("/adminTravelRead?tbno=" + tbno+"&place1="+place1+"&place2="+place2+"&cno="+cno+"&csno="+csno, "관리자 여행 추천 "+tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 		$("#ViewCnt-"+tbno).html(parseInt($("#ViewCnt-"+tbno).html())+1);
     };
+    
+    function showAllTrip(){
+    	var w = screen.width - 170;
+        var h = screen.height - 150;
+        var left = (screen.width / 2) - (w / 2);
+        var top = (screen.height / 2) - (h / 2) - 50;
+        window.open("/allTrip", "여행 추천 살펴보기"+ 
+        		"번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, '+
+        		'width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+    	
+    }
 </script>
 </head>
 
@@ -242,7 +253,7 @@
 			<c:if test="${cno == 1 }">
 				<c:if test="${travelList.size() > 0 }">
 				<div class="row">
-				<c:forEach items="${travelList }" var="travel">
+				<c:forEach items="${travelList }" var="travel" end="4">
 					<div class="col-md-3">
 						<div class="thumbnail m">
 							<img src="${travel.image }" alt="ALT NAME"
@@ -270,7 +281,7 @@
 				</div>
 				<div class="row"
 					style="text-align: right; margin-right: 20px; margin-top: -5px;">
-					<button type="button" class="btn btn-success">
+					<button type="button" class="btn btn-success" onclick="showAllTrip()">
 						<font size=4>추천 여행지 더보기</font>&nbsp; <i
 							class="glyphicon glyphicon-plus-sign"></i>
 					</button>

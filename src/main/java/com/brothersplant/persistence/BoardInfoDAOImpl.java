@@ -205,4 +205,15 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 		return 1;
 	}
 
+	@Override
+	public List<Map<String, Object>> selectAllTravelRegionCount() throws Exception {
+		return session.selectList(namespace+".selectAllTravelRegionCount");
+	}
+
+	@Override
+	public List<BoardVO> selectSpecificTravelRegion(String place1) throws Exception {
+		System.out.println("여행지 선택 장소: " + place1);
+		return session.selectList(namespace +".selectSpecificTravelRegion",place1);
+	}
+
 }

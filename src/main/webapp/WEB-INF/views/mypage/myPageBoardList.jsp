@@ -14,6 +14,11 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
+<style type="text/css">
+	th {
+		text-align: center;
+	}
+</style>
 <script>
 $(document).on("click",".pagination li a", function(event){
 	event.preventDefault(); 
@@ -23,6 +28,13 @@ $(document).on("click",".pagination li a", function(event){
 	paging.attr("action","/myContents").attr("method", "get");
 	paging.submit();
 });
+function readPage(tbno){
+    var w = screen.width - 300;
+    var h = screen.height - 200;
+    var left = (screen.width / 2) - (w / 2);
+    var top = (screen.height / 2) - (h / 2) - 50;
+    window.open("/CommonRead?tbno=" + tbno, tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+}
 </script>
 <title>마이페이지-내글보기</title>
 </head>
@@ -110,27 +122,32 @@ $(document).on("click",".pagination li a", function(event){
 	            </div>
 	            </c:if>
 	            <c:if test="${myboardList.size() > 0 }">
+	            <div class="col-sm-12" style="text-align: right; margin-bottom: 10px;">
+	            	* 게시판의 활성화를 위해 모든 관심 게시글은 등록일로부터 15일 경과후 삭제됩니다.
+	            </div>
 	            <table class="table">
 					<tr>
-						<th>게시물 번호</th>
-						<th>제목</th>
-						<th>유형1</th>
-						<th>유형2</th>
+						<th>종류</th>
+						<th>게시글 제목</th>
+						<th>분류1</th>
+						<th>분류2</th>
 						<th>조회수</th>
 						<th>좋아요</th>
-						<th>등록날짜</th>
-						<th>남은날짜</th>
+						<th>등록일</th>
+						<th>유지일(일)</th>
 					</tr>	
 					<c:forEach items="${myboardList }" var="myboard">
-						<tr>
-							<td>${myboard.tbno }</td>
-							<td>${myboard.title }</td>
+						<tr style="text-align: center">
+							<td>${myboard.tb_kind == 1 ? '관심' : '<font color=red>후기</font>' }</td>
+							<td><a style="cursor: pointer;" onclick="readPage(${myboard.tbno})">${myboard.title }</a></td>
 							<td>${myboard.cname}</td>
 							<td>${myboard.csname }</td>
 							<td>${myboard.viewcnt }</td>
 							<td>${myboard.likes }</td>
 							<td>${myboard.regdate }</td>
-							<td>${myboard.ddate }</td>
+							<td style="color : ${myboard.tb_kind == 1 ? (myboard.ddate <=5 ? 'red' : 'green') : 'N/A'};">
+							${myboard.tb_kind == 1 ? myboard.ddate : 'N/A'}
+							</td>
 						</tr>
 					</c:forEach>
 	            </table>

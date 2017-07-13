@@ -55,23 +55,7 @@
 					<!-- END SIDEBAR BUTTONS -->
 					<!-- SIDEBAR MENU -->
 					<div class="profile-usermenu">
-						<!-- mypage/ -->
-						<ul class="nav">
-							<li>
-								<a href="mypage">
-								<i class="glyphicon glyphicon-user"></i>
-								내 정보 </a>
-							</li>
-							<li>
-								<a href="myContents">
-								<i class="glyphicon glyphicon-list"></i>
-								내 글보기 </a>
-							</li>
-							<li><a href="message"> <i class="glyphicon glyphicon-envelope"></i> 메시지함</a></li>
-							<li class="active"><a href="mypageEdit"><i class="glyphicon glyphicon-edit"></i> 정보수정</a></li>
-							<li><a href="favorite"> <i class="glyphicon glyphicon-heart"></i> 즐겨찾기</a></li>
-							<li><a href="del"> <i class="glyphicon glyphicon-remove"></i> 탈퇴</a></li>
-						</ul>
+						<%@include file="adminNavList.jsp" %>
 					</div>
 					<!-- END MENU -->
 				</div>
@@ -79,7 +63,7 @@
 			<div class="col-md-9">
 
 				<form class="mypageUp" id="frm"
-					action="/mypageEdit" method="post">
+					action="/adminEdit" method="post">
 					<div class="profile-content">
 						<h3><b>정보수정</b></h3>
 						<br> <label style="width: 100"><b>아이디<font
@@ -102,7 +86,7 @@
 						<label style="width: 50"><b>닉네임<font color=red>*</font></b></label>
 						<input type="text" class="form-control" name="nickname"
 							value="${mypage.nickname}" required
-							autocomplete="off">&nbsp;&nbsp; <br> <br>
+							autocomplete="off" onkeydown="nickCheck()">&nbsp;&nbsp;<b class="nick"></b> <br> <br>
 						<!-- 생년월일 -->
 						<label style="width: 100"><b>생년월일</b></label> <input type="text"
 							class="form-control" name="birth"
@@ -173,6 +157,8 @@
 
 </body>
 <script type="text/javascript">
+
+var nicknameChecked = true;
 	
 	$(function(){		
 		
@@ -189,12 +175,13 @@
 			var email = $('[name=email]').val();
 			var tel1 = $('[name=tel1]').val();
 			var tel2 = $('[name=tel2]').val();
-			var tel3 = $('[name=tel3]').val();			
+			var tel3 = $('[name=tel3]').val();		
+			var nick = $('[name=nickname]').val().trim();
 			
 			var emailExp = /^[a-zA-Z0-9]{3,15}@[a-zA-Z]+\.[a-zA-Z]+$/g;
 	        var passExp = /^[a-zA-Z0-9]{5,15}$/g;
 	        var passExp2 = /^[a-zA-Z0-9]{5,15}$/g;
-			
+			var nickExp = /^[a-zA-Zㄱ-힣]{3,15}$/g;			
 			var pass = $('[name=expass]').val();
 			
 			if(pass1.length == 0 || pass2.length == 0){
@@ -233,7 +220,15 @@
 		    } else if(!passExp2.test(pass)){
 		    	$('.result').html('<br><font color=red>비밀번호 형식이 어긋납니다</font>')
 		    	
-		    } else {
+		    } else if(!nicknameChecked){
+		    	
+		    	alert('불가능한 닉네임입니다');
+		    	$('[name=nickname]').focus();
+		    	
+		    } else if(!nickExp.test(nick)){
+		    	alert('닉네임이 형식에 어긋납니다');
+		    	$('[name=nickname]').focus();
+		    }else {
 		    	
 				$.ajax({
 					url:'/alter/'+pass,
@@ -252,6 +247,50 @@
 		});
 	
 	});
+	
+	function nickCheck(){
+		
+		var nick = $('[name=nickname]').val().trim();
+		
+		if(nick == '${nick}'){
+			nicknameChecked = true;
+			$('.nick').html('<font color=blue>동일한 닉네임으로 사용가능</font>');
+			return;
+		} else if(nick.length > 2){
+			
+			if(nick.indexOf(" ") > -1 || nick.indexOf("\t") >= 0 || nick.indexOf("\n") > -1){
+				$('.nick').html('<font color=red>공백은 존재할수 없습니다.</font>');
+				nicknameChecked = false;
+				
+			} else {
+			
+			
+				$.ajax({
+					url:'/nickCheck',
+					data:'nickname='+nick,
+					success:function(result){
+						$('.nick').html('<font color=green>가능한 닉네임 입니다.</font>');
+						nicknameChecked = true;
+					},
+					error:function(result){
+						$('.nick').html('<font color=red>불가능한 닉네임 입니다.</font>');
+						nicknameChecked = false;
+						
+					}
+				});
+				
+			}
+		} else if(nick.length <= 2 && nick.length > 0){
+			$('.nick').html('<font color=red>닉네임이 너무 짧습니다.</font>');
+			nicknameChecked = false;
+			
+		} else {
+			$('.nick').html('');
+			nicknameChecked = false;
+			
+		}
+	}
+	
 	
 	//본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
     function execDaumPostcode() {

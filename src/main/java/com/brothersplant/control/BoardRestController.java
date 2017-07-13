@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.SelectRegionVO;
 import com.brothersplant.service.BoardInfoService;
 
@@ -139,6 +140,16 @@ public class BoardRestController {
 		
 		System.out.println(service.gugun(ds_sido));
 		entity = new ResponseEntity<List<SelectRegionVO>>(service.gugun(ds_sido), HttpStatus.OK);
+		return entity;
+	}
+	
+	@RequestMapping("/regionDetail")
+	public ResponseEntity<List<BoardVO>> selectRegionList(String place1)throws Exception{
+		ResponseEntity<List<BoardVO>> entity = null;
+		System.out.println("선택된 여행지: "+place1);
+		
+		entity = new ResponseEntity<List<BoardVO>>(service.selectSpecificTravelRegion(place1), HttpStatus.OK);
+		
 		return entity;
 	}
 
