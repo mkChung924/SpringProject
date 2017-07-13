@@ -33,7 +33,7 @@
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${mypage.profile == 'default.png' }">						
-						<img src="${mypage.profile }" class="img-responsive" alt="기존사진"><br>
+						<img src="http://goo.gl/5SYWQ9" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${mypage.profile != 'default.png' }">
 						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
@@ -68,7 +68,7 @@
 								내 글보기 </a>
 							</li>
 							<li><a href="message"> <i class="glyphicon glyphicon-envelope"></i> 메시지함</a></li>
-							<li class="active"><a href="mypageEdit"><i class="glyphicon glyphicon-edit"></i> 정보수정</a></li>
+							<li class="active"><a href="mypageEdit"><i class="glyphicon glyphicon-edit" style="color: CornflowerBlue;"></i> 정보수정</a></li>
 							<li><a href="favorite"> <i class="glyphicon glyphicon-heart"></i> 즐겨찾기</a></li>
 							<li><a href="del"> <i class="glyphicon glyphicon-remove"></i> 탈퇴</a></li>
 						</ul>

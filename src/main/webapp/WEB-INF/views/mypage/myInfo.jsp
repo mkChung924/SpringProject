@@ -56,7 +56,7 @@ $(document).on("change","#fileopen",function(){
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${mypage.profile == 'default.png' }">						
-						<img src="${mypage.profile }" class="img-responsive" alt="기존사진" id="profilePic"><br>
+						<img src="http://goo.gl/5SYWQ9" class="img-responsive" alt="기존사진" id="profilePic"><br>
 						</c:if>
 						<c:if test="${mypage.profile != 'default.png' }">
 						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진" id="profilePic"><br>
@@ -81,7 +81,7 @@ $(document).on("change","#fileopen",function(){
 						<ul class="nav">
 							<li class="active">
 								<a href="mypage">
-								<i class="glyphicon glyphicon-user"></i>
+								<i class="glyphicon glyphicon-user" style="color: blue;"></i>
 								내 정보 </a>
 							</li>
 							<li>

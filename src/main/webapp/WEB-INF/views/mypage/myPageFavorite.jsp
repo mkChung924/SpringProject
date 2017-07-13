@@ -40,7 +40,7 @@
 					<!-- SIDEBAR USERPIC -->
 					<div class="profile-userpic">
 						<c:if test="${mypage.profile == 'default.png' }">						
-						<img src="${mypage.profile }" class="img-responsive" alt="기존사진"><br>
+						<img src="http://goo.gl/5SYWQ9" class="img-responsive" alt="기존사진"><br>
 						</c:if>
 						<c:if test="${mypage.profile != 'default.png' }">
 						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
@@ -84,7 +84,7 @@
 							</li>
 							<li class="active">
 								<a href="favorite">
-								<i class="glyphicon glyphicon-heart"></i>
+								<i class="glyphicon glyphicon-heart" style="color: red;"></i>
 								즐겨찾기 </a>
 							</li>
 							<li>

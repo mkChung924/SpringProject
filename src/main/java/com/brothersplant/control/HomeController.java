@@ -143,15 +143,16 @@ public class HomeController {
 	            String path = "";
 	            System.out.println("프로필 사진이름: " + profilePicture.getOriginalFilename());
 	            if(profilePicture.getOriginalFilename().trim().isEmpty()){
-	            	path = "/resources/upload/default.jpeg";
+	            	path = "default.png";
 	            } else {
 	            	path = filePath + profilePicture.getOriginalFilename();
+	            	File destination = new File(context.getRealPath("/")+path);
+	                System.out.println("프로필 사진 경로 : "+destination);
+	                profilePicture.transferTo(destination);
+		            
 	            }
-                File destination = new File(context.getRealPath("/")+path);
-                System.out.println("프로필 사진 경로 : "+destination);
-                profilePicture.transferTo(destination);
-	            
-				vo.setProfile(path);
+	            vo.setProfile(path);
+                
 			}
 
 			vo.setTel(tel);

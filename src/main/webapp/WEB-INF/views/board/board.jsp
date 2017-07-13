@@ -397,7 +397,7 @@
 			              	 </div><br>
 			              	 <div style="margin-top: -55px;">
 			              	 <c:if test="${myList.profile == 'default.png' }">
-			              	 <img src="/resources/upload/default.png" draggable="false" style="border-radius: 50%; width: 10%; height: 9%; margin-top: -15px"> &nbsp;
+			              	 <img src="http://goo.gl/5SYWQ9" draggable="false" style="border-radius: 50%; width: 10%; height: 9%; margin-top: -15px"> &nbsp;
 			              	 </c:if>
 			              	  <c:if test="${myList.profile != 'default.png' }">
 			              	 <img src="${myList.profile }" draggable="false" style="border-radius: 50%; width: 10%; height: 9%; margin-top: -15px"> &nbsp;
