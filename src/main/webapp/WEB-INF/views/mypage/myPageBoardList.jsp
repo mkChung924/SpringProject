@@ -114,19 +114,23 @@ $(document).on("click",".pagination li a", function(event){
 					<tr>
 						<th>게시물 번호</th>
 						<th>제목</th>
-						<th>지역1</th>
-						<th>지역2</th>
+						<th>유형1</th>
+						<th>유형2</th>
 						<th>조회수</th>
+						<th>좋아요</th>
 						<th>등록날짜</th>
+						<th>남은날짜</th>
 					</tr>	
 					<c:forEach items="${myboardList }" var="myboard">
 						<tr>
 							<td>${myboard.tbno }</td>
 							<td>${myboard.title }</td>
-							<td>${myboard.place1 }</td>
-							<td>${myboard.place2 }</td>
+							<td>${myboard.cname}</td>
+							<td>${myboard.csname }</td>
 							<td>${myboard.viewcnt }</td>
+							<td>${myboard.likes }</td>
 							<td>${myboard.regdate }</td>
+							<td>${myboard.ddate }</td>
 						</tr>
 					</c:forEach>
 	            </table>

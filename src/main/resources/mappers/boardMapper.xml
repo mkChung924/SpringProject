@@ -440,7 +440,19 @@
 
 	<!-- 내가 쓴 글 검색 -->
 	<select id="iwrote" resultType="boardVO">
-		select * from tbl_boards where id=#{id}
+<!-- 		select * from tbl_boards where id=#{id} order by regdate desc
+ -->		
+		select do1, si, dong, cno, csno, tb_kind,tbno,
+		(select cname from tbl_category where cno = a.cno) cname,
+		(select csname from tbl_subcategory where csno = a.csno) csname,
+		a.tbno, a.title, to_char(a.regdate,'yyyy-mm-dd') regdate, 
+		round(15 - (sysdate - regdate)) ddate,
+		(select count(*) from tbl_like where tbno = a.tbno) likes,
+		(select count(*) from tbl_replies where tbno = a.tbno) replies, a.viewcnt
+		from tbl_boards a
+		where id = #{id}
+		order by regdate desc
+		
 	</select>
 	
 	<select id="iwroteTOTCnt" resultType="int">

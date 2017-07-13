@@ -76,7 +76,7 @@ $(document).on("click","#updateBoard",function(){
 });
 
 function adminReadPage(tbno,place1,place2,cno,csno) {
-    var w = screen.width - 300;
+    var w = screen.width - 100;
     var h = screen.height - 200;
     var left = (screen.width / 2) - (w / 2);
     var top = (screen.height / 2) - (h / 2) - 50;
@@ -138,11 +138,11 @@ function adminReadPage(tbno,place1,place2,cno,csno) {
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
 	            
 	            <div class="col-sm-12">
-		            <h3><b>나의 글보기</b></h3>
+		            <h3><b>여행 추천 게시물 현황</b></h3>
 		        </div>
 
 	            <c:if test="${myboardList.size() < 1 }">
-	            <div style="text-align: center; margin-top: 20%;">
+	            <div style="text-align: center; margin-top: 25%;">
 	            	<h4><i>게시글이 존재하지 않습니다. 글을 남겨보세요!</i></h4>
 	            </div>
 	            </c:if>
@@ -168,7 +168,7 @@ function adminReadPage(tbno,place1,place2,cno,csno) {
 					<c:forEach items="${myboardList }" var="myboard">
 						<tr>
 							<td><input type="checkbox" name=chbox1 value="${myboard.tbno }"></td>
-							<td onclick="adminReadPage('${myboard.tbno}','${myboard.place1}','${myboard.place2}','${myboard.cno}','${myboard.csno}')">${myboard.title }</td>
+							<td onclick="adminReadPage('${myboard.tbno}','${myboard.place1}','${myboard.place2}','${myboard.cno}','${myboard.csno}')" style="cursor: pointer;">${myboard.title }</td>
 							<td>${myboard.place1 }</td>
 							<td>${myboard.place2 }</td>
 							<td>${myboard.viewcnt }</td>

@@ -193,6 +193,7 @@
 			
 			var emailExp = /^[a-zA-Z0-9]{3,15}@[a-zA-Z]+\.[a-zA-Z]+$/g;
 	        var passExp = /^[a-zA-Z0-9]{5,15}$/g;
+	        var passExp2 = /^[a-zA-Z0-9]{5,15}$/g;
 			
 			var pass = $('[name=expass]').val();
 			
@@ -229,7 +230,7 @@
 		           alert('전화번호 형식이 옳지 않습니다.');
 		           $('[name=tel1]').focus();
 		           
-		    } else if(!passExp.test(pass)){
+		    } else if(!passExp2.test(pass)){
 		    	$('.result').html('<br><font color=red>비밀번호 형식이 어긋납니다</font>')
 		    	
 		    } else {

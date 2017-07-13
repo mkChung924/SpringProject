@@ -28,6 +28,7 @@ public class BoardVO {// 13
 	private String image;
 	private int replies;
 	private int reviews;
+	private int ddate;
 
 	@Override
 	public String toString() {
@@ -36,8 +37,21 @@ public class BoardVO {// 13
 				+ ", dong=" + dong + ", place1=" + place1 + ", place2=" + place2 + ", title=" + title + ", content="
 				+ content + ", notice=" + notice + ", openchat=" + openchat + ", myFavor=" + myFavor + ", likes="
 				+ likes + ", viewcnt=" + viewcnt + ", regdate=" + regdate + ", updatedate=" + updatedate + ", image="
-				+ image + ", replies=" + replies + ", reviews=" + reviews + "]";
+				+ image + ", replies=" + replies + ", reviews=" + reviews + "ddate="+ddate+"]";
 	}
+
+	
+
+	public int getDdate() {
+		return ddate;
+	}
+
+
+
+	public void setDdate(int ddate) {
+		this.ddate = ddate;
+	}
+
 
 
 	public int getReviews() {

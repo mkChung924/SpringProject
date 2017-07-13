@@ -21,7 +21,7 @@
 <script>
 	tinymce.init({
 		selector : '#editor',
-		height : 660,
+		height : 800,
 		readonly : true,
 		menubar : false,
 		toolbar : false
@@ -239,7 +239,7 @@
 					url : '/like/add',
 					data : 'id=' + "${id }" + '&tbno=' + tbno,
 					success : function(result) {
-							$("#likeCnt").html(result);
+							$("#likeCnt").html("좋아요 &nbsp; "+result);
 							$("#likeCnt-${commonBoard.tbno}",opener.document).html(result);
 					},
 				}); 
@@ -347,20 +347,17 @@
 <body>
 		<br>
 		<div class="col-sm-12">
-			<div class="col-sm-6">
-				<label>제목</label>
-				<input type="text" class="form-control" id="title" value="${commonBoard.title}" placeholder="제목 입력란" readonly><br>
-				<label>내용</label>
+			<div class="col-sm-7">
 				<textarea id="editor" name="content" readonly="readonly" style="width: 100%;">${commonBoard.content}</textarea>
 				<input type="hidden" id="userid" value="${id }" readonly> 
 				<input type="hidden" id="bno" value="${commonBoard.tbno }" readonly>
 			</div>
 			
-			<div class="col-sm-6">
-				<label>공지사항</label>
-				<input type="text" class="form-control" id="title" value="${commonBoard.notice}" placeholder="공지 사항" readonly><br>
-				<label>오픈 채팅방</label> 
-				<input type="text" class="form-control" id="title" value="${commonBoard.openchat}" placeholder="작성자" readonly> <br>
+			<div class="col-sm-5">
+				<label>제목</label>
+				<input type="text" class="form-control" id="title" value="${commonBoard.title}" placeholder="제목 입력란" readonly><br>
+				<label>간략설명</label>
+				<input type="text" class="form-control" id="title" value="${commonBoard.notice}" placeholder="간략 설명" readonly><br>
 				
 				<div class="col-sm-12">
 				<c:if test="${commonBoard.myFavor == 1 }">
@@ -380,21 +377,19 @@
 								id="bk-${commonBoard.tbno }"
 								onclick="favor(${commonBoard.tbno})" data-toggle="bookmark"
 								data-placement="bottom" title="즐겨찾기 추가"
-								style="font-size: 25px; cursor: pointer;"></i>
+								style="font-size: 25px; cursor: pointer; color: yellow"></i>
 						</p>
 					</div>	
 				</c:if>
-					<div class="col-sm-2" style="margin-top: 2px;">
+					<div class="col-sm-5">
 						<p align="left">
-							<span class="badge" style="background-color: blue" onclick="likes(${commonBoard.tbno})" id="likeCnt">${commonBoard.likes }</span>
-							<i class="glyphicon glyphicon-thumbs-up" data-toggle="like" style="size: 50px;" data-placement="top" title="좋아요"
+							<span class="badge" style="background-color: blue" onclick="likes(${commonBoard.tbno})" id="likeCnt">좋아요 &nbsp; ${commonBoard.likes }</span>
+							<i class="glyphicon glyphicon-thumbs-up" data-toggle="like" style="size: 50px; font-size: 20px; cursor: pointer;" data-placement="top" title="좋아요"
 								onclick="likes(${commonBoard.tbno})"></i>
 						</p>
 					</div>
-					<div class="col-sm-9" style="text-align: right; margin-top: 3px;">
-						<a class="btn btn-info btn-xs" style="float: right; margin-left: 5px;" id="msgSend" onclick="msgSend('${commonBoard.id}')">메시지</a>
-						<a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal2" style="float: right; margin-left: 5px;"
-						 id="reportSendBoard" onclick="reportSend('${commonBoard.title}','${commonBoard.tbno}','${commonBoard.id}',1)">신고</a>			
+					<div class="col-sm-6" style="text-align: right; margin-top: 3px;">
+						<a class="btn btn-info btn-xs" style="margin-left: 5px;" id="msgSend" onclick="msgSend('${commonBoard.id}')"><font size="2">메시지 보내기</font></a>		
 								
 					</div>
 				</div>
