@@ -8,8 +8,10 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.ReportsListVO;
 import com.brothersplant.domain.SearchCriteria;
@@ -19,6 +21,7 @@ public class ReportsDAOImpl implements ReportsDAO {
 
 	@Inject
 	private SqlSession sqlSession;
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
 	
 	private static final String namespace = "report";
 
@@ -93,7 +96,7 @@ public class ReportsDAOImpl implements ReportsDAO {
 		List<String> list = sqlSession.selectList(namespace+".selectPenaltyScore",map);
 		int result=0;
 		for(int i=0; i<list.size();i++){
-			System.out.println("현재 패널티 값은 : "+list.get(i));
+			logger.info("현재 패널티 값은 : "+list.get(i));
 			if(Integer.parseInt(list.get(i)) == 10){
 				Map<String, String> map2 = new HashMap<>();
 				map2.put("user",uniqueOffenderList.get(i) );

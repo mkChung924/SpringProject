@@ -7,6 +7,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.SelectRegionVO;
 import com.brothersplant.service.BoardInfoService;
@@ -29,12 +31,14 @@ public class BoardRestController {
 	@Inject
 	private BoardInfoService service;
 	
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
+	
 	@RequestMapping(value = "{data}", method= RequestMethod.POST)
 	public ResponseEntity<List<Map<String,Object>>> list(@PathVariable("data") int mainCategory) {
 		ResponseEntity<List<Map<String,Object>>> entity = null;
 		try {
 			//entity = new ResponseEntity<>(service.selectSi(do1), HttpStatus.OK);
-			//System.out.println(service.selectSubCategory(mainCategory));
+			//logger.info(service.selectSubCategory(mainCategory));
 			entity = new ResponseEntity<>(service.selectSubCategory(mainCategory), HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -46,16 +50,16 @@ public class BoardRestController {
 	//이미지 파일 올리기
 	@RequestMapping(value = "b/images", method = RequestMethod.POST)
 	public @ResponseBody String handleTinyMCEUpload(@RequestParam("files") MultipartFile files[], HttpSession session) {
-		System.out.println("b/images 들어옴");
-	    System.out.println("uploading______________________________________MultipartFile " + files.length);
+		logger.info("b/images 들어옴");
+	    logger.info("uploading______________________________________MultipartFile " + files.length);
 	    String filePath = "/resources/upload/" + session.getAttribute("id")+"/tinyMCE/" + files[0].getOriginalFilename();
 	    String result = uploadFilesFromTinyMCE2("tinyMCE", files, false,session);
-	    System.out.println(result);
+	    logger.info(result);
 	    return "{\"location\":\"" + filePath + "\"}";
 	}
 
 	private String uploadFilesFromTinyMCE2(String prefix, MultipartFile files[], boolean isMain,HttpSession session) {
-	    System.out.println("uploading______________________________________" + prefix);
+	    logger.info("uploading______________________________________" + prefix);
 	    try {
 	    	
 	        String folder = session.getServletContext().getRealPath("/" ) +"/resources/upload/"+ (String) session.getAttribute("id") + "/" + prefix +"/";
@@ -80,13 +84,13 @@ public class BoardRestController {
 	                        se.printStackTrace();
 	                    }
 	                    if (created) {
-	                        System.out.println("DIR created");
+	                        logger.info("DIR created");
 	                    }
 	                    String path = "";
 	                    path = folder +files[i].getOriginalFilename();
-	                    System.out.println("path: " + path);
+	                    logger.info("path: " + path);
 	                    File destination = new File(path);
-	                    System.out.println("--> " + destination + "--->" + path);
+	                    logger.info("--> " + destination + "--->" + path);
 	                    files[i].transferTo(destination);
 	                    result.append(files[i].getOriginalFilename() + " Succsess. ");
 	                } catch (Exception e) {
@@ -127,7 +131,7 @@ public class BoardRestController {
 		
 		ResponseEntity<List<SelectRegionVO>> entity = null;
 		
-		System.out.println(service.sido());
+		logger.info(service.sido().toString());
 		entity = new ResponseEntity<List<SelectRegionVO>>(service.sido(), HttpStatus.OK);
 		return entity;
 	}
@@ -135,10 +139,10 @@ public class BoardRestController {
 	@RequestMapping("/selectGugun")
 	public ResponseEntity<List<SelectRegionVO>> selectGugun(String ds_sido) throws Exception{
 		
-		System.out.println(ds_sido);
+		logger.info(ds_sido);
 		ResponseEntity<List<SelectRegionVO>> entity = null;
 		
-		System.out.println(service.gugun(ds_sido));
+		logger.info(service.gugun(ds_sido).toString());
 		entity = new ResponseEntity<List<SelectRegionVO>>(service.gugun(ds_sido), HttpStatus.OK);
 		return entity;
 	}
@@ -146,7 +150,7 @@ public class BoardRestController {
 	@RequestMapping("/regionDetail")
 	public ResponseEntity<List<BoardVO>> selectRegionList(String place1)throws Exception{
 		ResponseEntity<List<BoardVO>> entity = null;
-		System.out.println("선택된 여행지: "+place1);
+		logger.info("선택된 여행지: "+place1);
 		
 		entity = new ResponseEntity<List<BoardVO>>(service.selectSpecificTravelRegion(place1), HttpStatus.OK);
 		

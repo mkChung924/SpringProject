@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.MyBookmarkVO;
 import com.brothersplant.domain.SecureVO;
 import com.brothersplant.domain.UserInfoVO;
@@ -16,7 +18,8 @@ public class MyPageServiceImpl implements MyPageService{
 	
 	@Inject
 	private MyPageDAO dao;
-
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
+	
 	@Override
 	public UserInfoVO myPageInfo(String id) throws Exception {
 		

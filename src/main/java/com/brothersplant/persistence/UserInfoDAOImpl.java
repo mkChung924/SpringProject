@@ -7,8 +7,10 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.UserInfoVO;
 
 @Repository
@@ -16,7 +18,8 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 	
 	@Inject
 	private SqlSession sql;
-
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
+	
 	@Override
 	public void insert(UserInfoVO vo) throws Exception {
 
@@ -63,8 +66,8 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 	@Override
 	public boolean select(String id, String pass) throws Exception {
 		String password = sql.selectOne("userinfo.login",id);
-		System.out.println("검색된 비밀번호: " + password);
-		System.out.println("내가 입력한 비밀번호: " + pass);
+		logger.info("검색된 비밀번호: " + password);
+		logger.info("내가 입력한 비밀번호: " + pass);
 		if(password == null) return false;
 		if(password.equals(new PassEncrypt().encrypt(pass))) return true;
 		else return false;
@@ -101,7 +104,7 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 	@Override
 	public boolean nickCheck(String nickname) throws Exception {
 		
-		System.out.println("dao: " + nickname);
+		logger.info("dao: " + nickname);
 		Map<String, String> map = new HashMap<>();
 		map.put("nickname", nickname);
 		String nick = sql.selectOne("userinfo.nickCheck", map);
@@ -128,7 +131,7 @@ public class UserInfoDAOImpl implements UserInfoDAO {
 		Map<String, String> map = new HashMap<>();
 		map.put("id", id);
 		map.put("profile", profile);
-		System.out.println(profile+" : "+id);
+		logger.info(profile+" : "+id);
 		return sql.update("userinfo.updateProfilePicture", map);
 	}
 

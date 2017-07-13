@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.service.BoardInfoService;
 import com.brothersplant.service.UserInfoService;
 
@@ -34,6 +36,8 @@ public class RestUtils {
 	@Autowired
 	private ServletContext context;
 
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
+	
 	@RequestMapping(value = "{data}", method= RequestMethod.POST)//카테고리
 	public ResponseEntity<List<Map<String, Object>>>  list(@PathVariable("data") int mainCategory) {
 		ResponseEntity<List<Map<String, Object>>> entity = null;
@@ -50,16 +54,16 @@ public class RestUtils {
 	@RequestMapping(value = "/a/images", method = RequestMethod.POST)
 	@ResponseBody
 	public String handleTinyMCEUpload(@RequestParam("files") MultipartFile files[],HttpSession session) {
-	    System.out.println("uploading______________________________________MultipartFile " + files.length);
+	    logger.info("uploading______________________________________MultipartFile " + files.length);
 	    String filePath = "/resources/upload/"+session.getAttribute("id")+"/tinyMCE/" + files[0].getOriginalFilename();
 	    String result = uploadFilesFromTinyMCE("tinyMCE", files, false,session);
-	    System.out.println(result);
+	    logger.info(result);
 	    return "{\"location\":\"" + filePath + "\"}";
 
 	}
 
 	private String uploadFilesFromTinyMCE(String prefix, MultipartFile files[], boolean isMain,HttpSession session) {
-	    System.out.println("uploading______________________________________" + prefix);
+	    logger.info("uploading______________________________________" + prefix);
 	    try {
 	        String folder = context.getRealPath("/") + "/resources/upload/"+session.getAttribute("id")+"/" + prefix+"/";
 	        StringBuffer result = new StringBuffer();
@@ -82,12 +86,12 @@ public class RestUtils {
 	                        se.printStackTrace();
 	                    }
 	                    if (created) {
-	                        System.out.println("DIR created");
+	                        logger.info("DIR created");
 	                    }
 	                    String path = "";
 	                    path = folder + files[i].getOriginalFilename();
 	                    File destination = new File(path);
-	                    System.out.println("--> " + destination);
+	                    logger.info("--> " + destination);
 	                    files[i].transferTo(destination);
 	                    result.append(files[i].getOriginalFilename() + " Succsess. ");
 	                } catch (Exception e) {
@@ -115,7 +119,7 @@ public class RestUtils {
 		String path = "";
         path = folder + file.getOriginalFilename();
         File destination = new File(path);
-        System.out.println("--> " + destination);
+        logger.info("--> " + destination);
         file.transferTo(destination);
         
         String profile = "/resources/upload/"+session.getAttribute("id")+"/profilePicture/"+file.getOriginalFilename();

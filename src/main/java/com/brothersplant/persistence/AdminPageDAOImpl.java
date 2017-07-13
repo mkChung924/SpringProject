@@ -8,8 +8,10 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.BoardsCountListVO;
 import com.brothersplant.domain.SearchCriteria;
@@ -21,6 +23,8 @@ public class AdminPageDAOImpl implements AdminPageDAO {
 	@Inject
 	private SqlSession sql;
 
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
+	
 	@Override
 	public List<UserInfoVO> selectMemeberList(SearchCriteria cri) throws Exception {
 		
@@ -78,11 +82,11 @@ public class AdminPageDAOImpl implements AdminPageDAO {
 
 	@Override
 	public List<Map<String, Object>> selectCityList(SearchCriteria cri) throws Exception {
-		//System.out.println(do1 + ", " + cno);
+		//logger.info(do1 + ", " + cno);
 //		Map<String, Object> map = new HashMap<>();
 //		map.put("do1", cri);
 //		map.put("cno", cno);
-		System.out.println(cri);
+		logger.info(""+cri);
 		return sql.selectList("admin.selectCityList",cri);
 	}
 

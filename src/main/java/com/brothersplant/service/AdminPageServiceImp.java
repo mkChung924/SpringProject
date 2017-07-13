@@ -6,8 +6,10 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.BoardsCountListVO;
 import com.brothersplant.domain.SearchCriteria;
@@ -19,6 +21,7 @@ public class AdminPageServiceImp implements AdminPageService {
 
 	@Inject
 	private AdminPageDAO dao;
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
 	
 	@Override
 	public List<UserInfoVO> selectMemeberList(SearchCriteria cri) throws Exception {

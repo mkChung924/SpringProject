@@ -8,12 +8,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.ReportsListVO;
 import com.brothersplant.service.ReportsService;
 
@@ -23,10 +25,11 @@ public class ReportRestController {
 
 	@Inject
 	private ReportsService service;
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
 	
 	@RequestMapping(value="/addReport", method=RequestMethod.POST)
 	public ResponseEntity<String> reportPost(ReportsListVO vo,HttpSession session)throws Exception{	
-		System.out.println(vo.toString());
+		logger.info(vo.toString());
 		ResponseEntity<String> entity=null;
 		try{
 			vo.setReporter((String)session.getAttribute("id"));	
@@ -42,7 +45,7 @@ public class ReportRestController {
 	@RequestMapping(value = "/reportList", method=RequestMethod.POST) //목록 보이기
 	public ResponseEntity<List<String>> selectReportList() throws Exception{		
 		ResponseEntity<List<String>> entity = null;
-		System.out.println(service.selectReportList());
+		logger.info(""+service.selectReportList());
 		entity = new ResponseEntity<List<String>>(service.selectReportList(), HttpStatus.OK);
 		return entity;
 	}
@@ -54,7 +57,7 @@ public class ReportRestController {
 		String repnoListTemp[] = repnoList.split(",");
 		try{
 			int result = service.selectedReprotListDelete(kind, repnoListTemp);
-			System.out.println("삭제된 행의 수 : "+result +" || kind : "+kind);
+			logger.info("삭제된 행의 수 : "+result +" || kind : "+kind);
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();
@@ -73,11 +76,11 @@ public class ReportRestController {
 		List<String> brnoLIST =  Arrays.asList(brnoList.split(","));
 
 		List<String> uniqueOffenderList = new ArrayList<String>(new HashSet<String>(offenderLIST));//신고자 명단 중복 제거
-		System.out.println("중복 제거된 신고자 명단 : "+uniqueOffenderList); // [1, 2, 3]
+		logger.info("중복 제거된 신고자 명단 : "+uniqueOffenderList); // [1, 2, 3]
 		
 		try{
 			int result = service.selectedReprotListDeletePenalty(kind, brnoLIST,uniqueOffenderList);
-			System.out.println("삭제된 행의 수 : "+result +" || kind : "+kind);
+			logger.info("삭제된 행의 수 : "+result +" || kind : "+kind);
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		}catch(Exception e){
 			e.printStackTrace();

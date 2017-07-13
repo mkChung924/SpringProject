@@ -4,9 +4,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.InsertMessageVO;
 import com.brothersplant.persistence.MsgDAO;
@@ -17,6 +19,7 @@ public class MsgServiceImpl implements MsgService {
 	@Inject
 	private MsgDAO dao; 
 
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
 	
 	@Transactional
 	@Override

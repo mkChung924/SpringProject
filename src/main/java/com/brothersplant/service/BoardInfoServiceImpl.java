@@ -5,8 +5,10 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.BoardsCountListVO;
@@ -21,7 +23,8 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 	
 	@Inject
 	private BoardInfoDAO dao;
-
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
+	
 	@Override
 	public List<String> selectDo() throws Exception {
 		return dao.selectDo();
@@ -52,7 +55,7 @@ public class BoardInfoServiceImpl implements BoardInfoService {
 
 	@Override
 	public BoardVO selectCommonRow(int tbno,String id) throws Exception {
-		System.out.println(tbno);
+		logger.info(""+tbno);
 		return dao.selectCommonRow(tbno,id);
 	}
 

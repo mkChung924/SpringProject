@@ -46,15 +46,15 @@ public class HomeController {
 	@RequestMapping("/index")
 	public String index(HttpSession session, Model model) throws Exception{
 		
-		System.out.println("index들어옴");
+		logger.info("index들어옴");
 		String id = (String) session.getAttribute("id");
 		if(id != null){
 			
 			String addr = service.getUserAddr(id);
-			System.out.println("사용자 주소: " + addr);
-			System.out.println(addr.split("%")[0].split(" ")[0]);
-			System.out.println(addr.split("%")[0].split(" ")[1]);
-			System.out.println(addr.split("%")[0].split(" ")[2]);
+			logger.info("사용자 주소: " + addr);
+			logger.info(addr.split("%")[0].split(" ")[0]);
+			logger.info(addr.split("%")[0].split(" ")[1]);
+			logger.info(addr.split("%")[0].split(" ")[2]);
 			
 			model.addAttribute("addr", service.getUserAddr(id));
 			return "main/index";
@@ -71,7 +71,6 @@ public class HomeController {
 		String id = (String) session.getAttribute("id");
 		
 		if(id != null){
-			
 			return "redirect:index";
 		} else {
 			
@@ -83,18 +82,18 @@ public class HomeController {
 	@RequestMapping(value= "/login", method = RequestMethod.POST)
 	public String tryLogin(HttpSession session, String id, String pass,RedirectAttributes rttr) throws Exception{
 		
-		System.out.println("login post 들어옴");
-		System.out.println(id + ", " + pass);
+		logger.info("login post 들어옴");
+		logger.info(id + ", " + pass);
 		int auth = service.getMyAuth(id);
 		String nick = service.getMyNick(id);
 		List<HashMap<String, String>> isYou = service.isYoublacklist(id);
 		int penalty_cnt =Integer.parseInt(String.valueOf( isYou.get(0).get("PENALTY_CNT")));
 		int state =Integer.parseInt(String.valueOf( isYou.get(0).get("STATE")));
 		if(state ==2){
-			System.out.println("벤을 먹음");
+			logger.info("벤을 먹음");
 			return "main/loginPage";
 		}else if(state ==1 && penalty_cnt >=10 ){
-			System.out.println("추가 신고 "+(20-penalty_cnt)+"번 되면 아웃");
+			logger.info("추가 신고 "+(20-penalty_cnt)+"번 되면 아웃");
 			rttr.addFlashAttribute("warningMSG", penalty_cnt);
 			
 		}
@@ -123,7 +122,7 @@ public class HomeController {
 			String tel1, String tel2, String tel3,
 			String postcode, String address, String detailAddress,
 			RedirectAttributes attr,MultipartFile profilePicture) {
-		System.out.println("/signUp");
+		logger.info("/signUp");
 		
 		String tel = tel1+"-"+tel2+"-"+tel3;
 		String addr = address +"%"+ detailAddress +"%"+postcode;
@@ -141,14 +140,14 @@ public class HomeController {
 	            profileDir.mkdir();
 	            
 	            String path = "";
-	            System.out.println("프로필 사진이름: " + profilePicture.getOriginalFilename());
+	            logger.info("프로필 사진이름: " + profilePicture.getOriginalFilename());
 	            if(profilePicture.getOriginalFilename().trim().isEmpty()){
 	            	path = "/resources/upload/default.jpeg";
 	            } else {
 	            	path = filePath + profilePicture.getOriginalFilename();
 	            }
                 File destination = new File(context.getRealPath("/")+path);
-                System.out.println("프로필 사진 경로 : "+destination);
+                logger.info("프로필 사진 경로 : "+destination);
                 profilePicture.transferTo(destination);
 	            
 				vo.setProfile(path);
@@ -157,7 +156,7 @@ public class HomeController {
 			vo.setTel(tel);
 			vo.setAddr(addr);
 
-			System.out.println("회원정보: " + vo);
+			logger.info("회원정보: " + vo);
 			
 			service.create(vo);
 			attr.addFlashAttribute("msg", "SUCCESS");

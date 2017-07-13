@@ -5,8 +5,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.ReplyVO;
 
 @Repository
@@ -14,12 +16,13 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	@Inject
 	private SqlSession session;
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
 	
 	private static final String namespace = "com.Team26_5.matchingService.ReplyMapper";
 	
 	@Override
 	public void addReply(ReplyVO vo) throws Exception {
-		System.out.println(vo.toString());
+		logger.info(vo.toString());
 		session.insert(namespace+".addReply",vo);
 	}
 

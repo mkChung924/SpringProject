@@ -6,12 +6,14 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.PageMaker;
 import com.brothersplant.domain.SecureVO;
@@ -32,10 +34,11 @@ public class MyPageController {
 	@Inject 
 	private BoardInfoService boardService;
 	
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
 	
 	@RequestMapping("/mypage")
 	public String myPage(HttpSession session, Model model) throws Exception {
-		System.out.println("마이페이지-내글보기 입장");
+		logger.info("마이페이지-내글보기 입장");
 		String id = (String) session.getAttribute("id");
 		
 		if(id != null){
@@ -63,7 +66,7 @@ public class MyPageController {
 	
 	@RequestMapping("/myContents")
 	public String myContents(HttpSession session, Model model,Criteria cri) throws Exception {
-		System.out.println("마이페이지-내글보기 입장");
+		logger.info("마이페이지-내글보기 입장");
 		String id = (String) session.getAttribute("id");
 		if(id != null){
 			int auth = (int) session.getAttribute("auth");
@@ -91,13 +94,13 @@ public class MyPageController {
 	
 	@RequestMapping("/message")
 	public String myPageMessage(HttpSession session, Model model, String page) throws Exception {
-		System.out.println("메시지 입장");
+		logger.info("메시지 입장");
 		String id = (String) session.getAttribute("id");
 		int auth = (int) session.getAttribute("auth");
 		if(id != null && auth != 2){
-			System.out.println("my정보: "+service.myPageInfo(id));
-			System.out.println(service.secureCode());
-			System.out.println(id);
+			logger.info("my정보: "+service.myPageInfo(id));
+			logger.info(""+service.secureCode());
+			logger.info(id);
 			
 			model.addAttribute("mypage", service.myPageInfo(id));
 			
@@ -113,12 +116,12 @@ public class MyPageController {
 			return "mypage/myPageMessage";
 			
 		} else if(id != null && auth == 2){ 
-			System.out.println("관리자 정보: "+service.myPageInfo(id));
+			logger.info("관리자 정보: "+service.myPageInfo(id));
 			
 			model.addAttribute("admin", service.myPageInfo(id));
 			
 			if(page == null){
-				System.out.println("null~~");
+				logger.info("null~~");
 				page = "1";
 			}
 			model.addAttribute("page", Integer.parseInt(page));		
@@ -131,15 +134,15 @@ public class MyPageController {
 	
 	@RequestMapping(value = "/mypageEdit", method = RequestMethod.GET)
 	public String myPageEditForm(HttpSession session, SecureVO svo, UserInfoVO pvo, Model model) throws Exception {
-		System.out.println("정보수정 입장");
+		logger.info("정보수정 입장");
 		String id = (String) session.getAttribute("id");
 		int auth = (int) session.getAttribute("auth");
-		System.out.println(auth);
+		logger.info(""+auth);
 		if(id != null && auth != 2){
 			
-			System.out.println("my정보: "+service.myPageInfo(id));
-			System.out.println(service.secureCode());
-			System.out.println(id);
+			logger.info("my정보: "+service.myPageInfo(id));
+			logger.info(""+service.secureCode());
+			logger.info(id);
 		
 			model.addAttribute("mypage", service.myPageInfo(id));
 			model.addAttribute("slist", service.secureCode());
@@ -181,19 +184,19 @@ public class MyPageController {
 	
 	@RequestMapping("/favorite")
 	public String myPageFavorite(HttpSession session, Model model) throws Exception {
-		System.out.println("즐겨찾기 입장");
+		logger.info("즐겨찾기 입장");
 		String id = (String) session.getAttribute("id");
 		int auth = (int) session.getAttribute("auth");
 		
 		if(id != null){
 			
 			if(auth != 2){
-				System.out.println("my정보: "+service.myPageInfo(id));
-				System.out.println(service.secureCode());
-				System.out.println(id);
+				logger.info("my정보: "+service.myPageInfo(id));
+				logger.info(""+service.secureCode());
+				logger.info(id);
 				
 				model.addAttribute("mypage", service.myPageInfo(id));
-				System.out.println(service.getMyBookmarks(id));
+				logger.info(""+service.getMyBookmarks(id));
 				model.addAttribute("bookmark", service.getMyBookmarks(id));
 				
 				return "mypage/myPageFavorite";
@@ -209,13 +212,13 @@ public class MyPageController {
 	
 	@RequestMapping("/del")
 	public String myPageRemove(HttpSession session, Model model) throws Exception {
-		System.out.println("회원탈퇴 입장");
+		logger.info("회원탈퇴 입장");
 		String id = (String) session.getAttribute("id");
 		int auth = (int) session.getAttribute("auth");
 		if(id != null && auth != 2){
-		System.out.println("my정보: "+service.myPageInfo(id));
-		System.out.println(service.secureCode());
-		System.out.println(id);
+		logger.info("my정보: "+service.myPageInfo(id));
+		logger.info(""+service.secureCode());
+		logger.info(id);
 		
 		model.addAttribute("mypage", service.myPageInfo(id));
 		
@@ -227,13 +230,13 @@ public class MyPageController {
 	
 	@RequestMapping(value= "/del", method = RequestMethod.POST)
 	public String remove(HttpSession session, String password) throws Exception {
-		System.out.println("회원 삭제 중");
+		logger.info("회원 삭제 중");
 		String id = (String) session.getAttribute("id");
 		
 		if(id != null){
 		service.removeAll(id);
 		session.invalidate();
-		System.out.println(id + "삭제됨");
+		logger.info(id + "삭제됨");
 		
 		return "redirect:login";
 		} else {

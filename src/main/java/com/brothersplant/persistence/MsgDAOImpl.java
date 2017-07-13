@@ -6,8 +6,10 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.Criteria;
 import com.brothersplant.domain.InsertMessageVO;
 
@@ -16,7 +18,8 @@ public class MsgDAOImpl implements MsgDAO {
 	
 	@Inject
 	private SqlSession sql;
-
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
+	
 	@Override
 	public void senderMessagesCreate(InsertMessageVO vo) throws Exception {
 		sql.insert("msg.insertSend",vo);
@@ -98,7 +101,7 @@ public class MsgDAOImpl implements MsgDAO {
 	@Override
 	public List<InsertMessageVO> receiverListCriteria(Criteria cri, String id) throws Exception {
 		RowBounds bounds = new RowBounds(cri.getPageStart(), cri.getPerPageNum());
-		System.out.println("받은 메시지함 id: " + id);
+		logger.info("받은 메시지함 id: " + id);
 		return sql.selectList("msg.receiverSelect",id,bounds);
 	}
 

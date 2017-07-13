@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.PageMaker;
@@ -30,10 +32,12 @@ public class AdminRestController {
 
 	@Inject
 	private BoardInfoService boardService;
+	
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
 
 	@RequestMapping("/upgrade")
 	public ResponseEntity<String> upgrade(String id) {
-		System.out.println("등업되는 아이디: " + id);
+		logger.info("등업되는 아이디: " + id);
 
 		ResponseEntity<String> entity = null;
 
@@ -49,7 +53,7 @@ public class AdminRestController {
 
 	@RequestMapping("/downgrade")
 	public ResponseEntity<String> downgrade(String id) {
-		System.out.println("강등되는 아이디: " + id);
+		logger.info("강등되는 아이디: " + id);
 
 		ResponseEntity<String> entity = null;
 
@@ -65,8 +69,8 @@ public class AdminRestController {
 
 	@RequestMapping("/citylist")
 	public ResponseEntity<List<Map<String, Object>>> cityList(SearchCriteria cri) {
-		System.out.println("cityList 불러오기");
-		System.out.println(cri);
+		logger.info("cityList 불러오기");
+		logger.info(cri.toString());
 
 		ResponseEntity<List<Map<String, Object>>> entity = null;
 
@@ -83,7 +87,7 @@ public class AdminRestController {
 	@RequestMapping(value = "adminTravelRie/{page}", method = RequestMethod.POST)
 	public ResponseEntity<List<BoardListVO>> list(SearchCriteria cri, @PathVariable("page") int page,
 			HttpSession session) {
-		System.out.println(cri);
+		logger.info(cri.toString());
 		ResponseEntity<List<BoardListVO>> entity = null;
 		try {
 			cri.setPerPageNum(3); // 페이지 그려주는 쪽은 AdminController.java
@@ -107,11 +111,11 @@ public class AdminRestController {
 		int start = content.indexOf("/resources/");
 		int end = content.indexOf(".jpg/") + 4;
 		vo.setImage(content.substring(start, end));
-		System.out.println(vo.toString());
+		logger.info(vo.toString());
 		try {
 			entity = new ResponseEntity<>("success", HttpStatus.OK);
 			boardService.adminBoardUpdate(vo);
-			System.out.println("===수정 완료===");
+			logger.info("===수정 완료===");
 		} catch (Exception e) {
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
@@ -126,7 +130,7 @@ public class AdminRestController {
 		try {
 			int result = boardService.deleteAdminBoard(listArr);
 			entity = new ResponseEntity<>("success", HttpStatus.OK);
-			System.out.println("===삭제 완료==="+result);
+			logger.info("===삭제 완료==="+result);
 		} catch (Exception e) {		
 			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);

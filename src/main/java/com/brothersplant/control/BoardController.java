@@ -6,6 +6,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.PageMaker;
@@ -36,6 +38,7 @@ public class BoardController {
 	@Inject
 	private UserInfoService userService;
 	
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
 	@RequestMapping("/board")
 	public String boardList(HttpSession session, Model model, SearchCriteria cri, String page, String tb_kind) throws Exception{
 		if(cri.getDo1() == null || session.getAttribute("id") == null || cri.getCno() == null){
@@ -53,49 +56,49 @@ public class BoardController {
 		if(tb_kind == null){
 			tb_kind = "1";
 		}
-		System.out.println("tb_kind : " + tb_kind);
+		logger.info("tb_kind : " + tb_kind);
 		PageMaker pageMaker = new PageMaker();
 		cri.setId((String) session.getAttribute("id")); 
 		
 		if(tb_kind.equals("1")){
 			
-			System.out.println("들어온 페이지: " + page);
+			logger.info("들어온 페이지: " + page);
 			cri.setPage(Integer.parseInt(page));
-			System.out.println("게시판 입장");
-			System.out.println("페이지당 개수: " + cri.getPageNum() +"개씩 보기");
+			logger.info("게시판 입장");
+			logger.info("페이지당 개수: " + cri.getPageNum() +"개씩 보기");
 			cri.setPerPageNum(cri.getPageNum());
-			System.out.println(cri);
+			logger.info(cri.toString());
 			
-			System.out.println("게시글의 총 갯수 by size(): "+service.selectMyInterestList(cri).size());
-			System.out.println("게시글 내용: " +service.selectMyInterestList(cri));
-			System.out.println("게시글 의 갯수 by sql: " + service.countBoardList(cri));
+			logger.info("게시글의 총 갯수 by size(): "+service.selectMyInterestList(cri).size());
+			logger.info("게시글 내용: " +service.selectMyInterestList(cri));
+			logger.info("게시글 의 갯수 by sql: " + service.countBoardList(cri));
 			
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(service.countBoardList(cri));
 			
 			//관리자 여행글 가져오기
 			if(Integer.parseInt(cri.getCno()) == 1){
-				System.out.println("관리자 여행 정보: "+service.selectAdminTravel(cri));
+				logger.info("관리자 여행 정보: "+service.selectAdminTravel(cri));
 				session.setAttribute("travelList", service.selectAdminTravel(cri));
 			}
 
 			//관심 목록 가져오기
 			session.setAttribute("list", service.selectMyInterestList(cri));
-			System.out.println(service.selectCnoList(cri));
+			logger.info(service.selectCnoList(cri).toString());
 			session.setAttribute("cnoMap", service.selectCnoList(cri));
 
 		} else {
 			
-			System.out.println("들어온 페이지: " + page);
+			logger.info("들어온 페이지: " + page);
 			cri.setPage(Integer.parseInt(page));
-			System.out.println("게시판 입장");
-			System.out.println("페이지당 개수: " + cri.getPageNum() +"개씩 보기");
+			logger.info("게시판 입장");
+			logger.info("페이지당 개수: " + cri.getPageNum() +"개씩 보기");
 			cri.setPerPageNum(cri.getPageNum());
-			System.out.println(cri);
+			logger.info(cri.toString());
 			
-			System.out.println("게시글의 총 갯수 by size(): "+service.showTravelReviewList(cri).size());
-			System.out.println("게시글 내용: " +service.showTravelReviewList(cri));
-			System.out.println("게시글 의 갯수 by sql: " + service.countTravelReviewList(cri));
+			logger.info("게시글의 총 갯수 by size(): "+service.showTravelReviewList(cri).size());
+			logger.info("게시글 내용: " +service.showTravelReviewList(cri));
+			logger.info("게시글 의 갯수 by sql: " + service.countTravelReviewList(cri));
 			
 			pageMaker.setCri(cri);
 			pageMaker.setTotalCount(service.countTravelReviewList(cri));
@@ -103,7 +106,7 @@ public class BoardController {
 			//관리자 추천 여행 가져오기
 			//관리자 여행글 가져오기
 			if(Integer.parseInt(cri.getCno()) == 1){
-				System.out.println("관리자 여행 정보: "+service.selectAdminTravel(cri));
+				logger.info("관리자 여행 정보: "+service.selectAdminTravel(cri));
 				session.setAttribute("travelList", service.selectAdminTravel(cri));
 			}
 
@@ -113,7 +116,7 @@ public class BoardController {
 			
 		}
 		List<BoardListVO>  list = (List<BoardListVO>)session.getAttribute("list");
-		System.out.println(list);
+		logger.info(list.toString());
 		
 		session.setAttribute("tb_kind", tb_kind);
 		session.setAttribute("searchType", cri.getSearchType());
@@ -145,7 +148,7 @@ public class BoardController {
 //	public ResponseEntity<List<BoardListVO>> perPage(@RequestBody CategoryInfoVO vo, SearchCriteria cri){
 //		
 //		ResponseEntity<List<BoardListVO>> entity = null;
-//		System.out.println(vo);
+//		logger.info(vo);
 //		cri.setPerPageNum(vo.getPageNum());
 //		try {
 //	         entity = new ResponseEntity<>(service.selectMyInterestList(cri), HttpStatus.OK);
@@ -159,7 +162,7 @@ public class BoardController {
 	
 	@RequestMapping(value = "regit", method=RequestMethod.GET)
 	public String insertBoard(HttpSession session, Model model) throws Exception{
-		System.out.println("게시글 작성");
+		logger.info("게시글 작성");
 		String do1 = (String) session.getAttribute("do1");
 		if(do1 == null){
 			
@@ -174,9 +177,9 @@ public class BoardController {
 	}
 	@RequestMapping(value = "common_regit", method=RequestMethod.POST)
 	public String insertBoard(BoardVO vo, MultipartFile file) throws Exception{
-		System.out.println(vo.toString());
+		logger.info(vo.toString());
 		service.insertBoard(vo);
-		System.out.println("===등록 완료===");
+		logger.info("===등록 완료===");
 		return "selfClose";
 	}
 	
@@ -194,7 +197,7 @@ public class BoardController {
 	@RequestMapping(value = "CommonUpdate", method=RequestMethod.GET)//페이지는 보여주고
 	public String CommonUpdate(int tbno,Model model,HttpSession session) throws Exception{
 		if(session.getAttribute("id") != null){
-			System.out.println(service.selectCommonRow(tbno,(String)session.getAttribute("id")));
+			logger.info(service.selectCommonRow(tbno,(String)session.getAttribute("id")).toString());
 			model.addAttribute("commonBoard",service.selectCommonRow(tbno,(String)session.getAttribute("id")));
 			return "board/boardUpdate";
 		}else{
@@ -204,12 +207,12 @@ public class BoardController {
 	@RequestMapping(value = "CommonUpdate", method=RequestMethod.POST)
 	public String CommonUpdate(BoardVO vo,Model model,HttpSession session) throws Exception{
 		if(session.getAttribute("id") != null){
-			System.out.println("수정될 내용: "+vo);
+			logger.info("수정될 내용: "+vo);
 			 if(service.updateCommonRow(vo) > 0){
-				 System.out.println("수정 성공");
+				 logger.info("수정 성공");
 				 return "selfClose2";				 
 			 }else{
-				 System.out.println("수정 실패");
+				 logger.info("수정 실패");
 				 return "selfClose2";				 				 
 			 }
 		}else{
@@ -237,7 +240,7 @@ public class BoardController {
 		
 		if(id != null){
 
-			System.out.println(service.selectAllTravelRegionCount());
+			logger.info(service.selectAllTravelRegionCount().toString());
 			model.addAttribute("regionCount", service.selectAllTravelRegionCount());
 
 			

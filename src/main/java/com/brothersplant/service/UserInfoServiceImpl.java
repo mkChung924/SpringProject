@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.UserInfoVO;
 import com.brothersplant.persistence.UserInfoDAO;
 
@@ -15,10 +17,11 @@ public class UserInfoServiceImpl implements UserInfoService {
 	
 	@Inject
 	private UserInfoDAO dao;
-
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
+	
 	@Override
 	public void create(UserInfoVO vo) throws Exception {
-		//System.out.println("service: " + vo);
+		//logger.info("service: " + vo);
 		dao.insert(vo);
 
 	}
@@ -63,7 +66,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public boolean checkNickname(String nickname) throws Exception {
 		
-		System.out.println("service: " + nickname);
+		logger.info("service: " + nickname);
 		return dao.nickCheck(nickname);
 	}
 

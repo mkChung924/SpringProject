@@ -62,17 +62,16 @@ public class AdminController {
 	
 	@RequestMapping(value = "/adminEdit", method = RequestMethod.GET)
 	public String myPageEditForm(HttpSession session, SecureVO svo, UserInfoVO pvo, Model model) throws Exception {
-		System.out.println("관리자페이지-정보수정 입장");
+		logger.info("관리자페이지-정보수정 입장");
 		String id = (String) session.getAttribute("id");
 		if(id != null){
 			int auth = (int) session.getAttribute("auth");
-			System.out.println(auth);
+			logger.info(""+auth);
 			
 			if(auth == 2){
-				
-				System.out.println("관리자 my정보: "+service.myPageInfo(id));
-				System.out.println(service.secureCode());
-				System.out.println(id);
+				logger.info("관리자 my정보: "+service.myPageInfo(id));
+				logger.info(service.secureCode().toString());
+				logger.info(id);
 			
 				model.addAttribute("mypage", service.myPageInfo(id));
 				model.addAttribute("slist", service.secureCode());
@@ -94,7 +93,7 @@ public class AdminController {
 	public String adminPageEditUpdate(HttpSession session, UserInfoVO vo, 
 			String tel1, String tel2, String tel3,
 			String postcode, String address, String detailAddress, RedirectAttributes attr) throws Exception {
-		System.out.println("관리자페이지-정보수정 입장");
+		logger.info("관리자페이지-정보수정 입장");
 		String id = (String) session.getAttribute("id");
 		
 		String tel = tel1+"-"+tel2+"-"+tel3;
@@ -124,7 +123,7 @@ public class AdminController {
 		logger.info("관리자페이지-회원현황입장");
 		String id = (String) session.getAttribute("id");
 		int auth = (int) session.getAttribute("auth");
-		System.out.println("아이디: " + id + ", 등급: " + auth);
+		logger.info("아이디: " + id + ", 등급: " + auth);
 		
 		if(id != null && auth == 2){
 			PageMaker pageMaker = new PageMaker();
@@ -289,10 +288,11 @@ public class AdminController {
 	
 	@RequestMapping("/categoryDetail")
 	public String listCategory(HttpSession session, Model model,SearchCriteria cri) throws Exception{
-		System.out.println("카테고리 디테일 페이지 입장");
+		
+		logger.info("카테고리 디테일 페이지 입장");
 		String id = (String) session.getAttribute("id");
 		int auth = (int) session.getAttribute("auth");
-		System.out.println("아이디: " + id + ", 등급: " + auth);
+		logger.info("아이디: " + id + ", 등급: " + auth);
 		
 		if(id != null){
 			

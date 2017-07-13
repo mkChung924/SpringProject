@@ -10,8 +10,10 @@ import javax.inject.Inject;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
+import com.brothersplant.aop.InterCeptorLoingCheck;
 import com.brothersplant.domain.BoardListVO;
 import com.brothersplant.domain.BoardVO;
 import com.brothersplant.domain.BoardsCountListVO;
@@ -25,7 +27,8 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 
 	@Inject
 	private SqlSession session;
-
+	private static final org.slf4j.Logger logger = LoggerFactory.getLogger(InterCeptorLoingCheck.class);
+	
 	private static final String namespace = "board";
 
 	@Override
@@ -48,7 +51,7 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 
 	@Override
 	public BoardVO selectCommonRow(int tbno, String id) throws Exception {
-		System.out.println("DAO : " + tbno);
+		logger.info("DAO : " + tbno);
 		Map<String, Object> map = new HashMap<>();
 		map.put("tbno", tbno);
 		map.put("id", id);
@@ -62,7 +65,7 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 
 	@Override
 	public List<Map<String, Object>> selectSubCategory(int cno) throws Exception {
-		System.out.println(cno);
+		logger.info(""+cno);
 		return session.selectList(namespace + ".selectSubCategory", cno);
 	}
 
@@ -193,15 +196,15 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 
 	@Override
 	public int deleteAdminBoard(String[] tbno) throws Exception {
-		System.out.println(">>> deleteAdminBoard: "+ tbno);
+		logger.info(">>> deleteAdminBoard: "+ tbno);
 		/*Map<String, String[]> map  = new HashMap<>();
 		map.put("'tbnoList", tbno);*/
 		/*Map<String, List<String>> map  = new HashMap<>();
 		List<String> list = new ArrayList<>();
 		   list.add("1000");
 		map.put("'tbnoList", list);*/
-		//System.out.println(tbno[1]+" | | "+tbno[0]);
-		System.out.println("t삭제 "+session.delete(namespace+".deleteAdminBoard",tbno));
+		//logger.info(tbno[1]+" | | "+tbno[0]);
+		logger.info("t삭제 "+session.delete(namespace+".deleteAdminBoard",tbno));
 		return 1;
 	}
 
@@ -212,7 +215,7 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 
 	@Override
 	public List<BoardVO> selectSpecificTravelRegion(String place1) throws Exception {
-		System.out.println("여행지 선택 장소: " + place1);
+		logger.info("여행지 선택 장소: " + place1);
 		return session.selectList(namespace +".selectSpecificTravelRegion",place1);
 	}
 

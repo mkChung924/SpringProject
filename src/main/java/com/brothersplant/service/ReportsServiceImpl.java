@@ -14,8 +14,6 @@ import com.brothersplant.domain.SearchCriteria;
 import com.brothersplant.domain.TableReportVO;
 import com.brothersplant.persistence.ReportsDAO;
 
-
-
 @Service
 public class ReportsServiceImpl implements ReportsService {
 
@@ -65,72 +63,3 @@ public class ReportsServiceImpl implements ReportsService {
 
 
 }
-
-/*	@Override
-	public void replyReport(ReportsListVO vo) throws Exception {
-		dao.replyReportsCreate(vo);
-	}
-
-	@Override
-	public ReportsListVO readReply(int rno) throws Exception {
-		
-		return dao.readReply(rno);
-	}
-
-	@Override
-	public boolean replyRemove(int repno) throws Exception {
-		
-		return dao.replyDelete(repno);
-	}
-
-
-
-
-
-	@Override
-	public void insertReport(ReportsListVO vo) throws Exception {
-		dao.insertReply(vo);
-	}
-
-	@Override
-	public void removeReply(int rno) throws Exception {
-		dao.repDelect(rno);
-		dao.responsAllDelete(rno);
-	}
-	@Override
-	public void tableReport(TableReportVO vo) throws Exception {
-		dao.tableReportcreate(vo);
-		
-	}
-
-	@Override
-	public boolean tableReportRemove(int tbno) throws Exception {
-		return dao.tableReportDelete(tbno);
-
-	}
-
-
-	@Override
-	public int tableReportCountPaging() throws Exception {
-		
-		return dao.tableReportCountPaging();
-	}
-	
-
-	@Override
-	public boolean tableDelete(int tbno) throws Exception {
-		
-		return dao.tableDelete(tbno);
-	}
-
-
-	@Override
-	public List<TableReportVO> tableReportListCriteria(Criteria cri) throws Exception {
-		return dao.tableReportListCriteria(cri);
-	}
-
-	@Override
-	public TableReportVO readTableReport(int tbno) throws Exception {
-
-		return dao.readTableReport(tbno);
-	}*/
