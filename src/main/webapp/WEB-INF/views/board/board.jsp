@@ -300,7 +300,7 @@
 									<button type="button" class="btn btn-warning" id="myLocBtn"
 										onclick="sample4_execDaumPostcode()"
 										style="padding: 0px; width: 66px;">내 위치</button>
-									<i><font size=3>${do1 } ${si } ${dong }</font></i> <span
+									<i><font size=2>${do1 } ${si } ${dong }</font></i> <span
 										id="guide" style="color: #999"></span> <input type="hidden"
 										name="do1" id="do1" value="${do1 }"> <input
 										type="hidden" name="si" id="si" value="${si }"> <input
@@ -309,9 +309,9 @@
 								</div>
 								<div class="col-sm-3" style="text-align: center; padding-top: 5">
 									<button type="button" class="btn btn-info"
-										${cno == 1 ? 'onclick="alert(1)"': 'onclick="alert(2)"' }
+										${cno == 1 ? 'onclick=""': 'onclick=""' }
 										style="padding: 0px; width: 66px;">카테고리</button>
-									<i><font size=3>${category } - ${subcategory }</font></i>
+									<i><font size=2>${category } - ${subcategory }</font></i>
 									<input type="hidden" name="cno" value="${cno }"> <input
 										type="hidden" name="csno" value="${csno }">
 								</div>
@@ -320,7 +320,7 @@
 										style="text-align: center; padding-top: 5">
 										<button type="button" class="btn btn-success"
 											style="padding: 0px; width: 66px;">여행장소</button>
-										<i><font size=3><b>${p1 } ${p2 }</b></font></i> <input
+										<i><font size=2><b>${p1 } ${p2 }</b></font></i> <input
 											type="hidden" name="place1" value="${p1 }"> <input
 											type="hidden" name="place2" value="${p2 }">
 									</div>
@@ -332,6 +332,8 @@
 								</select> <input type="text" class="form-control t" id="keywords"
 									name="keyword" autocomplete="off" value="${keyword }">
 								<button type="button" class="btn btn-default" id="search">검색</button>
+								
+								<div class="caption">
 								<div style="text-align: right; margin-top: 10px;">
 									<c:if test="${cno != 1 }">
 										<button type="button" class="btn btn-default" id="all">전체
@@ -366,6 +368,7 @@
 										<button type="button" class="btn btn-default" id="write">게시글
 											작성</button>
 									</c:if>
+								</div>
 								</div>
 							</form>
 						</div>
