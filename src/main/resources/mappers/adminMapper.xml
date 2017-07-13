@@ -61,22 +61,28 @@
 	
 	<!-- cno의 DB개수 -->
 	<select id="categoryDetail" resultType="boardVO">
-		select do1, si, place1, place2, tbno,(select cname from tbl_category where cno = b.cno) cname,
-		(select csname from tbl_subcategory where csno= b.csno) csname, title,
-		id, (select nickname from userinfos where id = b.id) nickname, regdate, viewcnt 
-		from tbl_boards b
-		where cno= #{cno} and tb_kind != 0
-		<include refid="search2"/>
-		order by regdate desc, do1, csno
+		select * from (
+			select do1, si, place1, place2, tbno,id,
+			(select cname from tbl_category where cno = b.cno) cname,
+			(select csname from tbl_subcategory where csno= b.csno) csname, title,
+			(select nickname from userinfos where id = b.id) nickname,
+			tb_kind, regdate, viewcnt
+			from tbl_boards b
+			where cno= #{cno} and tb_kind != 0
+			order by regdate desc, do1, csno
+		)	
+			<include refid="search2"/>
 	</select>
 	
 	<select id="categoryDetailCount" resultType="int">
-		select count(*) from (
-			select do1, si, place1, place2, tbno,(select csname from tbl_subcategory where csno= b.csno) csname, title,
-			id, (select nickname from userinfos where id = b.id) nickname, regdate, viewcnt 
-			from tbl_boards b
-			where cno= #{cno} and tb_kind != 0
-			<include refid="search2"/>
+	select count(*) from(
+			select * from (
+				select do1, si, place1, place2, tbno,(select csname from tbl_subcategory where csno= b.csno) csname, title,
+				id, (select nickname from userinfos where id = b.id) nickname, regdate, viewcnt 
+				from tbl_boards b
+				where cno= #{cno} and tb_kind != 0
+			)
+				<include refid="search2"/>
 		)
 	</select>
 	
@@ -100,26 +106,25 @@
 		order by count desc, si
 	</select>
 	
-		<sql id="search2">
+	<sql id="search2">
 	<if test="searchType != null">
 		
 		<if test="searchType == 'd'.toString()">
-			and do1 like '%'||#{keyword}||'%'
+			where do1 like '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 's'.toString()">
-			and si like '%'||#{keyword}||'%'
+			where si like '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 'p1'.toString()">
-			and place1 like '%'||#{keyword}||'%'
+			where place1 like '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 'p2'.toString()">
-			and place2 like '%'||#{keyword}||'%'
+			where place2 like '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 'k'.toString()">
-			and csname like '%'||#{keyword}||'%'
+			where csname like '%'||#{keyword}||'%'
 		</if>
 	</if>
 	</sql>
-	
 
 </mapper>

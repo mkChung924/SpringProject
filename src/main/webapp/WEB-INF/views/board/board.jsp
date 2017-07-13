@@ -366,7 +366,10 @@
 		        	<div class="caption">
 		        		<div style="text-align: left; padding-top: 0px;">
 			              	 <div style="display: block; text-align: right; padding-top: 0px;">
-			              		 ${myList.regdate } <font color=red>D-${myList.ddate }</font>
+			              		 ${myList.regdate } 
+			              		 <c:if test="${myList.tb_kind != 2 }">
+			              		  <font color=red>D-${myList.ddate }</font>
+			              		 </c:if>
 			              		 <br>${myList.si } ${myList.dong }
 			              		 <br>
 			              		 <c:if test="${myList.place1 != null }">

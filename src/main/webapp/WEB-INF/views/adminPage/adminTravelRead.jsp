@@ -62,9 +62,9 @@
 
 <script id="reviewTemplate" type="text/x-handlebars-template">
 <kbd>여행 후기 리뷰</kbd>
-<ul class="list-group">
+<ul class="list-group" style="margin-top: 3px;">
 {{#each .}}
-	<li id="reviewLink-{{tbno}}" href="#" class="list-group-item justify-content-between" onclick="linkReview('{{tbno}}')">{{title}}</li>
+	<li style="padding: 5px;" id="reviewLink-{{tbno}}" href="#" class="list-group-item justify-content-between" onclick="linkReview('{{tbno}}')"><font color=red>{{nickname}}</font> 님의 후기! <span style="float:right; padding-right: 45%;">"{{title}}"</span></li>
 {{/each}}
 </ul>
 </script>

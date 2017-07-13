@@ -122,6 +122,10 @@
 	  	<input type='hidden' name="page" value=${pageMaker.cri.page }>
 	  	<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum }>
            <div class="col-sm-12" style="text-align: right; margin-bottom: 10px;">
+           <div class="col-sm-6" style="text-align: left; margin-top: 15px;">
+           	* 검색란을 비우고 검색하면 전체검색이 가능합니다.
+           </div>
+           <div class="col-sm-6">
             <select class="form-control s" id="option" name="searchType">
 				<option value="d" ${cri.searchType == 'd' ? 'selected' : '' }>지역1</option>
 				<option value="s" ${cri.searchType == 's' ? 'selected' : '' }>지역2</option>
@@ -131,6 +135,7 @@
 			</select>
             <input type="text" class="form-control t" name="keyword" placeholder="검색" autocomplete="off" value="${	cri.keyword }">
             <button type="button" class="btn btn-info" id="searchIt">검색</button>   
+          </div>
            </div>
         </form>
 	 	<table class="table" style="text-align: center">
@@ -140,6 +145,7 @@
 	 	<th style="text-align: center">여행지1</th>
 	 	<th style="text-align: center">여행지2</th>
 	 	<th style="text-align: center">여행유형</th>
+	 	<th style="text-align: center">글 유형</th>
 	 	<th style="text-align: center">게시글 제목</th>
 	 	<th style="text-align: center">글쓴이(닉네임)</th>
 	 	<th style="text-align: center">게시일</th>
@@ -151,6 +157,7 @@
 	 			<td>${list.place1 }</td>
 	 			<td>${list.place2 }</td>
 	 			<td>${list.csname }</td>
+	 			<td>${list.tb_kind == 1 ? '관심' : '<font color=red>후기</font>' }</td>
 	 			<td><a onclick="openBoard(${list.tbno})" style="cursor: pointer;">${list.title }</a></td>
 	 			<td>${list.nickname }</td>
 	 			<td>${list.regdate }</td>
@@ -210,6 +217,10 @@
 	  	<input type='hidden' name="page" value=${pageMaker.cri.page }>
 	  	<input type='hidden' name="perPageNum" value=${pageMaker.cri.perPageNum }>
            <div class="col-sm-12" style="text-align: right; margin-bottom: 10px;">
+           <div class="col-sm-6" style="text-align: left; margin-top: 15px;">
+           	* 검색란을 비우고 검색하면 전체검색이 가능합니다.
+           </div>
+           <div class="col-sm-6">
             <select class="form-control s" id="option" name="searchType">
 				<option value="d" ${cri.searchType == 'd' ? 'selected' : '' }>지역1</option>
 				<option value="s" ${cri.searchType == 's' ? 'selected' : '' }>지역2</option>
@@ -217,6 +228,7 @@
 			</select>
             <input type="text" class="form-control t" name="keyword" placeholder="검색" autocomplete="off" value="${	cri.keyword }">
             <button type="button" class="btn btn-info" id="searchIt">검색</button>   
+            </div>
             </div>
         </form>
 	 	<table class="table" style="text-align: center">
