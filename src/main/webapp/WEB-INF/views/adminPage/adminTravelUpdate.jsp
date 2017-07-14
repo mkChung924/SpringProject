@@ -137,6 +137,8 @@
 					opener.location.reload();
 					self.close();
 				}
+			},error: function(result){
+				alert('에러가 발생하였습니다.');
 			}
 		});		
 	});
@@ -199,7 +201,7 @@ body {
 				<div class="profile-content">
 					<!-- 이곳에 html을 작성하면 됩니다! -->
 					<div class="col-sm-6">
-	           	 	<h3><b>추천 여행정보 작성</b></h3>
+	           	 	<h3><b>추천 여행정보 수정</b></h3>
 	           	 	</div>
 					<br><br><br><br>
 					<div class="div1">

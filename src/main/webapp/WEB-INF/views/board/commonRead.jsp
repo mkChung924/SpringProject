@@ -9,7 +9,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- 댓글 css -->
-<link href="/resources/css/board/reply.css" rel="stylesheet">
+<link href="/resources/css/board/reply.css?ver=1.1" rel="stylesheet">
 
 <!-- css jquery boot 순으로 -->
 <script
@@ -272,7 +272,7 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 					url : '/like/add',
 					data : 'id=' + "${id }" + '&tbno=' + tbno,
 					success : function(result) {
-							$("#likeCnt").html(result);
+							$("#likeCnt").html("좋아요 "+result);
 							$("#likeCnt-${commonBoard.tbno}",opener.document).html(result);
 					},
 				}); 
@@ -356,9 +356,8 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 		<br>
 		<div class="col-sm-12">
 			<div class="col-sm-6">
-				<label>제목</label>
-				<input style="font-size: 18px" type="text" class="form-control" id="title" value="${commonBoard.title}" placeholder="제목 입력란" readonly><br>
-				<label>내용</label>
+				<label style="font-size: 15px;">제목</label>
+				<input style="font-size: 18px; background-color: white" type="text" class="form-control" id="title" value="${commonBoard.title}" placeholder="제목 입력란" readonly><br>
 				<textarea id="editor" name="content" readonly="readonly" style="width: 100%;">${commonBoard.content}</textarea>
 				<input type="hidden" id="userid" value="${id }" readonly> 
 				<input type="hidden" id="bno" value="${commonBoard.tbno }" readonly>
@@ -373,55 +372,57 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 					<input type="button" class="btn btn-info" id="updateBoard"
 						value="수정" style="float: right; margin-right: 15px;"/><br>
 				</c:if>
-				<label>공지사항</label>
-				<input style="font-size: 18px" type="text" class="form-control" id="title" value="${commonBoard.notice}" placeholder="공지 사항" readonly><br>
-				<label>오픈 채팅방</label> 
-				<input style="font-size: 18px" type="text" class="form-control" id="title" value="${commonBoard.openchat}" placeholder="작성자" readonly> <br>
+				<label style="font-size: 15px;">공지사항</label>
+				<input style="font-size: 18px; background-color: white" type="text" class="form-control" id="title" value="${commonBoard.notice}" placeholder="글쓴이의 공지사항이 표시됩니다." readonly><br>
+				<label style="font-size: 15px;">오픈 채팅방</label> 
+				<input style="font-size: 18px; background-color: white" type="text" class="form-control" id="title" value="${commonBoard.openchat}" placeholder="오픈 채팅방이 표시됩니다." readonly> <br>
 				
 				<div class="col-sm-12">
 				<c:if test="${commonBoard.myFavor == 1 }">
-					<div class="col-sm-1">
-						<p class="p-${commonBoard.tbno }" align="left">
+					<div class="col-sm-3" style="margin-top: -5px">
+						<p align="right">
+							<span class="badge" style="background-color: black; font-size: 15px;"> 즐겨찾기 </span>
 							<i class="glyphicon glyphicon-star" id="bk-${commonBoard.tbno }"
 								onclick="favor(${commonBoard.tbno})" data-toggle="bookmark"
 								data-placement="bottom" title="즐겨찾기 해제"
-								style="font-size: 25px; cursor: pointer;"></i>
+								style="font-size: 30px; cursor: pointer; color: #FFBB00"></i>
 						</p>
 					</div>
 				</c:if>
 				<c:if test="${commonBoard.myFavor == 0 }">
-					<div class="col-sm-1">				
-						<p align="left">
+					<div class="col-sm-3" style="margin-top: -5px">				
+						<p align="right">
+							<span class="badge" style="background-color: black; font-size: 15px;"> 즐겨찾기 </span>
 							<i class="glyphicon glyphicon-star-empty"
 								id="bk-${commonBoard.tbno }"
 								onclick="favor(${commonBoard.tbno})" data-toggle="bookmark"
 								data-placement="bottom" title="즐겨찾기 추가"
-								style="font-size: 25px; cursor: pointer;"></i>
+								style="font-size: 30px; cursor: pointer; color: #FFBB00"></i>
 						</p>
 					</div>	
 				</c:if>
-					<div class="col-sm-2" style="margin-top: 2px;">
+					<div class="col-sm-3" style="margin-top: -5px">
 						<p align="left">
-							<span class="badge" style="background-color: blue" onclick="likes(${commonBoard.tbno})" id="likeCnt">${commonBoard.likes }</span>
-							<i class="glyphicon glyphicon-thumbs-up" data-toggle="like" style="size: 50px;" data-placement="top" title="좋아요"
+							<span class="badge" style="background-color: blue; font-size: 15px;" onclick="likes(${commonBoard.tbno})" id="likeCnt"> 좋아요 ${commonBoard.likes } </span>
+							<i class="glyphicon glyphicon-thumbs-up" data-toggle="like" style="font-size: 30px; cursor: pointer;" data-placement="top" title="좋아요"
 								onclick="likes(${commonBoard.tbno})"></i>
 						</p>
 					</div>
-					<div class="col-sm-9" style="text-align: right; margin-top: 3px;">
-						<a class="btn btn-info btn-xs" style="float: right; margin-left: 5px;" id="msgSend" onclick="msgSend('${commonBoard.id}')">메시지</a>
-						<a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal2" style="float: right; margin-left: 5px;"
-						 id="reportSendBoard" onclick="reportSend('${commonBoard.title}','${commonBoard.tbno}','${commonBoard.id}',1)">신고</a>			
+					<div class="col-sm-6" style="text-align: right; margin-top: 3px;">
+						<a class="btn btn-info btn-xs" style="float: right; margin-left: 5px; font-size:15px;" id="msgSend" onclick="msgSend('${commonBoard.id}')">메시지 보내기</a>
+						<a class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal2" style="float: right; margin-left: 5px; font-size:15px;"
+						 id="reportSendBoard" onclick="reportSend('${commonBoard.title}','${commonBoard.tbno}','${commonBoard.id}',1)">신고하기</a>			
 								
 					</div>
 				</div>
 				<br>
 				<div class="reply" style="text-align: right; margin-top: 10px;">
-					<input type="text" class="form-control" id="replyContent" placeholder="댓글 입력" style="width: 85%; display: inline"> 
-					<input id="addReply" type="button" class="btn btn-success" value="입력" style="display: inline;">
+					<input type="text" class="form-control" id="replyContent" placeholder="댓글을 남겨서 사람들과 약속을 잡아보세요!" style="width: 80%; display: inline"> 
+					<input id="addReply" type="button" class="btn btn-success" value="댓글 입력!" style="display: inline;">
 				</div>
 				<!-- 여기 부터 댓글 부분 -->
 				<div class="comments-container scrollbar force-overflow"
-					style="margin-top: 10px; text-align:right; width: 100%; overflow: scroll overfl; overflow:x:hidden; height: 520px; background-color: #EBF7FF;
+					style="margin-top: 10px; text-align:right; width: 100%; overflow: scroll overfl; overflow:x:hidden; height: 520px; background-color: #EAEAEA;
 					border-radius: 1%;"
 					id="scrollbar119">
 					<ul id="comments-list" class="comments-list">

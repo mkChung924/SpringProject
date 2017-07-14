@@ -1,5 +1,6 @@
 package com.brothersplant.persistence;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -86,28 +87,33 @@ public class ReportsDAOImpl implements ReportsDAO {
 	public int addUserPenalty(List<String> uniqueOffenderList) {
 		Map<String, List<String>> map = new HashMap<>();
 		map.put("penaltyUserList", uniqueOffenderList);
-		return sqlSession.insert(namespace+".addUserPenalty",map);
+		int t = 0;
+		for(int i = 0; i < uniqueOffenderList.size(); i++){
+			String id = uniqueOffenderList.get(i);
+			t += sqlSession.update(namespace+".addUserPenalty", id);
+		}
+		
+		return t;
 	}
 
 	@Override
 	public int selectPenaltyScore(List<String> uniqueOffenderList) throws Exception {
-		Map<String, List<String>> map = new HashMap<>();
-		map.put("penaltyUserList", uniqueOffenderList);
-		List<String> list = sqlSession.selectList(namespace+".selectPenaltyScore",map);
-		int result=0;
-		for(int i=0; i<list.size();i++){
-			logger.info("현재 패널티 값은 : "+list.get(i));
-			if(Integer.parseInt(list.get(i)) == 10){
-				Map<String, String> map2 = new HashMap<>();
-				map2.put("user",uniqueOffenderList.get(i) );
-				result += sqlSession.update(namespace+".addBlackList",map2);
-				
-			} else if(Integer.parseInt(list.get(i)) >= 20){ // 벤을 먹임
-				Map<String, String> map2 = new HashMap<>();
-				map2.put("user",uniqueOffenderList.get(i) );
-				result += sqlSession.update(namespace+".addBlackList",map2);
+		Map<String, Object> map = new HashMap<>();
+		List<String> list = new ArrayList<>();
+		
+		int result = 0;
+		for(int i = 0; i < uniqueOffenderList.size(); i++){
+			String id = uniqueOffenderList.get(i);
+			int t = sqlSession.selectOne(namespace+".selectPenaltyScore",id);
+			
+			if(t >= 10 && t < 20){
+				result += sqlSession.update(namespace+".addBlackList",id);
+			} else if(t >= 20){
+				result += sqlSession.update(namespace+".addBlackList",id);
 			}
+			
 		}
+		
 		return result;
 	}
 

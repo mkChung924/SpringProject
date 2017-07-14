@@ -27,10 +27,10 @@
         	<input type="file" class="form-control" name="profilePicture" style="width: 200px; display: inline"><br>
 		   	
 		   	<label style="width: 90"><b>비밀번호<font color=red>*</font></b></label>
-		    <input type="password" class="form-control" name="password" pattern="[a-zA-Z0-9]{5,15}" placeholder="비밀번호" required>&nbsp;&nbsp;영문, 숫자 조합 5~15자
+		    <input type="password" class="form-control" name="password" pattern="[a-zA-Z0-9]{6,15}" placeholder="비밀번호" required>&nbsp;&nbsp;영문, 숫자 조합 5~15자
 		    <br>
 		    <label style="width: 90"><b>비밀번호 확인<font color=red>*</font></b></label>
-		    <input type="password" class="form-control" name="repass" pattern="[a-zA-Z0-9]{5,15}" placeholder="비밀번호 확인" required><br>
+		    <input type="password" class="form-control" name="repass" pattern="[a-zA-Z0-9]{6,15}" placeholder="비밀번호 확인" required><br>
 		    
 		    <label style="width: 90"><b>이름<font color=red>*</font></b></label>
 		    <input type="text" class="form-control" name="name" placeholder="이름" pattern="[ㄱ-힣]{2,10}" required autocomplete="off">&nbsp;&nbsp;
@@ -135,7 +135,7 @@
 		var birth = $('[name=birth]').val();
 		var postcode = $('[name=postcode]').val();
 		var roadAddress = $('[name=roadAddress]').val();		
-        var passExp = /^[a-z][a-zA-Z0-9]{5,15}$/g;
+        var passExp = /^[a-z][a-zA-Z0-9]{6,15}$/g;
 		
 		var today = new Date();
 		var dd = today.getDate();

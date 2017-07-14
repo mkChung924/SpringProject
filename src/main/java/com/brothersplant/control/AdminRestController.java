@@ -104,19 +104,21 @@ public class AdminRestController {
 	}
 
 	@RequestMapping(value = "admin_update", method = RequestMethod.POST)
-	public ResponseEntity<String> insertBoard3(BoardVO vo, MultipartFile file) throws Exception {
+	public ResponseEntity<String> insertBoard3(BoardVO vo, MultipartFile file) {
 
 		ResponseEntity<String> entity = null;
 		String content = vo.getContent();
+		System.out.println("content: "+content);
 		int start = content.indexOf("/resources/");
-		int end = content.indexOf(".jpg/") + 4;
+		int end = content.indexOf(" alt=\"/")-1;
 		vo.setImage(content.substring(start, end));
 		logger.info(vo.toString());
 		try {
-			entity = new ResponseEntity<>("success", HttpStatus.OK);
 			boardService.adminBoardUpdate(vo);
+			entity = new ResponseEntity<>("success", HttpStatus.OK);
 			logger.info("===수정 완료===");
 		} catch (Exception e) {
+			e.printStackTrace();
 			entity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		return entity;

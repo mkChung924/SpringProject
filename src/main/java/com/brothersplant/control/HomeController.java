@@ -92,6 +92,7 @@ public class HomeController {
 		if(state ==2){
 			logger.info("벤을 먹음");
 			return "main/loginPage";
+			
 		}else if(state ==1 && penalty_cnt >=10 ){
 			logger.info("추가 신고 "+(20-penalty_cnt)+"번 되면 아웃");
 			rttr.addFlashAttribute("warningMSG", penalty_cnt);

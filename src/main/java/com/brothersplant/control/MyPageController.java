@@ -96,39 +96,50 @@ public class MyPageController {
 	public String myPageMessage(HttpSession session, Model model, String page) throws Exception {
 		logger.info("메시지 입장");
 		String id = (String) session.getAttribute("id");
-		int auth = (int) session.getAttribute("auth");
-		if(id != null && auth != 2){
-			logger.info("my정보: "+service.myPageInfo(id));
-			logger.info(""+service.secureCode());
-			logger.info(id);
+		if(id != null){
 			
-			model.addAttribute("mypage", service.myPageInfo(id));
+			int auth = (int) session.getAttribute("auth");
 			
-			int npage = (int) session.getAttribute("page");
-			String mpage = String.valueOf(npage);
-			if(mpage == null){
-				page ="1";
+			if(auth != 2){
+				
+				logger.info("my정보: "+service.myPageInfo(id));
+				logger.info(""+service.secureCode());
+				logger.info(id);
+				
+				model.addAttribute("mypage", service.myPageInfo(id));
+				
+				String mpage ="";
+				if(session.getAttribute("page") != null){
+					int npage = (int) session.getAttribute("page");
+					mpage = String.valueOf(npage);
+				}
+				
+				if(mpage == null || mpage.isEmpty()){
+					page ="1";
+				} else {
+					page = mpage;
+				}
+
+				model.addAttribute("page", Integer.parseInt(page));		
+				
+				return "mypage/myPageMessage";
+				
 			} else {
-				page = mpage;
+				logger.info("관리자 정보: "+service.myPageInfo(id));
+				
+				model.addAttribute("admin", service.myPageInfo(id));
+				
+				if(page == null){
+					logger.info("null~~");
+					page = "1";
+				}
+				model.addAttribute("page", Integer.parseInt(page));		
+				
+				return "adminPage/adPageMessage";
 			}
 
-			model.addAttribute("page", Integer.parseInt(page));		
 			
-			return "mypage/myPageMessage";
-			
-		} else if(id != null && auth == 2){ 
-			logger.info("관리자 정보: "+service.myPageInfo(id));
-			
-			model.addAttribute("admin", service.myPageInfo(id));
-			
-			if(page == null){
-				logger.info("null~~");
-				page = "1";
-			}
-			model.addAttribute("page", Integer.parseInt(page));		
-			
-			return "adminPage/adPageMessage";
-		} else {
+		}  else {
 			return "redirect:login";
 		}
 	}
@@ -174,6 +185,7 @@ public class MyPageController {
 			vo.setAddr(addr);
 			service.updateUser(vo);
 			attr.addFlashAttribute("msg", "SUCCESS");
+			session.setAttribute("nick", vo.getNickname());//회원정보 수정 후 오른쪽 상단에 표시되는 닉네임 수정
 			return "redirect:mypageEdit";
 			
 		} else {

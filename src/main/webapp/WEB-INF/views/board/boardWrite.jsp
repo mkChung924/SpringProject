@@ -125,6 +125,9 @@ function uploadFile(inp, editor) {
 
 </script>
 <style>
+body{
+	background-color: #F6F6F6;
+}
 #title {
 	display: inline;
 	width: 350px;
@@ -205,13 +208,13 @@ function uploadFile(inp, editor) {
 	<div class="form-group">
 		<label for="name" class="col-sm-2 control-label">공지사항</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="notice" name="notice" placeholder="공지할 내용이 있다면 입력해주세요!" value="">
+			<input type="text" class="form-control" id="notice" name="notice" placeholder="공지할 내용이 있다면 입력해주세요!" required autocomplete="off">
 		</div>
 	</div>
 		<div class="form-group">
 		<label for="name" class="col-sm-2 control-label">오픈 채팅방</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="openchat" name="openchat" placeholder="더욱 수월하게 소통할 수있는 오픈카톡방이 있나요?" value="">
+			<input type="text" class="form-control" id="openchat" name="openchat" placeholder="더욱 수월하게 소통할 수있는 오픈카톡방이 있나요?" autocomplete="off">
 		</div>
 	</div>
 	<div class="form-group">

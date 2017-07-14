@@ -25,7 +25,7 @@
     margin: auto;
     padding-top: 0;
     border: 3px dashed #FFD9EC;
-    border-radius: 15%;
+    border-radius: 10%;
     height: 700px;
     width: 42%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
@@ -51,7 +51,7 @@
 	height: 0px;
     display: block;
 	text-align: right;
-    color: white;
+    color: black;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -59,7 +59,7 @@
 
 #travelModal .close-travel:hover,
 #travelModal .close-travel:focus {
-    color: #000;
+    color: white;
     text-decoration: none;
     cursor: pointer;
 }

@@ -80,7 +80,7 @@ div.tab button.active {
 	<div class="row">
 		<div class="header">
 			<c:if test="${auth == 2 }">
-			<b>[ ${nick } ]</b> <kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd>
+			<b>[ ${nick } ]</b> <kbd style="background-color: red"><font color="white">관리자</font></kbd>
 			</c:if>
 			<c:if test="${auth < 2 }">
 			<b>${nick }</b> 님 즐거운 여행지를 찾아보세요!<br>
@@ -130,12 +130,12 @@ div.tab button.active {
 							'<div class="thumbnail m">'+
 								'<img src="'+result[i].image+'" alt="ALT NAME" class="img-responsive" />'+
 								'<div class="caption">'+
-								'<h3>'+
+								'<h4><b>'+
 									'<i>'+result[i].title+' !</i>'+
-								'</h3>'+
+								'</b></h4>'+
 									'<p>'+result[i].notice+'</p>'+
 									'<p align="center">'+
-										'<a class="btn btn-primary btn-block" onclick="adminReadPage(\''+result[i].tbno+'\',\''+result[i].place1+'\',\''+result[i].place2+'\',\''+result[i].cno+'\',\''+result[i].csno+'\')">떠나자!!</a>'+
+										'<a class="btn btn-primary btn-block" onclick="adminReadPage(\''+result[i].tbno+'\',\''+result[i].place1+'\',\''+result[i].place2+'\',\''+result[i].cno+'\',\''+result[i].csno+'\')">떠날 준비!</a>'+
 									'</p>'+
 								'</div>'+
 								'<div style="padding-bottom: 10px;">'+

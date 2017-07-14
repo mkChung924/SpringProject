@@ -77,9 +77,9 @@ $(document).on("click","#updateBoard",function(){
 
 function adminReadPage(tbno,place1,place2,cno,csno) {
     var w = screen.width - 100;
-    var h = screen.height - 200;
+    var h = screen.height - 100;
     var left = (screen.width / 2) - (w / 2);
-    var top = (screen.height / 2) - (h / 2) - 50;
+    var top = (screen.height / 2) - (h / 2) - 100;
     window.open("/adminTravelRead?tbno=" + tbno+"&place1="+place1+"&place2="+place2+"&cno="+cno+"&csno="+csno, "관리자 여행 추천 "+tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 };
 </script>
@@ -91,11 +91,11 @@ function adminReadPage(tbno,place1,place2,cno,csno) {
 	    <div class="header">
 				<b>[ ${nick } ]</b>
 				<kbd style="background-color: red">
-					<a href="/admin"><font color="white">관리자</font></a>
+					<a href="/admin"><font color="white"><b>관리자</b></font></a>
 				</kbd>
 				<div style="margin-top: 5px;">
 					<kbd style="background-color: #EAEAEA">
-						<a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="/logout"><font color="black">로그아웃</font></a></kbd> &nbsp;&nbsp;|&nbsp;&nbsp;
 					<kbd>
 						<a href="/index"><font color="white">메인페이지</font></a>
 					</kbd>

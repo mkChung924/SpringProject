@@ -109,7 +109,7 @@ body{
 				<input type="checkbox"  id="ex_chk" name="chbox2" value="${receive.mno }%${receive.sender }"></td>
 				<td><a onclick="readMsg(${receive.mno }, ${page })" style="cursor: pointer;">${receive.title }</a></td>
 				<td><input type="hidden" value=${receive.mno } id="mno">
-					${receive.sender}</td>
+					${receive.sender == 'wjdaudrb7' ? '관리자' : receive.sender}</td>
 				<td>${receive.senddate}</td>
 			</tr>
 		</c:forEach>

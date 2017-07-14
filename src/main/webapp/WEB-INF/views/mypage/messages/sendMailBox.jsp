@@ -81,7 +81,7 @@ body {
 				<td><input type="checkbox" name="chbox1" value=${send.mno }></td>
 				<td><a onclick="readMsg(${send.mno }, ${page })" style="cursor: pointer;">${send.title}</a></td>
 				<td><input type="hidden" value="${send.mno }" id="mno1">
-					${send.targetid}</td>
+					${send.targetid == 'wjdaudrb7' ? '관리자' : send.targetid}</td>
 				<td>${send.senddate}</td>
 			</tr>
 		</c:forEach>

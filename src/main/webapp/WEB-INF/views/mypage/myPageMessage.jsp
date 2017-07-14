@@ -15,6 +15,8 @@
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
 <link rel="stylesheet" type="text/css" href="/resources/bootstrap/css/fontello.css?ver=1.1">
+<script type="text/javascript" src="/resources/js/profileUpload.js"></script>
+
 <script type="text/javascript">
 
      $(function(){//HTML문서가 브라우저 출력되었을때
@@ -69,6 +71,17 @@
 				  }
     		 });
     	});//click
+    	
+		$('#adminSend').click(function(){
+
+				var id = 'wjdaudrb7'
+				var width = 370;
+				var height = 500;
+				window.open('/msgSend?id='+id+'&page='+${page}, '받은 메시지', 'width='+ width +' height='+ height +
+						' menubar=no status=no scrollbars=yes left=600 top=100 resizable=0')
+			
+		});
+    	
      });//function
 </script>
 <style type="text/css">
@@ -131,9 +144,10 @@
 						<c:if test="${mypage.profile != 'default.png' }">
 						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
-						<button type="button" class="btn btn-default">
-  						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
+						<button type="button" class="btn btn-default" id="modifyProfilePicture">
+  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
 						</button>
+						<input type="file" style="display: none;" id="fileopen">	
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->
@@ -188,7 +202,7 @@
 	            <!-- 이곳에 html을 작성하면 됩니다! -->
 	            	
 	            	<div class="col-sm-6">
-		            <h3><b>메시지함</b></h3>
+		            <h3><b>메시지함</b> <button type="button" class="btn btn-warning" id="adminSend"><b>관리자에게 메시지 보내기 &#xe800</b></button></h3>
 		            </div>
 		            <div class="col-sm-6" style="text-align: right; margin-top: 15px">
 		           	<form name="removeCheck">

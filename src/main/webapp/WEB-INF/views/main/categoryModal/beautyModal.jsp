@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" type="text/css" href="/resources/css/main/modalcss/beautyModal.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/main/modalcss/beautyModal.css?ver=1.2">
 
 	<!-- The beauty Modal -->
 	<div id="beautyModal" class="modal">

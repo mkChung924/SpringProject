@@ -83,20 +83,16 @@
 	
 	<!-- 유저에게 패널티 숫자 올리고 -->
 	<update id="addUserPenalty">
-			<foreach collection="penaltyUserList" item="penaltyUser" separator=" ">
-				update USERSTATE SET PENALTY_CNT = (select PENALTY_CNT+1 from USERSTATE where id= #{penaltyUser}) where id=#{penaltyUser} 
-			</foreach>
+				update USERSTATE SET PENALTY_CNT = penalty_cnt + 1 where id=#{id} 
 	</update>
 	
 	<!-- 패널티 먹일 유저를 심사 벤먹일지 아닐지 -->
-	<select id="selectPenaltyScore" resultType="String">
-		<foreach collection="penaltyUserList" item="penaltyUser" separator=" ">
-			select PENALTY_CNT from USERSTATE where id=#{penaltyUser}
-		</foreach>
+	<select id="selectPenaltyScore" resultType="int">
+			select PENALTY_CNT from USERSTATE where id=#{id}
 	</select>
 	
 	<update id="addBlackList">
-		update USERSTATE set state = state + 1 where id= #{user}
+		update USERSTATE set state = state + 1 where id= #{id}
 	</update>
 	
 	<sql id="search">

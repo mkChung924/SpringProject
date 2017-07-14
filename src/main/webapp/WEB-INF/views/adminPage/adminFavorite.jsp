@@ -32,11 +32,11 @@
 	    <div class="header">
 				<b>[ ${nick } ]</b>
 				<kbd style="background-color: red">
-					<a href="/admin"><font color="white">관리자</font></a>
+					<a href="/admin"><font color="white"><b>관리자</b></font></a>
 				</kbd>
 				<div style="margin-top: 5px;">
 					<kbd style="background-color: #EAEAEA">
-						<a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;&nbsp;
+						<a href="/logout"><font color="black">로그아웃</font></a></kbd> &nbsp;&nbsp;|&nbsp;&nbsp;
 					<kbd>
 						<a href="/index"><font color="white">메인페이지</font></a>
 					</kbd>

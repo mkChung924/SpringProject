@@ -46,21 +46,19 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 		<div class="row">
 		<div class="header">
 			<c:if test="${auth == 2 }">			
-				<b>[ ${nick } ]</b> <kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd><br>
-				<div style="margin-top: 5px;">
-				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>
-				</div>
+				<b>[ ${nick } ]</b>&nbsp;&nbsp;<kbd style="background-color: red"><a href="/admin"><font color="white"><b>관리자</b></font></a></kbd>&nbsp;&nbsp;|&nbsp;
+				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black"><b>로그아웃</b></font></a></kbd>
 			</c:if>
 			<c:if test="${auth != 2 }">			
-				<b>[ ${nick } ]</b>님 메인페이지 입장<br>		
+				<b>[ ${nick } ]</b> 님 원하시는 관심사를 선택해 보세요!<br>		
 				<div style="margin-top: 5px;">
-				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd> &nbsp;&nbsp;|&nbsp;&nbsp;
-				<kbd><a href="/mypage"><font color="white">마이페이지</font></a></kbd>
+				<kbd><a href="/mypage"><font color="white"><b>마이페이지</b></font></a></kbd> &nbsp;&nbsp;|&nbsp;&nbsp;
+				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black"><b>로그아웃</b></font></a></kbd>
 				</div>
 			</c:if>
 		</div> 
 		<div class="myLocation">
-			<div class="col-sm-4" style="height: 40px; text-align: center; padding-top: 0px"><b><font size="4">관심 <kbd><font color=white>위치</font></kbd>를 설정해주세요!!</font></b></div>
+			<div class="col-sm-4" style="height: 20px; text-align: center; padding-top: 0px;"><b><font size="4">관심 <kbd><font color=white>위치</font></kbd>를 설정해주세요!!</font></b></div>
 			<div class="col-sm-2"><input type="button" id="locationBtn" onclick="sample4_execDaumPostcode()" value="위치 설정"></div>
 			<span id="guide" style="color:#999"></span>
 			<div class="col-sm-2" style="height: 40px;"><input type="text" class="form-control" id="do1" placeholder="지역1" value="${do1 == null ? addr.split('%')[0].split(' ')[0] : do1 }" readonly style="width: 80px"></div>

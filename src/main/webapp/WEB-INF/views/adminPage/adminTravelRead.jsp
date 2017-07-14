@@ -9,7 +9,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <!-- 댓글 css -->
-<link href="/resources/css/board/reply.css" rel="stylesheet">
+<link href="/resources/css/board/reply.css?ver=1.1" rel="stylesheet">
 <!-- css jquery boot 순으로 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -21,7 +21,7 @@
 <script>
 	tinymce.init({
 		selector : '#editor',
-		height : 800,
+		height : 820,
 		readonly : true,
 		menubar : false,
 		toolbar : false
@@ -367,48 +367,50 @@
 			
 			<div class="col-sm-5">
 				<label>제목</label>
-				<input type="text" class="form-control" id="title" value="${commonBoard.title}" placeholder="제목 입력란" readonly><br>
+				<input type="text" class="form-control" id="title" style="background-color: white; font-weight: bold" value="${commonBoard.title}" placeholder="제목 입력란" readonly><br>
 				<label>간략설명</label>
-				<input type="text" class="form-control" id="title" value="${commonBoard.notice}" placeholder="간략 설명" readonly><br>
+				<input type="text" class="form-control" id="title" style="background-color: white; font-weight: bold" value="${commonBoard.notice}" placeholder="간략 설명" readonly><br>
 				
 				<div class="col-sm-12">
 				<c:if test="${commonBoard.myFavor == 1 }">
-					<div class="col-sm-1">
-						<p class="p-${commonBoard.tbno }" align="left">
+					<div class="col-sm-4" style="margin-top: -5px">
+						<p align="left">
+						<span class="badge" style="background-color: black; font-size: 15px;"> 즐겨찾기 </span>
 							<i class="glyphicon glyphicon-star" id="bk-${commonBoard.tbno }"
 								onclick="favor(${commonBoard.tbno})" data-toggle="bookmark"
 								data-placement="bottom" title="즐겨찾기 해제"
-								style="font-size: 25px; cursor: pointer;"></i>
+								style="font-size: 30px; cursor: pointer; color: #FFBB00"></i>
 						</p>
 					</div>
 				</c:if>
 				<c:if test="${commonBoard.myFavor == 0 }">
-					<div class="col-sm-1">				
+					<div class="col-sm-4" style="margin-top: -5px">				
 						<p align="left">
+							<span class="badge" style="background-color: black; font-size: 15px;"> 즐겨찾기 </span>
 							<i class="glyphicon glyphicon-star-empty"
 								id="bk-${commonBoard.tbno }"
 								onclick="favor(${commonBoard.tbno})" data-toggle="bookmark"
 								data-placement="bottom" title="즐겨찾기 추가"
-								style="font-size: 25px; cursor: pointer; color: yellow"></i>
+								style="font-size: 30px; cursor: pointer; color: #FFBB00"></i>
 						</p>
 					</div>	
 				</c:if>
-					<div class="col-sm-5">
+					<div class="col-sm-4" style="margin-top: -5px">
 						<p align="left">
-							<span class="badge" style="background-color: blue" onclick="likes(${commonBoard.tbno})" id="likeCnt">좋아요 &nbsp; ${commonBoard.likes }</span>
-							<i class="glyphicon glyphicon-thumbs-up" data-toggle="like" style="size: 50px; font-size: 20px; cursor: pointer;" data-placement="top" title="좋아요"
+							<span class="badge" style="background-color: blue; font-size: 15px;" onclick="likes(${commonBoard.tbno})" id="likeCnt"> 좋아요 ${commonBoard.likes } </span>
+							<i class="glyphicon glyphicon-thumbs-up" data-toggle="like" style="font-size: 30px; cursor: pointer;" data-placement="top" title="좋아요"
 								onclick="likes(${commonBoard.tbno})"></i>
 						</p>
 					</div>
-					<div class="col-sm-6" style="text-align: right; margin-top: 3px;">
-						<a class="btn btn-info btn-xs" style="margin-left: 5px;" id="msgSend" onclick="msgSend('${commonBoard.id}')"><font size="2">메시지 보내기</font></a>		
+					<div class="col-sm-4" style="text-align: right; margin-top: 3px;">
+						<a class="btn btn-info btn-xs" style="margin-left: 5px; font-size:15px;" id="msgSend" onclick="msgSend('${commonBoard.id}')">메시지 보내기</a>		
 								
 					</div>
 				</div>
 				<br>
 				<div class="reply" style="text-align: right; margin-top: 10px;">
-					<input type="text" class="form-control" id="replyContent" placeholder="댓글 입력" style="width: 85%; display: inline"> 
-					<input id="addReply" type="button" class="btn btn-success" value="입력" style="display: inline;">
+					<input type="text" class="form-control" id="replyContent" placeholder="게시글이 마음에 들면 댓글을 남겨주세요!" style="width: 80%; display: inline"> 
+					<input id="addReply" type="button" class="btn btn-success" value="댓글 입력!" style="display: inline;">
 				</div>
 				<!-- 여기 부터 댓글 부분 -->
 				<div class="comments-container scrollbar force-overflow"
@@ -422,7 +424,7 @@
 				<div><!-- 후기 부분 링크 -->
 					<div id="reviewDiv"></div>
 				
-					<div class="div1" style="text-align: center">
+					<div class="div1" style="text-align: center; margin-top: -10px;">
 						<c:if test="${pageMaker.prev}">
 							<ul class="pagination">
 								<li><a href="${pageMaker.startPage - 1}">&laquo;</a></li>

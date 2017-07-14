@@ -28,6 +28,10 @@
 			var title = $('[name=title]').val();
 			var content = $('[name=content]').val();
 			
+			if(targetid == '관리자'){
+				targetid = 'wjdaudrb7';
+			}
+			
 			if(targetid.trim().length == 0){
 				alert('아이디를 입력하세요')
 			}else if(title.trim().length == 0){
@@ -82,7 +86,7 @@
 	<div class="msg">
 		<form method="post" name="send" action="/msgSend">
 			<label>받는 사람</label>
-			<input type="text" class="form-control" placeholder="수 신 자" name="targetid"value='${id}' readonly id="targetid">
+			<input type="text" class="form-control" placeholder="수 신 자" name="targetid"value='${id == "wjdaudrb7" ? '관리자' : id}' readonly id="targetid">
 			<br> 
 			<label>제목</label>
 			<input type="text" class="form-control" placeholder="제 목" name="title" required="required" autocomplete="off">

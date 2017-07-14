@@ -14,30 +14,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
+<script type="text/javascript" src="/resources/js/profileUpload.js"></script>
 
-<script>
-$(document).on("click","#modifyProfilePicture",function(){
-	var fileName = $("#fileopen").trigger('click',function(){
-	});
-});
-$(document).on("change","#fileopen",function(){
-	
-	var formData = new FormData();
-	 //첫번째 파일태그
-	 formData.append("file",$("#fileopen")[0].files[0]);
-
-	$.ajax({
-		url : '/rest2/profile/image',
-		data : formData,
-		type : "POST",
-		contentType: false,
-		processData: false,
-		success : function(result) {
-			$("#profilePic").attr("src",result);			
-		},
-	});
-});
-</script>
 
 <title>마이페이지-내글보기</title>
 </head>
@@ -64,7 +42,7 @@ $(document).on("change","#fileopen",function(){
 						<button type="button" class="btn btn-default" id="modifyProfilePicture">
   							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
 						</button>
-							<input type="file" style="display: none;" id="fileopen">																								
+						<input type="file" style="display: none;" id="fileopen">																								
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->

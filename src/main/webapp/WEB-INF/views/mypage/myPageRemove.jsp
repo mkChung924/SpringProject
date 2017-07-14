@@ -14,6 +14,8 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- css파일 설정 : 경로를 바꿔주세요. -->
 <link rel="stylesheet" type="text/css" href="/resources/css/mypage/mypage.css?ver=1.4">
+<script type="text/javascript" src="/resources/js/profileUpload.js"></script>
+
 <script type="text/javascript">
 	
 	$(function(){
@@ -76,9 +78,10 @@
 						<c:if test="${mypage.profile != 'default.png' }">
 						<img src="${mypage.profile }" class="img-responsive" alt="프로필사진"><br>
 						</c:if>
-						<button type="button" class="btn btn-default">
-  						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
+						<button type="button" class="btn btn-default" id="modifyProfilePicture">
+  							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> <font size=2>사진 수정</font>
 						</button>
+						<input type="file" style="display: none;" id="fileopen">	
 					</div>
 					<!-- END SIDEBAR USERPIC -->
 					<!-- SIDEBAR USER TITLE -->

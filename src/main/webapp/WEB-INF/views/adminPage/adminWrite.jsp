@@ -173,7 +173,7 @@ body {
 			<div class="header">
 				<b>[ ${nick } ]</b>
 				<kbd style="background-color: red">
-					<a href="/admin"><font color="white">관리자</font></a>
+					<a href="/admin"><font color="white"><b>관리자</b></font></a>
 				</kbd>
 				<div style="margin-top: 5px;">
 					<kbd style="background-color: #EAEAEA">
@@ -224,7 +224,8 @@ body {
 	           	 	</div>
 					<br><br><br><br>
 					<div class="div1">
-						<form class="form-horizontal" role="form" method="post" action="admin_regit" enctype="multipart/form-data">
+						<form class="form-horizontal" role="form" method="post" action="admin_regit" enctype="multipart/form-data"
+							onsubmit="return checkNull()">
 							<input type="hidden" value="${id}" id="id" name="id">
 							<input name="tb_kind" value="0" type="hidden">
 							<input type="hidden" value="1" id="cno" name="cno"> 
@@ -240,7 +241,7 @@ body {
 								<select id="place1" name="place1" required></select>
 								<select id="place2" name="place2" required></select>
 							<br><br>		
-							<input type="text" class="form-control" id="notice" name="notice" placeholder="공지할 내용이 있다면 입력해주세요!">
+							<input type="text" class="form-control" id="notice" name="notice" placeholder="공지할 내용이 있다면 입력해주세요!" required="required">
 							<br>
 							<div class="form-group">
 								<!-- <label for="name" class="col-sm-2 control-label" required>내용</label> -->

@@ -65,7 +65,7 @@ $(function(){
 <body>
 <div class="msg">
 	<label>보낸 사람</label><br>
-	<input type="text" class="form-control" value="${messages.sender}" readonly="readonly">
+	<input type="text" class="form-control" value="${messages.sender == 'wjdaudrb7' ? '관리자' : messages.sender}" readonly="readonly">
 	<br>
 	<label>제목</label><br>
 	<input type="text" class="form-control" value="${messages.title}" readonly="readonly">

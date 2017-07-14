@@ -75,11 +75,11 @@ public class ReportRestController {
 		List<String> offenderLIST = Arrays.asList(offenderList.split(","));
 		List<String> brnoLIST =  Arrays.asList(brnoList.split(","));
 
-		List<String> uniqueOffenderList = new ArrayList<String>(new HashSet<String>(offenderLIST));//신고자 명단 중복 제거
-		logger.info("중복 제거된 신고자 명단 : "+uniqueOffenderList); // [1, 2, 3]
+		//List<String> uniqueOffenderList = new ArrayList<String>(new HashSet<String>(offenderLIST));//신고자 명단 중복 제거
+		//logger.info("중복 제거된 신고자 명단 : "+uniqueOffenderList); // [1, 2, 3]
 		
 		try{
-			int result = service.selectedReprotListDeletePenalty(kind, brnoLIST,uniqueOffenderList);
+			int result = service.selectedReprotListDeletePenalty(kind, brnoLIST,offenderLIST);
 			logger.info("삭제된 행의 수 : "+result +" || kind : "+kind);
 			entity = new ResponseEntity<String>("SUCCESS",HttpStatus.OK);
 		}catch(Exception e){

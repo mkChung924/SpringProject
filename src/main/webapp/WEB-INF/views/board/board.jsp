@@ -10,7 +10,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" type="text/css" href="/resources/css/board/board.css?ver=2.3">
+<link rel="stylesheet" type="text/css" href="/resources/css/board/board.css?ver=2.4">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script type="text/javascript" src="/resources/js/daum_api2.js"></script>
 
@@ -205,9 +205,9 @@
 	
   	function adminReadPage(tbno,place1,place2,cno,csno) {
         var w = screen.width - 100;
-        var h = screen.height - 200;
+        var h = screen.height - 115;
         var left = (screen.width / 2) - (w / 2);
-        var top = (screen.height / 2) - (h / 2) - 50;
+        var top = (screen.height / 2) - (h / 2) - 100;
         window.open("/adminTravelRead?tbno=" + tbno+"&place1="+place1+"&place2="+place2+"&cno="+cno+"&csno="+csno, "관리자 여행 추천 "+tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 		$("#ViewCnt-"+tbno).html(parseInt($("#ViewCnt-"+tbno).html())+1);
     };
@@ -230,11 +230,9 @@
 		<div class="row">
 			<div class="header">
 				<c:if test="${auth == 2 }">
-				<b>[ ${nick } ]</b> <kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd>
-				<div style="margin-top: 5px;">
-				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>&nbsp;&nbsp;|&nbsp;
-				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>
-				</div>	
+				<b>[ ${nick } ]</b> &nbsp;&nbsp;<kbd style="background-color: red"><a href="/admin"><font color="white">관리자</font></a></kbd>&nbsp;&nbsp;|&nbsp;
+				<kbd><a href="/index"><font color="white">메인페이지</font></a></kbd>&nbsp;&nbsp;|&nbsp;
+				<kbd style="background-color: #EAEAEA"><a href="/logout"><font color="black">로그아웃</font></a></kbd>
 				</c:if>
 				<c:if test="${auth < 2 }">
 				<b>${nick }</b>님 게시글을 남겨보세요!<br>
@@ -259,12 +257,12 @@
 							<img src="${travel.image }" alt="ALT NAME"
 								class="img-responsive" />
 							<div class="caption">
-								<h3>
+								<h4><b>
 									<i>${travel.title } !</i>
-								</h3>
+								</b></h4>
 								<p>${travel.notice }</p>
 								<p align="center">
-									<a href="#" class="btn btn-primary btn-block" onclick="adminReadPage('${travel.tbno}','${p1 }','${p2 }','${cno}','${csno}')">떠나자!!</a>
+									<a href="#" class="btn btn-primary btn-block" onclick="adminReadPage('${travel.tbno}','${p1 }','${p2 }','${cno}','${csno}')">떠날 준비!</a>
 								</p>
 							</div>
 							<div style="padding-bottom: 10px;">
@@ -279,14 +277,14 @@
 					</div>
 				</c:forEach>
 				</div>
+			</c:if>	
 				<div class="row"
 					style="text-align: right; margin-right: 20px; margin-top: -5px;">
 					<button type="button" class="btn btn-success" onclick="showAllTrip()">
-						<font size=4>추천 여행지 더보기</font>&nbsp; <i
+						<font size=4>추천 여행지 보기</font>&nbsp; <i
 							class="glyphicon glyphicon-plus-sign"></i>
 					</button>
 				</div>
-			</c:if>	
 			</c:if>
 
 			<!-- 검색 -->
@@ -335,12 +333,8 @@
 								
 								<div class="caption">
 								<div style="text-align: right; margin-top: 10px;">
-									<c:if test="${cno != 1 }">
-										<button type="button" class="btn btn-default" id="all">전체
-											보기[${boardCount }]</button>
-									</c:if>
 									<select class="form-control" id="perPageNum" name="pageNum"
-										style="display: inline; width: 100px;">
+										style="display: inline; width: 120px;">
 										<c:out value=""></c:out>
 										<option value=9 ${pageNum == 9 ? 'selected': '' }>9개씩
 											보기</option>
@@ -350,16 +344,19 @@
 											보기</option>
 										<option value=60 ${pageNum == 60 ? 'selected': '' }>60개씩
 											보기</option>
-
 									</select>
+									<c:if test="${cno != 1 }">
+										<button type="button" class="btn btn-default" id="all" style="background-color: #5D5D5D; color: white;">
+										전체 보기[${boardCount }]</button>
+									</c:if>
 
 									<c:if test="${cno == 1 }">
 										<button type="button" class="btn btn-default" id="review"
-											style="background-color: black; color: white">여행 후기
+											style="background-color: #5D5D5D; color: white">여행 후기
 											모아보기[${reviewBoardCount }]</button>
 										<input type="hidden" name="tb_kind" value="${tb_kind }">
 										<button type="button" class="btn btn-default" id="together"
-											style="background-color: black; color: white">관심글
+											style="background-color: #5D5D5D; color: white">관심글
 											모아보기[${boardCount }]</button>
 										<button type="button" class="btn btn-default" id="write">게시글
 											및 후기 작성</button>
@@ -473,7 +470,7 @@
 				<c:forEach items="${cnoMap }" var="map" end="0">
 					<c:if test="${map.size() > 0 }">
 				<div class="col-sm-12" style="text-align: left; margin-bottom: 10px;">
-				<b>다른 지역 살펴보기!</b>
+				<b>다른 지역, 같은 관심! &nbsp; 가까운 곳이 있는지 확인해보세요..!</b>
 				</div>
 				<div class="thumbnail" style="display: grid; background-color: transparent;">
 					<div class="col-md-12" style="background-color: transparent; text-align: center;">

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" type="text/css" href="/resources/css/main/modalcss/babyModal.css">
+<link rel="stylesheet" type="text/css" href="/resources/css/main/modalcss/babyModal.css?ver=1.2">
 
 	<!-- The baby Modal -->
 	<div id="babyModal" class="modal">
