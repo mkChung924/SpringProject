@@ -31,7 +31,7 @@ $(document).on("click",".pagination li a", function(event){
 	paging.submit();
 });
 function readPage(tbno){
-    var w = screen.width - 300;
+    var w = screen.width - 100;
     var h = screen.height - 200;
     var left = (screen.width / 2) - (w / 2);
     var top = (screen.height / 2) - (h / 2) - 50;
@@ -80,7 +80,7 @@ function readPage(tbno){
 						<ul class="nav">
 							<li>
 								<a href="mypage">
-								<i class="glyphicon glyphicon-user"></i>
+								<i class="glyphicon glyphicon-user" style="color: blue;"></i>
 								내 정보 </a>
 							</li>
 							<li class="active">
@@ -90,22 +90,22 @@ function readPage(tbno){
 							</li>
 							<li>
 								<a href="message">
-								<i class="glyphicon glyphicon-envelope"></i>
+								<i class="glyphicon glyphicon-envelope" style="color: orange;"></i>
 								메시지함 </a>
 							</li>
 							<li>
 								<a href="mypageEdit">
-								<i class="glyphicon glyphicon-edit"></i>
+								<i class="glyphicon glyphicon-edit" style="color: CornflowerBlue;"></i>
 								정보수정 </a>
 							</li>
 							<li>
 								<a href="favorite">
-								<i class="glyphicon glyphicon-heart"></i>
+								<i class="glyphicon glyphicon-heart" style="color: red;"></i>
 								즐겨찾기 </a>
 							</li>
 							<li>
 								<a href="del">
-								<i class="glyphicon glyphicon-remove"></i>
+								<i class="glyphicon glyphicon-remove" style="color: maroon"></i>
 								탈퇴 </a>
 							</li>
 						</ul>

@@ -34,7 +34,7 @@
 	            id.indexOf("\t")>=0 ||id.indexOf("\n")>-1){
 	         alert('값의 공백이 있습니다.')
 	      }else if(!idExp.test(id)){
-	            alert('아이디 형식이 옳지 않습니다.');
+	            alert('아이디 형식이 옳지 않습니다.\n 영문 또는 영문 + 숫자 조합으로 설정하세요.\n첫 글자는 소문자 입니다.');
 	            $('[name=idCheck]').val("");
 	            $('[name=idCheck]').focus();
 	               

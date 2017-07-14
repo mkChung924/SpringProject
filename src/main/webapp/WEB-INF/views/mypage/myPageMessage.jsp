@@ -164,7 +164,7 @@
 						<ul class="nav">
 							<li>
 								<a href="mypage">
-								<i class="glyphicon glyphicon-user"></i>
+								<i class="glyphicon glyphicon-user" style="color: blue;"></i>
 								내 정보 </a>
 							</li>
 							<li>
@@ -179,17 +179,17 @@
 							</li>
 							<li>
 								<a href="mypageEdit">
-								<i class="glyphicon glyphicon-edit"></i>
+								<i class="glyphicon glyphicon-edit" style="color: CornflowerBlue;"></i>
 								정보수정 </a>
 							</li>
 							<li>
 								<a href="favorite">
-								<i class="glyphicon glyphicon-heart"></i>
+								<i class="glyphicon glyphicon-heart" style="color: red;"></i>
 								즐겨찾기 </a>
 							</li>
 							<li>
 								<a href="del">
-								<i class="glyphicon glyphicon-remove"></i>
+								<i class="glyphicon glyphicon-remove" style="color: maroon"></i>
 								탈퇴 </a>
 							</li>
 						</ul>

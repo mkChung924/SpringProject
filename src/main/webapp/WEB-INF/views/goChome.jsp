@@ -7,6 +7,16 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1><a href="https://www.google.co.kr/chrome/browser/desktop/index.html"><font> 크롬 링크 </font></a></h1>
+<center>
+<br><br><br><br><br><br><br>
+	<h1><a href="https://www.google.co.kr/chrome/browser/desktop/index.html"><font> 크롬 다운로드 </font></a></h1>
+	
+	본 사이트는 인터넷 익스플로러를 지원하지 않습니다.<br><br>
+	
+	위의 링크에서 크롬을 다운받은 후 사이트를 이용해주시기 바랍니다.<br><br>
+	
+	감사합니다.<br>
+	
+	</center>
 </body>
 </html>

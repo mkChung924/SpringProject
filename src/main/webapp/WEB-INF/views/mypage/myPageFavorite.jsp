@@ -18,10 +18,10 @@
 
 <script type="text/javascript">
 	function read(tbno){
-	        var w = 800;
-	        var h = 400;
+	        var w = screen.width - 100;
+	        var h = screen.height - 200;
 	        var left = (screen.width / 2) - (w / 2);
-	        var top = (screen.height / 2) - (h / 2);
+	        var top = (screen.height / 2) - (h / 2) - 50;
 	        window.open("/CommonRead?tbno=" + tbno, tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
 	}
 </script>
@@ -67,7 +67,7 @@
 						<ul class="nav">
 							<li>
 								<a href="mypage">
-								<i class="glyphicon glyphicon-user"></i>
+								<i class="glyphicon glyphicon-user" style="color: blue;"></i>
 								내 정보 </a>
 							</li>
 							<li>
@@ -77,12 +77,12 @@
 							</li>
 							<li>
 								<a href="message">
-								<i class="glyphicon glyphicon-envelope"></i>
+								<i class="glyphicon glyphicon-envelope" style="color: orange;"></i>
 								메시지함 </a>
 							</li>
 							<li>
 								<a href="mypageEdit">
-								<i class="glyphicon glyphicon-edit"></i>
+								<i class="glyphicon glyphicon-edit" style="color: CornflowerBlue;"></i>
 								정보수정 </a>
 							</li>
 							<li class="active">
@@ -92,7 +92,7 @@
 							</li>
 							<li>
 								<a href="del">
-								<i class="glyphicon glyphicon-remove"></i>
+								<i class="glyphicon glyphicon-remove" style="color: maroon"></i>
 								탈퇴 </a>
 							</li>
 						</ul>

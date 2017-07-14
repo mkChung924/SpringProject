@@ -42,7 +42,7 @@
 			and name like '%'||#{keyword}||'%'
 		</if>
 		<if test="searchType == 't'.toString()">
-			and id like '%'||#{keyword}||'%'
+			and userinfos.id like '%'||#{keyword}||'%'
 		</if>
 	</if>
 	</sql>

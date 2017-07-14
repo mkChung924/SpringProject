@@ -17,7 +17,7 @@
 <script type="text/javascript" src="/resources/js/profileUpload.js"></script>
 
 
-<title>마이페이지-내글보기</title>
+<title>마이페이지-내정보</title>
 </head>
 <body>
 	<div class="container">
@@ -69,22 +69,22 @@
 							</li>
 							<li>
 								<a href="message">
-								<i class="glyphicon glyphicon-envelope"></i>
+								<i class="glyphicon glyphicon-envelope" style="color: orange;"></i>
 								메시지함 </a>
 							</li>
 							<li>
 								<a href="mypageEdit">
-								<i class="glyphicon glyphicon-edit"></i>
+								<i class="glyphicon glyphicon-edit" style="color: CornflowerBlue;"></i>
 								정보수정 </a>
 							</li>
 							<li>
 								<a href="favorite">
-								<i class="glyphicon glyphicon-heart"></i>
+								<i class="glyphicon glyphicon-heart" style="color: red;"></i>
 								즐겨찾기 </a>
 							</li>
 							<li>
 								<a href="del">
-								<i class="glyphicon glyphicon-remove"></i>
+								<i class="glyphicon glyphicon-remove" style="color: maroon"></i>
 								탈퇴 </a>
 							</li>
 						</ul>

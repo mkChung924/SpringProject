@@ -20,19 +20,19 @@
     	<p align="right" style="padding-right: 20px;"><input type="checkbox" name="agree" value="agree" onclick="aaa(this)"> 내용을 읽었으며, 동의함</p><br>
     	<p align="left"><b><font size="5">2.정보입력</font></b></p>
     	<div class="memberinfo">
-	    	<label style="width: 90"><b>아이디<font color=red>*</font></b></label>
+	    	<label style="width: 95"><b>아이디<font color=red>*</font></b></label>
 		    <input type="text" class="form-control" name="id" placeholder="아이디" pattern="[a-z]{1}[a-zA-Z0-9]{5,20}" required readonly autocomplete="off" onclick="dupCheck()">
 		    <input type="button" class="btn btn-info" id="idCheck" value="중복확인" onclick="dupCheck()"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		    <label style="width: 80"><b>프로필 사진</b></label>
         	<input type="file" class="form-control" name="profilePicture" style="width: 200px; display: inline"><br>
 		   	
-		   	<label style="width: 90"><b>비밀번호<font color=red>*</font></b></label>
-		    <input type="password" class="form-control" name="password" pattern="[a-zA-Z0-9]{6,15}" placeholder="비밀번호" required>&nbsp;&nbsp;영문, 숫자 조합 5~15자
+		   	<label style="width: 95"><b>비밀번호<font color=red>*</font></b></label>
+		    <input type="password" class="form-control" name="password" pattern="[a-zA-Z0-9]{6,15}" placeholder="비밀번호" required>&nbsp;&nbsp;영문, 숫자 조합 6~15자
 		    <br>
-		    <label style="width: 90"><b>비밀번호 확인<font color=red>*</font></b></label>
+		    <label style="width: 95"><b>비밀번호 확인<font color=red>*</font></b></label>
 		    <input type="password" class="form-control" name="repass" pattern="[a-zA-Z0-9]{6,15}" placeholder="비밀번호 확인" required><br>
 		    
-		    <label style="width: 90"><b>이름<font color=red>*</font></b></label>
+		    <label style="width: 95"><b>이름<font color=red>*</font></b></label>
 		    <input type="text" class="form-control" name="name" placeholder="이름" pattern="[ㄱ-힣]{2,10}" required autocomplete="off">&nbsp;&nbsp;
 		    
 		    <label style="width: 50"><b>닉네임<font color=red>*</font></b></label>
@@ -40,10 +40,10 @@
 		    <b class="nick"></b>
 		    <br>
 		    
-        	<label style="width: 90"><b>생년월일</b></label>
+        	<label style="width: 95"><b>생년월일<font color=red>*</font></b></label>
         	<input type="date" class="form-control" name="birth" style="width: 200px; display: inline" min="1940-01-01"><br>
 		    
-		    <label style="width: 90"><b>이메일<font color=red>*</font></b></label>
+		    <label style="width: 95"><b>이메일<font color=red>*</font></b></label>
 		    <input type="email" class="form-control" name="email" placeholder="이메일" pattern="[a-zA-Z0-9]{3,15}@[a-zA-Z]+\.[a-zA-Z]+" required style="width: 200px; display: inline">&nbsp;&nbsp;
 		    
 		    <label style="width: 80"><b>핸드폰 번호<font color=red>*</font></b></label>
@@ -51,10 +51,10 @@
             <input type="text" class="form-control" name="tel2" maxlength="4" size="5" style="width: 75px;" pattern="[0-9]{3,4}"required autocomplete="off" onkeyup="movetoTel3()"> -
             <input type="text" class="form-control" name="tel3" maxlength="4" size="5" style="width: 75px;" pattern="[0-9]{4}"required autocomplete="off"><br>
 		    
-		    <label style="width: 90"><b>우편번호<font color=red>*</font></b></label>
+		    <label style="width: 95"><b>우편번호<font color=red>*</font></b></label>
 		    <input type="text" class="form-control" name="postcode"id="postcode" placeholder="우편번호" required readonly>
             <input type="button" class="btn btn-warning" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-            <label style="width: 90"><b>주소<font color=red>*</font></b></label>
+            <label style="width: 95"><b>주소<font color=red>*</font></b></label>
             <input type="text" class="form-control" name="address" id="address" placeholder="주소" style="width: 300px;" required readonly>
             <input type="text" class="form-control" name="detailAddress" id="detailAddress" placeholder="상세주소" style="width: 200px; required readonly">
             
@@ -62,7 +62,7 @@
               String secure[] = { "==선택==", "당신의 고향은 어디신가요?", "가장 소중한 것은 무엇입니까?", "내가 졸업한 고등학교는?", "유년시절 나의 별명은?","아버지의 성함은?", "어머님의 성함은?",
                     "기타" };
           	%> 
-          	<br><label style="width: 90"><b>보안질문<font color=red>*</font></b></label>
+          	<br><label style="width: 95"><b>보안질문<font color=red>*</font></b></label>
           	<select class="form-control" name="secure" style="width: 200px; display: inline;">
             <%
                for (int i = 0; i < secure.length; i++) {

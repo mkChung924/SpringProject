@@ -223,7 +223,7 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 
 	$(document).on("click", "#deleteBoard", function() {//게시글 삭제
 		var tbno = $("#bno").val();
-		alert(tbno+" : "+<%=request.getParameter("tbno")%>);
+		//alert(tbno+" : "+<%=request.getParameter("tbno")%>);
 		$.ajax({
 			type : 'delete',
 			url : '/CommonDelete/'+tbno,
