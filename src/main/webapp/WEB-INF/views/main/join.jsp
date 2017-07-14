@@ -15,8 +15,8 @@
     <form id="signUp" action="/signUp" method="post" enctype="multipart/form-data" onsubmit="return check()">
     <div class="modal-body">
    		<p align="left"><b><font size="5">1.이용약관</font></b></p>
-		<textarea rows="4" style="min-width: 100%" readonly>개인정보를 수집합니다. 수집된 정보는 탈퇴할 때까지 보관되며 탈퇴시 모두 파기됩니다.</textarea><br>
-
+		<textarea rows="4" style="min-width: 98%" readonly> 소셜라이프(Social Life 이하 회사라 칭한다)는 가입하는 회원의 다음과 같은 개인정보를 수집합니다. 이름, 생년월일, 이메일, 아이디, 핸드폰 번호, 거주지 주소를 수집합니다. 또한 사이트내에서 작성된 게시물 또는 후기 글도 수집되며 이는 사용자가 원할 때 언제든지 수정, 삭제가 가능합니다. 수집된 정보는 회원이 탈퇴할 때까지 소셜라이프가 보관하게 되며 필요시 광고업체에 제공될 수 있습니다. 제공되는 정보는 다음과 같습니다. 1) 이름 2) 핸드폰 번호 3) 이메일.회원의 개인정보는 탈퇴시 모두 파기됩니다. 회원이 작성한 여행 후기글은 차후 관리자에 의하여 계속 사용될 수 있습니다.
+		</textarea><br>
     	<p align="right" style="padding-right: 20px;"><input type="checkbox" name="agree" value="agree" onclick="aaa(this)"> 내용을 읽었으며, 동의함</p><br>
     	<p align="left"><b><font size="5">2.정보입력</font></b></p>
     	<div class="memberinfo">

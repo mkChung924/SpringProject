@@ -66,7 +66,7 @@
 	<delete id="deleteCommonRow">
 		delete from tbl_boards where tbno=#{tbno}
 	</delete>
-	
+	<!-- 관리자 여행 추천 글 -->
 	<select id="selectTravelAdmin" resultType="boardVO">
 		select nickname, a.id, a.cno, a.csno, a.notice,
 					(select cname from tbl_category where cno = a.cno) cname,
@@ -75,7 +75,7 @@
 					 (select count(*) from tbl_like where tbno =  a.tbno) likes, 
 					 (select count(*) from tbl_replies where tbno = a.tbno) replies, 
 					 (select count(*) from bookmark where tbno = a.tbno and id = #{id} and id = #{id}) myfavor,
-					 (select count(*) from tbl_boards where tb_kind = 2 and place1 like '%'||#{place1}||'%' and place2 like '%'||#{place2}||'%') reviews,
+					 (select count(*) from tbl_boards where tb_kind = 2 and place1 like '%'||#{place1}||'%' and place2 like '%'||a.place2||'%') reviews,
 					 place1, place2, a.viewcnt, a.image
 				from userinfos, tbl_boards a
 				where a.place1 like '%'||#{place1}||'%' and tb_kind = 0 and

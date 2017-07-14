@@ -95,8 +95,9 @@
 		    		 		var output = "";
 		    		 		
 		    		 		$.each(result, function(index,item){
-		    		 			output += "<div class=col-sm-3>"+item+"</div>";	
+		    		 			output += "<span class='col-sm-6'>"+item+"</span>";	
 		    		 		});
+		    		 		
 		    		 		
 		    		 		$('.idList').html("<b>회원님의 아이디는 다음과 같습니다.</b><br><br>"+ output);
 		    		 		$('[name=search_id_btn]').css("display","none");

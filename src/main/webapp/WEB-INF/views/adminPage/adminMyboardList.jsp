@@ -22,7 +22,7 @@ $(document).on("click",".pagination li a", function(event){
 	var targetPage = $(this).attr("href");
 	var paging = $("#paging");
 	paging.find("[name='page']").val(targetPage);
-	paging.attr("action","/myContents").attr("method", "get");
+	paging.attr("action","/adminWroteContents").attr("method", "get");
 	paging.submit();
 });
 

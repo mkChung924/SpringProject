@@ -147,8 +147,8 @@
 	}
 
   	function readPage(tbno) {
-        var w = screen.width - 300;
-        var h = screen.height - 200;
+        var w = screen.width - 100;
+        var h = screen.height - 120;
         var left = (screen.width / 2) - (w / 2);
         var top = (screen.height / 2) - (h / 2) - 50;
         window.open("/CommonRead?tbno=" + tbno, tbno + "번 게시글", 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
@@ -262,7 +262,7 @@
 								</b></h4>
 								<p>${travel.notice }</p>
 								<p align="center">
-									<a href="#" class="btn btn-primary btn-block" onclick="adminReadPage('${travel.tbno}','${p1 }','${p2 }','${cno}','${csno}')">떠날 준비!</a>
+									<a href="#" class="btn btn-primary btn-block" onclick="adminReadPage('${travel.tbno}','${travel.place1 }','${travel.place2 }','${travel.cno}','${travel.csno}')">떠날 준비!</a>
 								</p>
 							</div>
 							<div style="padding-bottom: 10px;">
@@ -297,7 +297,7 @@
 								<div class="col-sm-3" style="text-align: center; padding-top: 5">
 									<button type="button" class="btn btn-warning" id="myLocBtn"
 										onclick="sample4_execDaumPostcode()"
-										style="padding: 0px; width: 66px;">내 위치</button>
+										style="padding: 0px; width: 66px;">관심위치</button>
 									<i><font size=2>${do1 } ${si } ${dong }</font></i> <span
 										id="guide" style="color: #999"></span> <input type="hidden"
 										name="do1" id="do1" value="${do1 }"> <input

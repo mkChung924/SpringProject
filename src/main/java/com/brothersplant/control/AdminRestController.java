@@ -109,7 +109,7 @@ public class AdminRestController {
 		ResponseEntity<String> entity = null;
 		String content = vo.getContent();
 		System.out.println("content: "+content);
-		int start = content.indexOf("/resources/");
+		int start = content.indexOf("resources/");
 		int end = content.indexOf(" alt=\"/")-1;
 		vo.setImage(content.substring(start, end));
 		logger.info(vo.toString());

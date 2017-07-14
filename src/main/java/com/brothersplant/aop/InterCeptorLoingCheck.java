@@ -17,7 +17,7 @@ public class InterCeptorLoingCheck extends HandlerInterceptorAdapter{
 		logger.info("인터셉터요 전");
 		HttpSession session = request.getSession();
 		
-		if(session.getAttribute("id") ==null && session.getAttribute("page") ==null){
+		if(session.getAttribute("id") ==null){
 			session.invalidate();
 			response.sendRedirect("/index");
 			return false;

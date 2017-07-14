@@ -34,6 +34,7 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 {'title':'Reality','url':'https://www.youtube.com/watch?v=arg-TuFxmq0'},
 {'title':'tie a yellow ribbon round the ole oak tree','url':'https://www.youtube.com/watch?v=CFCWv1CUhOE'},
 {'title':'%uC5BC%uC74C%uC5F0%uBABB-%uB450%uBC88%uC9F8 %uB2EC','url':'https://www.youtube.com/watch?v=bfcL8KqpgKs'},
+{'title':'Summer','url':'https://www.youtube.com/watch?v=Xrj9L2ez6IA&index=7&list=PLj0NDC_7rACIFN7si71ybxf89rKq1YtaL'},
 {'title':'Qui A Tue Grand Maman','url':'https://www.youtube.com/watch?v=-wgqxyOFngY'}]}" >
 </script>
 <script>
