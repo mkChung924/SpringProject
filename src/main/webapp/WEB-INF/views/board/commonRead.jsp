@@ -319,7 +319,7 @@ data-config="{'skin':'http://static.tumblr.com/mky4cgu/hLPmq7qjp/glsfalsa-moral.
 			},
 		}); 
 	};
-	
+	-
 	
 	$(document).on("click","#addReport",function(){//진짜 신고로 날라가는 부분
 		var input = confirm('정말로 신고 하시겠습니까?'); 
