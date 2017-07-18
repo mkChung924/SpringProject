@@ -4,8 +4,8 @@
 
 	<insert id="insert" parameterType="userinfo">
 		insert All
-			into userinfos values(#{id},#{password}, #{name},#{nickname},#{birth},#{email},#{addr},#{tel},#{profile},#{secure},#{secure_ans},
-			sysdate, sysdate,#{auth})
+			into userinfos values(#{id},#{password}, #{name},#{nickname},#{birth},#{addr},#{tel},#{profile},#{secure},#{secure_ans},
+			sysdate, sysdate,#{email},#{auth})
 			into USERSTATE (SNO,ID) values (USERSTATE_SEQ.NEXTVAL,#{id})
 			SELECT * FROM DUAL
 	</insert>
