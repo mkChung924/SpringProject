@@ -240,6 +240,7 @@
 			
 		}
 	}
+	
 	//생년월일 년 입력시 월로 이동
 	function movetoMonth(){
 		if($('[name=year]').val().length == 4){

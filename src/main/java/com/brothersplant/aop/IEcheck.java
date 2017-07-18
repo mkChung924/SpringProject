@@ -18,7 +18,7 @@ public class IEcheck extends HandlerInterceptorAdapter {
 		String brower = ieFuckyou(request);
 
 		logger.info("브라우저 종류 : "+brower);
-		if (brower.equals("MSIE")) {
+		if (brower.equals("MSIE") || brower.equals("Edge")) {
 			response.sendRedirect("/IEgoChrome");
 			return false;
 		}
@@ -27,9 +27,12 @@ public class IEcheck extends HandlerInterceptorAdapter {
 
 	private String ieFuckyou(HttpServletRequest request) {
 		String header = request.getHeader("User-Agent");
+		//logger.info(header);
 		if (header != null) {
 			if (header.indexOf("Trident") > -1) {
 				return "MSIE";
+			} else if(header.indexOf("Edge") > -1){
+				return "Edge";
 			} else if (header.indexOf("Chrome") > -1) {
 				return "Chrome";
 			} else if (header.indexOf("Opera") > -1) {
@@ -38,7 +41,7 @@ public class IEcheck extends HandlerInterceptorAdapter {
 				return "iPhone";
 			} else if (header.indexOf("Android") > -1 && header.indexOf("Mobile") > -1) {
 				return "Android";
-			}
+			} 
 		}
 		return "Firefox";
 	}

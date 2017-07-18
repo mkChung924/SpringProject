@@ -26,7 +26,7 @@
 	      
 	      var id = $('[name=idCheck]').val();
 	      
-	      var idExp = /^[a-zA-Z0-9]{5,10}$/g;
+	      var idExp = /^[a-zA-Z0-9]{6,10}$/g;
 	   
 	      if(id == ""){
 	         alert('값을 입력 해 주세요.');
@@ -46,7 +46,9 @@
 	    		 	data:'id='+id,
 	    		 	success:function(result){
 	    		 		if(result == 'possible'){
-	    		 			$('.idOk').html('[ <font color=red>'+id+'</font> ]는(은) 사용가능합니다. 사용하시겠습니까?<br><br><input type="button" class="btn btn-warning" onclick="useId(\''+id+'\')" value="사용하기" style="width: 200px;" display: inline;>')
+	    		 			$('.idOk').html('[ <font color=red>'+id+'</font> ]는(은) 사용가능합니다. 사용하시겠습니까?'+
+	    		 					'<br><br><input type="button" class="btn btn-warning" onclick="useId(\''+id+'\')"'+
+	    		 					' value="사용하기" style="width: 200px;" display: inline;>')
 	    		 		} else {
 	    		 			$('.idOk').html('[ <font color=red>'+id+'</font> ]는(은) 이미 존재하는 아이디입니다.')
 
