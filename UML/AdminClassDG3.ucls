@@ -4,316 +4,126 @@
   <class id="1" language="java" name="com.brothersplant.control.AdminController" project="SpringProject" 
     file="/SpringProject/src/main/java/com/brothersplant/control/AdminController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="423" width="562" x="2046" y="37"/>    
+    <position height="-1" width="-1" x="924" y="560"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="2" language="java" name="com.brothersplant.service.BoardInfoService" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/service/BoardInfoService.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="316" width="309" x="2648" y="752"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="3" language="java" name="com.brothersplant.service.MyPageService" project="SpringProject" 
+  <interface id="2" language="java" name="com.brothersplant.service.MyPageService" project="SpringProject" 
     file="/SpringProject/src/main/java/com/brothersplant/service/MyPageService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="189" width="253" x="1706" y="752"/>    
+    <position height="-1" width="-1" x="1206" y="113"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <interface id="4" language="java" name="com.brothersplant.service.AdminPageService" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/service/AdminPageService.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="243" width="294" x="1999" y="752"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="true" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="5" language="java" name="com.brothersplant.service.UserInfoService" project="SpringProject" 
+  <interface id="3" language="java" name="com.brothersplant.service.UserInfoService" project="SpringProject" 
     file="/SpringProject/src/main/java/com/brothersplant/service/UserInfoService.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="315" width="275" x="2333" y="752"/>    
+    <position height="-1" width="-1" x="474" y="174"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="6" language="java" name="com.brothersplant.control.AdminRestController" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/control/AdminRestController.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="207" width="372" x="2648" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="7" language="java" name="com.brothersplant.control.RestUtils" project="SpringProject" 
+  <class id="4" language="java" name="com.brothersplant.control.RestUtils" project="SpringProject" 
     file="/SpringProject/src/main/java/com/brothersplant/control/RestUtils.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="189" width="379" x="3060" y="37"/>    
+    <position height="-1" width="-1" x="865" y="121"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="com.brothersplant.service.UserInfoServiceImpl" project="SpringProject" 
+  <class id="5" language="java" name="com.brothersplant.service.UserInfoServiceImpl" project="SpringProject" 
     file="/SpringProject/src/main/java/com/brothersplant/service/UserInfoServiceImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="351" width="275" x="1382" y="37"/>    
+    <position height="-1" width="-1" x="153" y="191"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="com.brothersplant.service.AdminPageServiceImp" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/service/AdminPageServiceImp.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="279" width="294" x="733" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="10" language="java" name="com.brothersplant.service.BoardInfoServiceImpl" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/service/BoardInfoServiceImpl.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="657" width="309" x="1697" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="11" language="java" name="com.brothersplant.persistence.BoardInfoDAO" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/persistence/BoardInfoDAO.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="603" width="310" x="957" y="752"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <interface id="12" language="java" name="com.brothersplant.persistence.AdminPageDAO" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/persistence/AdminPageDAO.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="243" width="294" x="391" y="752"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <class id="13" language="java" name="com.brothersplant.persistence.AdminPageDAOImpl" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/persistence/AdminPageDAOImpl.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="297" width="294" x="49" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="14" language="java" name="com.brothersplant.persistence.BoardInfoDAOImpl" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/persistence/BoardInfoDAOImpl.java" binary="false" 
-    corner="BOTTOM_RIGHT">    
-    <position height="675" width="310" x="383" y="37"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <interface id="15" language="java" name="com.brothersplant.persistence.UserInfoDAO" project="SpringProject" 
+  <interface id="6" language="java" name="com.brothersplant.persistence.UserInfoDAO" project="SpringProject" 
     file="/SpringProject/src/main/java/com/brothersplant/persistence/UserInfoDAO.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="351" width="275" x="1307" y="752"/>    
+    <position height="-1" width="-1" x="158" y="599"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="16" language="java" name="com.brothersplant.persistence.UserInfoDAOImpl" project="SpringProject" 
+  <class id="7" language="java" name="com.brothersplant.persistence.UserInfoDAOImpl" project="SpringProject" 
     file="/SpringProject/src/main/java/com/brothersplant/persistence/UserInfoDAOImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="405" width="275" x="1067" y="37"/>    
+    <position height="-1" width="-1" x="487" y="587"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <realization id="17">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="15"/>  
-  </realization>  
-  <association id="18">    
+  <association id="8">    
     <end type="SOURCE" refId="1" navigable="false" variant="ASSOCIATION">      
-      <attribute id="19" name="adminService">        
-        <position height="0" width="0" x="-590" y="255"/>      
+      <attribute id="9" name="service">        
+        <position height="0" width="0" x="197" y="-1454"/>      
       </attribute>      
-      <multiplicity id="20" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-590" y="255"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="21">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="11"/>  
-  </realization>  
-  <association id="22">    
-    <end type="SOURCE" refId="10" navigable="false" variant="ASSOCIATION">      
-      <attribute id="23" name="dao">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="24" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="11" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="25">    
-    <end type="SOURCE" refId="6" navigable="false" variant="ASSOCIATION">      
-      <attribute id="26" name="service">        
-        <position height="0" width="0" x="-590" y="255"/>      
-      </attribute>      
-      <multiplicity id="27" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-590" y="255"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="4" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="28">    
-    <end type="SOURCE" refId="9" navigable="false" variant="ASSOCIATION">      
-      <attribute id="29" name="dao">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="30" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="12" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="31">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="5"/>  
-  </realization>  
-  <association id="32">    
-    <end type="SOURCE" refId="1" navigable="false" variant="ASSOCIATION">      
-      <attribute id="33" name="boardService">        
-        <position height="0" width="0" x="-667" y="-216"/>      
-      </attribute>      
-      <multiplicity id="34" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-667" y="-216"/>      
+      <multiplicity id="10" minimum="0" maximum="1">        
+        <position height="0" width="0" x="197" y="-1454"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="35">    
-    <end type="SOURCE" refId="1" navigable="false" variant="ASSOCIATION">      
-      <attribute id="36" name="userService">        
-        <position height="0" width="0" x="-677" y="-15"/>      
-      </attribute>      
-      <multiplicity id="37" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-677" y="-15"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="5" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="38">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="2"/>  
+  <realization id="11">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="6"/>  
   </realization>  
-  <realization id="39">    
-    <end type="SOURCE" refId="13"/>    
-    <end type="TARGET" refId="12"/>  
-  </realization>  
-  <association id="40">    
-    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
-      <attribute id="41" name="bservice">        
-        <position height="0" width="0" x="-667" y="-216"/>      
-      </attribute>      
-      <multiplicity id="42" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-667" y="-216"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="43">    
-    <end type="SOURCE" refId="8" navigable="false" variant="ASSOCIATION">      
-      <attribute id="44" name="dao">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </attribute>      
-      <multiplicity id="45" minimum="0" maximum="1">        
-        <position height="0" width="0" x="0" y="0"/>      
-      </multiplicity>    
-    </end>    
-    <end type="TARGET" refId="15" navigable="true" variant="ASSOCIATION"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="46">    
+  <association id="12">    
     <end type="SOURCE" refId="1" navigable="false" variant="ASSOCIATION">      
-      <attribute id="47" name="service">        
-        <position height="0" width="0" x="-406" y="-224"/>      
+      <attribute id="13" name="userService">        
+        <position height="0" width="0" x="-2086" y="-870"/>      
       </attribute>      
-      <multiplicity id="48" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-406" y="-224"/>      
+      <multiplicity id="14" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-2086" y="-870"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="49">    
-    <end type="SOURCE" refId="6" navigable="false" variant="ASSOCIATION">      
-      <attribute id="50" name="boardService">        
-        <position height="0" width="0" x="-667" y="-216"/>      
+  <realization id="15">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <association id="16">    
+    <end type="SOURCE" refId="5" navigable="false" variant="ASSOCIATION">      
+      <attribute id="17" name="dao">        
+        <position height="0" width="0" x="-190" y="-112"/>      
       </attribute>      
-      <multiplicity id="51" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-667" y="-216"/>      
+      <multiplicity id="18" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-190" y="-112"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="6" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="52">    
-    <end type="SOURCE" refId="9"/>    
-    <end type="TARGET" refId="4"/>  
-  </realization>  
-  <association id="53">    
-    <end type="SOURCE" refId="7" navigable="false" variant="ASSOCIATION">      
-      <attribute id="54" name="userService">        
-        <position height="0" width="0" x="-677" y="-15"/>      
+  <association id="19">    
+    <end type="SOURCE" refId="4" navigable="false" variant="ASSOCIATION">      
+      <attribute id="20" name="userService">        
+        <position height="0" width="0" x="-2086" y="-870"/>      
       </attribute>      
-      <multiplicity id="55" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-677" y="-15"/>      
+      <multiplicity id="21" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-2086" y="-870"/>      
       </multiplicity>    
     </end>    
-    <end type="TARGET" refId="5" navigable="true" variant="ASSOCIATION"/>    
+    <end type="TARGET" refId="3" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

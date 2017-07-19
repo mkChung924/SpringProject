@@ -1,49 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.1.14" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="com.brothersplant.control.MessageController" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/control/MessageController.java" binary="false" 
+  <class id="1" language="java" name="com.brothersplant.control.BoardController" project="SpringProject" 
+    file="/SpringProject/src/main/java/com/brothersplant/control/BoardController.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="228" y="107"/>    
+    <position height="-1" width="-1" x="209" y="140"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="2" language="java" name="com.brothersplant.service.MsgService" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/service/MsgService.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="180" y="387"/>    
+  <interface id="2" language="java" name="com.brothersplant.service.UserInfoService" project="SpringProject" 
+    file="/SpringProject/src/main/java/com/brothersplant/service/UserInfoService.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="567" y="154"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="3" language="java" name="com.brothersplant.service.MsgServiceImpl" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/service/MsgServiceImpl.java" binary="false" 
+  <class id="3" language="java" name="com.brothersplant.service.UserInfoServiceImpl" project="SpringProject" 
+    file="/SpringProject/src/main/java/com/brothersplant/service/UserInfoServiceImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="249" width="309" x="381" y="268"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="883" y="171"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="4" language="java" name="com.brothersplant.persistence.MsgDAO" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/persistence/MsgDAO.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="225" width="309" x="534" y="-6"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+  <interface id="4" language="java" name="com.brothersplant.persistence.UserInfoDAO" project="SpringProject" 
+    file="/SpringProject/src/main/java/com/brothersplant/persistence/UserInfoDAO.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="882" y="562"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="5" language="java" name="com.brothersplant.persistence.MsgDAOImpl" project="SpringProject" 
-    file="/SpringProject/src/main/java/com/brothersplant/persistence/MsgDAOImpl.java" binary="false" 
+  <class id="5" language="java" name="com.brothersplant.persistence.UserInfoDAOImpl" project="SpringProject" 
+    file="/SpringProject/src/main/java/com/brothersplant/persistence/UserInfoDAOImpl.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="242" width="309" x="716" y="273"/>    
-    <display autosize="false" stereotype="true" package="true" initial-value="false" signature="true" 
+    <position height="-1" width="-1" x="559" y="531"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
@@ -51,32 +53,36 @@
   </class>  
   <association id="6">    
     <end type="SOURCE" refId="3" navigable="false" variant="ASSOCIATION">      
-      <attribute id="7" name="dao"/>      
-      <multiplicity id="8" minimum="0" maximum="1"/>    
+      <attribute id="7" name="dao">        
+        <position height="0" width="0" x="-542" y="404"/>      
+      </attribute>      
+      <multiplicity id="8" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-542" y="404"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="4" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <realization id="9">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="2"/>  
-  </realization>  
-  <realization id="10">    
     <end type="SOURCE" refId="5"/>    
     <end type="TARGET" refId="4"/>  
   </realization>  
-  <association id="11">    
+  <association id="10">    
     <end type="SOURCE" refId="1" navigable="false" variant="ASSOCIATION">      
-      <attribute id="12" name="service">        
-        <position height="0" width="0" x="-122" y="-18"/>      
+      <attribute id="11" name="userService">        
+        <position height="0" width="0" x="-539" y="-755"/>      
       </attribute>      
-      <multiplicity id="13" minimum="0" maximum="1">        
-        <position height="0" width="0" x="-122" y="-18"/>      
+      <multiplicity id="12" minimum="0" maximum="1">        
+        <position height="0" width="0" x="-539" y="-755"/>      
       </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true" variant="ASSOCIATION"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
+  <realization id="13">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
