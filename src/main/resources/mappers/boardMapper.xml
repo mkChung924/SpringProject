@@ -18,8 +18,8 @@
 		</if>
 
 		<if test="(tb_kind != 0 ) and (place1 == null)">
-			insert into tbl_boards(tbno, id, cno, csno, do1, si, dong, title, notice, openchat, content) 
-			values(tbl_boards_seq.nextval, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{title}, #{notice}, #{openchat}, #{content})
+			insert into tbl_boards(tbno,TB_KIND, id, cno, csno, do1, si, dong, title, notice, openchat, content) 
+			values(tbl_boards_seq.nextval,#{tb_kind}, #{id}, #{cno}, #{csno}, #{do1}, #{si}, #{dong}, #{title}, #{notice}, #{openchat}, #{content})
 		</if>
 
 	</insert>
